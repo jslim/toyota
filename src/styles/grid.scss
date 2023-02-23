@@ -1,0 +1,134 @@
+// ====================================================================
+// Global Grid Vars
+// ====================================================================
+$grid-column-multiplier: 100vw !default;
+
+// ====================================================================
+// Specific Grid Vars
+// ====================================================================
+//mobile
+$grid-num-of-cols-mobile: 4;
+$grid-base-design-mobile: map-get($layout, mobile);
+$grid-relative-side-padding-mobile: 24;
+$grid-relative-gap-mobile: 24;
+$grid-gap-mobile: $grid-relative-gap-mobile / $grid-base-design-mobile;
+/* stylelint-disable */
+$grid-column-width-mobile: (
+    $grid-base-design-mobile - $grid-relative-side-padding-mobile * 2 - $grid-relative-gap-mobile *
+      ($grid-num-of-cols-mobile - 1)
+  ) / $grid-base-design-mobile / $grid-num-of-cols-mobile;
+/* stylelint-enable */
+
+//tablet
+$grid-num-of-cols-tablet: 8;
+$grid-base-design-tablet: map-get($layout, tablet);
+$grid-relative-side-padding-tablet: 20;
+$grid-relative-gap-tablet: 20;
+$grid-gap-tablet: $grid-relative-gap-tablet / $grid-base-design-tablet;
+/* stylelint-disable */
+$grid-column-width-tablet: (
+    $grid-base-design-tablet - $grid-relative-side-padding-tablet * 2 - $grid-relative-gap-tablet *
+      ($grid-num-of-cols-tablet - 1)
+  ) / $grid-base-design-tablet / $grid-num-of-cols-tablet;
+/* stylelint-enable */
+
+//desktop
+$grid-num-of-cols-desktop: 12;
+$grid-base-design-desktop: map-get($layout, desktopLock);
+$grid-relative-gap-desktop: 24;
+$grid-relative-side-padding-desktop: 156;
+$grid-gap-desktop: $grid-relative-gap-desktop / $grid-base-design-desktop;
+/* stylelint-disable */
+$grid-column-width-desktop: (
+    $grid-base-design-desktop - $grid-relative-side-padding-desktop * 2 - $grid-relative-gap-desktop *
+      ($grid-num-of-cols-desktop - 1)
+  ) / $grid-base-design-desktop / $grid-num-of-cols-desktop;
+/* stylelint-enable */
+
+// ====================================================================
+// Grid Sizing Functions
+// ====================================================================
+@function mobile-columns($numCols, $extraGutters: 0) {
+  $extra-gutters: $grid-gap-mobile * $extraGutters;
+  @return #{($grid-column-width-mobile * $numCols + $grid-gap-mobile * (max($numCols - 1, 0)) + $extra-gutters) * $grid-column-multiplier};
+}
+
+@function tablet-columns($numCols, $extraGutters: 0) {
+  $extra-gutters: $grid-gap-tablet * $extraGutters;
+  /* stylelint-disable */
+  @return #{($grid-column-width-tablet * $numCols + $grid-gap-tablet * (max($numCols - 1, 0)) + $extra-gutters) * $grid-column-multiplier};
+  /* stylelint-enable */
+}
+
+@function desktop-columns($numCols, $extraGutters: 0) {
+  /* stylelint-disable */
+  $extra-gutters: $grid-gap-desktop * $extraGutters;
+  @return #{($grid-column-width-desktop * $numCols + $grid-gap-desktop * (max($numCols - 1, 0)) + $extra-gutters) * $grid-column-multiplier};
+}
+
+@function desktop-lock-columns($numCols, $extraGutters: 0) {
+  $desktop-lock-size: map-get($layout, desktopLock);
+  $columns-size: $grid-column-width-desktop * $desktop-lock-size * $numCols;
+  $gutters-size: $grid-gap-desktop * $desktop-lock-size * (max($numCols - 1, 0));
+  $extra-gutters: $grid-gap-desktop * $desktop-lock-size * $extraGutters;
+  @return px($columns-size + $gutters-size + $extra-gutters);
+}
+
+@function mobile-side-padding($multiplier: 0.5) {
+  @return calc((100vw - var(--scrollbar-width) - #{mobile-columns($grid-num-of-cols-mobile)}) * #{$multiplier});
+}
+
+@function tablet-side-padding($multiplier: 0.5) {
+  @return calc((100vw - var(--scrollbar-width) - #{tablet-columns($grid-num-of-cols-tablet)}) * #{$multiplier});
+}
+
+@function desktop-lock-side-padding($multiplier: 0.5) {
+  @return calc((100vw - var(--scrollbar-width) - #{desktop-lock-columns($grid-num-of-cols-desktop)}) * #{$multiplier});
+}
+
+// ====================================================================
+// Grid Mixins
+// ====================================================================
+// column mixins
+@mixin use-mobile-columns($prop, $numCols, $extraGutters: 0) {
+  #{$prop}: mobile-columns($numCols, $extraGutters);
+}
+
+@mixin use-tablet-columns($prop, $numCols, $extraGutters: 0) {
+  #{$prop}: tablet-columns($numCols, $extraGutters);
+}
+
+@mixin use-desktop-columns($prop, $numCols, $extraGutters: 0) {
+  #{$prop}: desktop-columns($numCols, $extraGutters);
+
+  @include breakpoint(desktopLock) {
+    #{$prop}: desktop-lock-columns($numCols, $extraGutters);
+  }
+}
+
+// gutter mixins
+@mixin use-mobile-gutter($prop, $gutter) {
+  @include use-mobile-columns($prop, 0, $gutter);
+}
+
+@mixin use-tablet-gutter($prop, $gutter) {
+  @include use-tablet-columns($prop, 0, $gutter);
+}
+
+@mixin use-desktop-gutter($prop, $gutter) {
+  @include use-desktop-columns($prop, 0, $gutter);
+}
+
+// columns container
+@mixin container {
+  margin: auto;
+  @include use-mobile-columns(width, $grid-num-of-cols-mobile);
+
+  @include breakpoint(tablet) {
+    @include use-tablet-columns(width, $grid-num-of-cols-tablet);
+  }
+
+  @include breakpoint(desktopSm) {
+    @include use-desktop-columns(width, $grid-num-of-cols-desktop);
+  }
+}

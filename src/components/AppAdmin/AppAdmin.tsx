@@ -1,4 +1,4 @@
-import { FC, memo, useState } from 'react';
+import { FC, memo, SetStateAction, useState } from 'react';
 import { browser, device, os } from '@jam3/detect';
 import classNames from 'classnames';
 
@@ -8,9 +8,11 @@ import { useWindowSize } from '@/hooks';
 
 export interface AppAdminProps {
   className?: string;
+  showDebugGrid: boolean;
+  setShowDebugGrid: (show: SetStateAction<boolean>) => void;
 }
 
-const AppAdmin: FC<AppAdminProps> = ({ className }) => {
+const AppAdmin: FC<AppAdminProps> = ({ className, showDebugGrid, setShowDebugGrid }) => {
   const [removed, setRemoved] = useState(false);
   const [open, setOpen] = useState(true);
   const [deviceOpen, deviceSetOpen] = useState(true);
@@ -25,6 +27,11 @@ const AppAdmin: FC<AppAdminProps> = ({ className }) => {
           <section className={css.adminSection}>
             <h3 className={css.adminSectionTitle} onClick={() => setRemoved(true)}>
               Remove Admin from DOM
+            </h3>
+          </section>
+          <section className={css.adminSection}>
+            <h3 className={css.adminSectionTitle} onClick={() => setShowDebugGrid(!showDebugGrid)}>
+              {showDebugGrid ? 'Hide Debug Grid' : 'Show Debug Grid'}
             </h3>
           </section>
           <section className={classNames(css.adminSection, { [css.closed]: deviceOpen })}>

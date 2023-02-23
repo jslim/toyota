@@ -1,4 +1,4 @@
-import { FC, memo, PropsWithChildren, useCallback, useEffect } from 'react';
+import { FC, memo, PropsWithChildren, useCallback, useEffect, useState } from 'react';
 import { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -16,6 +16,7 @@ import { checkWebpSupport } from '@/utils/basic-functions';
 
 import { setIsWebpSupported, setPrevRoute, useAppDispatch } from '@/redux';
 
+const DebugGrid = dynamic(() => import('@/components/DebugGrid/DebugGrid'), { ssr: false });
 const RotateScreen = dynamic(() => import('@/components/RotateScreen/RotateScreen'), { ssr: false });
 const CookieBanner = dynamic(() => import('@/components/CookieBanner/CookieBanner'), { ssr: false });
 const AppAdmin = dynamic(() => import('@/components/AppAdmin/AppAdmin'), { ssr: false });
@@ -25,6 +26,7 @@ export type Props = PropsWithChildren<{}>;
 const Layout: FC<AppProps<PageProps>> = ({ Component, pageProps }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const [showDebugGrid, setShowDebugGrid] = useState(true);
 
   const { validCookie, cookieConsent, updateCookies, acceptAllCookies, rejectAllCookies } = useCookieBanner();
 
@@ -71,8 +73,12 @@ const Layout: FC<AppProps<PageProps>> = ({ Component, pageProps }) => {
           onReject={rejectAllCookies}
         />
       )}
-
-      {process.env.NEXT_PUBLIC_ENVIRONMENT !== 'production' && <AppAdmin />}
+      {process.env.NEXT_PUBLIC_ENVIRONMENT !== 'production' && (
+        <>
+          {showDebugGrid && <DebugGrid />}
+          <AppAdmin showDebugGrid={showDebugGrid} setShowDebugGrid={setShowDebugGrid} />
+        </>
+      )}
     </>
   );
 };
