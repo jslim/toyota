@@ -22,6 +22,7 @@ $layout-desktopLg: map-get($layout, desktopLg) + px;
 // ====================================================================
 $white: #fff;
 $black: #000;
+$green: #0c9;
 
 // ====================================================================
 // General
@@ -41,4 +42,4 @@ $navbar-height-desktop: px(80);
 // ====================================================================
 // List of z-index element
 // ====================================================================
-$elements: pages, main-nav, rotate;
+$elements: pages, main-nav, rotate, debug-grid;

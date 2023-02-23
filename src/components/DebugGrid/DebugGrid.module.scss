@@ -1,0 +1,35 @@
+@import 'shared';
+
+.DebugGrid {
+  @include position-100(fixed);
+  @include z-index(debug-grid);
+  pointer-events: none;
+
+  .container {
+    @include container;
+    height: 100%;
+    margin: auto;
+    display: flex;
+
+    .column {
+      flex-shrink: 0;
+      background-color: rgba($green, 0.1);
+      @include use-mobile-columns(width, 1);
+      @include use-mobile-gutter(margin-right, 1);
+
+      @include breakpoint(tablet) {
+        @include use-tablet-columns(width, 1);
+        @include use-tablet-gutter(margin-right, 1);
+      }
+
+      @include breakpoint(desktopSm) {
+        @include use-desktop-columns(width, 1);
+        @include use-desktop-gutter(margin-right, 1);
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
