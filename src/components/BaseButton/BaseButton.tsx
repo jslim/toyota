@@ -1,7 +1,7 @@
-import React, { ForwardedRef, forwardRef, memo, ReactNode, useMemo } from 'react';
+import { ForwardedRef, forwardRef, FunctionComponent, memo, ReactNode, Ref, useMemo } from 'react';
 import classnames from 'classnames';
 
-import css from './BaseButton.module.scss';
+import styles from './BaseButton.module.scss';
 
 type BaseProps = {
   className?: string | null;
@@ -27,9 +27,9 @@ type BaseProps = {
 
 type FComponent =
   | string
-  | React.FunctionComponent<
+  | FunctionComponent<
       BaseProps & {
-        ref: React.Ref<HTMLElement> | null;
+        ref: Ref<HTMLElement> | null;
         role: string | null;
       }
     >;
@@ -45,7 +45,7 @@ const BaseButton = (
   const currRole = useMemo(() => (Component === 'button' ? null : 'button'), [Component]);
 
   return (
-    <Component className={classnames(css.BaseButton, className)} ref={ref} role={currRole} {...buttonProps}>
+    <Component className={classnames(styles.BaseButton, className)} ref={ref} role={currRole} {...buttonProps}>
       {children}
     </Component>
   );
