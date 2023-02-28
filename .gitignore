@@ -4,6 +4,7 @@
 /node_modules
 
 # Local env variables
+.env
 .env.local
 .env.*.local
 
