@@ -1,0 +1,28 @@
+@import 'shared';
+
+.root {
+  &.dark {
+    .text {
+      color: $grey;
+    }
+  }
+}
+
+.text {
+  @include flex-center-vert;
+  @include font-size(11, 22);
+  text-transform: uppercase;
+
+  @include media-desktopMd {
+    @include font-size(12, 24);
+  }
+
+  &::before {
+    content: '';
+    display: inline-block;
+    @include box(px(4));
+    margin-right: px(20);
+    background-color: $red;
+    border-radius: 50%;
+  }
+}
