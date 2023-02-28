@@ -159,3 +159,37 @@
   -moz-appearance: none;
   color: currentColor;
 }
+
+@mixin circleButton {
+  border-radius: 50%;
+  border: 1px solid $red;
+  @include box(px(35));
+  @include flex-center;
+
+  svg {
+    @include box(px(13));
+  }
+
+  @include breakpoint(desktopSm) {
+    @include box(px(45));
+
+    svg {
+      @include box(px(15));
+    }
+  }
+
+  .dot {
+    @include box(px(3));
+    background-color: $black;
+  }
+
+  &.active {
+    background-color: $red;
+  }
+
+  &.isWhite {
+    .dot {
+      background-color: $white;
+    }
+  }
+}
