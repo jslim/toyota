@@ -10,14 +10,14 @@ const commonStyles = {
 
 export const Default = (args: Props) => (
   <Tabs {...args}>
-    <div data-label="First" style={{ ...commonStyles }}>
+    <div data-label="Diversity & Inclusion" style={{ ...commonStyles }}>
       Move with Arrow Up, Bottom, Home and End
     </div>
-    <div data-label="Second" style={{ ...commonStyles }}>
+    <div data-label="Values" style={{ ...commonStyles }}>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. A maxime maiores itaque. Autem amet minus sed vitae
       perferendis eligendi ratione facere, sit nisi nihil, nulla cupiditate earum, ducimus alias aperiam.
     </div>
-    <div data-label="Third" style={{ ...commonStyles }}>
+    <div data-label="Our Global Offices" style={{ ...commonStyles }}>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime omnis consequuntur, obcaecati reiciendis porro
       doloremque natus dolores eum consequatur delectus aspernatur est dignissimos cupiditate ex sequi laudantium facere
       qui? Maxime. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt officia odit possimus inventore quas

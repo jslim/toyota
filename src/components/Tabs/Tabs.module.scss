@@ -2,31 +2,87 @@
 
 .Tabs {
   display: flex;
-  flex-direction: row;
-
+  flex-direction: column;
   width: 100%;
+
+  @include media-desktopSm {
+    flex-direction: row;
+  }
 
   > .tabsList {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     padding-left: 0;
+    overflow-x: scroll;
+
+    @include media-desktopSm {
+      @include use-desktop-columns(min-width, 2, 1);
+      @include use-desktop-columns(margin-right, 1, 1);
+      flex-direction: column;
+      align-items: flex-start;
+      overflow-x: hidden;
+    }
 
     > .tab {
+      @include flex-center;
+      @include typography-cta;
+      position: relative;
+      flex-direction: column;
+      color: $mid-grey;
       list-style: none;
-      padding: 0.5rem;
-      font-size: 2rem;
-      text-transform: capitalize;
+      margin-right: px(24);
+      padding-top: px(16);
+      padding-bottom: px(5);
+      text-transform: uppercase;
+      white-space: nowrap;
       /* stylelint-disable */
       border-bottom: 1px solid transparent;
       transition: border 0.125s ease-out;
+
+      &:last-of-type {
+        margin-right: 0;
+      }
 
       &:hover {
         cursor: pointer;
       }
 
       &.active {
-        border-bottom: 1px solid black;
+        color: $red;
+        &::before {
+          content: '';
+          @include box(px(4));
+          position: absolute;
+          display: block;
+          margin-top: px(-48);
+          background-color: $red;
+          border-radius: 50%;
+        }
       }
+
+      @include media-desktopSm {
+        height: auto;
+        margin-right: 0;
+
+        &.active {
+          flex-direction: row;
+
+          &::before {
+            position: relative;
+            margin-top: 0;
+            margin-right: px(10);
+          }
+        }
+      }
+    }
+  }
+
+  .tabsContent {
+    padding: px(24) px(24) 0;
+
+    @include media-desktopSm {
+      @include use-desktop-columns(width, 9);
+      padding: 0;
     }
   }
 }
