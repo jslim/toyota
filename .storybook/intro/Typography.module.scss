@@ -27,12 +27,35 @@
     padding: px(30) 0;
     word-break: break-all;
   }
-
   .h1 {
     @include typography-h1;
   }
 
+  .h2 {
+    @include typography-h2;
+  }
+
+  .h3 {
+    @include typography-h3;
+  }
+
+  .h4 {
+    @include typography-h4;
+  }
+
   .paragraph {
     @include typography-paragraph;
+  }
+
+  .eyebrow {
+    @include typography-eyebrow;
+  }
+
+  .cta {
+    @include typography-cta;
+  }
+
+  .label {
+    @include typography-label;
   }
 }
