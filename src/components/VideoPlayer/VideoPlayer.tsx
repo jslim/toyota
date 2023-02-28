@@ -1,6 +1,7 @@
-import { KeyboardEvent, memo, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { KeyboardEvent, memo, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 // @ts-ignore
 import BackgroundVideo from 'react-background-video-player';
+import { device, os } from '@jam3/detect';
 import classnames from 'classnames';
 // @ts-ignore
 import fullscreenHandler from 'fullscreen-handler';
@@ -41,6 +42,7 @@ export type Props = {
   autoPlayDelay: number;
   disableBackgroundCover: boolean;
   controlsTimeout: number;
+  togglePlaying: Function;
   onEnd: Function;
 };
 
@@ -49,7 +51,7 @@ const VideoPlayer = ({
   style,
   src,
   preload = 'auto',
-  playsInline = true,
+  playsInline = false,
   crossOrigin = 'anonymous',
   poster,
   loop = false,
@@ -67,6 +69,7 @@ const VideoPlayer = ({
   autoPlayDelay = 0,
   disableBackgroundCover = true,
   controlsTimeout = 2.5,
+  togglePlaying = noop,
   onEnd = noop
 }: Props) => {
   const container = useRef<HTMLDivElement | null>(null);
@@ -89,9 +92,15 @@ const VideoPlayer = ({
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [progress, setProgress] = useState(0);
+  const isAndroid = useMemo(() => os.android && device.mobile, []);
+  const isIOs = useMemo(() => os.ios && device.mobile, []);
 
   useLayoutEffect(() => {
-    fullScreen.current = fullscreenHandler(container.current, onEnterFullScreen, onExitFullScreen);
+    fullScreen.current = fullscreenHandler(
+      isIOs ? container.current?.querySelector('video') : container.current,
+      onEnterFullScreen,
+      onExitFullScreen
+    );
 
     if (hasControls) {
       showControlsOnLoad ? setHideControlsTimeout() : hideControls();
@@ -124,6 +133,7 @@ const VideoPlayer = ({
     if (isPlaying) {
       onPlay();
       hasControls && setHideControlsTimeout();
+      device.mobile && toggleFullscreen();
     } else {
       onPause();
       if (hasControls && progress) {
@@ -172,7 +182,16 @@ const VideoPlayer = ({
   }
 
   function toggleFullscreen() {
-    isFullScreen ? fullScreen.current?.exit() : fullScreen.current?.enter();
+    if (isAndroid) {
+      if (isFullScreen) {
+        fullScreen.current?.exit();
+        togglePlaying();
+      } else {
+        fullScreen.current?.enter();
+      }
+    } else {
+      isFullScreen ? fullScreen.current?.exit() : fullScreen.current?.enter();
+    }
   }
 
   function toggleCaptions() {
@@ -245,6 +264,10 @@ const VideoPlayer = ({
 
   function onExitFullScreen() {
     setIsFullScreen(false);
+
+    if (device.mobile) {
+      togglePlaying();
+    }
   }
 
   function onPlay() {
@@ -350,7 +373,7 @@ const VideoPlayer = ({
       {hasControls && (
         <VideoControls
           className={styles.controls}
-          // captions={Boolean(captions)}
+          captions={Boolean(captions)}
           currentTime={Number(currentTime)}
           isPlaying={isPlaying}
           isMuted={isMuted}

@@ -102,49 +102,56 @@ const VideoControls = ({
       onFocus={onFocus as FocusEventHandler}
       onBlur={onBlur as FocusEventHandler}
     >
-      <BaseButton
-        className={styles.button}
-        aria-label={isPlaying ? pauseLabel : playLabel}
-        title={isPlaying ? pauseLabel : playLabel}
-        onClick={onPlayToggle}
-      >
-        {isPlaying ? <PauseIcon aria-hidden /> : <PlayIcon aria-hidden />}
-      </BaseButton>
-
       <VideoTimeline duration={duration} currentTime={Number(currentTime)} onTimeUpdate={onTimeUpdate} />
 
-      <time className={styles.time}>{formatTime(Number(currentTime))}</time>
+      <div className={styles.controlsContainer}>
+        <div className={styles.leftContainer}>
+          <BaseButton
+            className={styles.button}
+            aria-label={isPlaying ? pauseLabel : playLabel}
+            title={isPlaying ? pauseLabel : playLabel}
+            onClick={onPlayToggle}
+          >
+            {isPlaying ? <PauseIcon aria-hidden /> : <PlayIcon aria-hidden />}
+          </BaseButton>
 
-      {captions && (
-        <BaseButton
-          className={styles.button}
-          aria-label={isShowingCaptions ? captionsHideLabel : captionsShowLabel}
-          title={isShowingCaptions ? captionsHideLabel : captionsShowLabel}
-          onClick={onCaptionsToggle}
-        >
-          {isShowingCaptions ? <CaptionsOnIcon aria-hidden /> : <CaptionsOffIcon aria-hidden />}
-        </BaseButton>
-      )}
+          <BaseButton
+            className={styles.button}
+            aria-label={isMuted ? unmuteLabel : muteLabel}
+            title={isMuted ? unmuteLabel : muteLabel}
+            onClick={onMuteToggle}
+          >
+            {isMuted ? <MutedIcon aria-hidden /> : <UnmutedIcon aria-hidden />}
+          </BaseButton>
 
-      <BaseButton
-        className={styles.button}
-        aria-label={isMuted ? unmuteLabel : muteLabel}
-        title={isMuted ? unmuteLabel : muteLabel}
-        onClick={onMuteToggle}
-      >
-        {isMuted ? <MutedIcon aria-hidden /> : <UnmutedIcon aria-hidden />}
-      </BaseButton>
+          <time className={styles.time}>
+            {formatTime(Number(currentTime))} / {formatTime(Number(duration))}
+          </time>
+        </div>
+        <div className={styles.rightContainer}>
+          {captions && (
+            <BaseButton
+              className={styles.button}
+              aria-label={isShowingCaptions ? captionsHideLabel : captionsShowLabel}
+              title={isShowingCaptions ? captionsHideLabel : captionsShowLabel}
+              onClick={onCaptionsToggle}
+            >
+              {isShowingCaptions ? <CaptionsOnIcon aria-hidden /> : <CaptionsOffIcon aria-hidden />}
+            </BaseButton>
+          )}
 
-      {isFullscreenAPISupported && (
-        <BaseButton
-          className={styles.button}
-          aria-label={isFullScreen ? exitFullscreenLabel : enterFullscreenLabel}
-          title={isFullScreen ? exitFullscreenLabel : enterFullscreenLabel}
-          onClick={onFullscreenToggle}
-        >
-          {isFullScreen ? <ExitFullscreenIcon aria-hidden /> : <EnterFullscreenIcon aria-hidden />}
-        </BaseButton>
-      )}
+          {isFullscreenAPISupported && (
+            <BaseButton
+              className={styles.button}
+              aria-label={isFullScreen ? exitFullscreenLabel : enterFullscreenLabel}
+              title={isFullScreen ? exitFullscreenLabel : enterFullscreenLabel}
+              onClick={onFullscreenToggle}
+            >
+              {isFullScreen ? <ExitFullscreenIcon aria-hidden /> : <EnterFullscreenIcon aria-hidden />}
+            </BaseButton>
+          )}
+        </div>
+      </div>
     </nav>
   );
 };

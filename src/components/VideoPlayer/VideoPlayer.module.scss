@@ -1,14 +1,14 @@
 @import 'shared';
 
-$video-player-fullscreen-bg-color: #000;
-$video-player-captions-bottom-pos: 8rem;
-$video-player-captions-bottom-collapsed-pos: 3rem;
-$video-player-captions-font-size: 3rem;
+$video-player-fullscreen-bg-color: $black;
+$video-player-captions-bottom-pos: px(120);
+$video-player-captions-bottom-collapsed-pos: px(30);
+$video-player-captions-font-size: px(30);
 $video-player-captions-font-weight: bold;
-$video-player-captions-bg-color: rgba(0, 0, 0, 0.8);
+$video-player-captions-bg-color: rgba($black, 0.8);
 $video-player-captions-text-color: #fff;
-$video-player-captions-max-width: 50rem;
-$video-player-captions-padding: 1rem;
+$video-player-captions-max-width: px(500);
+$video-player-captions-padding: px(10);
 $video-player-controls-transition: 0.2s;
 
 @mixin fullscreen-styles() {

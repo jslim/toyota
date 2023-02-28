@@ -2,15 +2,16 @@
 
 @import 'shared';
 
-$video-player-controls-height: 3px !default;
-$video-player-controls-thumb-size: 1rem !default;
-$video-player-controls-bg-color: red !default;
+$video-player-controls-height: px(3) !default;
+$video-player-controls-thumb-size: px(10) !default;
+$video-player-controls-bg-color: $white !default;
 $video-player-controls-track-color: rgba($video-player-controls-bg-color, 0.3) !default;
 
 @mixin track() {
   width: 100%;
   height: $video-player-controls-height;
   background-color: $video-player-controls-track-color;
+  opacity: 0;
   cursor: pointer;
   border: none;
   color: transparent;
@@ -28,6 +29,7 @@ $video-player-controls-track-color: rgba($video-player-controls-bg-color, 0.3) !
   display: flex;
   align-items: center;
   position: relative;
+  width: 100%;
   height: $video-player-controls-height;
   flex-grow: 1;
 
@@ -59,7 +61,7 @@ $video-player-controls-track-color: rgba($video-player-controls-bg-color, 0.3) !
     position: absolute;
     width: 100%;
     height: $video-player-controls-height;
-    background: transparent;
+    background: $video-player-controls-track-color;
     border-color: transparent;
     color: transparent;
     cursor: pointer;
