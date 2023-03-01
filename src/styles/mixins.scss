@@ -165,15 +165,33 @@
   border: 1px solid $mid-grey;
   @include box(px(35));
   @include flex-center;
+  position: relative;
+
+  .overlay {
+    background-color: $dark-grey;
+    @include position-100(absolute);
+    transform: scale(0);
+    transition: 0.4s transform;
+    @include ease(custom);
+    border-radius: 50%;
+  }
 
   &.isWhite {
     border-color: rgba($white, 0.5);
+
+    .overlay {
+      background-color: $white;
+    }
+
     svg {
       filter: invert(0);
     }
   }
 
   svg {
+    /* stylelint-disable */
+    transition: 0.4s filter, 0.4s transform, 0.4s opacity;
+    @include ease(custom);
     @include box(px(13));
     filter: invert(1);
   }
@@ -186,24 +204,51 @@
     }
   }
 
-  :global(.dot) {
-    @include box(px(3));
-    background-color: $black;
-    border-radius: 50%;
+  &.active {
+    .overlay {
+      transform: scale(1);
+    }
+
+    svg {
+      filter: invert(0);
+    }
+
+    &.isWhite {
+      svg {
+        filter: invert(1);
+      }
+    }
   }
 
   &.isCta {
     border-color: $red;
 
+    .dot {
+      @include box(px(3));
+      background-color: $black;
+      border-radius: 50%;
+      position: absolute;
+    }
+
+    svg {
+      opacity: 0;
+      transform: translateX(-50%);
+    }
+
+    .overlay {
+      background-color: $red;
+    }
+
     &.isWhite {
-      :global(.dot) {
+      .dot {
         background-color: $white;
       }
     }
 
     &.active {
-      background-color: $red;
       svg {
+        opacity: 1;
+        transform: translateX(0);
         filter: invert(0);
       }
     }

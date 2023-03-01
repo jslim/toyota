@@ -28,8 +28,7 @@ const Cta: FC<CtaProps> = ({ isWhite, fittedWidth, isBold, isVert, ...props }: C
         <BaseLink
           {...props}
           className={classNames(props.className, css.root, {
-            [css.isWhite]: isWhite,
-            [css.active]: active
+            [css.isWhite]: isWhite
           })}
           onMouseEnter={() => setActive(true)}
           onMouseLeave={() => setActive(false)}
@@ -43,8 +42,7 @@ const Cta: FC<CtaProps> = ({ isWhite, fittedWidth, isBold, isVert, ...props }: C
         <BaseButton
           {...props}
           className={classNames(props.className, css.root, {
-            [css.isWhite]: isWhite,
-            [css.active]: active
+            [css.isWhite]: isWhite
           })}
           onMouseEnter={() => setActive(true)}
           onMouseLeave={() => setActive(false)}

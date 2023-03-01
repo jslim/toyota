@@ -11,7 +11,7 @@ export type IconCircleProps = {
   isCta?: Boolean;
 };
 
-const IconButton: FC<IconCircleProps> = ({ className, children, isWhite, isActive, isCta }) => {
+const IconCircle: FC<IconCircleProps> = ({ className, children, isWhite, isActive, isCta }) => {
   return (
     <div
       className={classNames('IconCircle', css.IconCircle, className, {
@@ -20,9 +20,11 @@ const IconButton: FC<IconCircleProps> = ({ className, children, isWhite, isActiv
         [css.isCta]: isCta
       })}
     >
+      {isCta && <span className={css.dot} />}
+      <span className={css.overlay} />
       {children}
     </div>
   );
 };
 
-export default memo(IconButton);
+export default memo(IconCircle);
