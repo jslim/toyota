@@ -1,0 +1,33 @@
+name: Github Action Workflow DEV
+
+on:
+  push:
+    branches:
+      - develop
+  repository_dispatch:
+    types:
+      - build-dev
+  workflow_dispatch:
+
+concurrency:
+  group: environment-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-dev:
+    uses: woven-planet/woven-website/.github/workflows/deploy-to-s3.yml@develop
+    with:
+      CI_ENV: develop
+      GTM_ID: GTM-0000000 # TODO: update
+      GTM_PARAMS: '' # TODO: update
+      CONTENTFUL_ENVIRONMENT: 'develop'
+    secrets:
+      WEBSITE_SITE_URL: ${{ secrets.WEBSITE_SITE_URL_DEV }}
+      CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID_DEV }}
+      CONTENTFUL_DELIVERY_API_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_DELIVERY_API_ACCESS_TOKEN_DEV }}
+      CONTENTFUL_PREVIEW_API_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_PREVIEW_API_ACCESS_TOKEN_DEV }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_DEV }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEV }}
+      AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+      S3_ORIGIN_BUCKET: ${{ secrets.S3_ORIGIN_BUCKET_DEV }}
+      CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID_DEV }}

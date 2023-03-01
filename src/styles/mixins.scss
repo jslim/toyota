@@ -181,6 +181,7 @@
   .dot {
     @include box(px(3));
     background-color: $black;
+    border-radius: 50%;
   }
 
   &.active {
@@ -190,6 +191,26 @@
   &.isWhite {
     .dot {
       background-color: $white;
+    }
+  }
+}
+
+/// Fallbacks in case device doesn’t support aspect ratio
+/// @example scss Input
+///   image {
+///     @include aspect-ratio-fallback;
+///   }
+@mixin aspect-ratio-fallback {
+  @supports not (aspect-ratio: 16 / 9) {
+    &::before {
+      float: left;
+      padding-top: 56.25%;
+      content: ‘’;
+    }
+    &::after {
+      display: block;
+      content: ‘’;
+      clear: both;
     }
   }
 }
