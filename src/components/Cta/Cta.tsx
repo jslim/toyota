@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import css from './Cta.module.scss';
 import BaseButton, { BaseProps as BaseButtonProps } from '@/components/BaseButton/BaseButton';
 import BaseLink, { Props as BaseLinkProps } from '@/components/BaseLink/BaseLink';
+import IconCircle from '@/components/IconCircle/IconCircle';
 
 import ArrowSvg from '@/components/svgs/svg-arrow.svg';
 
@@ -33,14 +34,9 @@ const Cta: FC<CtaProps> = ({ isWhite, fittedWidth, isBold, isVert, ...props }: C
           onMouseEnter={() => setActive(true)}
           onMouseLeave={() => setActive(false)}
         >
-          <div
-            className={classNames(css.circleButton, {
-              [css.isWhite]: isWhite,
-              [css.active]: active
-            })}
-          >
-            {active ? <ArrowSvg /> : <span className={css.dot} />}
-          </div>
+          <IconCircle isCta={props.title ? true : false} isWhite={isWhite} isActive={active}>
+            <ArrowSvg />
+          </IconCircle>
           {props.title && <div className={css.label}>{props.title}</div>}
         </BaseLink>
       ) : (
@@ -53,14 +49,9 @@ const Cta: FC<CtaProps> = ({ isWhite, fittedWidth, isBold, isVert, ...props }: C
           onMouseEnter={() => setActive(true)}
           onMouseLeave={() => setActive(false)}
         >
-          <div
-            className={classNames(css.circleButton, {
-              [css.isWhite]: isWhite,
-              [css.active]: active
-            })}
-          >
-            {active ? <ArrowSvg /> : <span className={css.dot} />}
-          </div>
+          <IconCircle isCta={props.title ? true : false} isWhite={isWhite} isActive={active}>
+            <ArrowSvg />
+          </IconCircle>
           {props.title && <div className={css.label}>{props.title}</div>}
         </BaseButton>
       )}

@@ -162,12 +162,20 @@
 
 @mixin circleButton {
   border-radius: 50%;
-  border: 1px solid $red;
+  border: 1px solid $mid-grey;
   @include box(px(35));
   @include flex-center;
 
+  &.isWhite {
+    border-color: rgba($white, 0.5);
+    svg {
+      filter: invert(0);
+    }
+  }
+
   svg {
     @include box(px(13));
+    filter: invert(1);
   }
 
   @include breakpoint(desktopSm) {
@@ -178,19 +186,26 @@
     }
   }
 
-  .dot {
+  :global(.dot) {
     @include box(px(3));
     background-color: $black;
     border-radius: 50%;
   }
 
-  &.active {
-    background-color: $red;
-  }
+  &.isCta {
+    border-color: $red;
 
-  &.isWhite {
-    .dot {
-      background-color: $white;
+    &.isWhite {
+      :global(.dot) {
+        background-color: $white;
+      }
+    }
+
+    &.active {
+      background-color: $red;
+      svg {
+        filter: invert(0);
+      }
     }
   }
 }
