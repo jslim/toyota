@@ -9,15 +9,17 @@ export type IconCircleProps = {
   isWhite?: Boolean;
   isActive?: Boolean;
   isCta?: Boolean;
+  isLarge?: Boolean;
 };
 
-const IconCircle: FC<IconCircleProps> = ({ className, children, isWhite, isActive, isCta }) => {
+const IconCircle: FC<IconCircleProps> = ({ className, children, isWhite, isActive, isCta, isLarge }) => {
   return (
     <div
       className={classNames('IconCircle', css.IconCircle, className, {
         [css.isWhite]: isWhite,
         [css.active]: isActive,
-        [css.isCta]: isCta
+        [css.isCta]: isCta,
+        [css.isLarge]: isLarge
       })}
     >
       {isCta && <span className={css.dot} />}

@@ -4,10 +4,11 @@ import classNames from 'classnames';
 import css from './VideoPlayerContainer.module.scss';
 
 import BaseImage from '@/components/BaseImage/BaseImage';
+import Cta from '@/components/Cta/Cta';
 import { Props as VideoProps } from '@/components/VideoPlayer/VideoPlayer';
 import VideoPlayer from '@/components/VideoPlayer/VideoPlayer';
 
-import PlayIcon from '@/components/svgs/play.svg';
+import PlayIcon from '@/components/VideoPlayer/VideoControls/svgs/play.svg';
 
 export type VideoPlayerContainerProps = {
   className?: string;
@@ -24,7 +25,10 @@ const VideoPlayerContainer: FC<VideoPlayerContainerProps> = ({ className, poster
         <VideoPlayer {...video} className={css.video} autoPlay togglePlaying={() => setIsPlaying(!isPlaying)} />
       ) : (
         <div className={css.imageWrapper} onClick={() => setIsPlaying(true)}>
-          <PlayIcon />
+          <Cta className={css.playButton} isLarge={true} isWhite={true} aria-label={'play video'}>
+            <PlayIcon />
+          </Cta>
+
           <BaseImage {...poster} className={css.poster} />
         </div>
       )}

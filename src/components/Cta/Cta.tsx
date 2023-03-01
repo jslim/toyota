@@ -11,8 +11,7 @@ import ArrowSvg from '@/components/svgs/svg-arrow.svg';
 export type CtaProps = (BaseButtonProps | BaseLinkProps) & {
   isWhite?: Boolean;
   fittedWidth?: Boolean;
-  isBold?: Boolean;
-  isVert?: Boolean;
+  isLarge?: Boolean;
 };
 
 const isLink = (props: CtaProps): props is BaseLinkProps => {
@@ -20,7 +19,7 @@ const isLink = (props: CtaProps): props is BaseLinkProps => {
   return 'href' in props;
 };
 
-const Cta: FC<CtaProps> = ({ isWhite, fittedWidth, isBold, isVert, ...props }: CtaProps) => {
+const Cta: FC<CtaProps> = ({ isWhite, fittedWidth, isLarge, ...props }: CtaProps) => {
   const [active, setActive] = useState(false);
   return (
     <>
@@ -33,8 +32,8 @@ const Cta: FC<CtaProps> = ({ isWhite, fittedWidth, isBold, isVert, ...props }: C
           onMouseEnter={() => setActive(true)}
           onMouseLeave={() => setActive(false)}
         >
-          <IconCircle isCta={props.title ? true : false} isWhite={isWhite} isActive={active}>
-            <ArrowSvg />
+          <IconCircle isCta={props.children ? false : true} isWhite={isWhite} isActive={active} isLarge={isLarge}>
+            {props.children ? props.children : <ArrowSvg />}
           </IconCircle>
           {props.title && <div className={css.label}>{props.title}</div>}
         </BaseLink>
@@ -47,8 +46,8 @@ const Cta: FC<CtaProps> = ({ isWhite, fittedWidth, isBold, isVert, ...props }: C
           onMouseEnter={() => setActive(true)}
           onMouseLeave={() => setActive(false)}
         >
-          <IconCircle isCta={props.title ? true : false} isWhite={isWhite} isActive={active}>
-            <ArrowSvg />
+          <IconCircle isCta={props.children ? false : true} isWhite={isWhite} isActive={active} isLarge={isLarge}>
+            {props.children ? props.children : <ArrowSvg />}
           </IconCircle>
           {props.title && <div className={css.label}>{props.title}</div>}
         </BaseButton>
