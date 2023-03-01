@@ -20,5 +20,9 @@
     margin-right: px(20);
     background-color: $red;
     border-radius: 50%;
+
+    @include media-desktopSm {
+      margin-right: px(56);
+    }
   }
 }
