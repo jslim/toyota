@@ -168,3 +168,23 @@
 @function vh($vh) {
   @return calc(var(--vh) * #{$vh});
 }
+
+/// Fallbacks in case device doesn’t support aspect ratio
+/// @example scss Input
+///   image {
+///     @include aspect-ratio-fallback;
+///   }
+@mixin aspect-ratio-fallback {
+  @supports not (aspect-ratio: 16 / 9) {
+    &::before {
+      float: left;
+      padding-top: 56.25%;
+      content: ‘’;
+    }
+    &::after {
+      display: block;
+      content: ‘’;
+      clear: both;
+    }
+  }
+}

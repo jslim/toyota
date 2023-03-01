@@ -1,0 +1,33 @@
+name: Github Action Workflow STAGE
+
+on:
+  push:
+    branches:
+      - staging
+  repository_dispatch:
+    types:
+      - build-stage
+  workflow_dispatch:
+
+concurrency:
+  group: environment-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-stage:
+    uses: woven-planet/woven-website/.github/workflows/deploy-to-s3.yml@staging
+    with:
+      CI_ENV: staging
+      GTM_ID: GTM-0000000 # TODO: update
+      GTM_PARAMS: '' # TODO: update
+      CONTENTFUL_ENVIRONMENT: 'staging'
+    secrets:
+      WEBSITE_SITE_URL: ${{ secrets.WEBSITE_SITE_URL_STAGE }}
+      CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID_STAGE }}
+      CONTENTFUL_DELIVERY_API_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_DELIVERY_API_ACCESS_TOKEN_STAGE }}
+      CONTENTFUL_PREVIEW_API_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_PREVIEW_API_ACCESS_TOKEN_STAGE }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_STAGE }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_STAGE }}
+      AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+      S3_ORIGIN_BUCKET: ${{ secrets.S3_ORIGIN_BUCKET_STAGE }}
+      CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID_STAGE }}

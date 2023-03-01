@@ -4,6 +4,8 @@ const webpack = require('webpack');
 
 const introPath = path.resolve(__dirname, './intro');
 const srcPath = path.resolve(__dirname, '../src');
+const svgsPath = path.resolve(__dirname, '../src/components/svgs');
+const svgsPathVideo = path.resolve(__dirname, '../src/components/VideoPlayer/VideoControls/svgs');
 
 module.exports.webpackFinal = async (config) => {
   config.resolve.alias['@'] = srcPath;
@@ -12,7 +14,7 @@ module.exports.webpackFinal = async (config) => {
   sassRule.exclude = [introPath];
 
   const imageRule = config.module.rules.find((rule) => rule.test.test('.svg'));
-  imageRule.exclude = /\.svg$/;
+  imageRule.exclude = [svgsPath, svgsPathVideo];
 
   config.module.rules.push(
     {
@@ -27,7 +29,7 @@ module.exports.webpackFinal = async (config) => {
         }
       ]
     },
-    { test: /\.svg$/, use: [{ loader: '@svgr/webpack' }] }
+    { test: /\.svg$/, include: [svgsPath, svgsPathVideo], use: [{ loader: '@svgr/webpack' }] }
   );
 
   config.plugins.push(new webpack.ProvidePlugin({ Buffer: ['buffer', 'Buffer'] }));
