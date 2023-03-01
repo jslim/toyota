@@ -1,4 +1,155 @@
 @import 'shared';
 
 .root {
+  background-color: $white;
+  overflow: hidden;
+  perspective: 1px;
+
+  &.product {
+    width: px(298);
+    border-radius: px(8);
+
+    @include media-desktopSm {
+      width: px(456);
+    }
+
+    .image {
+      aspect-ratio: 288 / 264;
+
+      @include media-desktopSm {
+        aspect-ratio: 16 / 9;
+      }
+    }
+
+    .textWrapper {
+      padding: px(20) px(60) px(27) px(24);
+
+      .titleWrapper {
+        margin-bottom: px(10);
+      }
+
+      .title {
+        @include typography-eyebrow;
+        color: rgba($black, 0.5);
+      }
+
+      .text {
+        @include typography-paragraph;
+        margin-bottom: px(16);
+
+        @include media-desktopSm {
+          margin-bottom: px(36);
+        }
+      }
+    }
+  }
+
+  &.news {
+    width: px(312);
+
+    @include media-desktopSm {
+      max-width: px(360);
+    }
+
+    .image {
+      aspect-ratio: 312 / 360;
+      border-radius: px(8);
+
+      @include media-desktopSm {
+        aspect-ratio: 360 / 408;
+      }
+    }
+
+    .textWrapper {
+      padding-top: px(20);
+      padding-bottom: px(21);
+
+      @include media-desktopSm {
+        padding-bottom: px(60);
+      }
+
+      .titleWrapper {
+        margin-bottom: px(10);
+
+        @include media-desktopSm {
+          margin-bottom: px(14);
+        }
+
+        .date,
+        .title {
+          @include typography-eyebrow;
+        }
+        .date {
+          color: $red;
+        }
+
+        .title {
+          margin-left: px(16);
+          color: rgba($black, 0.5);
+        }
+      }
+    }
+  }
+
+  &.office {
+    width: px(334);
+
+    @include media-desktopSm {
+      width: px(536);
+    }
+
+    .image {
+      aspect-ratio: 312 / 216;
+      border-radius: px(8);
+
+      @include media-desktopSm {
+        aspect-ratio: 552 / 396;
+      }
+    }
+
+    .textWrapper {
+      padding-top: px(11);
+
+      @include media-desktopSm {
+        max-width: px(336);
+        padding-top: px(21);
+      }
+
+      .titleWrapper {
+        margin-bottom: px(15);
+
+        .title {
+          @include font-size(20, 26, -0.2);
+          text-transform: capitalize;
+
+          @include breakpoint(desktopSm) {
+            @include font-size(24, 32);
+          }
+        }
+      }
+
+      .text {
+        color: $mid-grey;
+      }
+    }
+  }
+}
+
+.image {
+  width: 100%;
+  object-fit: cover;
+}
+
+.textWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  .title {
+    text-transform: uppercase;
+  }
+
+  .text {
+    text-align: left;
+  }
 }
