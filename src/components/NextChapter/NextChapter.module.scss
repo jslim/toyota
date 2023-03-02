@@ -1,0 +1,35 @@
+@import 'shared';
+
+.root {
+  @include use-mobile-columns(width, 4);
+  position: relative;
+  height: px(168);
+  background-color: $white;
+
+  padding: px(20) px(24) px(24);
+}
+
+.image {
+  @include position-100(absolute);
+  object-fit: cover;
+  border-top-left-radius: px(16);
+  border-top-right-radius: px(16);
+  z-index: 0;
+}
+
+.wrapper {
+  .textWrapper {
+    position: absolute;
+
+    .title {
+      @include font-size(22, 28);
+      margin-top: px(6);
+      color: $white;
+
+      @include media-desktopSm {
+        @include font-size(40, 48);
+        margin-top: px(23);
+      }
+    }
+  }
+}
