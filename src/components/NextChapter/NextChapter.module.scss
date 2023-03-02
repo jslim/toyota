@@ -18,9 +18,9 @@
 }
 
 .wrapper {
-  .textWrapper {
-    position: absolute;
+  position: absolute;
 
+  .textWrapper {
     .title {
       @include font-size(22, 28);
       margin-top: px(6);
