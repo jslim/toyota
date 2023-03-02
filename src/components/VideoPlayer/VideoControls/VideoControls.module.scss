@@ -1,8 +1,6 @@
 @import 'shared';
 
 $video-player-controls-buttons-margin: px(12);
-$video-player-controls-buttons-width: px(45);
-$video-player-controls-buttons-height: px(45);
 $video-player-controls-bg-color: transparent;
 $video-player-controls-timer-color: $white;
 $video-player-controls-timer-font-size: px(15);
@@ -24,26 +22,6 @@ $video-player-controls-timer-font-size: px(15);
     justify-content: space-between;
     width: 100%;
     margin-top: px(16);
-
-    .button {
-      @include flex-center;
-      width: $video-player-controls-buttons-width;
-      height: $video-player-controls-buttons-height;
-      border: 1px solid $white;
-      border-radius: 50%;
-      cursor: pointer;
-      background: transparent;
-      padding: 0;
-      text-align: inherit;
-      letter-spacing: inherit;
-      font-size: inherit;
-      text-transform: inherit;
-      color: inherit;
-
-      svg {
-        @include box(px(15));
-      }
-    }
 
     .time {
       width: auto;

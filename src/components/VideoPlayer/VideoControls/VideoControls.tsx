@@ -5,7 +5,6 @@ import noop from 'no-op';
 
 import styles from './VideoControls.module.scss';
 
-import BaseButton from '../../BaseButton/BaseButton';
 import VideoTimeline from '../VideoTimeline/VideoTimeline';
 import CaptionsOffIcon from './svgs/captions-off.svg';
 import CaptionsOnIcon from './svgs/captions-on.svg';
@@ -15,6 +14,8 @@ import MutedIcon from './svgs/muted.svg';
 import PauseIcon from './svgs/pause.svg';
 import PlayIcon from './svgs/play.svg';
 import UnmutedIcon from './svgs/unmuted.svg';
+
+import Cta from '@/components/Cta/Cta';
 
 export type Props = {
   className?: string;
@@ -106,23 +107,22 @@ const VideoControls = ({
 
       <div className={styles.controlsContainer}>
         <div className={styles.leftContainer}>
-          <BaseButton
+          <Cta
             className={styles.button}
             aria-label={isPlaying ? pauseLabel : playLabel}
-            title={isPlaying ? pauseLabel : playLabel}
+            isWhite={true}
             onClick={onPlayToggle}
           >
             {isPlaying ? <PauseIcon aria-hidden /> : <PlayIcon aria-hidden />}
-          </BaseButton>
-
-          <BaseButton
+          </Cta>
+          <Cta
             className={styles.button}
             aria-label={isMuted ? unmuteLabel : muteLabel}
-            title={isMuted ? unmuteLabel : muteLabel}
+            isWhite={true}
             onClick={onMuteToggle}
           >
             {isMuted ? <MutedIcon aria-hidden /> : <UnmutedIcon aria-hidden />}
-          </BaseButton>
+          </Cta>
 
           <time className={styles.time}>
             {formatTime(Number(currentTime))} / {formatTime(Number(duration))}
@@ -130,25 +130,25 @@ const VideoControls = ({
         </div>
         <div className={styles.rightContainer}>
           {captions && (
-            <BaseButton
+            <Cta
               className={styles.button}
               aria-label={isShowingCaptions ? captionsHideLabel : captionsShowLabel}
-              title={isShowingCaptions ? captionsHideLabel : captionsShowLabel}
+              isWhite={true}
               onClick={onCaptionsToggle}
             >
               {isShowingCaptions ? <CaptionsOnIcon aria-hidden /> : <CaptionsOffIcon aria-hidden />}
-            </BaseButton>
+            </Cta>
           )}
 
           {isFullscreenAPISupported && (
-            <BaseButton
+            <Cta
               className={styles.button}
               aria-label={isFullScreen ? exitFullscreenLabel : enterFullscreenLabel}
-              title={isFullScreen ? exitFullscreenLabel : enterFullscreenLabel}
+              isWhite={true}
               onClick={onFullscreenToggle}
             >
               {isFullScreen ? <ExitFullscreenIcon aria-hidden /> : <EnterFullscreenIcon aria-hidden />}
-            </BaseButton>
+            </Cta>
           )}
         </div>
       </div>

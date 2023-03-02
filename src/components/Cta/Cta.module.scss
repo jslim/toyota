@@ -7,10 +7,6 @@
   color: $dark-grey;
   text-transform: uppercase;
 
-  .circleButton {
-    @include circleButton;
-  }
-
   .label {
     margin-left: px(16);
 

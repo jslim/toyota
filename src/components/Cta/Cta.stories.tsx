@@ -22,6 +22,12 @@ White.args = {
   isWhite: true
 };
 
-export const IconOnly: Story<CtaProps> = (args) => <Cta {...args} />;
+export const IconOnly: Story<CtaProps> = (args) => (
+  <div style={{ background: '#ca877b', padding: '40px' }}>
+    <Cta {...args} />
+  </div>
+);
 
-IconOnly.args = {};
+IconOnly.args = {
+  isWhite: false
+};
