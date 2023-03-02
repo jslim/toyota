@@ -36,6 +36,10 @@
   justify-content: space-between;
   padding: px(20) px(24) px(24);
 
+  @include media-desktopSm {
+    padding: px(55) px(108) px(55) px(48);
+  }
+
   .textWrapper {
     .title {
       @include font-size(22, 28);
@@ -51,5 +55,9 @@
 
   .circle {
     align-self: flex-end;
+
+    @include media-desktopSm {
+      align-self: center;
+    }
   }
 }
