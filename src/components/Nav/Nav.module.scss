@@ -9,6 +9,22 @@
   height: $navbar-height;
   display: flex;
 
+  .skipToContent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: fit-content;
+    pointer-events: none;
+    opacity: 0.0001;
+  }
+
+  .skipToContent:focus,
+  .skipToContent:active {
+    color: $white;
+    background-color: $black;
+    opacity: 1;
+  }
+
   > .wrapper {
     @include flex-center-vert;
     width: 100%;

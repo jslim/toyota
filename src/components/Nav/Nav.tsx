@@ -26,6 +26,9 @@ const Nav: FC<NavProps> = ({ className }) => {
             <div className={css.menuWrapper}>
               <Logo className={css.logo} href={routes.Home.path} />
               <ul className={css.routes}>
+                <a tabIndex={0} aria-label="Skip to content" className={css.skipToContent} href="#start-of-content">
+                  Skip to content
+                </a>
                 {Object.values(routes).map(
                   ({ path, title }, i) =>
                     title !== 'Home' && (

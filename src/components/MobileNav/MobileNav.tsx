@@ -22,7 +22,11 @@ const MobileNav: FC<MobileNavProps> = ({ className, links }) => {
       <div className={css.mobileNavBar}>
         <Logo className={css.logo} href={routes.Home.path} />
 
-        <BaseButton className={css.hamburgerWrapper} onClick={() => setMenuOpen(!menuOpen)} aria-label="hamburger">
+        <BaseButton
+          className={css.hamburgerWrapper}
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Click to view more menu options"
+        >
           {!menuOpen ? (
             <div className={css.hamburger} ref={hamburgerRef}>
               <span className={css.line} />

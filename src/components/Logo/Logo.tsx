@@ -14,7 +14,7 @@ export type LogoProps = {
 const Logo: FC<LogoProps> = ({ className, title, href }) => {
   return (
     <div className={classNames('Logo', css.root, className)}>
-      <BaseLink title={title} href={href}>
+      <BaseLink title={title} href={href} aria-label="Toyota Logo">
         <LogoSVG className={css.logo} />
       </BaseLink>
     </div>
