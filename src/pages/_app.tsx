@@ -10,6 +10,8 @@ import { PageProps } from '@/data/types';
 
 import Layout from '@/components/Layout/Layout';
 
+import ResizeService from '@/services/resize';
+
 import gsapInit from '@/utils/gsap-init';
 import setBodyClasses from '@/utils/set-body-classes';
 
@@ -23,6 +25,15 @@ gsapInit();
 const App: FC<AppProps<PageProps>> = (props) => {
   useEffect(() => {
     setBodyClasses();
+
+    // Fix vh issues for mobile
+    const calculateVh = () => {
+      document.documentElement.style.setProperty('--vh', `${window.innerHeight / 100}px`);
+    };
+
+    ResizeService.listen(calculateVh);
+
+    setTimeout(calculateVh, 50);
   }, []);
 
   /** NOTE: this is where dev tools and helper modules can be placed */

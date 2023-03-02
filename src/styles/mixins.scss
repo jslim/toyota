@@ -160,6 +160,15 @@
   color: currentColor;
 }
 
+// Shorthand to use CSS var --vh
+// @example scss Input
+//   section {
+//     height: vh(5);
+//   }
+@function vh($vh) {
+  @return calc(var(--vh) * #{$vh});
+}
+
 /// Fallbacks in case device doesn’t support aspect ratio
 /// @example scss Input
 ///   image {

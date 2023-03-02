@@ -132,3 +132,7 @@ $grid-column-width-desktop: (
     @include use-desktop-columns(width, $grid-num-of-cols-desktop);
   }
 }
+
+@mixin pagePadding($prop) {
+  #{$prop}: calc((100vw - desktop-columns($grid-num-of-cols-desktop, 0)) / 2);
+}
