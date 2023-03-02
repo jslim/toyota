@@ -4,15 +4,30 @@
   @include use-mobile-columns(width, 4);
   position: relative;
   height: px(168);
+  overflow: hidden;
   background-color: $white;
-}
-
-.image {
-  @include position-100(absolute);
-  object-fit: cover;
   border-top-left-radius: px(16);
   border-top-right-radius: px(16);
+
+  @include media-desktopSm {
+    @include box(px(1134), px(276));
+  }
+}
+
+.imageWrapper {
+  @include position-100(absolute);
   z-index: 0;
+
+  &::after {
+    @include position-100(absolute);
+    content: '';
+    background: linear-gradient(0deg, rgba(47, 47, 47, 0.25), rgba(47, 47, 47, 0.25));
+  }
+
+  .image {
+    @include position-100(absolute);
+    object-fit: cover;
+  }
 }
 
 .wrapper {
@@ -35,7 +50,6 @@
   }
 
   .circle {
-    @include circleButton;
     align-self: flex-end;
   }
 }

@@ -7,7 +7,7 @@ export default { title: 'components/NextChapter' };
 export const Default: Story<NextChapterProps> = (args) => <NextChapter {...args} />;
 
 Default.args = {
-  // eyebrow: string;
+  eyebrow: 'Next Chapter',
   link: {
     title: 'Who We Are',
     href: 'https://google.com'

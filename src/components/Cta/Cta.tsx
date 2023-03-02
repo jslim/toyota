@@ -2,6 +2,7 @@ import { FC, memo, useState } from 'react';
 import classNames from 'classnames';
 
 import css from './Cta.module.scss';
+
 import BaseButton, { BaseProps as BaseButtonProps } from '@/components/BaseButton/BaseButton';
 import BaseLink, { Props as BaseLinkProps } from '@/components/BaseLink/BaseLink';
 import IconCircle from '@/components/IconCircle/IconCircle';
