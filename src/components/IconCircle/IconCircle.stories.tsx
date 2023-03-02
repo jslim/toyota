@@ -1,8 +1,7 @@
 import { Story } from '@storybook/react';
 
-import ArrowDownSvg from '@/components/svgs/svg-arrow-down.svg';
-
 import IconCircle, { IconCircleProps } from './IconCircle';
+import ArrowDownSvg from '@/components/svgs/svg-arrow-down.svg';
 
 export default { title: 'components/IconCircle' };
 
