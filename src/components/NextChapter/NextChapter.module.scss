@@ -5,8 +5,6 @@
   position: relative;
   height: px(168);
   background-color: $white;
-
-  padding: px(20) px(24) px(24);
 }
 
 .image {
@@ -18,7 +16,10 @@
 }
 
 .wrapper {
-  position: absolute;
+  @include position-100(absolute);
+  display: flex;
+  justify-content: space-between;
+  padding: px(20) px(24) px(24);
 
   .textWrapper {
     .title {
@@ -31,5 +32,10 @@
         margin-top: px(23);
       }
     }
+  }
+
+  .circle {
+    @include circleButton;
+    align-self: flex-end;
   }
 }
