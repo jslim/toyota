@@ -1,0 +1,48 @@
+@import 'shared';
+
+.root {
+  @include use-mobile-columns(width, 4);
+
+  .button {
+    @include reset-button;
+    @include flex-center-vert;
+
+    justify-content: space-between;
+    width: 100%;
+    padding: px(17) 0;
+    background-color: $white;
+    text-align: left;
+    cursor: pointer;
+
+    .title {
+      @include typography-label;
+      transition: opacity 0.5s linear;
+    }
+
+    .icon {
+      transform: rotate(-90deg);
+      transition: transform 0.5s linear;
+    }
+
+    &.open {
+      .title {
+        opacity: 0.5;
+      }
+
+      .icon {
+        transform: rotate(90deg);
+      }
+    }
+  }
+}
+
+.contentWrapper {
+  overflow: hidden;
+  display: none;
+  height: 0;
+  opacity: 0;
+}
+
+.content-wrapper {
+  height: auto;
+}
