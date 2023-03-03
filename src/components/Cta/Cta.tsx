@@ -9,10 +9,17 @@ import IconCircle from '@/components/IconCircle/IconCircle';
 
 import ArrowSvg from '@/components/svgs/svg-arrow.svg';
 
+export enum ButtonType {
+  Primary = 'primary',
+  Secondary = 'secondary',
+  Large = 'large',
+  Icon = 'icon'
+}
 export type CtaProps = (BaseButtonProps | BaseLinkProps) & {
   isWhite?: Boolean;
-  fittedWidth?: Boolean;
-  isLarge?: Boolean;
+  isActive?: Boolean;
+  setActiveOutside?: Boolean;
+  theme?: ButtonType;
 };
 
 const isLink = (props: CtaProps): props is BaseLinkProps => {
@@ -20,8 +27,14 @@ const isLink = (props: CtaProps): props is BaseLinkProps => {
   return 'href' in props;
 };
 
-const Cta: FC<CtaProps> = ({ isWhite, fittedWidth, isLarge, ...props }: CtaProps) => {
-  const [active, setActive] = useState(false);
+const Cta: FC<CtaProps> = ({
+  isWhite,
+  isActive,
+  setActiveOutside = false,
+  theme = ButtonType.Primary,
+  ...props
+}: CtaProps) => {
+  const [hover, setHover] = useState(false);
   return (
     <>
       {isLink(props) ? (
@@ -30,11 +43,11 @@ const Cta: FC<CtaProps> = ({ isWhite, fittedWidth, isLarge, ...props }: CtaProps
           className={classNames(props.className, css.root, {
             [css.isWhite]: isWhite
           })}
-          onMouseEnter={() => setActive(true)}
-          onMouseLeave={() => setActive(false)}
+          onMouseEnter={() => !setActiveOutside && setHover(true)}
+          onMouseLeave={() => !setActiveOutside && setHover(false)}
         >
-          <IconCircle isCta={props.children ? false : true} isWhite={isWhite} isActive={active} isLarge={isLarge}>
-            {props.children ? props.children : <ArrowSvg />}
+          <IconCircle isWhite={isWhite} isActive={setActiveOutside ? isActive : hover} theme={theme}>
+            {theme === ButtonType.Primary ? <ArrowSvg /> : props.children}
           </IconCircle>
           {props.title && <div className={css.label}>{props.title}</div>}
         </BaseLink>
@@ -44,11 +57,11 @@ const Cta: FC<CtaProps> = ({ isWhite, fittedWidth, isLarge, ...props }: CtaProps
           className={classNames(props.className, css.root, {
             [css.isWhite]: isWhite
           })}
-          onMouseEnter={() => setActive(true)}
-          onMouseLeave={() => setActive(false)}
+          onMouseEnter={() => !setActiveOutside && setHover(true)}
+          onMouseLeave={() => !setActiveOutside && setHover(false)}
         >
-          <IconCircle isCta={props.children ? false : true} isWhite={isWhite} isActive={active} isLarge={isLarge}>
-            {props.children ? props.children : <ArrowSvg />}
+          <IconCircle isWhite={isWhite} isActive={setActiveOutside ? isActive : hover} theme={theme}>
+            {theme === ButtonType.Primary ? <ArrowSvg /> : props.children}
           </IconCircle>
           {props.title && <div className={css.label}>{props.title}</div>}
         </BaseButton>
