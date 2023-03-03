@@ -15,7 +15,7 @@ import PauseIcon from './svgs/pause.svg';
 import PlayIcon from './svgs/play.svg';
 import UnmutedIcon from './svgs/unmuted.svg';
 
-import Cta from '@/components/Cta/Cta';
+import Cta, { ButtonType } from '@/components/Cta/Cta';
 
 export type Props = {
   className?: string;
@@ -112,6 +112,7 @@ const VideoControls = ({
             aria-label={isPlaying ? pauseLabel : playLabel}
             isWhite={true}
             onClick={onPlayToggle}
+            theme={ButtonType.Icon}
           >
             {isPlaying ? <PauseIcon aria-hidden /> : <PlayIcon aria-hidden />}
           </Cta>
@@ -120,6 +121,7 @@ const VideoControls = ({
             aria-label={isMuted ? unmuteLabel : muteLabel}
             isWhite={true}
             onClick={onMuteToggle}
+            theme={ButtonType.Icon}
           >
             {isMuted ? <MutedIcon aria-hidden /> : <UnmutedIcon aria-hidden />}
           </Cta>
@@ -135,6 +137,7 @@ const VideoControls = ({
               aria-label={isShowingCaptions ? captionsHideLabel : captionsShowLabel}
               isWhite={true}
               onClick={onCaptionsToggle}
+              theme={ButtonType.Icon}
             >
               {isShowingCaptions ? <CaptionsOnIcon aria-hidden /> : <CaptionsOffIcon aria-hidden />}
             </Cta>
@@ -146,6 +149,7 @@ const VideoControls = ({
               aria-label={isFullScreen ? exitFullscreenLabel : enterFullscreenLabel}
               isWhite={true}
               onClick={onFullscreenToggle}
+              theme={ButtonType.Icon}
             >
               {isFullScreen ? <ExitFullscreenIcon aria-hidden /> : <EnterFullscreenIcon aria-hidden />}
             </Cta>

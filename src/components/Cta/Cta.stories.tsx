@@ -1,10 +1,19 @@
 import { Story } from '@storybook/react';
 
-import Cta, { CtaProps } from './Cta';
+import Cta, { CtaProps, ButtonType } from './Cta';
+
+import ArrowDownSvg from '@/components/svgs/svg-arrow-down.svg';
 
 export default { title: 'components/Cta' };
 
 export const Default: Story<CtaProps> = (args) => <Cta {...args} />;
+
+Default.argTypes = {
+  theme: {
+    options: ['primary', 'secondary'],
+    control: { type: 'select' }
+  }
+};
 
 Default.args = {
   title: 'All news',
@@ -22,12 +31,23 @@ White.args = {
   isWhite: true
 };
 
+export const Secondary: Story<CtaProps> = (args) => <Cta {...args} />;
+
+Secondary.args = {
+  theme: ButtonType.Secondary,
+  title: 'Learn more'
+};
+Secondary.argTypes = Default.argTypes;
+
 export const IconOnly: Story<CtaProps> = (args) => (
   <div style={{ background: '#ca877b', padding: '40px' }}>
-    <Cta {...args} />
+    <Cta {...args}>
+      <ArrowDownSvg />
+    </Cta>
   </div>
 );
 
 IconOnly.args = {
-  isWhite: false
+  isWhite: false,
+  theme: ButtonType.Icon
 };

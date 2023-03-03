@@ -9,7 +9,7 @@ import BaseImage from '@/components/BaseImage/BaseImage';
 import BaseLink from '@/components/BaseLink/BaseLink';
 import { Props as LinkProps } from '@/components/BaseLink/BaseLink';
 import Eyebrow from '@/components/Eyebrow/Eyebrow';
-import IconCircle from '@/components/IconCircle/IconCircle';
+import Cta, { ButtonType } from '@/components/Cta/Cta';
 
 import ArrowSvg from '@/components/svgs/svg-arrow.svg';
 
@@ -39,9 +39,9 @@ const NextChapter: FC<NextChapterProps> = ({ className, eyebrow, image, link }) 
           <Eyebrow className={css.eyebrow} text={eyebrow} variant={variants.DARK} />
           <div className={css.title}>{link.title}</div>
         </div>
-        <IconCircle className={css.circle} isCta isWhite isActive={active}>
+        <Cta className={css.circle} theme={ButtonType.Primary} isWhite isActive={active} setActiveOutside={true}>
           <ArrowSvg />
-        </IconCircle>
+        </Cta>
       </div>
     </BaseLink>
   );

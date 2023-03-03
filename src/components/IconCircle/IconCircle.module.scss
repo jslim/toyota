@@ -60,7 +60,7 @@
     }
   }
 
-  &.isLarge {
+  &.large {
     background-color: $white;
     @include box(px(60));
     border: none;
@@ -83,9 +83,13 @@
       }
     }
   }
-
-  &.isCta {
+  &.primary,
+  &.secondary {
     border-color: $red;
+
+    .overlay {
+      background-color: $red;
+    }
 
     .dot {
       @include box(px(3));
@@ -94,19 +98,17 @@
       position: absolute;
     }
 
-    svg {
-      opacity: 0;
-      transform: translateX(-50%);
-    }
-
-    .overlay {
-      background-color: $red;
-    }
-
     &.isWhite {
       .dot {
         background-color: $white;
       }
+    }
+  }
+
+  &.primary {
+    svg {
+      opacity: 0;
+      transform: translateX(-50%);
     }
 
     &.active {
@@ -115,6 +117,14 @@
         transform: translateX(0);
         filter: invert(0);
       }
+    }
+  }
+
+  &.secondary {
+    @include box(px(15));
+
+    @include breakpoint(desktopSm) {
+      @include box(px(25));
     }
   }
 }
