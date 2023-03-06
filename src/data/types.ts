@@ -48,5 +48,5 @@ export type Response = {
 
 export type ContentfulOptions = {
   removeUnresolved: boolean;
-  itemEntryPoints: Array<string>;
+  itemEntryPoints?: Array<string>;
 };

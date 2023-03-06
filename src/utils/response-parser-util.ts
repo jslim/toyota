@@ -125,7 +125,7 @@ const makeEntryObject = (item: GenericObject, itemEntryPoints: ContentfulOptions
  */
 const resolveResponse = (
   response: Response,
-  options: ContentfulOptions = { itemEntryPoints: [], removeUnresolved: true }
+  options: ContentfulOptions = { removeUnresolved: true }
 ): Response['items'] => {
   options = options || {};
   if (!response.items) {
