@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import css from './Card.module.scss';
 
-import { cards } from '@/data/cards-types';
+import { Cards } from '@/data/cards-types';
 
 import BaseImage from '@/components/BaseImage/BaseImage';
 
@@ -17,13 +17,13 @@ export type CardProps = {
   // cta props
 };
 
-const Card: FC<CardProps> = ({ className, cardType = cards.NEWS, image, title, text, date }) => {
+const Card: FC<CardProps> = ({ className, cardType = Cards.NEWS, image, title, text, date }) => {
   return (
     <div
       className={classNames('Card', css.root, className, {
-        [css.product]: cardType === cards.PRODUCT,
-        [css.news]: cardType === cards.NEWS,
-        [css.office]: cardType === cards.OFFICE
+        [css.product]: cardType === Cards.PRODUCT,
+        [css.news]: cardType === Cards.NEWS,
+        [css.office]: cardType === Cards.OFFICE
       })}
     >
       <BaseImage {...image} className={css.image} />

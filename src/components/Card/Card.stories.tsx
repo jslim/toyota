@@ -1,7 +1,8 @@
+// eslint-disable-next-line simple-import-sort/imports
 import { Story } from '@storybook/react';
 
 import Card, { CardProps } from './Card';
-import { cards } from '@/data/cards-types';
+import { Cards } from '@/data/cards-types';
 
 export default { title: 'components/Card' };
 
@@ -20,7 +21,7 @@ Product.args = {
     src: url,
     alt: ''
   },
-  cardType: cards.PRODUCT
+  cardType: Cards.PRODUCT
   // cta props
 };
 News.args = {
@@ -31,7 +32,7 @@ News.args = {
     src: url,
     alt: ''
   },
-  cardType: cards.NEWS
+  cardType: Cards.NEWS
 };
 Office.args = {
   title: 'Global Headquarters - Tokyo',
@@ -40,5 +41,5 @@ Office.args = {
     src: url,
     alt: ''
   },
-  cardType: cards.OFFICE
+  cardType: Cards.OFFICE
 };

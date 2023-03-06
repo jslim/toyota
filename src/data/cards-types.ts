@@ -1,5 +1,5 @@
-export const cards = {
-  NEWS: 'news',
-  PRODUCT: 'product',
-  OFFICE: 'office'
-};
+export enum Cards {
+  NEWS = 'news',
+  PRODUCT = 'product',
+  OFFICE = 'office'
+}
