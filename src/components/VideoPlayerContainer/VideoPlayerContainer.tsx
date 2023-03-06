@@ -8,8 +8,6 @@ import Cta, { ButtonType } from '@/components/Cta/Cta';
 import { Props as VideoProps } from '@/components/VideoPlayer/VideoPlayer';
 import VideoPlayer from '@/components/VideoPlayer/VideoPlayer';
 
-import PlayIcon from '@/components/VideoPlayer/VideoControls/svgs/play.svg';
-
 export type VideoPlayerContainerProps = {
   className?: string;
   poster: { src: string; alt: string };
@@ -25,9 +23,7 @@ const VideoPlayerContainer: FC<VideoPlayerContainerProps> = ({ className, poster
         <VideoPlayer {...video} className={css.video} autoPlay togglePlaying={() => setIsPlaying(!isPlaying)} />
       ) : (
         <div className={css.imageWrapper} onClick={() => setIsPlaying(true)}>
-          <Cta className={css.playButton} theme={ButtonType.Large} isWhite={true} aria-label={'play video'}>
-            <PlayIcon />
-          </Cta>
+          <Cta className={css.playButton} theme={ButtonType.Large} isWhite={true} aria-label={'play video'}></Cta>
 
           <BaseImage {...poster} className={css.poster} />
         </div>

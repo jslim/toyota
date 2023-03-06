@@ -1,8 +1,11 @@
-import { FC, memo, useRef, useState, useEffect, useCallback } from 'react';
+import { FC, memo, ReactNode, useCallback, useRef, useState } from 'react';
 import classNames from 'classnames';
 import gsap from 'gsap';
 
 import css from './Accordion.module.scss';
+
+import { variants } from '@/data/variants';
+
 import BaseButton from '@/components/BaseButton/BaseButton';
 import IconCircle from '@/components/IconCircle/IconCircle';
 
@@ -10,19 +13,29 @@ import ArrowSvg from '@/components/svgs/svg-arrow.svg';
 
 interface AccordionProps {
   className?: string;
-  children: React.ReactNode;
+  children?: ReactNode;
+  variant?: string;
 }
 
-export default interface AccordionItemProps {
+export interface AccordionItemProps {
   title?: string;
-  children: React.ReactNode;
+  children?: ReactNode;
+  variant?: string;
+  secondaryText?: string;
+  tertiaryText?: string;
 }
 
-export const Accordion: FC<AccordionProps> = ({ className, children }) => {
-  return <div className={classNames('Accordion', css.root, className)}>{children}</div>;
+const EASE = 'power1.inOut';
+
+export const Accordion: FC<AccordionProps> = ({ className, children, variant = variants.LIGHT }) => {
+  return (
+    <div className={classNames('Accordion', css.root, className, { [css.isDark]: variant === variants.DARK })}>
+      {children}
+    </div>
+  );
 };
 
-const AccordionItem = ({ title, children }: AccordionItemProps) => {
+export const AccordionItem = ({ title, children, variant, secondaryText, tertiaryText }: AccordionItemProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -42,11 +55,11 @@ const AccordionItem = ({ title, children }: AccordionItemProps) => {
     const tl = gsap.timeline();
 
     if (isOpen) {
-      tl.to(content, { opacity: 0, duration: 0.25, ease: 'power1.inOut' })
+      tl.to(content, { opacity: 0, duration: 0.25, ease: EASE })
         .to(content, {
           height: 0,
           duration: 0.5,
-          ease: 'power1.inOut'
+          ease: EASE
         })
         .set(content, { display: 'none' });
     } else {
@@ -54,13 +67,11 @@ const AccordionItem = ({ title, children }: AccordionItemProps) => {
         .to(content, {
           height: 'auto',
           duration: 0.5,
-          ease: 'power1.inOut'
+          ease: EASE
         })
-        .to(content, { opacity: 1, duration: 0.25, ease: 'power1.inOut' });
+        .to(content, { opacity: 1, duration: 0.25, ease: EASE });
     }
   }, [isOpen]);
-
-  console.log(isOpen);
 
   return (
     <div className={css.accordionItem}>
@@ -71,11 +82,21 @@ const AccordionItem = ({ title, children }: AccordionItemProps) => {
           aria-expanded={isOpen ? 'true' : 'false'}
           aria-controls={`accordion-content-${title}`}
         >
-          <div className={css.title}> {title}</div>
+          <div className={css.buttonWrapper}>
+            <div className={css.titleWrapper}>
+              <div className={css.title}> {title}</div>
+              {(secondaryText || tertiaryText) && (
+                <div className={css.secondaryWrapper}>
+                  {secondaryText && <div className={css.text}> {secondaryText}</div>}
+                  {tertiaryText && <div className={css.text}> {tertiaryText}</div>}
+                </div>
+              )}
+            </div>
 
-          <IconCircle className={css.icon}>
-            <ArrowSvg />
-          </IconCircle>
+            <IconCircle className={css.icon} isWhite={variant === variants.LIGHT}>
+              <ArrowSvg />
+            </IconCircle>
+          </div>
         </BaseButton>
       )}
       <div className={css.contentWrapper} ref={contentRef}>
@@ -91,7 +112,5 @@ const AccordionItem = ({ title, children }: AccordionItemProps) => {
     </div>
   );
 };
-
-Accordion.Item = AccordionItem;
 
 export default memo(Accordion);

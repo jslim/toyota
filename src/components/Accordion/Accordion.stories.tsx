@@ -1,7 +1,9 @@
+// eslint-disable-next-line simple-import-sort/imports
 import React from 'react';
-import { Story, Meta } from '@storybook/react';
+import { Meta, Story } from '@storybook/react';
 
-import { Accordion } from './Accordion';
+import { Accordion, AccordionItem } from './Accordion';
+import { variants } from '@/data/variants';
 
 export default {
   title: 'components/Accordion',
@@ -13,23 +15,39 @@ const Template: Story = (args) => <Accordion {...args} />;
 export const SingleAccordion = Template.bind({});
 SingleAccordion.args = {
   children: (
-    <Accordion.Item title="Section 1">
+    <AccordionItem title="Section 1">
       <p>Section 1 content...</p>
-    </Accordion.Item>
+    </AccordionItem>
   )
 };
 
-export const MultipleAccordion = Template.bind({});
-MultipleAccordion.args = {
+export const MultipleAccordionLight = Template.bind({});
+MultipleAccordionLight.args = {
   children: [
-    <Accordion.Item key={1} title="Section 1">
+    <AccordionItem key={1} title="Section 1">
       <p>Section 1 content...</p>
-    </Accordion.Item>,
-    <Accordion.Item key={2} title="Section 2">
+    </AccordionItem>,
+    <AccordionItem key={2} title="Section 2">
       <p>Section 2 content...</p>
-    </Accordion.Item>,
-    <Accordion.Item key={3} title="Section 3">
+    </AccordionItem>,
+    <AccordionItem key={3} title="Section 3">
       <p>Section 3 content...</p>
-    </Accordion.Item>
+    </AccordionItem>
+  ]
+};
+
+export const MultipleAccordionDark = Template.bind({});
+MultipleAccordionDark.args = {
+  variant: variants.DARK,
+  children: [
+    <AccordionItem key={1} title="Section 1" secondaryText="Feb 8, 2023" tertiaryText="30Mb">
+      <p>Section 1 content...</p>
+    </AccordionItem>,
+    <AccordionItem key={2} title="Section 2">
+      <p>Section 2 content...</p>
+    </AccordionItem>,
+    <AccordionItem key={3} title="Section 3">
+      <p>Section 3 content...</p>
+    </AccordionItem>
   ]
 };

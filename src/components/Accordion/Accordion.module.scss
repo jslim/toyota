@@ -2,26 +2,82 @@
 
 .root {
   @include use-mobile-columns(width, 4);
+  background-color: $white;
+
+  @include media-desktopSm {
+    @include use-desktop-columns(width, 12);
+  }
 
   .button {
     @include reset-button;
     @include flex-center-vert;
-
     justify-content: space-between;
     width: 100%;
     padding: px(17) 0;
-    background-color: $white;
     text-align: left;
     cursor: pointer;
 
-    .title {
-      @include typography-label;
-      transition: opacity 0.5s linear;
-    }
+    .buttonWrapper {
+      @include use-mobile-columns(width, 4);
+      display: flex;
+      justify-content: space-between;
+      margin: 0 auto;
 
-    .icon {
-      transform: rotate(-90deg);
-      transition: transform 0.5s linear;
+      @include media-desktopSm {
+        @include use-desktop-columns(width, 12);
+      }
+
+      .titleWrapper {
+        display: flex;
+        flex-direction: column;
+
+        @include media-desktopSm {
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+        }
+
+        .title {
+          @include typography-label;
+          transition: opacity 0.5s linear;
+        }
+
+        .secondaryWrapper {
+          display: flex;
+          flex-direction: row-reverse;
+          margin-top: px(4);
+
+          @include media-desktopSm {
+            flex-direction: row;
+            margin-top: 0;
+            margin-right: px(24);
+          }
+
+          .text {
+            @include typography-paragraph;
+            color: $white;
+
+            &:first-of-type {
+              margin-left: px(14);
+
+              @include media-desktopSm {
+                margin-left: 0;
+                margin-right: px(24);
+              }
+            }
+
+            &:last-of-type {
+              opacity: 0.5;
+            }
+          }
+        }
+      }
+
+      .icon {
+        transform: rotate(-90deg);
+        transition: transform 0.5s linear;
+      }
     }
 
     &.open {
@@ -34,6 +90,39 @@
       }
     }
   }
+
+  &.isDark {
+    width: 100%;
+    background-color: $dark-grey;
+
+    @include media-desktopSm {
+      @include use-desktop-columns(width, 12);
+    }
+
+    .button {
+      border-top: 1px solid $mid-grey;
+      border-bottom: 1px solid $mid-grey;
+
+      .titleWrapper {
+        .title {
+          color: $light-grey;
+          opacity: 0.75;
+        }
+      }
+
+      .icon {
+        svg {
+          filter: inherit;
+        }
+      }
+
+      &.open {
+        .title {
+          opacity: 1;
+        }
+      }
+    }
+  }
 }
 
 .contentWrapper {
@@ -41,8 +130,9 @@
   display: none;
   height: 0;
   opacity: 0;
-}
 
-.content-wrapper {
-  height: auto;
+  .content {
+    @include use-mobile-columns(width, 4);
+    margin: 0 auto;
+  }
 }

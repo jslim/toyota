@@ -11,7 +11,6 @@ import { PageProps } from '@/data/types';
 import Layout from '@/components/Layout/Layout';
 
 import ResizeService from '@/services/resize';
-
 import gsapInit from '@/utils/gsap-init';
 import setBodyClasses from '@/utils/set-body-classes';
 
