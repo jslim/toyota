@@ -1,3 +1,5 @@
+import resolveResponse from '@/utils/response-parser-util';
+
 function convertParamsToQueryString(params: {}) {
   return Object.entries(params).reduce((queryString, [key, value], index) => {
     if (value === undefined) {
@@ -37,10 +39,14 @@ export class APIContentful {
    */
   contentfulFetch = (urlSuffix = '', params = {}) => {
     const queryParams = { access_token: this.accessToken, include: 2, ...params };
-    return fetch(`${this.urlPrefix}${urlSuffix}` + convertParamsToQueryString(queryParams)).then(
-      (response) => response.json()
-      // TODO: Add response parser for requests with linked content
-    );
+    return fetch(`${this.urlPrefix}${urlSuffix}` + convertParamsToQueryString(queryParams))
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.items && response.includes) {
+          response.items = resolveResponse(response);
+        }
+        return response;
+      });
   };
 
   getEntryById = async (entryId: string, params = {}) => {
