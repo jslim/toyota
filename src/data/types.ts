@@ -50,3 +50,19 @@ export type ContentfulOptions = {
   removeUnresolved: boolean;
   itemEntryPoints?: Array<string>;
 };
+
+export type Locale = 'en-US' | 'ja-JP';
+
+export type Lang = 'en' | 'jp';
+
+export type LangLocaleMap = {
+  [key in Lang]: Locale;
+};
+
+interface ParsedUrlQuery {
+  [key: string]: string | string[];
+}
+
+export interface LocalizedPageParams extends ParsedUrlQuery {
+  lang: Lang;
+}
