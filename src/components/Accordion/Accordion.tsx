@@ -83,7 +83,7 @@ export const AccordionItem = ({ title, children, variant, secondaryText, tertiar
           aria-controls={`accordion-content-${title}`}
         >
           <div className={css.buttonWrapper}>
-            <div className={css.titleWrapper}>
+            <div className={css.titleWrapper} id={`accordion-header-${title}`}>
               <div className={css.title}> {title}</div>
               {(secondaryText || tertiaryText) && (
                 <div className={css.secondaryWrapper}>

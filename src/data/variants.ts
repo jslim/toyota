@@ -1,4 +1,4 @@
-export const variants = {
-  LIGHT: 'light',
-  DARK: 'dark'
-};
+export enum variants {
+  LIGHT = 'light',
+  DARK = 'dark'
+}

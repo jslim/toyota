@@ -91,6 +91,23 @@
     }
   }
 
+  .contentWrapper {
+    overflow: hidden;
+    display: none;
+    height: 0;
+    opacity: 0;
+
+    .content {
+      @include use-mobile-columns(width, 4);
+      margin: 0 auto;
+
+      p {
+        @include typography-paragraph;
+        text-align: left;
+      }
+    }
+  }
+
   &.isDark {
     width: 100%;
     background-color: $dark-grey;
@@ -101,7 +118,6 @@
 
     .button {
       border-top: 1px solid $mid-grey;
-      border-bottom: 1px solid $mid-grey;
 
       .titleWrapper {
         .title {
@@ -122,17 +138,36 @@
         }
       }
     }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: px(12);
+      padding-bottom: px(26);
+
+      @include media-desktopSm {
+        padding-bottom: px(36);
+      }
+
+      p {
+        color: $white;
+      }
+    }
   }
-}
 
-.contentWrapper {
-  overflow: hidden;
-  display: none;
-  height: 0;
-  opacity: 0;
+  @at-root body:global(.desktop) {
+    .button:hover {
+      .title {
+        opacity: 0.5;
+      }
+    }
 
-  .content {
-    @include use-mobile-columns(width, 4);
-    margin: 0 auto;
+    .isDark {
+      .button:hover {
+        .title {
+          opacity: 1;
+        }
+      }
+    }
   }
 }
