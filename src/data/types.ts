@@ -51,9 +51,15 @@ export type ContentfulOptions = {
   itemEntryPoints?: Array<string>;
 };
 
-export type Locale = 'en-US' | 'ja-JP';
+export enum Locale {
+  EN = 'en-US',
+  JP = 'ja-JP'
+}
 
-export type Lang = 'en' | 'jp';
+export enum Lang {
+  EN = 'en',
+  JP = 'jp'
+}
 
 export type LangLocaleMap = {
   [key in Lang]: Locale;

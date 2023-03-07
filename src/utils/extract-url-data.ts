@@ -1,4 +1,4 @@
-import { defaultLang } from '@/data/constants';
+import { defaultLang } from '@/utils/locales';
 
 export default function (location: Location) {
   if (!location) {
