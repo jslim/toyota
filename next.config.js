@@ -8,6 +8,15 @@ const nextJSConfig = {
   devIndicators: { buildActivity: false },
   sassOptions: { includePaths: [path.join(__dirname, 'src/styles')] },
   distDir: process.env.NEXT_PUBLIC_DIST_DIR || '.next',
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/en',
+        permanent: true
+      }
+    ];
+  },
   webpack: function (config, options) {
     config.module.rules.push({ test: /\.svg$/, use: [{ loader: '@svgr/webpack' }] });
     config.module.rules.push({

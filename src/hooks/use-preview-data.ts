@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { APIContentful } from '@/data/API';
-import { defaultLang } from '@/data/constants';
 import { Lang } from '@/data/types';
 
+import extractUrlData from '@/utils/extract-url-data';
 import { getLocaleByLang } from '@/utils/locales';
 
 type Args = {
@@ -16,10 +16,7 @@ export default function usePreviewData({ staticData }: Args) {
   }, []);
 
   const { langSegment, urlParams } = useMemo(() => {
-    return {
-      langSegment: location?.pathname?.split('/')[1] ?? defaultLang,
-      urlParams: new URLSearchParams(location?.search ?? null)
-    };
+    return extractUrlData(location);
   }, [location]);
 
   const {
