@@ -4,9 +4,8 @@ import classNames from 'classnames';
 import css from './Card.module.scss';
 
 import BaseImage from '@/components/BaseImage/BaseImage';
-import Cta, { ButtonType } from '../Cta/Cta';
-
-import { Props as LinkProps } from '@/components/BaseLink';
+import { Props as LinkProps } from '@/components/BaseLink/BaseLink';
+import Cta, { ButtonType } from '@/components/Cta/Cta';
 
 export enum CardTypes {
   NEWS = 'news',
