@@ -71,16 +71,7 @@
     > li {
       margin-bottom: px(34);
       @include flex-center-vert;
-
-      &::before {
-        content: '';
-        display: block;
-        @include box(px(4));
-        background-color: $red;
-        border-radius: 50%;
-        margin-right: px(18);
-        opacity: 0;
-      }
+      @include dotLeft;
 
       &.active {
         color: $red;
