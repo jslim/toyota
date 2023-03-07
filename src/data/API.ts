@@ -62,11 +62,12 @@ export class APIContentful {
     return response.items[0]?.fields;
   };
 
-  getEntryBySlug = async (slug: string, contentType: string) => {
+  getEntryBySlug = async (slug: string, contentType: string, params = {}) => {
     const response = await this.contentfulFetch(`/entries`, {
       content_type: contentType,
       limit: 1,
-      'fields.slug[in]': slug
+      'fields.slug[in]': slug,
+      ...params
     });
     return { entry: response.items[0]?.fields, id: response.items[0]?.sys?.id ?? null };
   };

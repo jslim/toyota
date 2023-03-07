@@ -18,6 +18,7 @@ export interface ExamplePageProps extends PageProps {
 
 const Example: FC<ExamplePageProps> = ({ data }) => {
   const pageData = usePreviewData({
+    // this is a mandatory hook to be called on every page
     staticData: data
   }) as ExamplePageData;
 
@@ -43,17 +44,16 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const accessToken = process.env.CONTENTFUL_DELIVERY_API_ACCESS_TOKEN; // IMPORTANT: keep content token within 'getStaticProps' of each page
   const spaceId = process.env.CONTENTFUL_SPACE_ID; // IMPORTANT: keep space ID within 'getStaticProps' of each page
-  const entryId = '1CYWutLdxqoOOu9GH3jZII'; // IMPORTANT: keep entry ID here within 'getStaticProps'
 
   const apiContentful = new APIContentful({ spaceId, accessToken });
-  const data = await apiContentful.getEntryById(entryId, { locale });
+  const data = await apiContentful.getEntryBySlug('example', 'testContentType', { locale });
 
   return {
     props: {
-      head: { title: data?.pageTitle ?? '' },
+      head: { title: data?.entry?.pageTitle ?? '' },
       // IMPORTANT: wrap everything in "data" so that it can be swapped dynamically with Preview data
       data: {
-        pageHeading: data?.pageHeading ?? ''
+        pageHeading: data?.entry?.pageHeading ?? ''
       }
     }
   };
