@@ -2,7 +2,7 @@
 import { Story } from '@storybook/react';
 
 import Card, { CardProps } from './Card';
-import { Cards } from '@/data/cards-types';
+import { CardTypes } from './Card';
 
 export default { title: 'components/Card' };
 
@@ -21,8 +21,11 @@ Product.args = {
     src: url,
     alt: ''
   },
-  cardType: Cards.PRODUCT
-  // cta props
+  cardType: CardTypes.PRODUCT_LARGE,
+  cta: {
+    title: 'Learn more',
+    href: 'https://google.com'
+  }
 };
 News.args = {
   date: 'JAN 12',
@@ -32,7 +35,7 @@ News.args = {
     src: url,
     alt: ''
   },
-  cardType: Cards.NEWS
+  cardType: CardTypes.NEWS
 };
 Office.args = {
   title: 'Global Headquarters - Tokyo',
@@ -41,5 +44,5 @@ Office.args = {
     src: url,
     alt: ''
   },
-  cardType: Cards.OFFICE
+  cardType: CardTypes.OFFICE
 };

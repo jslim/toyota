@@ -3,9 +3,16 @@ import classNames from 'classnames';
 
 import css from './Card.module.scss';
 
-import { Cards } from '@/data/cards-types';
-
 import BaseImage from '@/components/BaseImage/BaseImage';
+import Cta, { ButtonType } from '../Cta/Cta';
+
+import { Props as LinkProps } from '@/components/BaseLink';
+
+export enum CardTypes {
+  NEWS = 'news',
+  PRODUCT_LARGE = 'product',
+  OFFICE = 'office'
+}
 
 export type CardProps = {
   className?: string;
@@ -14,16 +21,16 @@ export type CardProps = {
   title: string;
   text: string;
   date?: string;
-  // cta props
+  cta?: LinkProps;
 };
 
-const Card: FC<CardProps> = ({ className, cardType = Cards.NEWS, image, title, text, date }) => {
+const Card: FC<CardProps> = ({ className, cardType = CardTypes.NEWS, image, title, text, date, cta }) => {
   return (
     <div
       className={classNames('Card', css.root, className, {
-        [css.product]: cardType === Cards.PRODUCT,
-        [css.news]: cardType === Cards.NEWS,
-        [css.office]: cardType === Cards.OFFICE
+        [css.product]: cardType === CardTypes.PRODUCT_LARGE,
+        [css.news]: cardType === CardTypes.NEWS,
+        [css.office]: cardType === CardTypes.OFFICE
       })}
     >
       <BaseImage {...image} className={css.image} />
@@ -34,7 +41,8 @@ const Card: FC<CardProps> = ({ className, cardType = Cards.NEWS, image, title, t
         </div>
 
         <p className={css.text}>{text}</p>
-        {/** optional CTA here */}
+
+        {cardType === CardTypes.PRODUCT_LARGE && <Cta theme={ButtonType.Secondary} {...cta} />}
       </div>
     </div>
   );

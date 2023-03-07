@@ -1,7 +1,7 @@
+// eslint-disable-next-line simple-import-sort/imports
 import { Story } from '@storybook/react';
 
-import Cta, { CtaProps, ButtonType } from './Cta';
-
+import Cta, { ButtonType, CtaProps } from './Cta';
 import ArrowDownSvg from '@/components/svgs/svg-arrow-down.svg';
 
 export default { title: 'components/Cta' };
