@@ -1,0 +1,93 @@
+@import 'shared';
+
+.root {
+  position: relative;
+  width: px(261);
+  background-color: $white;
+  padding: px(19) 0 px(24) px(24);
+  text-align: left;
+  border-top-left-radius: px(8);
+  border-top-right-radius: px(8);
+
+  .title {
+    @include flex-center-vert;
+
+    .caret {
+      @include box(px(7), px(3.5));
+      margin-left: px(7.5);
+      transform: rotate(180deg);
+    }
+  }
+
+  .options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: $white;
+    padding: 0 0 px(24) px(24);
+    border-bottom-left-radius: px(8);
+    border-bottom-right-radius: px(8);
+
+    .option {
+      @include flex-center-vert;
+      margin-bottom: px(12);
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+
+      .circle {
+        @include flex-center;
+        @include box(px(35));
+        margin-right: px(13);
+        background-color: $white;
+        border: 1px solid $grey;
+        border-radius: px(45);
+
+        .checkmark {
+          @include box(px(12), px(8.5));
+          opacity: 0;
+        }
+      }
+
+      .label {
+        color: $dark-grey;
+        opacity: 0.75;
+      }
+
+      &.selected {
+        .circle {
+          background-color: $dark-grey;
+          border-color: $dark-grey;
+
+          .checkmark {
+            opacity: 1;
+          }
+        }
+      }
+    }
+
+    @at-root body:global(.desktop) {
+      .option:hover {
+        cursor: pointer;
+
+        .label {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  &.open {
+    .caret {
+      transform: rotate(0deg);
+    }
+  }
+}
+
+@at-root body:global(.desktop) {
+  .root:hover {
+    cursor: pointer;
+  }
+}
