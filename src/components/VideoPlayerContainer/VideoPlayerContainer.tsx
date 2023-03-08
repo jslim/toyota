@@ -5,10 +5,9 @@ import css from './VideoPlayerContainer.module.scss';
 
 import BaseImage from '@/components/BaseImage/BaseImage';
 import Cta, { ButtonType } from '@/components/Cta/Cta';
+import PlayIcon from '@/components/VideoPlayer/VideoControls/svgs/play.svg';
 import { Props as VideoProps } from '@/components/VideoPlayer/VideoPlayer';
 import VideoPlayer from '@/components/VideoPlayer/VideoPlayer';
-
-import PlayIcon from '@/components/VideoPlayer/VideoControls/svgs/play.svg';
 
 export type VideoPlayerContainerProps = {
   className?: string;

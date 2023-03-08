@@ -2,7 +2,9 @@ import { FC, memo } from 'react';
 import classNames from 'classnames';
 
 import css from './Logo.module.scss';
-import BaseLink from '../BaseLink/BaseLink';
+
+import BaseLink from '@/components/BaseLink/BaseLink';
+
 import LogoSVG from '@/components/svgs/logo.svg';
 
 export type LogoProps = {

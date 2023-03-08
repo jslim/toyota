@@ -8,8 +8,8 @@ import { variants } from '@/data/variants';
 import BaseImage from '@/components/BaseImage/BaseImage';
 import BaseLink from '@/components/BaseLink/BaseLink';
 import { Props as LinkProps } from '@/components/BaseLink/BaseLink';
-import Eyebrow from '@/components/Eyebrow/Eyebrow';
 import Cta, { ButtonType } from '@/components/Cta/Cta';
+import Eyebrow from '@/components/Eyebrow/Eyebrow';
 
 import ArrowSvg from '@/components/svgs/svg-arrow.svg';
 
