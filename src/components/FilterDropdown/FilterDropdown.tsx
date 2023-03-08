@@ -14,12 +14,13 @@ interface Option {
 export type FilterDropdownProps = {
   className?: string;
   title: string;
+  alt?: string;
   options: Option[];
   selectedOption: string;
   onSelectOption?: (option: string) => void;
 };
 
-const FilterDropdown: FC<FilterDropdownProps> = ({ className, title, options }) => {
+const FilterDropdown: FC<FilterDropdownProps> = ({ className, title, alt, options }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -66,6 +67,7 @@ const FilterDropdown: FC<FilterDropdownProps> = ({ className, title, options }) 
       onClick={handleToggleDropdown}
       id="dropdown-toggle"
       role="combobox"
+      aria-label={alt}
     >
       <div className={css.title}>
         {selectedOption ? selectedOption.label : title} <CaretSvg className={css.caret} />
