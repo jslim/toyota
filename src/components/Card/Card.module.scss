@@ -36,10 +36,13 @@
 
         .text {
           @include typography-paragraph;
-          margin-bottom: px(16);
+        }
+
+        .cta {
+          margin-top: px(16);
 
           @include media-desktopSm {
-            margin-bottom: px(36);
+            margin-top: px(36);
           }
         }
       }
@@ -69,7 +72,7 @@
           margin-bottom: px(10);
 
           @include media-desktopSm {
-            margin-bottom: px(14);
+            margin-bottom: px(5);
           }
 
           .date,
@@ -84,6 +87,10 @@
             margin-left: px(16);
             color: rgba($black, 0.5);
           }
+        }
+
+        .text {
+          @include typography-label;
         }
       }
     }
@@ -116,12 +123,8 @@
           margin-bottom: px(15);
 
           .title {
-            @include font-size(20, 26, -0.2);
+            @include typography-h4;
             text-transform: capitalize;
-
-            @include breakpoint(desktopSm) {
-              @include font-size(24, 32);
-            }
           }
         }
 

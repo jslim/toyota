@@ -41,7 +41,7 @@ const Card: FC<CardProps> = ({ className, cardType = CardTypes.NEWS, image, titl
           </div>
 
           <p className={css.text}>{text}</p>
-          {cardType === CardTypes.PRODUCT && <Cta className={css.cta} theme={ButtonType.Secondary} {...cta} />}
+          {cardType === CardTypes.PRODUCT && cta && <Cta className={css.cta} theme={ButtonType.Secondary} {...cta} />}
         </div>
       </div>
     );
