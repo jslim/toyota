@@ -4,7 +4,7 @@ import { Story } from '@storybook/react';
 import Card, { CardProps } from './Card';
 import { CardTypes } from './Card';
 
-export default { title: 'components/Card' };
+export default { eyebrow: 'components/Card' };
 
 export const Product: Story<CardProps> = (args) => <Card {...args} />;
 
@@ -15,7 +15,7 @@ export const Office: Story<CardProps> = (args) => <Card {...args} />;
 const url = 'https://i1.wp.com/thetalkinggeek.com/wp-content/uploads/2015/09/sintel1.png?fit=1920%2C817&ssl=1';
 
 Product.args = {
-  title: 'Arene',
+  eyebrow: 'Arene',
   text: 'Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Vestibulum id ligula porta felis euismod semper.',
   image: {
     src: url,
@@ -29,7 +29,7 @@ Product.args = {
 };
 News.args = {
   date: 'JAN 12',
-  title: 'automated driving',
+  eyebrow: 'automated driving',
   text: 'Woven Planet’s CEO James Kuffner presented at Toyota Motor.',
   image: {
     src: url,
@@ -42,7 +42,7 @@ News.args = {
   }
 };
 Office.args = {
-  title: 'Global Headquarters - Tokyo',
+  eyebrow: 'Global Headquarters - Tokyo',
   text: 'Nihonbashi Muromachi Mitsui Tower,3-2-1 Nihonbashimuromachi, Chuo-ku,Tokyo, JAPAN 103-0022',
   image: {
     src: url,

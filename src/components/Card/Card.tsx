@@ -17,13 +17,13 @@ export type CardProps = {
   className?: string;
   cardType: string;
   image: { src: string; alt: string };
-  title: string;
+  eyebrow: string;
   text: string;
   date?: string;
   cta?: LinkProps;
 };
 
-const Card: FC<CardProps> = ({ className, cardType = CardTypes.NEWS, image, title, text, date, cta }) => {
+const Card: FC<CardProps> = ({ className, cardType = CardTypes.NEWS, image, eyebrow, text, date, cta }) => {
   const InnerContent = () => {
     return (
       <div
@@ -35,9 +35,9 @@ const Card: FC<CardProps> = ({ className, cardType = CardTypes.NEWS, image, titl
       >
         <BaseImage {...image} className={css.image} />
         <div className={css.textWrapper}>
-          <div className={css.titleWrapper}>
+          <div className={css.eyebrowWrapper}>
             {date && <span className={css.date}>{date}</span>}
-            <span className={css.title}>{title}</span>
+            <span className={css.eyebrow}>{eyebrow}</span>
           </div>
 
           <p className={css.text}>{text}</p>

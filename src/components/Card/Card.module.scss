@@ -6,6 +6,30 @@
     overflow: hidden;
     perspective: 1px;
 
+    .image {
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .textWrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      .eyebrow {
+        @include typography-eyebrow;
+        text-transform: uppercase;
+      }
+
+      .text {
+        text-align: left;
+      }
+
+      .cta {
+        display: flex;
+      }
+    }
+
     &.product {
       width: px(298);
       border-radius: px(8);
@@ -25,11 +49,11 @@
       .textWrapper {
         padding: px(20) px(60) px(27) px(24);
 
-        .titleWrapper {
+        .eyebrowWrapper {
           margin-bottom: px(10);
         }
 
-        .title {
+        .eyebrow {
           @include typography-eyebrow;
           color: rgba($black, 0.5);
         }
@@ -68,22 +92,21 @@
           padding-bottom: px(33);
         }
 
-        .titleWrapper {
+        .eyebrowWrapper {
           margin-bottom: px(10);
 
           @include media-desktopSm {
             margin-bottom: px(5);
           }
 
-          .date,
-          .title {
+          .date {
             @include typography-eyebrow;
           }
           .date {
             color: $red;
           }
 
-          .title {
+          .eyebrow {
             margin-left: px(16);
             color: rgba($black, 0.5);
           }
@@ -119,10 +142,10 @@
           padding-top: px(21);
         }
 
-        .titleWrapper {
+        .eyebrowWrapper {
           margin-bottom: px(15);
 
-          .title {
+          .eyebrow {
             @include typography-h4;
             text-transform: capitalize;
           }
@@ -132,29 +155,6 @@
           color: $mid-grey;
         }
       }
-    }
-  }
-
-  .image {
-    width: 100%;
-    object-fit: cover;
-  }
-
-  .textWrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-
-    .title {
-      text-transform: uppercase;
-    }
-
-    .text {
-      text-align: left;
-    }
-
-    .cta {
-      display: flex;
     }
   }
 }
