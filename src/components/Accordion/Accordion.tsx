@@ -9,7 +9,7 @@ import { variants } from '@/data/variants';
 import BaseButton from '@/components/BaseButton/BaseButton';
 import IconCircle from '@/components/IconCircle/IconCircle';
 
-import ArrowSvg from '@/components/svgs/svg-arrow.svg';
+import ArrowSvg from '@/components/svgs/svg-arrow-down.svg';
 
 interface AccordionProps {
   className?: string;

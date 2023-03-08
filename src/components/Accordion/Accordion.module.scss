@@ -75,7 +75,6 @@
       }
 
       .icon {
-        transform: rotate(-90deg);
         transition: transform 0.5s linear;
       }
     }
@@ -86,7 +85,7 @@
       }
 
       .icon {
-        transform: rotate(90deg);
+        transform: rotate(180deg);
       }
     }
   }
