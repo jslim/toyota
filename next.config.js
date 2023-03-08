@@ -4,16 +4,19 @@ const withVideos = require('next-videos');
 const nextJSConfig = {
   trailingSlash: true,
   compress: false, // NOTE: enable this when doing SSR
-  env: {
-    CONTENTFUL_SPACE_ID: process.env.CONTENTFUL_SPACE_ID,
-    CONTENTFUL_ENVIRONMENT: process.env.CONTENTFUL_ENVIRONMENT,
-    CONTENTFUL_DELIVERY_API_ACCESS_TOKEN: process.env.CONTENTFUL_DELIVERY_API_ACCESS_TOKEN,
-    CONTENTFUL_PREVIEW_API_ACCESS_TOKEN: process.env.CONTENTFUL_PREVIEW_API_ACCESS_TOKEN
-  },
   productionBrowserSourceMaps: process.env.NODE_ENV === 'development',
   devIndicators: { buildActivity: false },
   sassOptions: { includePaths: [path.join(__dirname, 'src/styles')] },
   distDir: process.env.NEXT_PUBLIC_DIST_DIR || '.next',
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/en',
+        permanent: true
+      }
+    ];
+  },
   webpack: function (config, options) {
     config.module.rules.push({ test: /\.svg$/, use: [{ loader: '@svgr/webpack' }] });
     config.module.rules.push({

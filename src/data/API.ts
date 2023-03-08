@@ -18,16 +18,20 @@ export class APIContentful {
   /**
    * Creates API helper.
    *
-   * @param {boolean} isPreview - If requests should go to preview endpoint as opposed to the default delivery endpoint.
    */
-  constructor(isPreview: boolean = false) {
-    this.urlPrefix = `https://${isPreview ? 'preview.contentful' : 'cdn.contentful'}.com/spaces/${
-      process.env.CONTENTFUL_SPACE_ID
-    }/environments/${process.env.CONTENTFUL_ENVIRONMENT}`;
+  constructor({ isPreview = false, spaceId = '', envId = process.env.CONTENTFUL_ENVIRONMENT, accessToken = '' } = {}) {
+    if (!spaceId) {
+      throw Error(`No "spaceId" provided`);
+    }
 
-    this.accessToken = isPreview
-      ? (process.env.CONTENTFUL_PREVIEW_API_ACCESS_TOKEN as string)
-      : (process.env.CONTENTFUL_DELIVERY_API_ACCESS_TOKEN as string);
+    if (!accessToken) {
+      throw Error(`No "accessToken" provided`);
+    }
+
+    this.accessToken = accessToken;
+
+    const endpoint = isPreview ? 'preview.contentful' : 'cdn.contentful';
+    this.urlPrefix = `https://${endpoint}.com/spaces/${spaceId}/environments/${envId}`;
   }
 
   /**
@@ -58,11 +62,12 @@ export class APIContentful {
     return response.items[0]?.fields;
   };
 
-  getEntryBySlug = async (slug: string, contentType: string) => {
+  getEntryBySlug = async (slug: string, contentType: string, params = {}) => {
     const response = await this.contentfulFetch(`/entries`, {
       content_type: contentType,
       limit: 1,
-      'fields.slug[in]': slug
+      'fields.slug[in]': slug,
+      ...params
     });
     return { entry: response.items[0]?.fields, id: response.items[0]?.sys?.id ?? null };
   };

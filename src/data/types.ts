@@ -50,3 +50,25 @@ export type ContentfulOptions = {
   removeUnresolved: boolean;
   itemEntryPoints?: Array<string>;
 };
+
+export enum Locale {
+  EN = 'en-US',
+  JP = 'ja-JP'
+}
+
+export enum Lang {
+  EN = 'en',
+  JP = 'jp'
+}
+
+export type LangLocaleMap = {
+  [key in Lang]: Locale;
+};
+
+interface ParsedUrlQuery {
+  [key: string]: string | string[];
+}
+
+export interface LocalizedPageParams extends ParsedUrlQuery {
+  lang: Lang;
+}
