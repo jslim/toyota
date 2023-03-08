@@ -54,7 +54,6 @@
         }
 
         .eyebrow {
-          @include typography-eyebrow;
           color: rgba($black, 0.5);
         }
 
@@ -101,8 +100,6 @@
 
           .date {
             @include typography-eyebrow;
-          }
-          .date {
             color: $red;
           }
 
