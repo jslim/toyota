@@ -1,0 +1,54 @@
+@import 'shared';
+
+.root {
+  background-color: $dark-grey;
+  width: 100%;
+
+  .carouselContainer {
+    margin-top: px(67);
+
+    :global(.swiper-wrapper) {
+      width: 100%;
+      display: flex;
+      height: auto;
+    }
+
+    .slide {
+      flex-shrink: initial;
+      height: auto;
+      width: auto;
+      margin-right: px($grid-relative-gap-desktop);
+    }
+  }
+
+  .pagination {
+    margin-top: px(48);
+    @include flex-center;
+
+    @include breakpoint(desktopSm) {
+      margin-top: px(83);
+    }
+
+    > span {
+      position: relative;
+      @include box(px(25));
+      @include flex-center;
+      border: 1px solid rgba($white, 0);
+      border-radius: 50%;
+      margin: 0 px(13);
+      cursor: pointer;
+
+      &:global(.swiper-pagination-bullet-active) {
+        border-color: $white;
+      }
+
+      &::before {
+        content: '';
+        @include box(px(3));
+        border-radius: 50%;
+        background-color: $white;
+        display: block;
+      }
+    }
+  }
+}
