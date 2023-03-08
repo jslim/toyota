@@ -22,8 +22,8 @@ $grid-column-width-mobile: (
 //tablet
 $grid-num-of-cols-tablet: 8;
 $grid-base-design-tablet: map-get($layout, tablet);
-$grid-relative-side-padding-tablet: 20;
-$grid-relative-gap-tablet: 20;
+$grid-relative-side-padding-tablet: 60;
+$grid-relative-gap-tablet: 24;
 $grid-gap-tablet: $grid-relative-gap-tablet / $grid-base-design-tablet;
 /* stylelint-disable */
 $grid-column-width-tablet: (

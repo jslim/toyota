@@ -15,7 +15,7 @@ export enum CardTypes {
 
 export type CardProps = {
   className?: string;
-  cardType: string;
+  cardType?: string;
   image: { src: string; alt: string };
   eyebrow: string;
   text: string;

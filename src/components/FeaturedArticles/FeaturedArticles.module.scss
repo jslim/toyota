@@ -1,0 +1,54 @@
+@import 'shared';
+
+.root {
+  width: 100%;
+  background-color: $white;
+}
+
+.eyebrow {
+  @include pagePadding(padding-left);
+}
+
+.container {
+  @include container;
+  display: flex;
+  flex-direction: column;
+
+  @include media-desktopSm {
+    flex-direction: row;
+  }
+
+  .wrapper {
+    margin-top: px(36);
+    margin-bottom: px(50);
+
+    @include media-desktopSm {
+      @include use-desktop-columns(width, 4);
+      margin-top: px(22);
+      margin-bottom: 0;
+    }
+
+    .title {
+      @include typography-h2;
+      margin-bottom: px(32);
+      text-align: left;
+
+      @include media-desktopSm {
+        max-width: px(320);
+      }
+    }
+  }
+
+  .cardList {
+    @include flex-center-horiz;
+    flex-direction: column;
+    width: 100%;
+
+    @include media-desktopSm {
+      @include use-desktop-columns(width, 8);
+      @include use-desktop-gutter(gap, 1);
+      flex-direction: row;
+      flex-flow: wrap;
+    }
+  }
+}

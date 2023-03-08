@@ -8,7 +8,7 @@ import { variants } from '@/data/variants';
 export type EyebrowProps = {
   className?: string;
   text: string;
-  variant: string;
+  variant?: string;
 };
 
 const Eyebrow: FC<EyebrowProps> = ({ className, text, variant = variants.LIGHT }) => {
