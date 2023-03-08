@@ -26,7 +26,13 @@ export type CardProps = {
 const Card: FC<CardProps> = ({ className, cardType = CardTypes.NEWS, image, title, text, date, cta }) => {
   const InnerContent = () => {
     return (
-      <>
+      <div
+        className={classNames(css.Card, {
+          [css.product]: cardType === CardTypes.PRODUCT,
+          [css.office]: cardType === CardTypes.OFFICE,
+          [css.news]: cardType === CardTypes.NEWS
+        })}
+      >
         <BaseImage {...image} className={css.image} />
         <div className={css.textWrapper}>
           <div className={css.titleWrapper}>
@@ -37,25 +43,20 @@ const Card: FC<CardProps> = ({ className, cardType = CardTypes.NEWS, image, titl
           <p className={css.text}>{text}</p>
           {cardType === CardTypes.PRODUCT && <Cta className={css.cta} theme={ButtonType.Secondary} {...cta} />}
         </div>
-      </>
+      </div>
     );
   };
 
-  if (cardType === CardTypes.NEWS) {
+  if (cta) {
     return (
-      <BaseLink className={classNames('Card', css.root, className, css.news)} {...cta}>
+      <BaseLink className={classNames(css.root, className)} {...cta}>
         <InnerContent />
       </BaseLink>
     );
   }
 
   return (
-    <div
-      className={classNames('Card', css.root, className, {
-        [css.product]: cardType === CardTypes.PRODUCT,
-        [css.office]: cardType === CardTypes.OFFICE
-      })}
-    >
+    <div className={classNames(css.root, className)}>
       <InnerContent />
     </div>
   );
