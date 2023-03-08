@@ -47,8 +47,7 @@
     @include media-desktopSm {
       @include use-desktop-columns(width, 8);
       @include use-desktop-gutter(gap, 1);
-      flex-direction: row;
-      flex-flow: wrap;
+      flex-flow: row wrap;
     }
   }
 }
