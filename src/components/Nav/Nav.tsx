@@ -6,6 +6,7 @@ import css from './Nav.module.scss';
 import routes from '@/data/routes';
 
 import BaseLink from '@/components/BaseLink/BaseLink';
+import LanguageToggle from '@/components/LanguageToggle/LanguageToggle';
 import Logo from '@/components/Logo/Logo';
 import MobileNav from '@/components/MobileNav/MobileNav';
 
@@ -48,7 +49,7 @@ const Nav: FC<NavProps> = ({ className }) => {
                 )}
               </ul>
             </div>
-            <div className={css.langToggle}>Toggle</div>
+            <LanguageToggle className={css.langToggle} />
           </>
         ) : (
           <MobileNav links={Object.values(routes)} />

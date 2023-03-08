@@ -41,8 +41,11 @@
       z-index: 1;
       width: 100%;
 
-      @include breakpoint(desktopSm) {
+      @include breakpoint(tablet) {
         width: auto;
+      }
+
+      @include breakpoint(desktopSm) {
         @include pagePadding(padding-left);
         padding-right: px(63);
         border-radius: 0 0 px(4) 0;
@@ -58,8 +61,12 @@
       display: flex;
       text-align: left;
       padding: 0;
-      margin-left: px(100);
+      margin-left: px(60);
       position: relative;
+
+      @include breakpoint(desktopSm) {
+        margin-left: px(100);
+      }
 
       @include breakpoint(desktopMd) {
         margin-left: px(122);
@@ -101,7 +108,11 @@
 
     .langToggle {
       margin-left: auto;
-      @include pagePadding(margin-right);
+      margin-right: px(24);
+
+      @include breakpoint(desktopSm) {
+        @include pagePadding(margin-right);
+      }
     }
   }
 }
