@@ -14,10 +14,10 @@
     }
 
     .image {
-      aspect-ratio: 288 / 264;
+      @include aspect-ratio(288, 264);
 
       @include media-desktopSm {
-        aspect-ratio: 16 / 9;
+        @include aspect-ratio(16, 9);
       }
     }
 
@@ -45,19 +45,15 @@
   }
 
   &.news {
-    width: px(312);
+    @include use-mobile-columns(width, 4);
 
     @include media-desktopSm {
-      max-width: px(360);
+      @include use-desktop-columns(width, 4);
     }
 
     .image {
-      aspect-ratio: 312 / 360;
+      @include aspect-ratio(360, 206);
       border-radius: px(8);
-
-      @include media-desktopSm {
-        aspect-ratio: 360 / 408;
-      }
     }
 
     .textWrapper {
@@ -65,7 +61,7 @@
       padding-bottom: px(21);
 
       @include media-desktopSm {
-        padding-bottom: px(60);
+        padding-bottom: px(33);
       }
 
       .titleWrapper {
@@ -99,11 +95,11 @@
     }
 
     .image {
-      aspect-ratio: 312 / 216;
+      @include aspect-ratio(312, 216);
       border-radius: px(8);
 
       @include media-desktopSm {
-        aspect-ratio: 552 / 396;
+        @include aspect-ratio(552, 396);
       }
     }
 
@@ -151,5 +147,9 @@
 
   .text {
     text-align: left;
+  }
+
+  .cta {
+    display: flex;
   }
 }

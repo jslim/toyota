@@ -169,21 +169,24 @@
   @return calc(var(--vh) * #{$vh});
 }
 
-/// Fallbacks in case device doesn’t support aspect ratio
+/// Adds aspect-ratio and fallbacks in case device doesn't support aspect ratio
 /// @example scss Input
 ///   image {
-///     @include aspect-ratio-fallback;
+///     @include aspect-ratio(16, 9);
 ///   }
-@mixin aspect-ratio-fallback {
-  @supports not (aspect-ratio: 16 / 9) {
+@mixin aspect-ratio($width, $height, $prop: padding-top) {
+  aspect-ratio: $width / $height;
+
+  @supports not (aspect-ratio: $width / $height) {
     &::before {
+      content: '';
       float: left;
-      padding-top: 56.25%;
-      content: ‘’;
+      #{$prop}: ($height/$width * 100) * 1%;
     }
+
     &::after {
+      content: '';
       display: block;
-      content: ‘’;
       clear: both;
     }
   }

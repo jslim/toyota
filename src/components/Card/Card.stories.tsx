@@ -21,7 +21,7 @@ Product.args = {
     src: url,
     alt: ''
   },
-  cardType: CardTypes.PRODUCT_LARGE,
+  cardType: CardTypes.PRODUCT,
   cta: {
     title: 'Learn more',
     href: 'https://google.com'
@@ -35,7 +35,11 @@ News.args = {
     src: url,
     alt: ''
   },
-  cardType: CardTypes.NEWS
+  cardType: CardTypes.NEWS,
+  cta: {
+    title: 'Learn more',
+    href: 'https://google.com'
+  }
 };
 Office.args = {
   title: 'Global Headquarters - Tokyo',
