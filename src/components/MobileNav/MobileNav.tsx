@@ -8,6 +8,7 @@ import routes, { Route } from '@/data/routes';
 import BaseButton from '@/components/BaseButton/BaseButton';
 import BaseLink from '@/components/BaseLink/BaseLink';
 import Logo from '@/components/Logo/Logo';
+import LanguageToggle from '@/components/LanguageToggle/LanguageToggle';
 
 export type MobileNavProps = {
   className?: string;
@@ -63,6 +64,7 @@ const MobileNav: FC<MobileNavProps> = ({ className, links }) => {
                 )
             )}
           </ul>
+          <LanguageToggle className={css.langToggle} />
         </div>
       )}
     </div>

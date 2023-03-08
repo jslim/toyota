@@ -1,0 +1,90 @@
+@import 'shared';
+
+$lang-button-width-mobile: px(45);
+$lang-button-width: px(48);
+$lang-button-offset: px(7);
+
+.root {
+  .langWrapper {
+    display: flex;
+    border-radius: px(24);
+    position: relative;
+
+    @include breakpoint(tablet) {
+      flex-direction: column;
+
+      .bg {
+        width: 100%;
+        height: calc(100% - #{$lang-button-offset});
+        top: 50%;
+        position: absolute;
+        background-color: $light-grey;
+        z-index: 0;
+        transform: scaleY(0);
+        transform-origin: top;
+      }
+
+      &.open {
+        .lang:last-child {
+          transform: translateY(calc(#{$lang-button-width} - #{$lang-button-offset}));
+        }
+        .bg {
+          transform: scaleY(1);
+        }
+      }
+
+      .lang,
+      .bg {
+        transition: transform 1s;
+        @include ease(custom);
+      }
+    }
+
+    .lang {
+      @include box($lang-button-width-mobile);
+
+      @include breakpoint(tablet) {
+        @include box($lang-button-width);
+      }
+
+      &:last-child {
+        transform: translateY(0);
+        margin-left: px(15);
+
+        @include breakpoint(tablet) {
+          position: absolute;
+          margin-left: px(0);
+        }
+      }
+
+      .langButton {
+        @include typography-eyebrow;
+        @include box(100%);
+        border-radius: 50%;
+        background-color: $white;
+        color: $dark-grey;
+        position: relative;
+        z-index: 1;
+        border: 1px solid $light-grey;
+        text-transform: uppercase;
+
+        @include breakpoint(tablet) {
+          background-color: $light-grey;
+          border: none;
+        }
+      }
+
+      &.active {
+        z-index: 2;
+
+        .langButton {
+          background-color: $light-grey;
+
+          @include breakpoint(tablet) {
+            background-color: $white;
+          }
+        }
+      }
+    }
+  }
+}
