@@ -43,6 +43,7 @@
     @include flex-center-horiz;
     flex-direction: column;
     width: 100%;
+    gap: px(15);
 
     @include media-desktopSm {
       @include use-desktop-columns(width, 8);
