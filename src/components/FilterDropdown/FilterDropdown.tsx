@@ -34,8 +34,9 @@ const FilterDropdown: FC<FilterDropdownProps> = ({ className, title, alt, option
     setIsOpen(!isOpen);
   };
 
-  const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement | HTMLLIElement>) => {
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement | HTMLLIElement>, option?: Option) => {
     if (event.key === 'Enter' || event.key === ' ') {
+      option && handleSelectOption(option);
       setIsOpen(!isOpen);
     } else if (event.key === 'Escape') {
       setIsOpen(false);
@@ -87,7 +88,7 @@ const FilterDropdown: FC<FilterDropdownProps> = ({ className, title, alt, option
               role="option"
               aria-selected={selectedOption?.value === option.value}
               onClick={() => handleSelectOption(option)}
-              onKeyDown={(event) => handleKeyPress(event)}
+              onKeyDown={(event) => handleKeyPress(event, option)}
               tabIndex={0}
             >
               <span className={css.circle}>
