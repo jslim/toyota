@@ -12,13 +12,13 @@ import Logo from '@/components/Logo/Logo';
 import sanitizer from '@/utils/sanitizer';
 
 import SvgFacebookLogo from '@/components/svgs/Facebook.svg';
-import SvgInstagramLogo from '@/components/svgs/Instagram.svg';
 import SvgLinkedinLogo from '@/components/svgs/LinkedIn.svg';
 import SvgLogoTitle from '@/components/svgs/logo-title.svg';
 import SvgLogoCapital from '@/components/svgs/logo-woven-capital.svg';
 import SvgLogoCity from '@/components/svgs/logo-woven-city.svg';
 import SvgMediumLogo from '@/components/svgs/Medium.svg';
 import SvgTwitterLogo from '@/components/svgs/Twitter.svg';
+import SvgYoutubeLogo from '@/components/svgs/Youtube.svg';
 
 export interface FooterProps {
   className?: string;
@@ -29,9 +29,9 @@ const locations = ['Tokyo', 'San Francisco Bay Area, CA', 'Seattle, WA', 'Ann Ar
 const contact = 'contact@woven-planet.global';
 const socialMedia = [
   { linkedin: 'https://linkedin.com/' },
-  { twitter: 'https://twitter.com/' },
-  { instagram: 'https://instagram.com/' },
   { facebook: 'https://facebook.com/' },
+  { twitter: 'https://twitter.com/' },
+  { youtube: 'https://youtube.com/' },
   { medium: 'https://medium.com/' }
 ];
 
@@ -47,14 +47,9 @@ const Footer: FC<FooterProps> = ({ className }) => {
   return (
     <footer className={classNames('Footer', css.root, className)}>
       <div className={css.footerWrapper}>
-        <Logo className={css.logo} href={routes.Home.path} isWhite={true} />
         <div className={css.topWrapper}>
-          <div className={css.locations}>
-            {locations.map((location) => (
-              <div className={css.location} key={location}>
-                {location}
-              </div>
-            ))}
+          <div className={css.logo}>
+            <Logo href={routes.Home.path} isWhite={true} />
           </div>
           <ul className={css.routes}>
             {Object.values(routes).map(
@@ -79,19 +74,15 @@ const Footer: FC<FooterProps> = ({ className }) => {
               </BaseLink>
             </li>
           </ul>
+          <div className={css.locations}>
+            {locations.map((location) => (
+              <div className={css.location} key={location}>
+                {location}
+              </div>
+            ))}
+          </div>
         </div>
         <div className={css.bottomWrapper}>
-          <div className={css.logosWrapper}>
-            <BaseLink href="#" className={css.logoTitle} title={'Toyota footer link'}>
-              <SvgLogoTitle />
-            </BaseLink>
-            <BaseLink href="#" className={css.logoCity} title={'Woven City footer link'}>
-              <SvgLogoCity />
-            </BaseLink>
-            <BaseLink href="#" className={css.logoCapital} title={'Woven Capital footer link'}>
-              <SvgLogoCapital />
-            </BaseLink>
-          </div>
           <div className={css.linksWrapper}>
             <div className={css.socialMedia}>
               {socialMedia.map((link) => (
@@ -105,8 +96,8 @@ const Footer: FC<FooterProps> = ({ className }) => {
                 >
                   {Object.keys(link)[0] === 'linkedin' ? (
                     <SvgLinkedinLogo />
-                  ) : Object.keys(link)[0] === 'instagram' ? (
-                    <SvgInstagramLogo />
+                  ) : Object.keys(link)[0] === 'youtube' ? (
+                    <SvgYoutubeLogo />
                   ) : Object.keys(link)[0] === 'facebook' ? (
                     <SvgFacebookLogo />
                   ) : Object.keys(link)[0] === 'twitter' ? (
@@ -131,6 +122,17 @@ const Footer: FC<FooterProps> = ({ className }) => {
                 {new Date().getFullYear()}
               </li>
             </ul>
+          </div>
+          <div className={css.logosWrapper}>
+            <BaseLink href="#" className={css.logoTitle} title={'Toyota footer link'}>
+              <SvgLogoTitle />
+            </BaseLink>
+            <BaseLink href="#" className={css.logoCity} title={'Woven City footer link'}>
+              <SvgLogoCity />
+            </BaseLink>
+            <BaseLink href="#" className={css.logoCapital} title={'Woven Capital footer link'}>
+              <SvgLogoCapital />
+            </BaseLink>
           </div>
         </div>
       </div>

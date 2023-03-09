@@ -7,7 +7,7 @@
   padding: px(47) 0 px(66);
 
   @include media-tablet {
-    padding: px(68) 0 px(58);
+    padding: px(70) 0 px(53);
   }
 
   @include media-desktopSm {
@@ -22,32 +22,44 @@
     display: flex;
     align-items: flex-start;
     flex-wrap: wrap;
-    margin-bottom: px(57);
-    margin-top: px(25);
+    margin-bottom: px(50);
 
-    @include media-tablet {
-      margin-bottom: px(96);
+    @include media-desktopSm {
+      margin-bottom: px(170);
+    }
+
+    .logo {
+      margin-bottom: px(25);
+
+      @include media-tablet {
+        @include use-tablet-columns(width, 5);
+      }
+
+      @include media-desktopSm {
+        @include use-desktop-columns(width, 8);
+      }
     }
 
     .locations {
       @include use-mobile-columns(width, 4);
-      order: 2;
       display: flex;
       align-items: flex-start;
       flex-flow: column;
       @include typography-eyebrow;
       text-transform: uppercase;
       color: rgba($white, 0.5);
-      margin-top: px(65);
+      margin-top: px(40);
+      margin-left: px(24);
 
       @include media-tablet {
         @include use-tablet-columns(width, 3, 1);
-        @include use-tablet-columns(margin-left, 1);
-        margin-top: 0;
+        @include use-tablet-columns(margin-left, 5, 1);
       }
 
       @include media-desktopSm {
+        position: absolute;
         @include use-desktop-columns(width, 7, 1);
+        margin-top: px(70);
         margin-left: 0;
         order: 1;
         flex-flow: row;
@@ -73,29 +85,29 @@
 
   .routes {
     @include use-mobile-columns(width, 4);
-    order: 1;
+    margin-left: px(24);
 
     @include media-tablet {
-      @include use-tablet-columns(width, 4, 1);
+      @include use-tablet-columns(width, 3);
+      @include use-tablet-columns(margin-left, 0, 1);
     }
 
     @include media-desktopSm {
-      @include use-desktop-columns(width, 4, 1);
-      @include use-desktop-columns(margin-left, 1);
-      order: 2;
+      @include use-desktop-columns(width, 4);
+      @include use-desktop-columns(margin-left, 0, 1);
     }
 
     > li {
-      margin-top: px(12);
       @include flex-center-vert;
       @include typography-paragraph;
       @include dotLeft(20);
+      margin-left: px(-24);
+      margin-top: px(4);
       color: $grey;
       transition: color ease-out 0.3s;
 
       @include media-desktopSm {
-        margin-left: px(-$grid-relative-gap-desktop);
-        @include dotLeft($grid-relative-gap-desktop);
+        margin-top: px(12);
       }
 
       &:hover,
@@ -117,9 +129,12 @@
     .linksWrapper {
       @include use-mobile-columns(width, 4);
 
+      @include media-tablet {
+        @include use-tablet-columns(width, 5, 1);
+      }
+
       @include media-desktopSm {
-        @include use-desktop-columns(width, 7, 1);
-        order: 1;
+        @include use-desktop-columns(width, 8, 1);
       }
 
       .socialMedia {
@@ -136,9 +151,9 @@
 
       .externalLinks {
         @include flex-center-vert;
-        margin-top: px(16);
         @include font-family('Toyota Type');
         @include font-size(12, 15);
+        margin-top: px(10);
         color: $grey;
         flex-wrap: wrap;
 
@@ -149,7 +164,7 @@
 
         > li {
           margin-right: px(16);
-          margin-top: px(12);
+          margin-top: px(10);
 
           > a {
             border-bottom: 1px solid $grey;
@@ -162,13 +177,15 @@
       @include use-mobile-columns(width, 4);
       display: flex;
       flex-direction: column;
-      margin-bottom: px(39);
+      margin-top: px(50);
+
+      @include media-tablet {
+        @include use-tablet-columns(width, 3);
+        margin-top: 0;
+      }
 
       @include media-desktopSm {
-        @include use-desktop-columns(width, 4, 1);
-        @include use-desktop-columns(margin-left, 1);
-        order: 2;
-        margin-bottom: 0;
+        @include use-desktop-columns(width, 4);
       }
 
       a {
@@ -186,11 +203,11 @@
       }
 
       .logoCity {
-        width: px(152);
+        width: px(161);
         margin-bottom: px(12);
 
         @include media-desktopSm {
-          width: px(203);
+          width: px(217);
           margin-bottom: px(16);
         }
       }
