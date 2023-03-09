@@ -9,7 +9,10 @@
     @include outer-container;
     height: 100%;
     display: flex;
-    background-color: rgba($mid-grey, 0.1);
+
+    @include breakpoint(desktopSm) {
+      background-color: rgba($mid-grey, 0.1);
+    }
 
     .innerContainer {
       @include container;
