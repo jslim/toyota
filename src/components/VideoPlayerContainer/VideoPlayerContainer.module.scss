@@ -2,8 +2,7 @@
 
 .root {
   @include use-mobile-columns(width, 4, 1);
-  @include aspect-ratio-fallback;
-  aspect-ratio: 16 / 9;
+  @include aspect-ratio(16, 9);
 
   @include media-desktopMd {
     width: 100%;
