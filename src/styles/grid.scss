@@ -37,6 +37,7 @@ $grid-num-of-cols-desktop: 12;
 $grid-base-design-desktop: map-get($layout, desktopLock);
 $grid-relative-gap-desktop: 24;
 $grid-relative-side-padding-desktop: 156;
+$grid-relative-side-padding-desktop-external: 60;
 $grid-gap-desktop: $grid-relative-gap-desktop / $grid-base-design-desktop;
 /* stylelint-disable */
 $grid-column-width-desktop: (
@@ -130,6 +131,13 @@ $grid-column-width-desktop: (
 
   @include breakpoint(desktopSm) {
     @include use-desktop-columns(width, $grid-num-of-cols-desktop);
+  }
+}
+
+@mixin outer-container {
+  @include breakpoint(desktopSm) {
+    width: calc(desktop-columns($grid-num-of-cols-desktop, 0) + px($grid-relative-side-padding-desktop-external * 2));
+    margin: auto;
   }
 }
 

@@ -6,7 +6,7 @@
 }
 
 .eyebrow {
-  @include pagePadding(padding-left);
+  @include outer-container;
 }
 
 .container {
@@ -23,7 +23,7 @@
     margin-bottom: px(50);
 
     @include media-desktopSm {
-      @include use-desktop-columns(width, 4);
+      @include use-desktop-columns(width, 4, 1);
       margin-top: px(22);
       margin-bottom: 0;
     }
@@ -36,6 +36,10 @@
       @include media-desktopSm {
         max-width: px(320);
       }
+    }
+
+    .cta {
+      display: flex;
     }
   }
 

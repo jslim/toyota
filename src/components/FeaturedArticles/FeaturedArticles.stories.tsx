@@ -15,17 +15,20 @@ Default.args = {
   cards: [
     {
       date: 'JAN 12',
-      title: 'automated driving',
+      eyebrow: 'automated driving',
       text: 'Woven Planet’s CEO James Kuffner presented at Toyota Motor.1',
       image: {
         src: url,
         alt: ''
+      },
+      cta: {
+        href: 'https://google.com'
       }
     },
     {
       date: 'JAN 12',
-      title: 'automated driving2',
-      text: 'Woven Planet’s CEO James Kuffner presented at Toyota Motor.2',
+      eyebrow: 'automated driving2',
+      text: 'Woven Planet’s CEO James Kuffner presented at Toyota Motor.2, Woven Planet’s CEO James Kuffner presented at Toyota Motor.1',
       image: {
         src: url,
         alt: ''
@@ -33,7 +36,7 @@ Default.args = {
     },
     {
       date: 'JAN 12',
-      title: 'automated driving3',
+      eyebrow: 'automated driving3',
       text: 'Woven Planet’s CEO James Kuffner presented at Toyota Motor.3',
       image: {
         src: url,
@@ -42,7 +45,7 @@ Default.args = {
     },
     {
       date: 'JAN 12',
-      title: 'automated driving',
+      eyebrow: 'automated driving',
       text: 'Woven Planet’s CEO James Kuffner presented at Toyota Motor.4',
       image: {
         src: url,
