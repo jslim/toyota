@@ -6,12 +6,12 @@
   display: flex;
   @include typography-h3;
   color: $mid-grey;
+  background-color: $white;
 
   .mobileNavBar {
     height: $navbar-height;
     @include flex-center-vert;
-    padding: 0 px(24);
-    background-color: $white;
+    @include container;
 
     .hamburgerWrapper {
       @include reset-button;
@@ -54,18 +54,23 @@
       }
     }
   }
-
-  .mobileMenuWrapper {
-    padding: px(62) px(24) px(72);
-    background-color: $white;
-    top: $navbar-height;
-    position: absolute;
-    width: 100%;
+  .mobileMenuCon {
     height: calc(vh(100) - #{$navbar-height});
     // TODO: remove next line for actual mobile devices to calculate window height with above line
     height: calc(100vh - #{$navbar-height});
+    width: 100%;
+    background-color: $white;
+    top: $navbar-height;
+    position: absolute;
+  }
+
+  .mobileMenuWrapper {
+    padding: px(62) 0 px(72);
+    height: 100%;
+    @include container;
     display: flex;
     flex-direction: column;
+    overflow: auto;
   }
 
   .routes {
@@ -97,6 +102,5 @@
 
   .langToggle {
     margin-top: auto;
-    margin-left: px(24);
   }
 }

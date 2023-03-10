@@ -26,33 +26,29 @@
   }
 
   > .wrapper {
-    @include flex-center-vert;
     width: 100%;
+    @include flex-center-vert;
 
     .logo {
       z-index: 2;
     }
 
     .menuWrapper {
+      @include flex-center-vert;
       padding: 0 px(24);
       height: 100%;
-      @include flex-center-vert;
       background-color: $white;
       z-index: 1;
       width: 100%;
+      @include pagePadding(padding-left);
 
       @include breakpoint(tablet) {
         width: auto;
       }
 
       @include breakpoint(desktopSm) {
-        @include pagePadding(padding-left);
         padding-right: px(63);
         border-radius: 0 0 px(4) 0;
-      }
-
-      @include breakpoint(desktopMd) {
-        margin-left: px(83);
       }
     }
 
@@ -108,11 +104,7 @@
 
     .langToggle {
       margin-left: auto;
-      margin-right: px(24);
-
-      @include breakpoint(desktopSm) {
-        @include pagePadding(margin-right);
-      }
+      @include pagePadding(margin-right);
     }
   }
 }

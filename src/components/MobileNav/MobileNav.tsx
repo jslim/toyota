@@ -45,26 +45,28 @@ const MobileNav: FC<MobileNavProps> = ({ className, links }) => {
         </BaseButton>
       </div>
       {menuOpen && (
-        <div className={css.mobileMenuWrapper}>
-          <ul className={css.routes}>
-            {links.map(
-              ({ path, title }, i) =>
-                title !== 'Home' && (
-                  <li
-                    key={path}
-                    className={classNames({
-                      // TODO: set active based on the page
-                      [css.active]: i === 2
-                    })}
-                  >
-                    <BaseLink href={path} title={title}>
-                      {title}
-                    </BaseLink>
-                  </li>
-                )
-            )}
-          </ul>
-          <LanguageToggle className={css.langToggle} />
+        <div className={css.mobileMenuCon}>
+          <div className={css.mobileMenuWrapper}>
+            <ul className={css.routes}>
+              {links.map(
+                ({ path, title }, i) =>
+                  title !== 'Home' && (
+                    <li
+                      key={path}
+                      className={classNames({
+                        // TODO: set active based on the page
+                        [css.active]: i === 2
+                      })}
+                    >
+                      <BaseLink href={path} title={title}>
+                        {title}
+                      </BaseLink>
+                    </li>
+                  )
+              )}
+            </ul>
+            <LanguageToggle className={css.langToggle} />
+          </div>
         </div>
       )}
     </div>
