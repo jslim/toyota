@@ -18,7 +18,7 @@ export interface NavProps {
 
 const Nav: FC<NavProps> = ({ className }) => {
   const { layout } = useLayout();
-  const mobile = typeof window !== 'undefined' && layout.mobile;
+  const mobile = typeof window !== 'undefined' && (layout.mobile || layout.tablet);
 
   return (
     <nav className={classNames('Nav', css.root, className)}>

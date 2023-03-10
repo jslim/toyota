@@ -26,8 +26,7 @@
   }
 
   > .wrapper {
-    @include container;
-    @include outer-container;
+    width: 100%;
     @include flex-center-vert;
 
     .logo {
@@ -41,14 +40,15 @@
       background-color: $white;
       z-index: 1;
       width: 100%;
+      @include pagePadding(padding-left);
 
       @include breakpoint(tablet) {
         width: auto;
       }
 
       @include breakpoint(desktopSm) {
+        padding-right: px(63);
         border-radius: 0 0 px(4) 0;
-        padding: 0;
       }
     }
 
@@ -104,6 +104,7 @@
 
     .langToggle {
       margin-left: auto;
+      @include pagePadding(margin-right);
     }
   }
 }

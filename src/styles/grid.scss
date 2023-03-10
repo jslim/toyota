@@ -34,7 +34,7 @@ $grid-column-width-tablet: (
 
 //desktop
 $grid-num-of-cols-desktop: 12;
-$grid-base-design-desktop: map-get($layout, desktopLock);
+$grid-base-design-desktop: map-get($layout, desktopMd);
 $grid-relative-gap-desktop: 24;
 $grid-relative-side-padding-desktop: 156;
 $grid-relative-side-padding-desktop-external: 60;
@@ -142,5 +142,15 @@ $grid-column-width-desktop: (
 }
 
 @mixin pagePadding($prop) {
-  #{$prop}: calc((100vw - desktop-columns($grid-num-of-cols-desktop, 0)) / 2);
+  #{$prop}: calc((100vw - mobile-columns($grid-num-of-cols-mobile, 0)) / 2);
+
+  @include breakpoint(tablet) {
+    #{$prop}: calc((100vw - tablet-columns($grid-num-of-cols-tablet, 0)) / 2);
+  }
+
+  @include breakpoint(desktopSm) {
+    #{$prop}: calc(
+      (100vw - desktop-columns($grid-num-of-cols-desktop, 0)) / 2 - px($grid-relative-side-padding-desktop-external)
+    );
+  }
 }

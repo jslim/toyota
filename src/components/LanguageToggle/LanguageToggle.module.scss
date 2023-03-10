@@ -10,7 +10,7 @@ $lang-button-offset: px(7);
     border-radius: px(24);
     position: relative;
 
-    @include breakpoint(tablet) {
+    @include breakpoint(desktopSm) {
       flex-direction: column;
 
       .bg {
@@ -43,7 +43,7 @@ $lang-button-offset: px(7);
     .lang {
       @include box($lang-button-width-mobile);
 
-      @include breakpoint(tablet) {
+      @include breakpoint(desktopSm) {
         @include box($lang-button-width);
       }
 
@@ -51,7 +51,7 @@ $lang-button-offset: px(7);
         transform: translateY(0);
         margin-left: px(15);
 
-        @include breakpoint(tablet) {
+        @include breakpoint(desktopSm) {
           position: absolute;
           margin-left: px(0);
         }
@@ -68,7 +68,7 @@ $lang-button-offset: px(7);
         border: 1px solid $light-grey;
         text-transform: uppercase;
 
-        @include breakpoint(tablet) {
+        @include breakpoint(desktopSm) {
           background-color: $light-grey;
           border: none;
         }
@@ -80,7 +80,7 @@ $lang-button-offset: px(7);
         .langButton {
           background-color: $light-grey;
 
-          @include breakpoint(tablet) {
+          @include breakpoint(desktopSm) {
             background-color: $white;
           }
         }
