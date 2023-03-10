@@ -12,17 +12,26 @@
   @include flex-center-vert;
   @include typography-eyebrow;
   text-transform: uppercase;
+  position: relative;
+  // @include pagePadding(padding-left);
+  padding-left: px($grid-relative-gap-mobile);
+
+  @include media-desktopMd {
+    margin-left: px(-$grid-relative-side-padding-desktop-external);
+    padding-left: px($grid-relative-side-padding-desktop-external);
+  }
 
   &::before {
     content: '';
     display: inline-block;
     @include box(px(4));
-    margin-right: px(20);
+    left: 0;
     background-color: $red;
     border-radius: 50%;
+    position: absolute;
 
     @include media-desktopSm {
-      margin-right: px(56);
+      // @include pagePadding(left);
     }
   }
 }

@@ -134,10 +134,29 @@ $grid-column-width-desktop: (
   }
 }
 
-@mixin outer-container {
-  @include breakpoint(desktopSm) {
-    width: calc(desktop-columns($grid-num-of-cols-desktop, 0) + px($grid-relative-side-padding-desktop-external * 2));
-    margin: auto;
+@mixin outer-container($wider: false) {
+  @if ($wider) {
+    // wider rounded container only
+    @include breakpoint(tablet) {
+      width: calc(
+        tablet-columns($grid-num-of-cols-tablet, 0) + $grid-relative-side-padding-tablet / $grid-base-design-tablet *
+          $grid-column-multiplier
+      );
+      margin: auto;
+    }
+    @include breakpoint(desktopSm) {
+      width: calc(
+        desktop-columns($grid-num-of-cols-desktop, 0) + px($grid-relative-side-padding-desktop-external * 2) +
+          ($grid-relative-side-padding-desktop - $grid-relative-side-padding-desktop-external) /
+          $grid-base-design-desktop * $grid-column-multiplier
+      );
+      margin: auto;
+    }
+  } @else {
+    @include breakpoint(desktopSm) {
+      width: calc(desktop-columns($grid-num-of-cols-desktop, 0) + px($grid-relative-side-padding-desktop-external * 2));
+      margin: auto;
+    }
   }
 }
 
