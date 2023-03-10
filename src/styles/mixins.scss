@@ -191,3 +191,27 @@
     }
   }
 }
+
+@mixin dot {
+  &::before {
+    content: '';
+    display: block;
+    @include box(px(4));
+    border-radius: 50%;
+  }
+}
+
+@mixin dotLeft($offset: 18) {
+  @include dot;
+  &::before {
+    background-color: $red;
+    margin-right: px($offset);
+    opacity: 0;
+  }
+
+  &.active {
+    &::before {
+      opacity: 1;
+    }
+  }
+}
