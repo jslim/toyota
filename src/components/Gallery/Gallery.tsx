@@ -3,9 +3,9 @@ import classNames from 'classnames';
 import SwiperCore, { A11y, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import Card, { CardProps, CardTypes } from '@/components/Card/Card';
-
 import css from './Gallery.module.scss';
+
+import Card, { CardProps, CardTypes } from '@/components/Card/Card';
 
 SwiperCore.use([Pagination, A11y]);
 

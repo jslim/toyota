@@ -18,15 +18,19 @@
       height: auto;
       width: auto;
       margin-right: px($grid-relative-gap-desktop);
+
+      &:last-child {
+        margin-right: 0;
+      }
     }
   }
 
   .pagination {
-    margin-top: px(48);
+    margin: px(48) 0 px(20);
     @include flex-center;
 
     @include breakpoint(desktopSm) {
-      margin-top: px(83);
+      margin: px(83) 0 0;
     }
 
     > span {
