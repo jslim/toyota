@@ -38,15 +38,9 @@
       }
 
       .circle {
-        @include flex-center;
-        @include box(px(35));
         margin-right: px(13);
-        background-color: $white;
-        border: 1px solid $grey;
-        border-radius: px(45);
 
-        .checkmark {
-          @include box(px(12), px(8.5));
+        svg {
           opacity: 0;
         }
       }
@@ -58,10 +52,7 @@
 
       &.selected {
         .circle {
-          background-color: $dark-grey;
-          border-color: $dark-grey;
-
-          .checkmark {
+          svg {
             opacity: 1;
           }
         }

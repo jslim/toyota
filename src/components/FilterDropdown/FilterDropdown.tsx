@@ -5,6 +5,7 @@ import css from './FilterDropdown.module.scss';
 
 import CaretSvg from '@/components/svgs/caret.svg';
 import CheckmarkSvg from '@/components/svgs/white-checkmark.svg';
+import IconCircle from '@/components/IconCircle/IconCircle';
 
 interface Option {
   label: string;
@@ -91,9 +92,9 @@ const FilterDropdown: FC<FilterDropdownProps> = ({ className, title, alt, option
               onKeyDown={(event) => handleKeyPress(event, option)}
               tabIndex={0}
             >
-              <span className={css.circle}>
+              <IconCircle className={css.circle} isActive={selectedOption?.value === option.value}>
                 <CheckmarkSvg className={css.checkmark} />
-              </span>
+              </IconCircle>
               <span className={css.label}>{option.label}</span>
             </li>
           ))}
