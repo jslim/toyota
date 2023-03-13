@@ -66,11 +66,12 @@ const ContentfulImage = forwardRef<HTMLImageElement, ContentfulImageProps>(
 
     function buildSrcSet(q: number = imageQuality) {
       let srcSetString = '';
-
-      for (let index = 0; index < 20; index++) {
-        const width = 200 * (index + 1);
-        srcSetString += `${buildSrc(width, q)} ${width}w,`;
-      }
+      const base = 320;
+      const hops = Math.floor(imageWidth / base);
+      const sizes = [...Array(hops)].map((_, i) => (i + 1) * base);
+      sizes.forEach((size) => {
+        srcSetString += `${buildSrc(size, q)} ${size}w,`;
+      });
 
       return srcSetString;
     }
