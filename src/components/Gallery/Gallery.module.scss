@@ -1,7 +1,6 @@
 @import 'shared';
 
 .root {
-  background-color: $dark-grey;
   width: 100%;
 
   .carouselContainer {
@@ -37,13 +36,13 @@
       position: relative;
       @include box(px(25));
       @include flex-center;
-      border: 1px solid rgba($white, 0);
-      border-radius: 50%;
       margin: 0 px(13);
       cursor: pointer;
 
       &:global(.swiper-pagination-bullet-active) {
-        border-color: $white;
+        &::after {
+          transform: scale(1);
+        }
       }
 
       &::before {
@@ -52,6 +51,16 @@
         border-radius: 50%;
         background-color: $white;
         display: block;
+      }
+
+      &::after {
+        content: '';
+        @include position-100(absolute);
+        border: 1px solid $white;
+        border-radius: 50%;
+        display: block;
+        transform: scale(0);
+        transition: $ease1 0.66s transform;
       }
     }
   }

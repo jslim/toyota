@@ -4,7 +4,11 @@ import Gallery, { GalleryProps } from './Gallery';
 
 export default { title: 'components/Gallery' };
 
-export const Default: Story<GalleryProps> = (args) => <Gallery {...args} />;
+export const Default: Story<GalleryProps> = (args) => (
+  <div style={{ background: '#2F2F2F', width: '100%' }}>
+    <Gallery {...args} />
+  </div>
+);
 
 const url = 'https://i1.wp.com/thetalkinggeek.com/wp-content/uploads/2015/09/sintel1.png?fit=1920%2C817&ssl=1';
 const button = 'Learn more';
