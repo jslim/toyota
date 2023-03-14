@@ -2,12 +2,27 @@
 
 .root {
   @include rounded;
-  background-color: $dark-grey;
   width: 100%;
   @include outer-container(true);
   text-align: left;
   overflow: hidden;
   padding: px(20) 0;
+
+  &.dark {
+    background-color: $dark-grey;
+
+    .title {
+      color: $white;
+    }
+  }
+
+  &.light {
+    background-color: $light-grey;
+
+    .title {
+      color: $dark-grey;
+    }
+  }
 
   @include media-tablet {
     padding: px(20) 0 px(34);
@@ -19,7 +34,6 @@
 
   .title {
     @include typography-h2;
-    color: $white;
     max-width: px(400);
     margin-top: px(24);
 

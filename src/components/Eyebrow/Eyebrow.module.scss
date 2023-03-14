@@ -13,7 +13,6 @@
   @include typography-eyebrow;
   text-transform: uppercase;
   position: relative;
-  // @include pagePadding(padding-left);
   padding-left: px($grid-relative-gap-mobile);
 
   @include media-desktopMd {
@@ -29,9 +28,5 @@
     background-color: $red;
     border-radius: 50%;
     position: absolute;
-
-    @include media-desktopSm {
-      // @include pagePadding(left);
-    }
   }
 }
