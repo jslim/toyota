@@ -2,9 +2,10 @@ import { FC, memo, ReactNode } from 'react';
 import classNames from 'classnames';
 
 import css from './SectionWrapper.module.scss';
-import Eyebrow from '../Eyebrow/Eyebrow';
 
 import { variants } from '@/data/variants';
+
+import Eyebrow from '../Eyebrow/Eyebrow';
 
 export type SectionWrapperProps = {
   className?: string;

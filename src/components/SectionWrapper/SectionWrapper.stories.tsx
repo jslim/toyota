@@ -1,9 +1,10 @@
 import { Story } from '@storybook/react';
 
-import SectionWrapper, { SectionWrapperProps } from './SectionWrapper';
+import { variants } from '@/data/variants';
 
 import Accordion, { AccordionItem } from '@/components/Accordion/Accordion';
-import { variants } from '@/data/variants';
+
+import SectionWrapper, { SectionWrapperProps } from './SectionWrapper';
 
 export default { title: 'components/SectionWrapper' };
 
