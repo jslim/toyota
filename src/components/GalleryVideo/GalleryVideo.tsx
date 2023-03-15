@@ -1,0 +1,59 @@
+import { FC, memo } from 'react';
+import classNames from 'classnames';
+import SwiperCore, { A11y, Pagination } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import css from './GalleryVideo.module.scss';
+
+import BaseImage from '@/components/BaseImage/BaseImage';
+import { Props as VideoProps } from '@/components/VideoPlayer/VideoPlayer';
+import VideoPlayerContainer, { VideoType } from '@/components/VideoPlayerContainer/VideoPlayerContainer';
+
+SwiperCore.use([Pagination, A11y]);
+
+const SLIDE_DURATION = 450;
+
+export type GalleryVideoProps = {
+  className?: string;
+  slides: { video?: VideoProps; title?: string; image: { src: string; alt: string } }[];
+};
+
+const GalleryVideo: FC<GalleryVideoProps> = ({ className, slides }) => {
+  return (
+    <div className={classNames('GalleryVideo', css.root, className)}>
+      <Swiper
+        className={css.carouselContainer}
+        autoHeight={true}
+        slidesPerView={'auto'}
+        speed={SLIDE_DURATION}
+        pagination={{
+          el: `.${css.pagination}`,
+          type: 'bullets',
+          clickable: true
+        }}
+        preventClicks={true}
+        preventClicksPropagation={true}
+      >
+        {slides.map((item, i) => {
+          return (
+            <SwiperSlide className={css.slide} key={`slide-${i}`}>
+              {item.video ? (
+                <VideoPlayerContainer
+                  video={item.video}
+                  poster={item.image}
+                  title={item.title}
+                  theme={VideoType.Gallery}
+                />
+              ) : (
+                <BaseImage {...item.image} className={css.image} />
+              )}
+            </SwiperSlide>
+          );
+        })}
+      </Swiper>
+      <span className={css.pagination}>{/* pagination number rendered by swiper */}</span>
+    </div>
+  );
+};
+
+export default memo(GalleryVideo);

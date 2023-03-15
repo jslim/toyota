@@ -1,0 +1,64 @@
+@import 'shared';
+
+.root {
+  .carouselContainer {
+    :global(.swiper-wrapper) {
+      width: 100%;
+      display: flex;
+      height: auto;
+    }
+
+    .slide {
+      width: 100%;
+      margin-right: px($grid-relative-gap-desktop);
+      @include rounded;
+      overflow: hidden;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
+    .image {
+      @include aspect-ratio(16, 9);
+      @include box(100%);
+      object-fit: cover;
+    }
+  }
+
+  .pagination {
+    margin: px(15) 0 px(30);
+    width: 100%;
+    @include flex-center;
+
+    @include breakpoint(desktopSm) {
+      margin: px(21) 0 0;
+    }
+
+    > span {
+      width: px(57);
+      height: px(2);
+      background-color: $dark-grey;
+      cursor: pointer;
+      display: block;
+      opacity: 0.25;
+      position: relative;
+      transition: ease-out 0.66s transform;
+      margin: 0 px(6);
+
+      &:global(.swiper-pagination-bullet-active) {
+        opacity: 1;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: px(10);
+        top: px(-5);
+        left: 0;
+        display: block;
+      }
+    }
+  }
+}

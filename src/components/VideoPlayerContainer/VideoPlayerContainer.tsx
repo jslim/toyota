@@ -9,17 +9,30 @@ import PlayIcon from '@/components/VideoPlayer/VideoControls/svgs/play.svg';
 import { Props as VideoProps } from '@/components/VideoPlayer/VideoPlayer';
 import VideoPlayer from '@/components/VideoPlayer/VideoPlayer';
 
+export enum VideoType {
+  Gallery = 'gallery',
+  Default = 'default'
+}
+
 export type VideoPlayerContainerProps = {
   className?: string;
   poster: { src: string; alt: string };
   video: VideoProps;
+  title?: string;
+  theme?: VideoType;
 };
 
-const VideoPlayerContainer: FC<VideoPlayerContainerProps> = ({ className, poster, video }) => {
+const VideoPlayerContainer: FC<VideoPlayerContainerProps> = ({
+  className,
+  poster,
+  title,
+  video,
+  theme = VideoType.Default
+}) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   return (
-    <div className={classNames('VideoPlayerContainer', css.root, className)}>
+    <div className={classNames('VideoPlayerContainer', css.root, className, css[theme])}>
       {isPlaying ? (
         <VideoPlayer {...video} className={css.video} autoPlay togglePlaying={() => setIsPlaying(!isPlaying)} />
       ) : (
@@ -29,6 +42,7 @@ const VideoPlayerContainer: FC<VideoPlayerContainerProps> = ({ className, poster
           </Cta>
 
           <BaseImage {...poster} className={css.poster} />
+          {title && <div className={css.title}>{title}</div>}
         </div>
       )}
     </div>
