@@ -215,3 +215,11 @@
     }
   }
 }
+
+@mixin rounded($radius: px(43)) {
+  border-radius: px(12);
+
+  @include breakpoint(desktopSm) {
+    border-radius: $radius;
+  }
+}
