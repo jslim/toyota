@@ -47,3 +47,5 @@
   );
   transition-timing-function: map-get($easeMap, $easeType);
 }
+
+$ease1: cubic-bezier(0, 0.39, 0.26, 1);
