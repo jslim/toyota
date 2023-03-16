@@ -59,6 +59,10 @@
   @include breakpoint(tablet) {
     max-width: px(480);
     display: block;
+    bottom: px(23);
+    left: px(48);
+  }
+  @include breakpoint(desktopSm) {
     bottom: px(36);
     left: px(72);
   }

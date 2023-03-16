@@ -25,3 +25,21 @@ Large.args = {
     }
   ]
 };
+
+export const Small = (args: GalleryVideoProps) => (
+  <div style={{ width: '45vw' }}>
+    <GalleryVideo {...args} />
+  </div>
+);
+
+Small.args = {
+  slides: [
+    {
+      image: { src: poster, alt: '' },
+      video: { src }
+    },
+    {
+      image: { src: poster, alt: '' }
+    }
+  ]
+};
