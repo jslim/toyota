@@ -3,13 +3,20 @@
 
 :export {
   // layout
+  gridNumOfColsMobile: $grid-num-of-cols-mobile;
   gridNumOfColsTablet: $grid-num-of-cols-tablet;
   gridNumOfCols: $grid-num-of-cols-desktop;
-  layout-mobile: $layout-mobile;
-  layout-tablet: $layout-tablet;
-  layout-desktopSm: $layout-desktopSm;
-  layout-desktopMd: $layout-desktopMd;
-  layout-desktopLg: $layout-desktopLg;
+  gridGapMobile: $grid-gap-mobile;
+  gridGapTablet: $grid-gap-tablet;
+  gridGapDesktop: $grid-gap-desktop;
+  gridColumnWidthMobile: $grid-column-width-mobile;
+  gridColumnWidthTablet: $grid-column-width-tablet;
+  gridColumnWidthDesktop: $grid-column-width-desktop;
+  layoutMobile: $layout-mobile;
+  layoutTablet: $layout-tablet;
+  layoutDesktopSm: $layout-desktopSm;
+  layoutDesktopMd: $layout-desktopMd;
+  layoutDesktopLg: $layout-desktopLg;
   // color
   color-white: $white;
   color-black: $black;

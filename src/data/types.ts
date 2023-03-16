@@ -6,6 +6,11 @@ export type HeadProps = {
   description?: string;
 };
 
+export type GridSize = {
+  numCols: number;
+  extraGutters: number;
+};
+
 export type PageProps = {
   head: HeadProps;
   unsupported?: boolean;
@@ -72,3 +77,23 @@ interface ParsedUrlQuery {
 export interface LocalizedPageParams extends ParsedUrlQuery {
   lang: Lang;
 }
+export type ContentfulImageAsset = {
+  metadata: Metadata;
+  sys: Sys;
+  fields: {
+    title: string;
+    description: string;
+    file: {
+      fileName: string;
+      url: string;
+      contentType: string;
+      details: {
+        size: number;
+        image: {
+          width: number;
+          height: number;
+        };
+      };
+    };
+  };
+};
