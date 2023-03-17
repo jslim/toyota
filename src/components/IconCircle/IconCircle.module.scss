@@ -74,12 +74,24 @@
     }
 
     svg {
-      filter: invert(1);
+      filter: invert(0);
+
+      path {
+        fill: $red;
+        stroke: $red;
+        transition: 0.4s fill, 0.4s stroke;
+        @include ease(custom);
+      }
     }
 
     &.active {
       svg {
         filter: invert(0);
+
+        path {
+          fill: $white;
+          stroke: $white;
+        }
       }
     }
   }

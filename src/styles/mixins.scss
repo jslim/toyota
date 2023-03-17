@@ -216,8 +216,16 @@
   }
 }
 
-@mixin rounded($radius: px(43)) {
-  border-radius: px(12);
+@mixin rounded($radius: px(24), $mobile: true) {
+  @if ($mobile) {
+    border-radius: px(12);
+  } @else {
+    border-radius: px(6);
+
+    @include breakpoint(tablet) {
+      border-radius: px(12);
+    }
+  }
 
   @include breakpoint(desktopSm) {
     border-radius: $radius;
