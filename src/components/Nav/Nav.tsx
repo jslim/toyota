@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import classNames from 'classnames';
 
 import css from './Nav.module.scss';
@@ -17,13 +17,16 @@ export interface NavProps {
 }
 
 const Nav: FC<NavProps> = ({ className }) => {
+  const [isMobile, setIsMobile] = useState(false);
   const { layout } = useLayout();
-  const mobile = typeof window !== 'undefined' && (layout.mobile || layout.tablet);
+  useEffect(() => {
+    setIsMobile(typeof window !== 'undefined' && (layout.mobile || layout.tablet));
+  }, [layout]);
 
   return (
     <nav className={classNames('Nav', css.root, className)}>
       <div className={css.wrapper}>
-        {!mobile ? (
+        {!isMobile ? (
           <>
             <div className={css.menuWrapper}>
               <Logo className={css.logo} href={routes.Home.path} />

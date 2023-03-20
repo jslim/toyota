@@ -1,36 +1,36 @@
-import sassVars from '@/styles/export-vars.module.scss';
+import sassVars from '@/utils/sass';
 
-export function mobileColumns({ numCols = parseInt(sassVars.gridNumOfColsMobile), extraGutters = 0 }) {
-  const extraGuttersWidth = parseFloat(sassVars.gridGapMobile) * extraGutters;
+export function mobileColumns({ numCols = parseInt(sassVars.grid.numOfColsMobile), extraGutters = 0 }) {
+  const extraGuttersWidth = parseFloat(sassVars.grid.gapMobile) * extraGutters;
   return `${
-    (parseFloat(sassVars.gridColumnWidthMobile) * numCols +
-      parseFloat(sassVars.gridGapMobile) * Math.max(numCols - 1, 0) +
+    (parseFloat(sassVars.grid.columnWidthMobile) * numCols +
+      parseFloat(sassVars.grid.gapMobile) * Math.max(numCols - 1, 0) +
       extraGuttersWidth) *
     100
   }vw`;
 }
 
-export function tabletColumns({ numCols = parseInt(sassVars.gridNumOfColsTablet), extraGutters = 0 }) {
-  const extraGuttersWidth = parseFloat(sassVars.gridGapTablet) * extraGutters;
+export function tabletColumns({ numCols = parseInt(sassVars.grid.numOfColsTablet), extraGutters = 0 }) {
+  const extraGuttersWidth = parseFloat(sassVars.grid.gapTablet) * extraGutters;
   return `${
-    (parseFloat(sassVars.gridColumnWidthTablet) * numCols +
-      parseFloat(sassVars.gridGapTablet) * Math.max(numCols - 1, 0) +
+    (parseFloat(sassVars.grid.columnWidthTablet) * numCols +
+      parseFloat(sassVars.grid.gapTablet) * Math.max(numCols - 1, 0) +
       extraGuttersWidth) *
     100
   }vw`;
 }
 
-export function desktopColumns({ numCols = parseInt(sassVars.gridNumCols), extraGutters = 0 }) {
-  const extraGuttersWidth = parseFloat(sassVars.gridGapDesktop) * extraGutters;
+export function desktopColumns({ numCols = parseInt(sassVars.grid.numCols), extraGutters = 0 }) {
+  const extraGuttersWidth = parseFloat(sassVars.grid.gapDesktop) * extraGutters;
   return `${
-    (parseFloat(sassVars.gridColumnWidthDesktop) * numCols +
-      parseFloat(sassVars.gridGapDesktop) * Math.max(numCols - 1, 0) +
+    (parseFloat(sassVars.grid.columnWidthDesktop) * numCols +
+      parseFloat(sassVars.grid.gapDesktop) * Math.max(numCols - 1, 0) +
       extraGuttersWidth) *
     100
   }vw`;
 }
 
-const tabletWidth = sassVars.layoutTablet;
-const desktopWidth = sassVars.layoutDesktopSm;
+const tabletWidth = sassVars.layout.tablet;
+const desktopWidth = sassVars.layout.desktopSm;
 
 export { desktopWidth, tabletWidth };
