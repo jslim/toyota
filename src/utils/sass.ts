@@ -14,5 +14,6 @@ function getVariables(prefix: string) {
 export default {
   layout: getVariables('layout'),
   color: getVariables('color'),
+  grid: getVariables('grid'),
   all: sassVars
 };
