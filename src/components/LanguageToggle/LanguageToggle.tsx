@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import css from './LanguageToggle.module.scss';
 
 import { Lang } from '@/data/types';
+
 import BaseButton from '@/components/BaseButton/BaseButton';
 
 export type LanguageToggleProps = {
