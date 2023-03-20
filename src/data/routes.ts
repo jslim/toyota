@@ -5,7 +5,11 @@ export type Route = {
 
 export interface Routes {
   readonly Home: Route;
-  readonly About: Route;
+  readonly WhatWeBuild: Route;
+  readonly WhoWeAre: Route;
+  readonly WhatsNew: Route;
+  readonly Careers: Route;
+  readonly Contact: Route;
 }
 
 const routes: Routes = {
@@ -13,9 +17,25 @@ const routes: Routes = {
     path: '/',
     title: 'Home'
   },
-  About: {
-    path: '/about/',
-    title: 'About'
+  WhatWeBuild: {
+    path: '/what-we-build/',
+    title: 'What we Build'
+  },
+  WhoWeAre: {
+    path: '/who-we-are/',
+    title: 'Who we Are'
+  },
+  WhatsNew: {
+    path: '/Whats-new/',
+    title: 'What’s new'
+  },
+  Careers: {
+    path: '/careers/',
+    title: 'Careers'
+  },
+  Contact: {
+    path: '/contact/',
+    title: 'Contact'
   }
 };
 

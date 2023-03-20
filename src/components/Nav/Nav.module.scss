@@ -5,16 +5,9 @@
   top: 0;
   left: 0;
   width: 100%;
-  padding: 0 px(20);
-  box-shadow: $element-shadow;
-  background-color: $white;
   @include z-index(main-nav);
-  @include flex-center-vert;
-  height: $navbar-height-mobile;
-
-  @include media-desktopSm {
-    height: $navbar-height-desktop;
-  }
+  height: $navbar-height;
+  display: flex;
 
   .skipToContent {
     position: absolute;
@@ -33,36 +26,85 @@
   }
 
   > .wrapper {
-    display: flex;
-    max-width: px(1440);
-    margin: 0 auto;
     width: 100%;
+    @include flex-center-vert;
 
-    > ul {
-      flex-grow: 1;
+    .logo {
+      z-index: 2;
+    }
+
+    .menuWrapper {
       @include flex-center-vert;
+      padding: 0 px(24);
+      height: 100%;
+      background-color: $white;
+      z-index: 1;
+      width: 100%;
+      @include pagePadding(padding-left);
 
-      &.routes {
-        justify-content: flex-start;
-
-        .threeLogo {
-          width: px(25);
-        }
+      @include breakpoint(tablet) {
+        width: auto;
       }
 
-      &.links {
-        justify-content: flex-end;
+      @include breakpoint(desktopSm) {
+        padding-right: px(63);
+        border-radius: 0 0 px(4) 0;
+      }
+    }
 
-        a {
-          img {
-            @include box(px(25));
-          }
-        }
+    .routes {
+      background-color: $white;
+      display: flex;
+      text-align: left;
+      padding: 0;
+      margin-left: px(60);
+      position: relative;
+
+      @include breakpoint(desktopSm) {
+        margin-left: px(100);
+      }
+
+      @include breakpoint(desktopMd) {
+        margin-left: px(122);
       }
 
       > li {
-        padding: 0 px(10);
+        @include flex-center-horiz;
+        padding: 0 px(12);
+        color: $mid-grey;
+        position: relative;
+        transition: ease-out color 0.3s;
+        text-align: center;
+
+        &::after {
+          content: '';
+          position: absolute;
+          @include box(px(6));
+          border-radius: 50%;
+          background-color: $red;
+          top: 100%;
+          margin-top: px(2);
+          transform: translateY(px(7));
+          opacity: 0;
+          transition: linear 0.2s transform, linear 0.2s opacity;
+          pointer-events: none;
+        }
+
+        &:hover,
+        &.active {
+          color: $black;
+
+          &::after {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
       }
+    }
+
+    .langToggle {
+      margin-left: auto;
+      @include pagePadding(margin-right);
     }
   }
 }

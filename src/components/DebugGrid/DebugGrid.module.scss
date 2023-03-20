@@ -6,10 +6,20 @@
   pointer-events: none;
 
   .container {
-    @include container;
+    @include outer-container;
     height: 100%;
-    margin: auto;
     display: flex;
+
+    @include breakpoint(desktopSm) {
+      background-color: rgba($mid-grey, 0.1);
+    }
+
+    .innerContainer {
+      @include container;
+      height: 100%;
+      margin: auto;
+      display: flex;
+    }
 
     .column {
       flex-shrink: 0;

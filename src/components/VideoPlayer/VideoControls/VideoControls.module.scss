@@ -1,0 +1,46 @@
+@import 'shared';
+
+$video-player-controls-buttons-margin: px(12);
+$video-player-controls-bg-color: transparent;
+$video-player-controls-timer-color: $white;
+$video-player-controls-timer-font-size: px(15);
+
+.VideoControls {
+  @include flex-center;
+  flex-direction: column;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+  padding: 0 px(36) px(36);
+  background-color: $video-player-controls-bg-color;
+  z-index: 1;
+  box-sizing: border-box;
+
+  .controlsContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: px(16);
+
+    .time {
+      width: auto;
+      color: $video-player-controls-timer-color;
+      font-size: $video-player-controls-timer-font-size;
+      margin-left: px(24);
+    }
+
+    .leftContainer,
+    .rightContainer {
+      @include flex-center-vert;
+
+      .button {
+        margin-right: $video-player-controls-buttons-margin;
+
+        &:last-of-type {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}

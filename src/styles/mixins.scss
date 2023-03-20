@@ -159,3 +159,75 @@
   -moz-appearance: none;
   color: currentColor;
 }
+
+// Shorthand to use CSS var --vh
+// @example scss Input
+//   section {
+//     height: vh(5);
+//   }
+@function vh($vh) {
+  @return calc(var(--vh) * #{$vh});
+}
+
+/// Adds aspect-ratio and fallbacks in case device doesn't support aspect ratio
+/// @example scss Input
+///   image {
+///     @include aspect-ratio(16, 9);
+///   }
+@mixin aspect-ratio($width, $height, $prop: padding-top) {
+  aspect-ratio: $width / $height;
+
+  @supports not (aspect-ratio: $width / $height) {
+    &::before {
+      content: '';
+      float: left;
+      #{$prop}: ($height/$width * 100) * 1%;
+    }
+
+    &::after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+  }
+}
+
+@mixin dot {
+  &::before {
+    content: '';
+    display: block;
+    @include box(px(4));
+    border-radius: 50%;
+  }
+}
+
+@mixin dotLeft($offset: 18) {
+  @include dot;
+  &::before {
+    background-color: $red;
+    margin-right: px($offset);
+    opacity: 0;
+  }
+
+  &.active {
+    &::before {
+      opacity: 1;
+    }
+  }
+}
+
+@mixin rounded($radius: px(24), $mobile: true) {
+  @if ($mobile) {
+    border-radius: px(12);
+  } @else {
+    border-radius: px(6);
+
+    @include breakpoint(tablet) {
+      border-radius: px(12);
+    }
+  }
+
+  @include breakpoint(desktopSm) {
+    border-radius: $radius;
+  }
+}

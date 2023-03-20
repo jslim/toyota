@@ -1,0 +1,97 @@
+@import 'shared';
+
+.root {
+  @include position-100(absolute);
+  flex-direction: column;
+  display: flex;
+  @include typography-h3;
+  color: $mid-grey;
+  background-color: $white;
+
+  .mobileNavBar {
+    height: $navbar-height;
+    @include flex-center-vert;
+    @include container;
+
+    .hamburgerWrapper {
+      @include reset-button;
+      margin-left: auto;
+      position: relative;
+
+      .line {
+        width: 100%;
+        height: px(1.6);
+        background-color: $mid-grey;
+        display: block;
+        border-radius: px(3.2);
+      }
+
+      .hamburger {
+        @include box(px(24));
+        @include flex-center-horiz;
+        flex-direction: column;
+
+        .line {
+          margin: px(2.4) 0;
+        }
+      }
+      .close {
+        position: relative;
+
+        .lineWrapper {
+          @include flex-center;
+          @include box(px(24));
+        }
+        .line {
+          position: absolute;
+          width: px(18);
+          transform: rotateZ(45deg);
+
+          &:first-child {
+            transform: rotateZ(-45deg);
+          }
+        }
+      }
+    }
+  }
+  .mobileMenuCon {
+    height: calc(vh(100) - #{$navbar-height});
+    // TODO: remove next line for actual mobile devices to calculate window height with above line
+    height: calc(100vh - #{$navbar-height});
+    width: 100%;
+    background-color: $white;
+    top: $navbar-height;
+    position: absolute;
+  }
+
+  .mobileMenuWrapper {
+    padding: px(62) 0 px(72);
+    height: 100%;
+    @include container;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+  }
+
+  .routes {
+    text-align: left;
+
+    > li {
+      margin-bottom: px(34);
+      @include flex-center-vert;
+      @include dotLeft;
+
+      &.active {
+        color: $red;
+
+        &::before {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  .langToggle {
+    margin-top: auto;
+  }
+}

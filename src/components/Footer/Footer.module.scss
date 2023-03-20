@@ -1,17 +1,223 @@
 @import 'shared';
 
 .root {
-  background-color: $black;
+  background-color: $dark-grey;
   color: $white;
   width: 100%;
-  padding: px(50) 0;
+  padding: px(47) 0 px(66);
 
-  ul {
-    li {
-      margin-top: px(15);
+  @include media-tablet {
+    padding: px(70) 0 px(53);
+  }
 
+  @include media-desktopSm {
+    padding: px(68) 0 px(90);
+  }
+
+  .footerWrapper {
+    @include container;
+  }
+
+  .topWrapper {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: px(50);
+
+    @include media-desktopSm {
+      margin-bottom: px(170);
+    }
+
+    .logo {
+      margin-bottom: px(25);
+
+      @include media-tablet {
+        @include use-tablet-columns(width, 5);
+      }
+
+      @include media-desktopSm {
+        @include use-desktop-columns(width, 8);
+      }
+    }
+
+    .locations {
+      @include use-mobile-columns(width, 4);
+      display: flex;
+      align-items: flex-start;
+      flex-flow: column;
+      @include typography-eyebrow;
+      text-transform: uppercase;
+      color: rgba($white, 0.5);
+      margin-top: px(40);
+      margin-left: px(24);
+
+      @include media-tablet {
+        @include use-tablet-columns(width, 3, 1);
+        @include use-tablet-columns(margin-left, 5, 1);
+      }
+
+      @include media-desktopSm {
+        position: absolute;
+        @include use-desktop-columns(width, 7, 1);
+        margin-top: px(70);
+        margin-left: 0;
+        order: 1;
+        flex-flow: row;
+        flex-wrap: wrap;
+
+        .location {
+          @include dot;
+          @include flex-center-vert;
+
+          &::before {
+            background-color: rgba($white, 0.25);
+            margin: 0 px(8);
+          }
+          &:first-child {
+            &::before {
+              content: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .routes {
+    @include use-mobile-columns(width, 4);
+    margin-left: px(24);
+
+    @include media-tablet {
+      @include use-tablet-columns(width, 3);
+      @include use-tablet-columns(margin-left, 0, 1);
+    }
+
+    @include media-desktopSm {
+      @include use-desktop-columns(width, 4);
+      @include use-desktop-columns(margin-left, 0, 1);
+    }
+
+    > li {
+      @include flex-center-vert;
+      @include typography-paragraph;
+      @include dotLeft(20);
+      margin-left: px(-24);
+      margin-top: px(4);
+      color: $grey;
+      transition: color ease-out 0.3s;
+
+      @include media-desktopSm {
+        margin-top: px(12);
+      }
+
+      &:hover,
+      &.active {
+        color: $white;
+      }
       &:first-child {
         margin-top: 0;
+      }
+    }
+  }
+
+  .bottomWrapper {
+    @include container;
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+
+    .linksWrapper {
+      @include use-mobile-columns(width, 4);
+
+      @include media-tablet {
+        @include use-tablet-columns(width, 5, 1);
+      }
+
+      @include media-desktopSm {
+        @include use-desktop-columns(width, 8, 1);
+      }
+
+      .socialMedia {
+        @include flex-center-vert;
+
+        .socialMediaButton {
+          margin-right: px(12);
+
+          @include media-desktopSm {
+            margin-right: px(14);
+          }
+        }
+      }
+
+      .externalLinks {
+        @include flex-center-vert;
+        @include font-family('Toyota Type');
+        @include font-size(12, 15);
+        margin-top: px(10);
+        color: $grey;
+        flex-wrap: wrap;
+
+        @include media-desktopSm {
+          margin-top: px(12);
+          @include font-size(14, 16);
+        }
+
+        > li {
+          margin-right: px(16);
+          margin-top: px(10);
+
+          > a {
+            border-bottom: 1px solid $grey;
+          }
+        }
+      }
+    }
+
+    .logosWrapper {
+      @include use-mobile-columns(width, 4);
+      display: flex;
+      flex-direction: column;
+      margin-top: px(50);
+
+      @include media-tablet {
+        @include use-tablet-columns(width, 3);
+        margin-top: 0;
+      }
+
+      @include media-desktopSm {
+        @include use-desktop-columns(width, 4);
+      }
+
+      a {
+        display: inline-flex;
+      }
+
+      .logoTitle {
+        width: px(60);
+        margin-bottom: px(13);
+
+        @include media-desktopSm {
+          width: px(78);
+          margin-bottom: px(16);
+        }
+      }
+
+      .logoCity {
+        width: px(161);
+        margin-bottom: px(12);
+
+        @include media-desktopSm {
+          width: px(217);
+          margin-bottom: px(16);
+        }
+      }
+
+      .logoCapital {
+        width: px(114);
+
+        @include media-desktopSm {
+          width: px(165);
+        }
       }
     }
   }

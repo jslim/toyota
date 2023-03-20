@@ -1,0 +1,8 @@
+@import 'shared';
+
+.root {
+  width: px(120);
+  a {
+    @include box(100%);
+  }
+}

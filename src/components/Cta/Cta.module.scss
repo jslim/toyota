@@ -1,0 +1,21 @@
+@import 'shared';
+
+.root {
+  @include reset-button;
+  @include typography-cta;
+  @include flex-center-vert;
+  color: $dark-grey;
+  text-transform: uppercase;
+
+  .label {
+    margin-left: px(16);
+
+    @include breakpoint(desktopSm) {
+      margin-left: px(24);
+    }
+  }
+
+  &.isWhite {
+    color: $white;
+  }
+}

@@ -22,8 +22,8 @@ $grid-column-width-mobile: (
 //tablet
 $grid-num-of-cols-tablet: 8;
 $grid-base-design-tablet: map-get($layout, tablet);
-$grid-relative-side-padding-tablet: 20;
-$grid-relative-gap-tablet: 20;
+$grid-relative-side-padding-tablet: 60;
+$grid-relative-gap-tablet: 24;
 $grid-gap-tablet: $grid-relative-gap-tablet / $grid-base-design-tablet;
 /* stylelint-disable */
 $grid-column-width-tablet: (
@@ -34,9 +34,10 @@ $grid-column-width-tablet: (
 
 //desktop
 $grid-num-of-cols-desktop: 12;
-$grid-base-design-desktop: map-get($layout, desktopLock);
+$grid-base-design-desktop: map-get($layout, desktopMd);
 $grid-relative-gap-desktop: 24;
 $grid-relative-side-padding-desktop: 156;
+$grid-relative-side-padding-desktop-external: 60;
 $grid-gap-desktop: $grid-relative-gap-desktop / $grid-base-design-desktop;
 /* stylelint-disable */
 $grid-column-width-desktop: (
@@ -130,5 +131,45 @@ $grid-column-width-desktop: (
 
   @include breakpoint(desktopSm) {
     @include use-desktop-columns(width, $grid-num-of-cols-desktop);
+  }
+}
+
+@mixin outer-container($wider: false) {
+  @if ($wider) {
+    // wider rounded container only
+    @include breakpoint(tablet) {
+      width: calc(
+        tablet-columns($grid-num-of-cols-tablet, 0) + $grid-relative-side-padding-tablet / $grid-base-design-tablet *
+          $grid-column-multiplier
+      );
+      margin: auto;
+    }
+    @include breakpoint(desktopSm) {
+      width: calc(
+        desktop-columns($grid-num-of-cols-desktop, 0) + px($grid-relative-side-padding-desktop-external * 2) +
+          ($grid-relative-side-padding-desktop - $grid-relative-side-padding-desktop-external) /
+          $grid-base-design-desktop * $grid-column-multiplier
+      );
+      margin: auto;
+    }
+  } @else {
+    @include breakpoint(desktopSm) {
+      width: calc(desktop-columns($grid-num-of-cols-desktop, 0) + px($grid-relative-side-padding-desktop-external * 2));
+      margin: auto;
+    }
+  }
+}
+
+@mixin pagePadding($prop) {
+  #{$prop}: calc((100vw - mobile-columns($grid-num-of-cols-mobile, 0)) / 2);
+
+  @include breakpoint(tablet) {
+    #{$prop}: calc((100vw - tablet-columns($grid-num-of-cols-tablet, 0)) / 2);
+  }
+
+  @include breakpoint(desktopSm) {
+    #{$prop}: calc(
+      (100vw - desktop-columns($grid-num-of-cols-desktop, 0)) / 2 - px($grid-relative-side-padding-desktop-external)
+    );
   }
 }
