@@ -1,9 +1,6 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 import { ForwardedRef, forwardRef, memo, ReactNode, useMemo } from 'react';
 import Link from 'next/link';
-import classnames from 'classnames';
-
-import styles from './BaseLink.module.scss';
 
 const excludes = ['children', 'download', 'target', 'rel', 'link'];
 export enum Target {
@@ -55,7 +52,7 @@ const BaseLink = (
       Object.keys(props).reduce(
         (acc, key) => ([...excludes].indexOf(key) > -1 ? acc : { ...acc, [key]: props[key as keyof typeof props] }),
         {
-          className: classnames(styles.BaseLink, className)
+          className
         }
       ) as Props,
     [className, props]

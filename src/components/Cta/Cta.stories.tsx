@@ -28,14 +28,16 @@ export const White: Story<CtaProps> = (args) => (
 
 White.args = {
   title: 'All news',
-  isWhite: true
+  isWhite: true,
+  href: '/'
 };
 
 export const Secondary: Story<CtaProps> = (args) => <Cta {...args} />;
 
 Secondary.args = {
   theme: ButtonType.Secondary,
-  title: 'Learn more'
+  title: 'Learn more',
+  href: '/'
 };
 Secondary.argTypes = Default.argTypes;
 
@@ -49,5 +51,6 @@ export const IconOnly: Story<CtaProps> = (args) => (
 
 IconOnly.args = {
   isWhite: false,
-  theme: ButtonType.Icon
+  theme: ButtonType.Icon,
+  href: '/'
 };
