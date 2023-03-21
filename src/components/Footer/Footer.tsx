@@ -11,6 +11,8 @@ import Logo from '@/components/Logo/Logo';
 
 import sanitizer from '@/utils/sanitizer';
 
+import { useAppSelector } from '@/redux';
+
 import SvgFacebookLogo from '@/components/svgs/Facebook.svg';
 import SvgLinkedinLogo from '@/components/svgs/LinkedIn.svg';
 import SvgLogoTitle from '@/components/svgs/logo-title.svg';
@@ -26,7 +28,6 @@ export interface FooterProps {
 
 const locations = ['Tokyo', 'San Francisco Bay Area, CA', 'Seattle, WA', 'Ann Arbor, MI', 'Brooklyn, Ny', 'London'];
 
-const contact = 'contact@woven-planet.global';
 const socialMedia = [
   { linkedin: 'https://linkedin.com/' },
   { facebook: 'https://facebook.com/' },
@@ -44,6 +45,8 @@ const externalLinks = [
 const siteName = 'Woven Planet Holdings, Inc.';
 
 const Footer: FC<FooterProps> = ({ className }) => {
+  const { footerNavLinks } = useAppSelector((state) => state.globalData);
+
   return (
     <footer className={classNames('Footer', css.root, className)}>
       <div className={css.footerWrapper}>
@@ -52,27 +55,22 @@ const Footer: FC<FooterProps> = ({ className }) => {
             <Logo href={routes.Home.path} isWhite={true} />
           </div>
           <ul className={css.routes}>
-            {Object.values(routes).map(
-              ({ path, title }, i) =>
-                title !== 'Home' && (
+            {footerNavLinks.map(
+              ({ linkUrl, linkText, ariaLabel }, i) =>
+                linkText !== 'Home' && (
                   <li
-                    key={path}
+                    key={linkText}
                     className={classNames({
                       // TODO: set active based on the page
                       [css.active]: i === 2
                     })}
                   >
-                    <BaseLink href={path} title={title}>
-                      {title}
+                    <BaseLink href={linkUrl} title={linkText} aria-label={ariaLabel}>
+                      {linkText}
                     </BaseLink>
                   </li>
                 )
             )}
-            <li>
-              <BaseLink href={'mail:' + contact} title={'email contact'} key={'email'}>
-                {contact}
-              </BaseLink>
-            </li>
           </ul>
           <div className={css.locations}>
             {locations.map((location) => (

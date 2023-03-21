@@ -11,6 +11,11 @@ export type GridSize = {
   extraGutters: number;
 };
 
+export type GlobalData = {
+  mainNavLinks: Array<CTAContentType>;
+  footerNavLinks: Array<CTAContentType>;
+};
+
 export type PageProps = {
   head: HeadProps;
   unsupported?: boolean;
@@ -96,4 +101,11 @@ export type ContentfulImageAsset = {
       };
     };
   };
+};
+
+// Contentful Content Types
+export type CTAContentType = {
+  linkText?: string;
+  linkUrl: string;
+  ariaLabel?: string;
 };
