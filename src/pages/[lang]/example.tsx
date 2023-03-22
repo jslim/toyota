@@ -5,6 +5,8 @@ import classNames from 'classnames';
 import { APIContentful } from '@/data/API';
 import { LocalizedPageParams, PageProps } from '@/data/types';
 
+import PageExample from '@/components/PageExample/PageExample';
+
 import usePreviewData from '@/hooks/use-preview-data';
 import { getAllLangSlugs, getLocaleByLang } from '@/utils/locales';
 
@@ -26,6 +28,7 @@ const Example: FC<ExamplePageProps> = ({ data }) => {
     <main className={classNames('Example')}>
       {/* always render nodes conditionally unless it's set as required field in CMS */}
       {Boolean(pageData?.pageHeading) && <h1>{pageData.pageHeading}</h1>}
+      <PageExample />
     </main>
   );
 };
