@@ -1,8 +1,6 @@
 import { FC, memo, ReactElement, useState } from 'react';
 import classNames from 'classnames';
 
-import css from './SocialIcon.module.scss';
-
 import SvgFacebookLogo from '@/components/svgs/Facebook.svg';
 import SvgInstagramLogo from '@/components/svgs/Instagram.svg';
 import SvgLinkedinLogo from '@/components/svgs/LinkedIn.svg';
@@ -35,7 +33,7 @@ const SocialIcon: FC<SocialIconProps> = ({ className, platform, href, label, isW
 
   return (
     <div
-      className={classNames('SocialIcon', css.root, className)}
+      className={classNames('SocialIcon', className)}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
