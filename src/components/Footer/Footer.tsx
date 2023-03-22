@@ -4,36 +4,52 @@ import classNames from 'classnames';
 import css from './Footer.module.scss';
 
 import routes from '@/data/routes';
+import { PLATFORM_TYPE } from '@/data/variants';
 
 import BaseLink from '@/components/BaseLink/BaseLink';
-import Cta, { ButtonType } from '@/components/Cta/Cta';
 import Logo from '@/components/Logo/Logo';
 
 import sanitizer from '@/utils/sanitizer';
 
 import { useAppSelector } from '@/redux';
 
-import SvgFacebookLogo from '@/components/svgs/Facebook.svg';
-import SvgLinkedinLogo from '@/components/svgs/LinkedIn.svg';
 import SvgLogoTitle from '@/components/svgs/logo-title.svg';
 import SvgLogoCapital from '@/components/svgs/logo-woven-capital.svg';
 import SvgLogoCity from '@/components/svgs/logo-woven-city.svg';
-import SvgMediumLogo from '@/components/svgs/Medium.svg';
-import SvgTwitterLogo from '@/components/svgs/Twitter.svg';
-import SvgYoutubeLogo from '@/components/svgs/Youtube.svg';
 
+import SocialIcon from '../SocialIcon/SocialIcon';
 export interface FooterProps {
   className?: string;
 }
 
 const locations = ['Tokyo', 'San Francisco Bay Area, CA', 'Seattle, WA', 'Ann Arbor, MI', 'Brooklyn, Ny', 'London'];
 
-const socialMedia = [
-  { linkedin: 'https://linkedin.com/' },
-  { facebook: 'https://facebook.com/' },
-  { twitter: 'https://twitter.com/' },
-  { youtube: 'https://youtube.com/' },
-  { medium: 'https://medium.com/' }
+const socials = [
+  {
+    platform: PLATFORM_TYPE.LINKEDIN,
+    href: 'https://linkedin.com/or-something',
+    label: 'Linkedin Icon'
+  },
+  {
+    platform: PLATFORM_TYPE.FACEBOOK,
+    href: 'https://facebook.com/or-something',
+    label: 'Facebook Icon'
+  },
+  {
+    platform: PLATFORM_TYPE.TWITTER,
+    href: 'https://twitter.com/or-something',
+    label: 'twitter Icon'
+  },
+  {
+    platform: PLATFORM_TYPE.YOUTUBE,
+    href: 'https://youtube.com/or-something',
+    label: 'Youtube Icon'
+  },
+  {
+    platform: PLATFORM_TYPE.MEDIUM,
+    href: 'https://medium.com/or-something',
+    label: 'Medium Icon'
+  }
 ];
 
 const externalLinks = [
@@ -83,27 +99,15 @@ const Footer: FC<FooterProps> = ({ className }) => {
         <div className={css.bottomWrapper}>
           <div className={css.linksWrapper}>
             <div className={css.socialMedia}>
-              {socialMedia.map((link) => (
-                <Cta
-                  isWhite={true}
-                  theme={ButtonType.Icon}
-                  href={Object.values(link)[0]}
-                  aria-label={Object.keys(link)[0]}
+              {socials.map(({ platform, href, label }) => (
+                <SocialIcon
+                  key={platform}
                   className={css.socialMediaButton}
-                  key={Object.keys(link)[0]}
-                >
-                  {Object.keys(link)[0] === 'linkedin' ? (
-                    <SvgLinkedinLogo />
-                  ) : Object.keys(link)[0] === 'youtube' ? (
-                    <SvgYoutubeLogo />
-                  ) : Object.keys(link)[0] === 'facebook' ? (
-                    <SvgFacebookLogo />
-                  ) : Object.keys(link)[0] === 'twitter' ? (
-                    <SvgTwitterLogo />
-                  ) : (
-                    <SvgMediumLogo />
-                  )}
-                </Cta>
+                  platform={platform}
+                  href={href}
+                  label={label}
+                  isWhite={true}
+                />
               ))}
             </div>
             <ul className={css.externalLinks}>
