@@ -116,3 +116,35 @@ export type NextChapterContentType = {
   titleText: string;
   backgroundImage: ContentfulImageAsset;
 };
+
+export type TextBlockContentType = {
+  heading?: string;
+  eyebrowText?: string;
+  textContent?: string;
+};
+
+export type SectionContentType = {
+  displayTitle?: string;
+  eyebrowText?: string;
+  content: Array<GenericEntity>;
+  // colorBackground?: ColorValues; TODO: Create color util
+};
+
+export type TabItemContentType = {
+  tabTitle: string;
+  tabContent: Array<GenericEntity>;
+};
+
+export type TabGroupContentType = {
+  items: Array<GenericEntity<TabGroupContentType>>;
+};
+
+export type AccordionItemContentType = {
+  title: string;
+  hiddenContent?: string;
+};
+
+export type AccordionGroupContentType = {
+  title: string;
+  items: Array<GenericEntity<AccordionItemContentType>>;
+};

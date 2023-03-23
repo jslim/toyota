@@ -26,7 +26,7 @@ const Careers: FC<CareersPageProps> = ({ data }) => {
   }) as CareersPageData;
 
   return (
-    <main className={classNames('Example')}>
+    <main className={classNames('Careers')}>
       {/* always render nodes conditionally unless it's set as required field in CMS */}
       {Boolean(pageData.nextChapter.fields) ? (
         <NextChapter
@@ -55,7 +55,10 @@ export const getStaticProps: GetStaticProps<CareersPageProps> = async ({ params 
   const spaceId = process.env.CONTENTFUL_SPACE_ID; // IMPORTANT: keep space ID within 'getStaticProps' of each page
 
   const apiContentful = new APIContentful({ spaceId, accessToken });
-  const data = await apiContentful.getEntryBySlug('careers', 'careersPage', { locale });
+  const data = await apiContentful.getEntryBySlug('careers', 'careersPage', { locale, include: 10 });
+
+  // pageSections is an array
+  // console.log(data.entry.pageSections);
 
   return {
     props: {
