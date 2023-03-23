@@ -12,6 +12,8 @@ import NextChapter from '@/components/NextChapter/NextChapter';
 
 import ArrowDownSvg from '@/components/svgs/svg-arrow-down.svg';
 
+import { contentfulTestAsset } from '../ContentfulImage/ContentfulImage.stories';
+
 export interface PageExampleProps {}
 
 const Row: FC<{ title?: string; fullwidth?: boolean; children: ReactNode }> = ({ title, fullwidth, children }) => (
@@ -22,11 +24,6 @@ const Row: FC<{ title?: string; fullwidth?: boolean; children: ReactNode }> = ({
     <div className={css.wrapper}>{children}</div>
   </div>
 );
-
-const image = {
-  src: 'https://i1.wp.com/thetalkinggeek.com/wp-content/uploads/2015/09/sintel1.png?fit=1920%2C817&ssl=1',
-  alt: ''
-};
 
 const accordionitems = [
   {
@@ -112,7 +109,11 @@ const PageExample: FC<PageExampleProps> = () => {
         </Row>
       </section>
       <Row title="Next Chapter" fullwidth>
-        <NextChapter eyebrow="Eyebrow Text" link={{ title: 'Who We Are', href: 'https://google.com' }} image={image} />
+        <NextChapter
+          eyebrow="Eyebrow Text"
+          link={{ title: 'Who We Are', href: 'https://google.com' }}
+          image={contentfulTestAsset}
+        />
       </Row>
     </main>
   );

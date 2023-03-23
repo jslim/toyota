@@ -40,10 +40,10 @@ export type Metadata = {
 
 export type EntityMap = Map<string, object>;
 
-export type GenericEntity = {
+export type GenericEntity<T = GenericObject> = {
   sys: Sys;
   metadata?: Metadata;
-  fields?: GenericObject;
+  fields?: T;
 };
 
 export type Response = {
@@ -108,4 +108,11 @@ export type CTAContentType = {
   linkText?: string;
   linkUrl: string;
   ariaLabel?: string;
+};
+
+export type NextChapterContentType = {
+  linkUrl: string;
+  eyebrowText: string;
+  titleText: string;
+  backgroundImage: ContentfulImageAsset;
 };
