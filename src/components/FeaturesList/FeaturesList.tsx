@@ -28,13 +28,6 @@ const FeaturesList: FC<FeaturesListProps> = ({ className, title, eyebrow, items 
   const progressBarRef = useRef<HTMLDivElement>(null);
   const [activePoints, setActivePoints] = useState<boolean[]>(items.map(() => false));
 
-  const handleActivePoints = (i: number, active: boolean) => {
-    setActivePoints((datas) => ({
-      ...datas,
-      [i]: active
-    }));
-  };
-
   useEffect(() => {
     const resizeTimeline = () => {
       const bottomOffset =
@@ -51,6 +44,13 @@ const FeaturesList: FC<FeaturesListProps> = ({ className, title, eyebrow, items 
   }, [itemRef, itemPointRef, timelineRef]);
 
   useEffect(() => {
+    const handleActivePoints = (i: number, active: boolean) => {
+      setActivePoints((datas) => ({
+        ...datas,
+        [i]: active
+      }));
+    };
+
     itemPointRef.current.map((point, i) => {
       return gsap.to(point, {
         scrollTrigger: {
