@@ -3,7 +3,7 @@ export enum variants {
   DARK = 'dark'
 }
 
-export enum PLATFORM_TYPE {
+export enum SocialPlatform {
   FACEBOOK = 'facebook',
   INSTAGRAM = 'instagram',
   LINKEDIN = 'linkedin',

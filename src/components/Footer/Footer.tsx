@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import css from './Footer.module.scss';
 
 import routes from '@/data/routes';
-import { PLATFORM_TYPE } from '@/data/variants';
+import { SocialPlatform } from '@/data/variants';
 
 import BaseLink from '@/components/BaseLink/BaseLink';
 import Logo from '@/components/Logo/Logo';
@@ -26,27 +26,27 @@ const locations = ['Tokyo', 'San Francisco Bay Area, CA', 'Seattle, WA', 'Ann Ar
 
 const socials = [
   {
-    platform: PLATFORM_TYPE.LINKEDIN,
+    platform: SocialPlatform.LINKEDIN,
     href: 'https://linkedin.com/or-something',
     label: 'Linkedin Icon'
   },
   {
-    platform: PLATFORM_TYPE.FACEBOOK,
+    platform: SocialPlatform.FACEBOOK,
     href: 'https://facebook.com/or-something',
     label: 'Facebook Icon'
   },
   {
-    platform: PLATFORM_TYPE.TWITTER,
+    platform: SocialPlatform.TWITTER,
     href: 'https://twitter.com/or-something',
     label: 'twitter Icon'
   },
   {
-    platform: PLATFORM_TYPE.YOUTUBE,
+    platform: SocialPlatform.YOUTUBE,
     href: 'https://youtube.com/or-something',
     label: 'Youtube Icon'
   },
   {
-    platform: PLATFORM_TYPE.MEDIUM,
+    platform: SocialPlatform.MEDIUM,
     href: 'https://medium.com/or-something',
     label: 'Medium Icon'
   }

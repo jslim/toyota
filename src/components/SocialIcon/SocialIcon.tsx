@@ -1,6 +1,8 @@
 import { FC, memo, ReactElement, useState } from 'react';
 import classNames from 'classnames';
 
+import { SocialPlatform } from '@/data/variants';
+
 import SvgFacebookLogo from '@/components/svgs/Facebook.svg';
 import SvgInstagramLogo from '@/components/svgs/Instagram.svg';
 import SvgLinkedinLogo from '@/components/svgs/LinkedIn.svg';
@@ -13,23 +15,23 @@ import IconCircle from '../IconCircle/IconCircle';
 
 export type SocialIconProps = {
   className?: string;
-  platform: string;
+  platform: SocialPlatform;
   href: string;
   label: string;
   isWhite: boolean;
 };
 
+const platformIconMap: { [key in SocialPlatform]: ReactElement } = {
+  [SocialPlatform.FACEBOOK]: <SvgFacebookLogo />,
+  [SocialPlatform.INSTAGRAM]: <SvgInstagramLogo />,
+  [SocialPlatform.LINKEDIN]: <SvgLinkedinLogo />,
+  [SocialPlatform.MEDIUM]: <SvgMediumLogo />,
+  [SocialPlatform.TWITTER]: <SvgTwitterLogo />,
+  [SocialPlatform.YOUTUBE]: <SvgYoutubeLogo />
+};
+
 const SocialIcon: FC<SocialIconProps> = ({ className, platform, href, label, isWhite }) => {
   const [hover, setHover] = useState(false);
-
-  const platformIconMap: { [key: string]: ReactElement } = {
-    facebook: <SvgFacebookLogo />,
-    instagram: <SvgInstagramLogo />,
-    linkedin: <SvgLinkedinLogo />,
-    medium: <SvgMediumLogo />,
-    twitter: <SvgTwitterLogo />,
-    youtube: <SvgYoutubeLogo />
-  };
 
   return (
     <div
