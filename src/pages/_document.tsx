@@ -25,11 +25,11 @@ class MyDocument extends Document<ExtendedDocumentInitialProps> {
     const originalRenderPage = ctx.renderPage;
 
     // TODO: Fetch both locales
-    const globalDataResponse = await apiContentful.getEntryById(process.env.CONTENFUL_GLOBAL_DATA_ID as string, {
+    const globalDataResponse = await apiContentful.getEntryBySlug('global-data', 'globalData', {
       include: 1
     });
 
-    const { mainNavLinks, footerNavLinks } = globalDataResponse;
+    const { mainNavLinks, footerNavLinks } = globalDataResponse.entry;
 
     // TODO: Create dedicated parser for global data to map Entities to correct type - EX2332-121
     const globalData = {
