@@ -115,6 +115,28 @@ const makeEntryObject = (item: GenericObject, itemEntryPoints: ContentfulOptions
 };
 
 /**
+ * Create entity map with extra object fields filtered out from entries.
+ *
+ * @param allEntries Main entry and all linked entries within the includes response field
+ * @returns Entity map with simplified object structure for parsing
+ */
+const getEntityMap = (allEntries: GenericEntity<GenericObject>[]): EntityMap => {
+  return new Map(
+    allEntries.map((entity) => {
+      const isEntry = entity.sys.type === 'Entry';
+      const filteredEntity = {
+        // Ensure we keep original object references intact, DON'T spread/clone here
+        fields: entity.fields!,
+        // Creating a "content type" for any assets so component/page builder has consistent structure
+        contentType: isEntry ? entity.sys.contentType!.sys.id! : 'ContentfulAssetEntity',
+        id: entity.sys.id!
+      };
+      return [makeLookupKey(entity.sys), filteredEntity];
+    })
+  );
+};
+
+/**
  * resolveResponse Function
  * Resolves contentful response to normalized form.
  * @param {Object} response Contentful response
@@ -139,7 +161,7 @@ const resolveResponse = (
 
   const allEntries = [...responseClone.items, ...allIncludes];
 
-  const entityMap = new Map(allEntries.map((entity) => [makeLookupKey(entity.sys), entity]));
+  const entityMap = getEntityMap(allEntries);
 
   allEntries.forEach((item) => {
     const entryObject = makeEntryObject(item, options.itemEntryPoints);

@@ -32,19 +32,26 @@ export type Sys = {
   type?: string;
   id?: string;
   linkType?: string;
+  contentType?: { ['sys']: Sys };
 };
 
 export type Metadata = {
   tags: Array<Sys>;
 };
 
-export type EntityMap = Map<string, object>;
-
 export type GenericEntity<T = GenericObject> = {
   sys: Sys;
   metadata?: Metadata;
   fields?: T;
 };
+
+export type FilteredEntity<T = GenericObject> = {
+  id: string;
+  contentType: string;
+  fields: T;
+};
+
+export type EntityMap = Map<string, FilteredEntity>;
 
 export type Response = {
   limit: number;
@@ -126,17 +133,17 @@ export type TextBlockContentType = {
 export type SectionContentType = {
   displayTitle?: string;
   eyebrowText?: string;
-  content: Array<GenericEntity>;
+  innerBlocks: Array<GenericEntity>;
   // colorBackground?: ColorValues; TODO: Create color util
 };
 
 export type TabItemContentType = {
   tabTitle: string;
-  tabContent: Array<GenericEntity>;
+  innerBlocks: Array<GenericEntity>;
 };
 
 export type TabGroupContentType = {
-  items: Array<GenericEntity<TabGroupContentType>>;
+  innerBlocks: Array<GenericEntity<TabGroupContentType>>;
 };
 
 export type AccordionItemContentType = {
@@ -146,5 +153,5 @@ export type AccordionItemContentType = {
 
 export type AccordionGroupContentType = {
   title: string;
-  items: Array<GenericEntity<AccordionItemContentType>>;
+  innerBlocks: Array<GenericEntity<AccordionItemContentType>>;
 };

@@ -35,7 +35,13 @@ export const Accordion: FC<AccordionProps> = ({ className, children, variant = v
   );
 };
 
-export const AccordionItem = ({ title, children, variant, secondaryText, tertiaryText }: AccordionItemProps) => {
+export const AccordionItem: FC<AccordionItemProps> = ({
+  title,
+  children,
+  variant,
+  secondaryText,
+  tertiaryText
+}: AccordionItemProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
 

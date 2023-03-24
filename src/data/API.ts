@@ -1,4 +1,4 @@
-import resolveResponse from '@/utils/response-parser-util';
+import resolveResponse from '@/utils/parsers/response-parser-util';
 
 function convertParamsToQueryString(params: {}) {
   return Object.entries(params).reduce((queryString, [key, value], index) => {
