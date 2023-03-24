@@ -19,57 +19,6 @@
     }
   }
 
-  .options {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background-color: $white;
-    padding: 0 0 px(24) px(24);
-    border-bottom-left-radius: px(8);
-    border-bottom-right-radius: px(8);
-
-    .option {
-      @include flex-center-vert;
-      margin-bottom: px(12);
-
-      &:last-of-type {
-        margin-bottom: 0;
-      }
-
-      .circle {
-        margin-right: px(13);
-
-        svg {
-          opacity: 0;
-        }
-      }
-
-      .label {
-        color: $dark-grey;
-        opacity: 0.75;
-      }
-
-      &.selected {
-        .circle {
-          svg {
-            opacity: 1;
-          }
-        }
-      }
-    }
-
-    @at-root body:global(.desktop) {
-      .option:hover {
-        cursor: pointer;
-
-        .label {
-          opacity: 1;
-        }
-      }
-    }
-  }
-
   &.open {
     .caret {
       transform: rotate(0deg);

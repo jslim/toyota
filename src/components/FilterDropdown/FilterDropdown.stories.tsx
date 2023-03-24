@@ -7,26 +7,28 @@ export default { title: 'components/FilterDropdown' };
 export const Default: Story<FilterDropdownProps> = (args) => <FilterDropdown {...args} />;
 
 Default.args = {
-  title: 'Type',
-  alt: 'Filter by Location Type',
-  options: [
+  title: 'Location',
+  alt: 'Filter by Location Location',
+  categories: [
     {
-      label: 'All',
-      value: 'all'
+      options: [
+        {
+          label: 'All',
+          value: 'all'
+        }
+      ]
     },
     {
-      label: 'On-site',
-      value: 'on-site'
-    },
-    {
-      label: 'Hybrid',
-      value: 'hybrid'
-    },
-    {
-      label: 'Remote',
-      value: 'remote'
+      options: [
+        {
+          label: 'Tokyo',
+          value: 'tokyo'
+        },
+        {
+          label: 'London',
+          value: 'london'
+        }
+      ]
     }
   ]
 };
-
-Default.argTypes = {};
