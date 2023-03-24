@@ -176,6 +176,10 @@ $generic-fonts: system-ui, Helvetica, Arial, sans-serif;
   @include font-family('Toyota Type Book');
   @include font-size(16, 24);
 
+  @include breakpoint(tablet) {
+    @include font-size(18, 26);
+  }
+
   @include breakpoint(desktopSm) {
     @include font-size(20, 36);
   }
