@@ -58,6 +58,9 @@ const PageHome: FC<PageHomeProps> = ({ className }) => {
           </li>
         </ul>
       </section>
+      <section className={css.biographicHero}>
+        <BiographicHero />
+      </section>
     </main>
   );
 };
