@@ -3,8 +3,12 @@ import { FilteredEntity } from '@/data/types';
 import {
   buildAccordionGroup,
   buildAccordionItem,
+  buildContentfulImage,
+  buildImageBlock,
   buildNextChapter,
   buildSectionWrapper,
+  buildTabGroup,
+  buildTabItem,
   ComponentBuilderFactory
 } from './block-builders';
 
@@ -13,7 +17,12 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
   nextChapter: buildNextChapter,
   accordionItem: buildAccordionItem,
   accordionGroup: buildAccordionGroup,
-  section: buildSectionWrapper
+  section: buildSectionWrapper,
+  tabGroup: buildTabGroup,
+  tabItem: buildTabItem,
+  // We can build an image from either a reference ImageBlock or a direct linked Asset
+  contentfulAssetEntity: buildContentfulImage,
+  imageBlock: buildImageBlock
 };
 
 /**
@@ -24,7 +33,7 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
  */
 export const getPageBlocks = (entry: FilteredEntity): JSX.Element | null => {
   const { contentType, fields } = entry;
-  if (!contentType) return null;
+  if (!contentType || !componentFactories[contentType]) return null;
 
   const { props, component: Component, childrenFields } = componentFactories[contentType](entry.fields);
   let Children: Array<JSX.Element | null | string> = [];

@@ -128,7 +128,7 @@ const getEntityMap = (allEntries: GenericEntity<GenericObject>[]): EntityMap => 
         // Ensure we keep original object references intact, DON'T spread/clone here
         fields: entity.fields!,
         // Creating a "content type" for any assets so component/page builder has consistent structure
-        contentType: isEntry ? entity.sys.contentType!.sys.id! : 'ContentfulAssetEntity',
+        contentType: isEntry ? entity.sys.contentType!.sys.id! : 'contentfulAssetEntity',
         id: entity.sys.id!
       };
       return [makeLookupKey(entity.sys), filteredEntity];

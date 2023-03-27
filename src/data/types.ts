@@ -134,7 +134,7 @@ export type SectionContentType = {
   displayTitle?: string;
   eyebrowText?: string;
   innerBlocks: Array<GenericEntity>;
-  // colorBackground?: ColorValues; TODO: Create color util
+  colorBackground?: Array<string>;
 };
 
 export type TabItemContentType = {
@@ -152,6 +152,7 @@ export type AccordionItemContentType = {
 };
 
 export type AccordionGroupContentType = {
+  colorBackground: Array<string>;
   title: string;
   innerBlocks: Array<GenericEntity<AccordionItemContentType>>;
 };

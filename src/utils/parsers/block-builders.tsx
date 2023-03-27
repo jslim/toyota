@@ -3,14 +3,20 @@ import { FC } from 'react';
 import {
   AccordionGroupContentType,
   AccordionItemContentType,
+  ContentfulImageAsset,
   GenericObject,
   NextChapterContentType,
-  SectionContentType
+  SectionContentType,
+  TabGroupContentType,
+  TabItemContentType
 } from '@/data/types';
+import { variants } from '@/data/variants';
 
 import Accordion, { AccordionItem } from '@/components/Accordion/Accordion';
+import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
 import NextChapter from '@/components/NextChapter/NextChapter';
 import SectionWrapper from '@/components/SectionWrapper/SectionWrapper';
+import Tabs from '@/components/Tabs/Tabs';
 
 export type ComponentBuilder = {
   /**
@@ -47,20 +53,51 @@ export const buildAccordionItem = (fields: AccordionItemContentType, extraProps?
   props: {
     title: fields.title,
     key: fields.title,
-    extraProps
+    ...extraProps
   },
   childrenFields: [<p key="content">{fields.hiddenContent}</p>],
   component: AccordionItem
 });
 
 export const buildAccordionGroup = (
-  _fields: AccordionGroupContentType,
+  fields: AccordionGroupContentType,
+  extraProps?: GenericObject
+): ComponentBuilder => {
+  const variant = fields.colorBackground && fields.colorBackground[0] === 'Black' ? variants.DARK : variants.LIGHT;
+  return {
+    props: {
+      variant,
+      ...extraProps
+    },
+    component: Accordion
+  };
+};
+
+export const buildContentfulImage = (fields: ContentfulImageAsset, extraProps?: GenericObject): ComponentBuilder => ({
+  props: {
+    asset: fields,
+    ...extraProps
+  },
+  component: ContentfulImage
+});
+
+export const buildImageBlock = (
+  fields: { image: ContentfulImageAsset },
   extraProps?: GenericObject
 ): ComponentBuilder => ({
   props: {
-    extraProps
+    ...extraProps
   },
-  component: Accordion
+  childrenFields: [
+    <ContentfulImage
+      key={fields.image.fields.title}
+      asset={fields.image}
+      imageSizeDesktop="100%"
+      imageSizeTablet="100%"
+      imageSizeMobile="100%"
+    />
+  ],
+  component: ({ children }) => <>{children}</>
 });
 
 export const buildNextChapter = (fields: NextChapterContentType, extraProps?: GenericObject): ComponentBuilder => ({
@@ -68,16 +105,35 @@ export const buildNextChapter = (fields: NextChapterContentType, extraProps?: Ge
     eyebrow: fields.eyebrowText,
     link: { href: fields.linkUrl, title: fields.titleText },
     image: fields.backgroundImage,
-    extraProps
+    ...extraProps
   },
   component: NextChapter
 });
 
-export const buildSectionWrapper = (fields: SectionContentType, extraProps?: GenericObject): ComponentBuilder => ({
+export const buildSectionWrapper = (fields: SectionContentType, extraProps?: GenericObject): ComponentBuilder => {
+  const theme = fields.colorBackground && fields.colorBackground[0] === 'Black' ? variants.DARK : variants.LIGHT;
+  return {
+    props: {
+      eyebrow: fields.eyebrowText,
+      title: fields.displayTitle,
+      theme,
+      ...extraProps
+    },
+    component: SectionWrapper
+  };
+};
+
+export const buildTabGroup = (_fields: TabGroupContentType, extraProps?: GenericObject): ComponentBuilder => ({
   props: {
-    eyebrow: fields.eyebrowText,
-    title: fields.displayTitle,
-    extraProps
+    ...extraProps
   },
-  component: SectionWrapper
+  component: Tabs
+});
+
+export const buildTabItem = (fields: TabItemContentType, extraProps?: GenericObject): ComponentBuilder => ({
+  props: {
+    'data-label': fields.tabTitle,
+    ...extraProps
+  },
+  component: ({ children }) => <>{children}</>
 });

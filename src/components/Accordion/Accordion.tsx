@@ -14,13 +14,13 @@ import ArrowSvg from '@/components/svgs/svg-arrow-down.svg';
 interface AccordionProps {
   className?: string;
   children?: ReactNode;
-  variant?: string;
+  variant?: variants;
 }
 
 export interface AccordionItemProps {
   title?: string;
   children?: ReactNode;
-  variant?: string;
+  variant?: variants;
   secondaryText?: string;
   tertiaryText?: string;
 }
