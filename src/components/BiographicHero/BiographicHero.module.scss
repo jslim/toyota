@@ -29,7 +29,6 @@
       display: flex;
       align-items: flex-end;
       justify-content: center;
-      padding-bottom: 0;
     }
   }
 
@@ -40,6 +39,11 @@
     padding-top: px(50);
 
     @include media-desktopSm {
+      height: auto;
+      width: 80%;
+    }
+
+    @include media-desktopMd {
       height: auto;
       width: 60%;
     }
@@ -59,17 +63,13 @@
   .contentContainer {
     display: flex;
     flex-direction: column-reverse;
-    margin: 0;
     padding: px(75) px(50) 0 px(50);
-    // height: 100%;
-    border: 1px solid red;
 
     @include media-tablet {
       flex-direction: row;
       justify-content: space-evenly;
       align-items: center;
       height: 100%;
-      margin: 0 px(0);
       padding-bottom: 0;
     }
 
@@ -89,10 +89,6 @@
       width: auto;
       flex-direction: column;
     }
-
-    @include media-desktopSm {
-      width: auto;
-    }
   }
 
   .biographyHeroImage {
@@ -100,8 +96,8 @@
     height: 100%;
 
     @include media-tablet {
-      height: 80%;
       width: auto;
+      height: 80%;
     }
   }
 
@@ -116,7 +112,6 @@
     }
 
     @include media-desktopSm {
-      margin-top: px(200);
       margin-left: px(100);
     }
   }
