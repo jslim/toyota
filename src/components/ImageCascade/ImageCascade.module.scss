@@ -17,7 +17,6 @@
 
 .imageContainer {
   @include box(100%);
-  position: relative;
   overflow: hidden;
   transition: clip-path 1.5s cubic-bezier(0.33, 0, 0, 1);
   border-radius: 0 0 px(40) px(40);
