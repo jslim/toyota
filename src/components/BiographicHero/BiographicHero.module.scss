@@ -5,111 +5,99 @@
   box-sizing: border-box;
   resize: horizontal;
   max-width: 100%;
-  height: 85vh;
+  height: 65vh;
   z-index: -2;
 
+  @include media-tablet {
+    height: 85vh;
+  }
+
   .backgroundContainer {
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
     position: absolute;
     top: 0;
     left: 0;
     background-color: $light-grey;
     width: 100%;
-    max-height: 85vh;
     height: 85%;
-    padding-bottom: px(350);
     z-index: -1;
+    overflow: hidden;
 
     @include media-tablet {
-      padding-top: px(200);
-      height: 85%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 0;
     }
   }
 
   .backgroundImage {
-    height: 100%;
-    width: 100%;
+    width: 150%;
+    height: auto;
+    z-index: -2;
+    padding-top: px(50);
+
+    @include media-desktopSm {
+      height: auto;
+      width: 60%;
+    }
   }
 
-  // .whiteSpace {
-  //   display: block;
-  //   position: absolute;
-  //   bottom: 0;
-  //   left: 0;
-  //   height: 15%;
-  //   width: 100%;
-  //   background-color: $white;
-  // }
+  .whiteSpace {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 15%;
+    width: 100%;
+    background-color: $white;
+    z-index: -1;
+  }
 
   .contentContainer {
-    // display: grid;
-    // grid-template-columns: repeat(12, 1fr);
-    // overflow: hidden;
-    // gap: px(20);
-    // background: transparent;
-    // padding: px(100);
-
     display: flex;
     flex-direction: column-reverse;
     margin: 0;
-    padding: px(50);
-    // justify-content: space-evenly;
-    // align-items: center;
+    padding: px(75) px(50) 0 px(50);
     // height: 100%;
-    // margin: 0 px(200);
-
-    // background-color: green;
+    border: 1px solid red;
 
     @include media-tablet {
-      // background-color: red;
       flex-direction: row;
       justify-content: space-evenly;
       align-items: center;
       height: 100%;
-      margin: 0 px(200);
-    }
-
-    @include media-desktopSm {
-      // background-color: blue;
+      margin: 0 px(0);
+      padding-bottom: 0;
     }
 
     @include media-desktopMd {
-      // background-color: yellow;
+      margin: 0 px(200);
     }
   }
 
   .imageContainer {
     height: 100%;
-    width: auto;
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    border: 1px solid red;
 
     @include media-tablet {
-      height: 100%;
       width: auto;
       flex-direction: column;
     }
 
     @include media-desktopSm {
       width: auto;
-      height: 100%;
     }
   }
 
   .biographyHeroImage {
-    // grid-column: 1 / 6;
-    width: 80%;
+    width: 70%;
     height: 100%;
-    // min-height: ;
-    // max-height: 100%;
-    // max-width: 50%;
-    // width: 35%;
-    // position: absolute;
-    // bottom: 0;
 
     @include media-tablet {
       height: 80%;
@@ -118,18 +106,16 @@
   }
 
   .description {
-    // grid-column: 7 / 12;
-    // margin-top: px(200);
-    // margin-left: px(100);
     margin-bottom: px(50);
-    // margin: px(200) px(100) 0 px(100);
-    // position: absolute;
-    // bottom: 10%;
     text-align: left;
     width: 80%;
-    // border: 1px solid blue;
 
     @include media-tablet {
+      margin-top: px(200);
+      margin-left: px(50);
+    }
+
+    @include media-desktopSm {
       margin-top: px(200);
       margin-left: px(100);
     }
