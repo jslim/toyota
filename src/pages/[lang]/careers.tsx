@@ -52,12 +52,6 @@ export const getStaticProps: GetStaticProps<CareersPageProps> = async ({ params 
   const apiContentful = new APIContentful({ spaceId, accessToken });
   const data = await apiContentful.getEntryBySlug('careers', 'careersPage', { locale, include: 10 });
 
-  // pageSections is an array
-  // console.log(data.entry.pageSections);
-  // data.entry.pageSections.forEach((element: GenericEntity) => {
-  //   console.log(element.sys);
-  // });
-
   return {
     props: {
       head: { title: data?.entry?.pageTitle ?? '' },

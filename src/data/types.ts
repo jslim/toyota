@@ -89,6 +89,11 @@ interface ParsedUrlQuery {
 export interface LocalizedPageParams extends ParsedUrlQuery {
   lang: Lang;
 }
+
+export interface NestedLocalizedPageParams extends LocalizedPageParams {
+  slug: string;
+}
+
 export type ContentfulImageAsset = {
   metadata: Metadata;
   sys: Sys;
@@ -155,4 +160,15 @@ export type AccordionGroupContentType = {
   colorBackground: Array<string>;
   title: string;
   innerBlocks: Array<GenericEntity<AccordionItemContentType>>;
+};
+
+export type MediaGalleryItemContentType = {
+  title: string;
+  image: ContentfulImageAsset;
+  video: unknown; // TODO: Add video asset type
+};
+
+export type MediaGalleryGroupContentType = {
+  title: string;
+  innerBlocks: Array<GenericEntity<MediaGalleryItemContentType>>;
 };

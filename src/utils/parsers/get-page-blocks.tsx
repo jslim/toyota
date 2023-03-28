@@ -9,6 +9,7 @@ import {
   buildSectionWrapper,
   buildTabGroup,
   buildTabItem,
+  buildTextBlock,
   ComponentBuilderFactory
 } from './block-builders';
 
@@ -20,6 +21,7 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
   section: buildSectionWrapper,
   tabGroup: buildTabGroup,
   tabItem: buildTabItem,
+  textContent: buildTextBlock,
   // We can build an image from either a reference ImageBlock or a direct linked Asset
   contentfulAssetEntity: buildContentfulImage,
   imageBlock: buildImageBlock

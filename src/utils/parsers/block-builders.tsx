@@ -8,7 +8,8 @@ import {
   NextChapterContentType,
   SectionContentType,
   TabGroupContentType,
-  TabItemContentType
+  TabItemContentType,
+  TextBlockContentType
 } from '@/data/types';
 import { variants } from '@/data/variants';
 
@@ -136,4 +137,13 @@ export const buildTabItem = (fields: TabItemContentType, extraProps?: GenericObj
     ...extraProps
   },
   component: ({ children }) => <>{children}</>
+});
+
+// TODO: Replace with real component in EX2332-99
+export const buildTextBlock = (fields: TextBlockContentType, extraProps?: GenericObject): ComponentBuilder => ({
+  props: {
+    textContent: fields.textContent,
+    ...extraProps
+  },
+  component: ({ textContent }) => <p>{textContent}</p>
 });
