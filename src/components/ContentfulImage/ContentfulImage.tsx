@@ -13,13 +13,13 @@ import { useAppSelector } from '@/redux';
 
 export interface ContentfulImageProps extends ImgHTMLAttributes<HTMLImageElement> {
   asset: ContentfulImageAsset;
-  imageQuality: number;
-  useSrcSet: boolean;
+  imageQuality?: number;
+  useSrcSet?: boolean;
   imageSizeMobile: string | GridSize;
   imageSizeTablet: string | GridSize;
   imageSizeDesktop: string | GridSize;
-  withLazyLoad: boolean;
-  withLowResSwap: boolean;
+  withLazyLoad?: boolean;
+  withLowResSwap?: boolean;
 }
 
 const ContentfulImage = forwardRef<HTMLImageElement, ContentfulImageProps>(
@@ -27,10 +27,10 @@ const ContentfulImage = forwardRef<HTMLImageElement, ContentfulImageProps>(
     {
       asset,
       className,
-      useSrcSet,
-      imageQuality,
-      withLazyLoad,
-      withLowResSwap,
+      useSrcSet = false,
+      imageQuality = 50,
+      withLazyLoad = false,
+      withLowResSwap = false,
       imageSizeDesktop,
       imageSizeTablet,
       imageSizeMobile,

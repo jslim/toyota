@@ -1,6 +1,5 @@
 import {
   Children,
-  cloneElement,
   KeyboardEventHandler,
   memo,
   MouseEventHandler,
@@ -75,15 +74,19 @@ export const Tabs = ({ className, tabListLabel = '', children }: Props) => {
       </ul>
 
       <div className={styles.tabsContent}>
-        {childrenArray.map((child, index) =>
-          cloneElement(child as ReactElement, {
-            id: `panel-${index}`,
-            role: 'tabpanel',
-            'aria-live': 'polite',
-            'aria-labelledby': `tab-${index}`,
-            hidden: index !== active
-          })
-        )}
+        {childrenArray.map((child, index) => (
+          <div
+            className={styles.tabWrapper}
+            id={`panel-${index}`}
+            key={`panel-${index}`}
+            role="tabpanel"
+            aria-live="polite"
+            aria-labelledby={`tab-${index}`}
+            hidden={index !== active}
+          >
+            {child}
+          </div>
+        ))}
       </div>
     </div>
   );

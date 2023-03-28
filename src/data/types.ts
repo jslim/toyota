@@ -32,19 +32,26 @@ export type Sys = {
   type?: string;
   id?: string;
   linkType?: string;
+  contentType?: { ['sys']: Sys };
 };
 
 export type Metadata = {
   tags: Array<Sys>;
 };
 
-export type EntityMap = Map<string, object>;
-
-export type GenericEntity = {
+export type GenericEntity<T = GenericObject> = {
   sys: Sys;
   metadata?: Metadata;
-  fields?: GenericObject;
+  fields?: T;
 };
+
+export type FilteredEntity<T = GenericObject> = {
+  id: string;
+  contentType: string;
+  fields: T;
+};
+
+export type EntityMap = Map<string, FilteredEntity>;
 
 export type Response = {
   limit: number;
@@ -82,6 +89,11 @@ interface ParsedUrlQuery {
 export interface LocalizedPageParams extends ParsedUrlQuery {
   lang: Lang;
 }
+
+export interface NestedLocalizedPageParams extends LocalizedPageParams {
+  slug: string;
+}
+
 export type ContentfulImageAsset = {
   metadata: Metadata;
   sys: Sys;
@@ -108,4 +120,55 @@ export type CTAContentType = {
   linkText?: string;
   linkUrl: string;
   ariaLabel?: string;
+};
+
+export type NextChapterContentType = {
+  linkUrl: string;
+  eyebrowText: string;
+  titleText: string;
+  backgroundImage: ContentfulImageAsset;
+};
+
+export type TextBlockContentType = {
+  heading?: string;
+  eyebrowText?: string;
+  textContent?: string;
+};
+
+export type SectionContentType = {
+  displayTitle?: string;
+  eyebrowText?: string;
+  innerBlocks: Array<GenericEntity>;
+  colorBackground?: Array<string>;
+};
+
+export type TabItemContentType = {
+  tabTitle: string;
+  innerBlocks: Array<GenericEntity>;
+};
+
+export type TabGroupContentType = {
+  innerBlocks: Array<GenericEntity<TabGroupContentType>>;
+};
+
+export type AccordionItemContentType = {
+  title: string;
+  hiddenContent?: string;
+};
+
+export type AccordionGroupContentType = {
+  colorBackground: Array<string>;
+  title: string;
+  innerBlocks: Array<GenericEntity<AccordionItemContentType>>;
+};
+
+export type MediaGalleryItemContentType = {
+  title: string;
+  image: ContentfulImageAsset;
+  video: unknown; // TODO: Add video asset type
+};
+
+export type MediaGalleryGroupContentType = {
+  title: string;
+  innerBlocks: Array<GenericEntity<MediaGalleryItemContentType>>;
 };

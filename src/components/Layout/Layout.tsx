@@ -11,7 +11,7 @@ import Head from '@/components/Head/Head';
 import Nav from '@/components/Nav/Nav';
 
 import { useCookieBanner } from '@/hooks';
-import { GtmScript } from '@/utils/analytics';
+// import { GtmScript } from '@/utils/analytics';
 import { checkWebpSupport } from '@/utils/basic-functions';
 
 import { setGlobalData, setIsWebpSupported, setPrevRoute, useAppDispatch } from '@/redux';
@@ -65,7 +65,7 @@ const Layout: FC<ExtendedAppProps<PageProps>> = ({ Component, pageProps, globalD
 
   return (
     <>
-      <GtmScript consent={cookieConsent?.statistics} />
+      {/* <GtmScript consent={cookieConsent?.statistics} /> */}
 
       <Head {...pageProps.head} />
 
