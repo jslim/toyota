@@ -1,11 +1,13 @@
 import gsap from 'gsap';
+import DrawSVGPlugin from 'gsap/dist/DrawSVGPlugin';
+import MorphSVGPlugin from 'gsap/dist/MorphSVGPlugin';
 import ScrollToPlugin from 'gsap/dist/ScrollToPlugin';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 
 const registerEffect: gsap.RegisterEffect = gsap.registerEffect;
 
 function gsapInit() {
-  gsap.registerPlugin(ScrollToPlugin, ScrollTrigger);
+  gsap.registerPlugin(ScrollToPlugin, ScrollTrigger, DrawSVGPlugin, MorphSVGPlugin);
   gsap.defaults({ ease: 'power2.out', duration: 0.333 });
   gsap.config({ nullTargetWarn: false });
 
