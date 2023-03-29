@@ -1,10 +1,11 @@
 import { FC, memo, useMemo, useState } from 'react';
 import classNames from 'classnames';
 
+import BaseButton, { BaseProps as BaseButtonProps } from '../BaseButton/BaseButton';
+import BaseLink, { Props as BaseLinkProps } from '../BaseLink/BaseLink';
+
 import css from './Cta.module.scss';
 
-import BaseButton, { BaseProps as BaseButtonProps } from '@/components/BaseButton/BaseButton';
-import BaseLink, { Props as BaseLinkProps } from '@/components/BaseLink/BaseLink';
 import IconCircle from '@/components/IconCircle/IconCircle';
 
 import ArrowSvg from '@/components/svgs/svg-arrow.svg';
