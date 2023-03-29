@@ -3,7 +3,7 @@ import classnames from 'classnames';
 
 import styles from './BaseButton.module.scss';
 
-type BaseProps = {
+export type BaseProps = {
   className?: string | null;
   children?: ReactNode;
   tabIndex?: number | string;

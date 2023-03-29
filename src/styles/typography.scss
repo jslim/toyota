@@ -123,6 +123,10 @@ $generic-fonts: system-ui, Helvetica, Arial, sans-serif;
   @include font-family('Toyota Type Book');
   @include font-size(14, 22, 0.07);
 
+  @include breakpoint(tablet) {
+    @include font-size(15, 24);
+  }
+
   @include breakpoint(desktopSm) {
     @include font-size(16, 24);
   }
@@ -141,6 +145,10 @@ $generic-fonts: system-ui, Helvetica, Arial, sans-serif;
   @include font-family('Toyota Type Book');
   @include font-size(23, 24, -0.23);
 
+  @include breakpoint(tablet) {
+    @include font-size(30, 34);
+  }
+
   @include breakpoint(desktopSm) {
     @include font-size(40, 48);
   }
@@ -157,7 +165,7 @@ $generic-fonts: system-ui, Helvetica, Arial, sans-serif;
 
 @mixin typography-h4 {
   @include font-family('Toyota Type Book');
-  @include font-size(18, 24);
+  @include font-size(20, 26, -0.2);
 
   @include breakpoint(desktopSm) {
     @include font-size(24, 32);

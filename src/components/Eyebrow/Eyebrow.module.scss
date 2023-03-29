@@ -1,0 +1,32 @@
+@import 'shared';
+
+.root {
+  &.dark {
+    .text {
+      color: $grey;
+    }
+  }
+}
+
+.text {
+  @include flex-center-vert;
+  @include typography-eyebrow;
+  text-transform: uppercase;
+  position: relative;
+  padding-left: px($grid-relative-gap-mobile);
+
+  @include media-desktopMd {
+    margin-left: px(-$grid-relative-side-padding-desktop-external);
+    padding-left: px($grid-relative-side-padding-desktop-external);
+  }
+
+  &::before {
+    content: '';
+    display: inline-block;
+    @include box(px(4));
+    left: 0;
+    background-color: $red;
+    border-radius: 50%;
+    position: absolute;
+  }
+}

@@ -36,7 +36,7 @@
     "import/named": "error",
     "import/default": "error",
     "import/first": "error",
-    "import/order": ["error", { "groups": ["builtin", "external", ["parent", "sibling", "index"]] }],
+    "import/order": ["error", { "groups": ["builtin", "external", ["parent", "sibling", "index", "internal"]] }],
     "import/no-extraneous-dependencies": [
       "warn",
       { "devDependencies": true, "optionalDependencies": true, "peerDependencies": false }

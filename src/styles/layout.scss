@@ -30,6 +30,12 @@ $layout: (
   }
 }
 
+@mixin media-mobile-tablet() {
+  @media (max-width: #{map-get($layout, desktopSm) - 1}px) {
+    @content;
+  }
+}
+
 @mixin media-tablet() {
   @include breakpoint(tablet) {
     @content;
