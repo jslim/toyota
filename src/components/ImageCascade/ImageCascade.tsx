@@ -17,14 +17,11 @@ const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isSide }) =>
   const imageRef = useRef<HTMLDivElement | null>(null);
 
   const buildPath = (height: number, width: number) => {
-    // const anchorOffsetX = 20;
-    // const anchorOffsetY = 20;
     const anchorOffsetX = 20;
     const anchorOffsetY = 20;
     const cornerOffset = 48;
     const desiredHeight = height;
     const desiredWidth = width;
-    // const desiredWidth = 1000;
     const offsetX = 0;
 
     return MorphSVGPlugin.rawPathToString([
