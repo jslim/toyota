@@ -47,7 +47,7 @@ export default function usePreviewData({ staticData }: Args) {
       });
       const response = await apiContentful.getEntryById(entryId, {
         locale: getLocaleByLang(langSegment as Lang),
-        includes: 10
+        include: 10
       });
       response && setData(response);
     },
