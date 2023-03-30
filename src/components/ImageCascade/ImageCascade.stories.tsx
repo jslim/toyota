@@ -9,5 +9,5 @@ export const Default: Story<ImageCascadeProps> = (args) => <ImageCascade {...arg
 export const Side: Story<ImageCascadeProps> = (args) => <ImageCascade {...args} isSide />;
 
 Default.args = {
-  children: <BaseImage width={400} height={400} data={require('@/assets/images/three-logo.jpeg').default} />
+  children: <BaseImage width={800} height={500} data={require('@/assets/images/three-logo.jpeg').default} />
 };

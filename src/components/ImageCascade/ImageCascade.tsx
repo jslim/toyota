@@ -16,13 +16,13 @@ const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isSide }) =>
 
   const imageRef = useRef<HTMLDivElement | null>(null);
 
-  const buildPath = (height: number, width: number) => {
+  const buildPath = (height: number, width: number, offset?: number) => {
     const anchorOffsetX = 20;
     const anchorOffsetY = 20;
     const cornerOffset = 48;
     const desiredHeight = height;
     const desiredWidth = width;
-    const offsetX = 0;
+    const offsetX = offset ?? 0;
 
     return MorphSVGPlugin.rawPathToString([
       [
@@ -119,26 +119,30 @@ const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isSide }) =>
           <g>
             <clipPath id="clipPaththing">
               <path
-                d="M0,0 C0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 400,0 400,0 400,0 400,0 400,0 400,0 400,0 400,0 400,0 400,0 200,0 200,0 0,0 0,0 0,0 0,0 "
+                // d={`M0,0 C0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 400,0 400,0 400,0 400,0 400,0 400,0 400,0 400,0 400,0 400,0 200,0 200,0 0,0 0,0 0,0 0,0`}
+                d={buildPath(0, dimensions.width / 2, dimensions.width / 2)}
                 id="start"
               />
             </clipPath>
             <mask id="mask">
               <rect x="0" y="0" width="100%" height="100%" fill="white"></rect>
               <path
-                d="M100,0 C100,0 100,0 100,-48 100,-28 120,0 148,0 0,0 0,0 252,0 280,0 300,-28 300,-48 300,0 300,0 300,0 150,0 150,0 100,0"
+                //  d="M100,0 C100,0 100,0 100,-48 100,-28 120,0 148,0 0,0 0,0 252,0 280,0 300,-28 300,-48 300,0 300,0 300,0 150,0 150,0 100,0"
+                d={buildPath(0, dimensions.width / 2, dimensions.width / 2)}
                 id="first-panel"
                 fill="black"
                 fillOpacity="0.4"
               />
               <path
-                d="M100,0 C100,0 100,0 100,-48 100,-28 120,0 148,0 0,0 0,0 252,0 280,0 300,-28 300,-48 300,0 300,0 300,0 150,0 150,0 100,0"
+                // d="M100,0 C100,0 100,0 100,-48 100,-28 120,0 148,0 0,0 0,0 252,0 280,0 300,-28 300,-48 300,0 300,0 300,0 150,0 150,0 100,0"
+                d={buildPath(0, dimensions.width / 2, dimensions.width / 2)}
                 id="second-panel"
                 fill="black"
                 fillOpacity="0.4"
               />
               <path
-                d="M100,0 C100,0 100,0 100,-48 100,-28 120,0 148,0 0,0 0,0 252,0 280,0 300,-28 300,-48 300,0 300,0 300,0 150,0 150,0 100,0 "
+                // d="M100,0 C100,0 100,0 100,-48 100,-28 120,0 148,0 0,0 0,0 252,0 280,0 300,-28 300,-48 300,0 300,0 300,0 150,0 150,0 100,0 "
+                d={buildPath(0, dimensions.width / 2, dimensions.width / 2)}
                 id="third-panel"
                 fill="black"
               />
