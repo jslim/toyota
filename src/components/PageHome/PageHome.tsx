@@ -6,28 +6,9 @@ import css from './PageHome.module.scss';
 
 import { PageProps } from '@/data/types';
 
-import TextIntro from '../TextIntro/TextIntro';
-import { TextIntroLayout } from '../TextIntro/TextIntro';
-
 export interface PageHomeProps extends PageProps {
   className?: string;
 }
-
-const data = {
-  layout: TextIntroLayout.Default,
-  data: {
-    eyebrow: 'test',
-    header: 'test',
-    description: 'test',
-    ctaText: 'test',
-    subsection: {
-      header1: 'test',
-      description1: 'test',
-      header2: 'test',
-      description2: 'test'
-    }
-  }
-};
 
 const PageHome: FC<PageHomeProps> = ({ className }) => {
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -75,7 +56,6 @@ const PageHome: FC<PageHomeProps> = ({ className }) => {
           </li>
         </ul>
       </section>
-      <TextIntro layout={data.layout} data={data.data} />
     </main>
   );
 };
