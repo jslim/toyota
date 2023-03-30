@@ -1,0 +1,185 @@
+@import 'shared';
+
+.root {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+  text-align: left;
+  @include pagePadding(padding-left);
+  @include pagePadding(padding-right);
+  padding-top: px(100);
+  padding-bottom: px(100);
+
+  &.tabletColumnLayout {
+    @include media-tablet {
+      flex-direction: column;
+      width: 100%;
+    }
+    @include media-desktopSm {
+      flex-direction: row;
+    }
+  }
+
+  @include media-tablet {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    height: auto;
+  }
+
+  .backgroundImageContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+
+    @include media-mobile {
+      width: 100%;
+      height: 75%;
+    }
+  }
+
+  .backgroundImage {
+    height: 100%;
+    width: 100%;
+  }
+
+  .leftColumn {
+    width: 100%;
+
+    &.tabletColumnLayout {
+      @include media-tablet {
+        width: 100%;
+      }
+      @include media-desktopSm {
+        width: 50%;
+      }
+    }
+
+    @include media-tablet {
+      width: 50%;
+      padding-right: px(10);
+    }
+  }
+
+  .rightColumn {
+    width: 100%;
+
+    &.subSectionTabletView {
+      @include media-tablet {
+        flex-basis: 80%;
+      }
+
+      @include media-desktopSm {
+        flex-basis: 50%;
+      }
+    }
+
+    &.headerLeftTabletColumnLayout {
+      padding-left: 0;
+
+      @include media-tablet {
+        width: 100%;
+      }
+
+      @include media-desktopSm {
+        width: 50%;
+        padding-left: px(15);
+      }
+    }
+
+    @include media-tablet {
+      width: 50%;
+      padding-left: px(15);
+    }
+  }
+
+  .eyebrow {
+    @include typography-eyebrow;
+  }
+
+  .redDot {
+    display: inline-block;
+    color: $red;
+    font-weight: bold;
+    margin-right: px(10);
+
+    @include media-tablet {
+      margin-right: px(15);
+    }
+
+    @include media-desktopSm {
+      margin-right: px(50);
+    }
+  }
+
+  .title {
+    @include typography-h2;
+    margin-bottom: px(50);
+    padding-left: px(15);
+
+    @include media-tablet {
+      padding: 0;
+    }
+  }
+
+  .description {
+    @include typography-paragraph;
+    margin: px(25) 0;
+    padding-left: px(15);
+
+    @include media-tablet {
+      margin: px(50) 0;
+      padding: 0;
+    }
+  }
+
+  .leftTitle {
+    @include typography-h2;
+    padding-left: px(15);
+    margin-top: px(20);
+
+    @include media-tablet {
+      padding-left: 0;
+      margin-left: 0;
+    }
+
+    @include media-desktopSm {
+      margin-left: px(50);
+    }
+  }
+
+  .cta {
+    display: inline-flex;
+    align-items: center;
+
+    @include media-mobile {
+      padding-left: px(15);
+    }
+  }
+
+  .ctaText {
+    margin-left: px(30);
+  }
+
+  .subtitle {
+    @include typography-subtitle;
+    padding-left: px(15);
+
+    @include media-tablet {
+      padding: 0;
+    }
+  }
+
+  .subtitleCta {
+    padding-left: px(10);
+    margin-bottom: px(25);
+
+    @include media-tablet {
+      padding: 0;
+    }
+  }
+}
