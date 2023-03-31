@@ -9,9 +9,11 @@ import BiographicHeroImage from '../../../public/common/assets/images/biographic
 
 export type BiographicHeroProps = {
   className?: string;
+  title: string;
+  description: string;
 };
 
-const BiographicHero: FC<BiographicHeroProps> = ({ className }) => {
+const BiographicHero: FC<BiographicHeroProps> = ({ className, title, description }) => {
   return (
     <div className={classNames('BiographicHero', css.root, className)}>
       <div className={css.backgroundContainer}>
@@ -23,10 +25,8 @@ const BiographicHero: FC<BiographicHeroProps> = ({ className }) => {
           <img src={BiographicHeroImage.src} className={css.biographyHeroImage} alt="Portrait of James Kuffner" />
         </div>
         <div className={css.description}>
-          <div className={css.title}>Dr. James Kuffner</div>
-          <div className={css.eyebrow}>
-            Chief Executive Officer <br /> Woven Planet Holdings & Executive Advisor, TRI
-          </div>
+          <div className={css.title}>{title}</div>
+          <div className={css.eyebrow}>{description}</div>
         </div>
       </div>
     </div>
