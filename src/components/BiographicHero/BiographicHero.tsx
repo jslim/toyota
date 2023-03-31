@@ -18,8 +18,6 @@ const BiographicHero: FC<BiographicHeroProps> = ({ className }) => {
         <SvgBiographicHeroBackground className={css.backgroundImage} />
       </div>
 
-      <div className={css.whiteSpace}></div>
-
       <div className={css.contentContainer}>
         <div className={css.imageContainer}>
           <img src={BiographicHeroImage.src} className={css.biographyHeroImage} alt="Portrait of James Kuffner" />
