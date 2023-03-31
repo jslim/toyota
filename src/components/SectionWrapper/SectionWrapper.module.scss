@@ -12,18 +12,12 @@
 
   &.dark {
     background-color: $dark-grey;
-
-    .title {
-      color: $white;
-    }
+    color: $white;
   }
 
   &.light {
-    background-color: $white;
-
-    .title {
-      color: $dark-grey;
-    }
+    background-color: $light-grey;
+    color: $dark-grey;
   }
 
   @include media-tablet {
