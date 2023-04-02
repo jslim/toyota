@@ -4,37 +4,26 @@ import gsap from 'gsap';
 
 import css from './TextIntro.module.scss';
 
-import { ButtonType } from '@/components/Cta/Cta';
 import Cta from '@/components/Cta/Cta';
 
-import SvgDownCaret from '@/components/svgs/svg-caret-down.svg';
 import ToyotaBackground from '@/components/svgs/svg-toyota-background.svg';
+
+export enum TextIntroLayout {
+  DEFAULT = 'default',
+  DEFAULT_BACKGROUND_IMAGE = 'defaultBackgroundImage',
+  HEADER_LEFT = 'headerLeft'
+}
 
 export type TextIntroProps = {
   className?: string;
   layout: TextIntroLayout;
-  data: {
-    eyebrow: string;
-    header: string;
-    description: string;
-    ctaText?: string;
-    subsection?: {
-      header1: string;
-      description1: string;
-      header2: string;
-      description2: string;
-    };
-  };
+  eyebrow: string;
+  header: string;
+  description: string;
+  ctaText?: string;
 };
 
-export enum TextIntroLayout {
-  Default = 'default',
-  DefaultBackgroundImage = 'defaultBackgroundImage',
-  HeaderLeft = 'headerLeft',
-  SubSections = 'subSections'
-}
-
-const TextIntro: FC<TextIntroProps> = ({ className, layout, data }) => {
+const TextIntro: FC<TextIntroProps> = ({ className, layout, eyebrow, header, description, ctaText }) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const redDotRef = useRef<HTMLDivElement>(null);
 
@@ -61,64 +50,43 @@ const TextIntro: FC<TextIntroProps> = ({ className, layout, data }) => {
       <div
         className={classNames(
           'TextIntro',
-          layout === TextIntroLayout.HeaderLeft ? [css.root, css.tabletColumnLayout].join(' ') : css.root,
+          css.root,
+          { [css.tabletColumnLayout]: layout === TextIntroLayout.HEADER_LEFT },
           className
         )}
       >
-        {layout === TextIntroLayout.DefaultBackgroundImage && (
+        {layout === TextIntroLayout.DEFAULT_BACKGROUND_IMAGE && (
           <div className={css.backgroundImageContainer}>
             <ToyotaBackground className={css.backgroundImage} />
           </div>
         )}
         <div
-          className={
-            layout === TextIntroLayout.HeaderLeft ? [css.leftColumn, css.tabletColumnLayout].join(' ') : css.leftColumn
-          }
+          className={classNames(css.leftColumn, { [css.tabletColumnLayout]: layout === TextIntroLayout.HEADER_LEFT })}
         >
           <div className={css.eyebrow}>
             <div ref={redDotRef} className={css.redDot}>
               •
             </div>
-            <span>{data.eyebrow}</span>
+            <span>{eyebrow}</span>
           </div>
-          {layout === TextIntroLayout.HeaderLeft && <div className={css.leftTitle}>{data.header}</div>}
+          {layout === TextIntroLayout.HEADER_LEFT && <div className={css.leftTitle}>{header}</div>}
         </div>
         <div
-          className={
-            layout === TextIntroLayout.SubSections || layout === TextIntroLayout.HeaderLeft
-              ? [css.rightColumn, css.subSectionTabletView, css.headerLeftTabletColumnLayout].join(' ')
-              : css.rightColumn
-          }
+          className={classNames(css.rightColumn, {
+            [css.subSectionTabletView]: layout === TextIntroLayout.HEADER_LEFT,
+            [css.headerLeftTabletColumnLayout]: layout === TextIntroLayout.HEADER_LEFT
+          })}
           ref={contentRef}
         >
-          {layout !== TextIntroLayout.HeaderLeft && <div className={css.title}>{data.header}</div>}
-          <div className={css.description}>{data.description}</div>
-          {layout === TextIntroLayout.HeaderLeft && (
+          {layout !== TextIntroLayout.HEADER_LEFT && <div className={css.title}>{header}</div>}
+          <div className={css.description}>{description}</div>
+          {layout === TextIntroLayout.HEADER_LEFT && ctaText && (
             <div className={css.cta}>
-              <Cta />
-              <span className={css.ctaText}>{data.ctaText}</span>
+              <Cta title={ctaText} />
             </div>
           )}
         </div>
       </div>
-      {layout === TextIntroLayout.SubSections && (
-        <div className={css.root}>
-          <div className={css.leftColumn}>
-            <div className={css.subtitle}>{data.subsection?.header1}</div>
-            <div className={css.description}>{data.subsection?.description1}</div>
-            <Cta theme={ButtonType.Icon} className={css.subtitleCta}>
-              <SvgDownCaret />
-            </Cta>
-          </div>
-          <div className={css.rightColumn}>
-            <div className={css.subtitle}>{data.subsection?.header1}</div>
-            <div className={css.description}>{data.subsection?.description2}</div>
-            <Cta theme={ButtonType.Icon} className={css.subtitleCta}>
-              <SvgDownCaret />
-            </Cta>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
