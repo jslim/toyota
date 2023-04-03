@@ -6,6 +6,8 @@ import css from './PageHome.module.scss';
 
 import { PageProps } from '@/data/types';
 
+import TextIntro, { TextIntroLayout } from '../TextIntro/TextIntro';
+
 export interface PageHomeProps extends PageProps {
   className?: string;
 }
@@ -56,6 +58,13 @@ const PageHome: FC<PageHomeProps> = ({ className }) => {
           </li>
         </ul>
       </section>
+      <TextIntro
+        layout={TextIntroLayout.HEADER_LEFT}
+        eyebrow="our mission"
+        header="this is my heder"
+        description="test descriptions jfkljfoiej flkjsf"
+        ctaText="all news"
+      />
     </main>
   );
 };

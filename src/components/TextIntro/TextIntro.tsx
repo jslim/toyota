@@ -8,6 +8,8 @@ import Cta from '@/components/Cta/Cta';
 
 import ToyotaBackground from '@/components/svgs/svg-toyota-background.svg';
 
+import Eyebrow from '../Eyebrow/Eyebrow';
+
 export enum TextIntroLayout {
   DEFAULT = 'default',
   DEFAULT_BACKGROUND_IMAGE = 'defaultBackgroundImage',
@@ -64,10 +66,11 @@ const TextIntro: FC<TextIntroProps> = ({ className, layout, eyebrow, header, des
           className={classNames(css.leftColumn, { [css.tabletColumnLayout]: layout === TextIntroLayout.HEADER_LEFT })}
         >
           <div className={css.eyebrow}>
-            <div ref={redDotRef} className={css.redDot}>
+            {/* <div ref={redDotRef} className={css.redDot}>
               •
             </div>
-            <span>{eyebrow}</span>
+            <span>{eyebrow}</span> */}
+            <Eyebrow text={eyebrow} />
           </div>
           {layout === TextIntroLayout.HEADER_LEFT && <div className={css.leftTitle}>{header}</div>}
         </div>
@@ -82,7 +85,7 @@ const TextIntro: FC<TextIntroProps> = ({ className, layout, eyebrow, header, des
           <div className={css.description}>{description}</div>
           {layout === TextIntroLayout.HEADER_LEFT && ctaText && (
             <div className={css.cta}>
-              <Cta title={ctaText} />
+              <Cta title={ctaText} href="/#" />
             </div>
           )}
         </div>
