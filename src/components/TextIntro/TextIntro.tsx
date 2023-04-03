@@ -65,13 +65,7 @@ const TextIntro: FC<TextIntroProps> = ({ className, layout, eyebrow, header, des
         <div
           className={classNames(css.leftColumn, { [css.tabletColumnLayout]: layout === TextIntroLayout.HEADER_LEFT })}
         >
-          <div className={css.eyebrow}>
-            {/* <div ref={redDotRef} className={css.redDot}>
-              •
-            </div>
-            <span>{eyebrow}</span> */}
-            <Eyebrow text={eyebrow} />
-          </div>
+          <Eyebrow text={eyebrow} />
           {layout === TextIntroLayout.HEADER_LEFT && <div className={css.leftTitle}>{header}</div>}
         </div>
         <div

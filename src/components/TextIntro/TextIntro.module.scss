@@ -63,20 +63,14 @@
       width: 50%;
       padding-right: px(10);
     }
+
+    @include media-desktopSm {
+      padding-left: px($grid-relative-side-padding-tablet);
+    }
   }
 
   .rightColumn {
     width: 100%;
-
-    &.subSectionTabletView {
-      @include media-tablet {
-        flex-basis: 80%;
-      }
-
-      @include media-desktopSm {
-        flex-basis: 50%;
-      }
-    }
 
     &.headerLeftTabletColumnLayout {
       padding-left: 0;
@@ -94,25 +88,10 @@
     @include media-tablet {
       width: 50%;
       padding-left: px(15);
+      flex-basis: 85%;
     }
-  }
-
-  .eyebrow {
-    @include typography-eyebrow;
-  }
-
-  .redDot {
-    display: inline-block;
-    color: $red;
-    font-weight: bold;
-    margin-right: px(10);
-
-    @include media-tablet {
-      margin-right: px(15);
-    }
-
     @include media-desktopSm {
-      margin-right: px(50);
+      flex-basis: initial;
     }
   }
 
@@ -149,6 +128,7 @@
   }
 
   .cta {
+    display: flex;
     @include media-mobile {
       padding-left: px($grid-relative-gap-mobile);
     }
