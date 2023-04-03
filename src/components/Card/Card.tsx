@@ -41,7 +41,9 @@ const Card: FC<CardProps> = ({ className, cardType = CardTypes.NEWS, image, eyeb
           </div>
 
           <p className={css.text}>{text}</p>
-          {cardType === CardTypes.PRODUCT && cta && <Cta className={css.cta} theme={ButtonType.Secondary} {...cta} />}
+          {cardType === CardTypes.PRODUCT && cta && (
+            <Cta {...cta} className={css.cta} theme={ButtonType.Secondary} isInteractable={false} />
+          )}
         </div>
       </div>
     );

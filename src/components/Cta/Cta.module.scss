@@ -3,7 +3,8 @@
 .root {
   @include reset-button;
   @include typography-cta;
-  @include flex-center-vert;
+  display: inline-flex;
+  align-items: center;
   color: $dark-grey;
   text-transform: uppercase;
 

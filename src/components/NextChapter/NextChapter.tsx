@@ -3,11 +3,12 @@ import classnames from 'classnames';
 
 import css from './NextChapter.module.scss';
 
+import { ContentfulImageAsset } from '@/data/types';
 import { variants } from '@/data/variants';
 
-import BaseImage from '@/components/BaseImage/BaseImage';
 import BaseLink from '@/components/BaseLink/BaseLink';
 import { Props as LinkProps } from '@/components/BaseLink/BaseLink';
+import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
 import Cta, { ButtonType } from '@/components/Cta/Cta';
 import Eyebrow from '@/components/Eyebrow/Eyebrow';
 
@@ -17,7 +18,7 @@ export type NextChapterProps = {
   className?: string;
   eyebrow: string;
   link: LinkProps;
-  image: { src: string; alt: string };
+  image: ContentfulImageAsset;
 };
 
 const NextChapter: FC<NextChapterProps> = ({ className, eyebrow, image, link }) => {
@@ -31,7 +32,15 @@ const NextChapter: FC<NextChapterProps> = ({ className, eyebrow, image, link }) 
       onMouseLeave={() => setActive(false)}
     >
       <div className={css.imageWrapper}>
-        <BaseImage {...image} className={css.image} />
+        <ContentfulImage
+          className={css.image}
+          asset={image}
+          imageQuality={50}
+          useSrcSet={false}
+          imageSizeMobile={{ extraGutters: 0, numCols: 12 }}
+          imageSizeTablet={{ extraGutters: 0, numCols: 12 }}
+          imageSizeDesktop={{ extraGutters: 0, numCols: 12 }}
+        />
       </div>
 
       <div className={css.wrapper}>

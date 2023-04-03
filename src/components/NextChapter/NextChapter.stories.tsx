@@ -1,5 +1,6 @@
 import { Story } from '@storybook/react';
 
+import { contentfulTestAsset } from '../ContentfulImage/ContentfulImage.stories';
 import NextChapter, { NextChapterProps } from './NextChapter';
 
 export default { title: 'components/NextChapter' };
@@ -12,10 +13,7 @@ Default.args = {
     title: 'Who We Are',
     href: 'https://google.com'
   },
-  image: {
-    src: 'https://i1.wp.com/thetalkinggeek.com/wp-content/uploads/2015/09/sintel1.png?fit=1920%2C817&ssl=1',
-    alt: ''
-  }
+  image: contentfulTestAsset
 };
 
 Default.argTypes = {};

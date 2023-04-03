@@ -3,8 +3,6 @@ import classNames from 'classnames';
 
 import css from './Nav.module.scss';
 
-import routes from '@/data/routes';
-
 import BaseLink from '@/components/BaseLink/BaseLink';
 import LanguageToggle from '@/components/LanguageToggle/LanguageToggle';
 import Logo from '@/components/Logo/Logo';
@@ -12,11 +10,14 @@ import MobileNav from '@/components/MobileNav/MobileNav';
 
 import useLayout from '@/hooks/use-layout';
 
+import { useAppSelector } from '@/redux';
+
 export interface NavProps {
   className?: string;
 }
 
 const Nav: FC<NavProps> = ({ className }) => {
+  const { mainNavLinks } = useAppSelector((state) => state.globalData);
   const [isMobile, setIsMobile] = useState(false);
   const { layout } = useLayout();
   useEffect(() => {
@@ -29,23 +30,23 @@ const Nav: FC<NavProps> = ({ className }) => {
         {!isMobile ? (
           <>
             <div className={css.menuWrapper}>
-              <Logo className={css.logo} href={routes.Home.path} />
+              <a tabIndex={0} aria-label="Skip to content" className={css.skipToContent} href="#start-of-content">
+                Skip to content
+              </a>
+              <Logo className={css.logo} href="/" />
               <ul className={css.routes}>
-                <a tabIndex={0} aria-label="Skip to content" className={css.skipToContent} href="#start-of-content">
-                  Skip to content
-                </a>
-                {Object.values(routes).map(
-                  ({ path, title }, i) =>
-                    title !== 'Home' && (
+                {mainNavLinks.map(
+                  ({ linkUrl, linkText, ariaLabel }, i) =>
+                    linkText !== 'Home' && (
                       <li
-                        key={path}
+                        key={linkText}
                         className={classNames({
                           // TODO: set active based on the page
                           [css.active]: i === 2
                         })}
                       >
-                        <BaseLink href={path} title={title}>
-                          {title}
+                        <BaseLink href={linkUrl} title={linkText} aria-label={ariaLabel}>
+                          {linkText}
                         </BaseLink>
                       </li>
                     )
@@ -55,7 +56,7 @@ const Nav: FC<NavProps> = ({ className }) => {
             <LanguageToggle className={css.langToggle} />
           </>
         ) : (
-          <MobileNav links={Object.values(routes)} />
+          <MobileNav />
         )}
       </div>
 

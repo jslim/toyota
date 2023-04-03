@@ -46,7 +46,8 @@ export default function usePreviewData({ staticData }: Args) {
         accessToken
       });
       const response = await apiContentful.getEntryById(entryId, {
-        locale: getLocaleByLang(langSegment as Lang)
+        locale: getLocaleByLang(langSegment as Lang),
+        include: 10
       });
       response && setData(response);
     },

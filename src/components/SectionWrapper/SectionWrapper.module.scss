@@ -7,25 +7,23 @@
   text-align: left;
   overflow: hidden;
   padding: px(20) 0;
+  // Placeholder
+  margin-bottom: px(60);
 
   &.dark {
     background-color: $dark-grey;
-
-    .title {
-      color: $white;
-    }
+    color: $white;
   }
 
   &.light {
     background-color: $light-grey;
-
-    .title {
-      color: $dark-grey;
-    }
+    color: $dark-grey;
   }
 
   @include media-tablet {
     padding: px(20) 0 px(34);
+    // Placeholder
+    margin-bottom: px(60);
   }
 
   @include media-desktopMd {
@@ -36,6 +34,7 @@
     @include typography-h2;
     max-width: px(400);
     margin-top: px(24);
+    margin-bottom: px(54);
 
     @include media-desktopSm {
       max-width: px(550);

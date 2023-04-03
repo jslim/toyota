@@ -18,7 +18,7 @@ export default {
 
 export const Default: Story<ContentfulImageProps> = (args) => <ContentfulImage {...args} />;
 
-const asset = {
+export const contentfulTestAsset = {
   metadata: {
     tags: []
   },
@@ -63,7 +63,7 @@ const asset = {
 };
 
 Default.args = {
-  asset,
+  asset: contentfulTestAsset,
   useSrcSet: true,
   imageQuality: 50,
   imageSizeDesktop: {
