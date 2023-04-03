@@ -1,4 +1,19 @@
 @import 'shared';
 
 .root {
+  display: flex;
+  flex-direction: column;
+  border-radius: px(8);
+  @include outer-container(true);
+  padding: 0 px($grid-relative-side-padding-desktop);
+
+  &.darkMode {
+    background-color: $dark-grey;
+  }
+
+  .title {
+    @include typography-h2;
+    text-align: left;
+    color: $white;
+  }
 }
