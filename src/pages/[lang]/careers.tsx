@@ -28,8 +28,8 @@ const Careers: FC<CareersPageProps> = ({ data }) => {
   return (
     <main className={classNames('Careers')}>
       {/* always render nodes conditionally unless it's set as required field in CMS */}
-      {!!pageData.innerBlocks ? pageData.innerBlocks.map((el) => getPageBlocks(el)) : null}
-      {!!pageData.nextChapter.fields ? getPageBlocks(pageData.nextChapter) : null}
+      {!!pageData?.innerBlocks ? pageData.innerBlocks.map((el) => getPageBlocks(el)) : null}
+      {!!pageData?.nextChapter?.fields ? getPageBlocks(pageData.nextChapter) : null}
     </main>
   );
 };
@@ -57,9 +57,9 @@ export const getStaticProps: GetStaticProps<CareersPageProps> = async ({ params 
       head: { title: data?.entry?.pageTitle ?? '' },
       // IMPORTANT: wrap everything in "data" so that it can be swapped dynamically with Preview data
       data: {
-        pageTitle: data.entry.pageTitle ?? 'Careers',
-        nextChapter: data.entry.nextChapter ?? null,
-        innerBlocks: data.entry.innerBlocks
+        pageTitle: data?.entry?.pageTitle ?? 'Careers',
+        nextChapter: data?.entry?.nextChapter ?? null,
+        innerBlocks: data?.entry?.innerBlocks ?? null
       }
     }
   };
