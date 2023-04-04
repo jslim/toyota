@@ -23,24 +23,16 @@ export type TextIntroProps = {
   header: string;
   description: string;
   ctaText?: string;
+  link?: string;
 };
 
-const TextIntro: FC<TextIntroProps> = ({ className, layout, eyebrow, header, description, ctaText }) => {
+const TextIntro: FC<TextIntroProps> = ({ className, layout, eyebrow, header, description, ctaText, link }) => {
   const contentRef = useRef<HTMLDivElement>(null);
-  const redDotRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     gsap.from(contentRef.current, {
       duration: 1,
       y: 50,
-      opacity: 0,
-      scrollTrigger: { trigger: contentRef.current },
-      ease: 'power4.out'
-    });
-
-    gsap.from(redDotRef.current, {
-      duration: 1,
-      x: -50,
       opacity: 0,
       scrollTrigger: { trigger: contentRef.current },
       ease: 'power4.out'
@@ -66,7 +58,7 @@ const TextIntro: FC<TextIntroProps> = ({ className, layout, eyebrow, header, des
           className={classNames(css.leftColumn, { [css.tabletColumnLayout]: layout === TextIntroLayout.HEADER_LEFT })}
         >
           <Eyebrow text={eyebrow} />
-          {layout === TextIntroLayout.HEADER_LEFT && <div className={css.leftTitle}>{header}</div>}
+          {layout === TextIntroLayout.HEADER_LEFT && <h2 className={css.leftTitle}>{header}</h2>}
         </div>
         <div
           className={classNames(css.rightColumn, {
@@ -75,11 +67,11 @@ const TextIntro: FC<TextIntroProps> = ({ className, layout, eyebrow, header, des
           })}
           ref={contentRef}
         >
-          {layout !== TextIntroLayout.HEADER_LEFT && <div className={css.title}>{header}</div>}
-          <div className={css.description}>{description}</div>
-          {layout === TextIntroLayout.HEADER_LEFT && ctaText && (
+          {layout !== TextIntroLayout.HEADER_LEFT && <h2 className={css.title}>{header}</h2>}
+          <p className={css.description}>{description}</p>
+          {layout === TextIntroLayout.HEADER_LEFT && link && ctaText && (
             <div className={css.cta}>
-              <Cta title={ctaText} href="/#" />
+              <Cta title={ctaText} href={link} />
             </div>
           )}
         </div>

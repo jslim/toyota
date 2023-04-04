@@ -1,20 +1,18 @@
 @import 'shared';
 
 .root {
+  @include container;
   display: flex;
   flex-direction: column;
   position: relative;
   align-items: center;
   text-align: left;
-  @include pagePadding(padding-left);
-  @include pagePadding(padding-right);
   padding-top: px(100);
   padding-bottom: px(100);
 
   &.tabletColumnLayout {
     @include media-tablet {
       flex-direction: column;
-      width: 100%;
     }
     @include media-desktopSm {
       flex-direction: row;
@@ -22,10 +20,10 @@
   }
 
   @include media-tablet {
+    @include outer-container;
     flex-direction: row;
     justify-content: flex-start;
     align-items: flex-start;
-    width: 100%;
     height: auto;
   }
 
