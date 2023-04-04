@@ -3,9 +3,10 @@ import Document, { DocumentContext, DocumentInitialProps, Head, Html, Main, Next
 
 import { APIContentful } from '@/data/API';
 import { hideStaticHtml } from '@/data/settings';
-import { GlobalData } from '@/data/types';
-import { GenericEntity } from '@/data/types';
+import { GlobalData, Lang } from '@/data/types';
 
+import { getLocaleByLang } from '@/utils/locales';
+import { globalDataParserUtil } from '@/utils/parsers/global-data-parser-util';
 import sanitizer from '@/utils/sanitizer';
 
 // if JS is available we hide the page immediately to prevent static content flash.
@@ -24,17 +25,20 @@ class MyDocument extends Document<ExtendedDocumentInitialProps> {
     const apiContentful = new APIContentful({ isPreview: false, spaceId, accessToken });
     const originalRenderPage = ctx.renderPage;
 
-    // TODO: Fetch both locales
-    const globalDataResponse = await apiContentful.getEntryBySlug('global-data', 'globalData', {
-      include: 1
-    });
+    const [globalDataResponseEn, globalDataResponseJp] = await Promise.all([
+      apiContentful.getEntryBySlug('global-data', 'globalData', {
+        include: 2,
+        locale: getLocaleByLang(Lang.EN)
+      }),
+      apiContentful.getEntryBySlug('global-data', 'globalData', {
+        include: 2,
+        locale: getLocaleByLang(Lang.JP)
+      })
+    ]);
 
-    const { mainNavLinks, footerNavLinks } = globalDataResponse.fields;
-
-    // TODO: Create dedicated parser for global data to map Entities to correct type - EX2332-121
-    const globalData = {
-      mainNavLinks: mainNavLinks.map((entity: GenericEntity) => entity.fields),
-      footerNavLinks: footerNavLinks.map((entity: GenericEntity) => entity.fields)
+    const globalData: GlobalData = {
+      [Lang.EN]: globalDataParserUtil(globalDataResponseEn.fields),
+      [Lang.JP]: globalDataParserUtil(globalDataResponseJp.fields)
     };
 
     ctx.renderPage = () =>
