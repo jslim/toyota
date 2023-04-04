@@ -6,6 +6,9 @@ export default { title: 'components/CareersList' };
 
 export const Default: Story<CareersListProps> = (args) => <CareersList {...args} />;
 
-Default.args = {};
+Default.args = {
+  title: 'Lorem ipsum dolor sit',
+  eyebrow: 'careers'
+};
 
 Default.argTypes = {};

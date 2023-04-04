@@ -6,8 +6,6 @@ import css from './PageHome.module.scss';
 
 import { PageProps } from '@/data/types';
 
-import CareersList from '../CareersList/CareersList';
-
 export interface PageHomeProps extends PageProps {
   className?: string;
 }
@@ -57,7 +55,6 @@ const PageHome: FC<PageHomeProps> = ({ className }) => {
             </a>
           </li>
         </ul>
-        <CareersList />
       </section>
     </main>
   );

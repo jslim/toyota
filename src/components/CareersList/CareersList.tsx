@@ -12,62 +12,67 @@ import Eyebrow from '../Eyebrow/Eyebrow';
 
 export type CareersListProps = {
   className?: string;
+  title: string;
+  eyebrow: string;
 };
 
-interface job {
+interface Job {
   categories: {
-    commitment: string;
     department: string;
     location: string;
     team: string;
   };
-  createdAt: number;
   text: string;
-  workplaceType: string;
   applyUrl: string;
 }
 
-interface careersType {
-  [department: string]: job[];
+interface JobsListByDepartment {
+  [department: string]: Job[];
 }
 
-const CareersList: FC<CareersListProps> = ({ className }) => {
-  const [jobMap, setJobMap] = useState<careersType>({});
-  const map: careersType = useMemo(() => ({}), []);
+const CareersList: FC<CareersListProps> = ({ className, title, eyebrow }) => {
+  const [jobMap, setJobMap] = useState<JobsListByDepartment>({});
+  const jobDepartmentMap: JobsListByDepartment = useMemo(() => ({}), []);
 
-  const filterData = useCallback(
-    (data: job[]) => {
-      data.forEach((job: job) => {
-        if (map[job.categories.department]) {
-          map[job.categories.department] = [...map[job.categories.department], job];
+  const sortJobDepartments = useCallback(
+    (data: Job[]) => {
+      data.forEach((job: Job) => {
+        if (jobDepartmentMap[job.categories.department]) {
+          // If department already exists, add to end of department array
+          jobDepartmentMap[job.categories.department] = [...jobDepartmentMap[job.categories.department], job];
         } else {
-          map[job.categories.department] = [job];
+          // Otherwise create array with the job in the department
+          jobDepartmentMap[job.categories.department] = [job];
         }
       });
     },
-    [map]
+    [jobDepartmentMap]
   );
 
   useEffect(() => {
-    fetch('https://api.lever.co/v0/postings/woven-planet-2?mode=json')
-      .then((res) => res.json())
-      .then((data) => {
-        filterData(data);
-        setJobMap(map);
-      });
-  }, [filterData, map]);
+    try {
+      fetch('https://api.lever.co/v0/postings/woven-planet-2?mode=json')
+        .then((res) => res.json())
+        .then((data) => {
+          sortJobDepartments(data);
+          setJobMap(jobDepartmentMap);
+        });
+    } catch (e) {
+      console.error('Unable to fetch Job postings: ', e);
+    }
+  }, [sortJobDepartments, jobDepartmentMap]);
 
   return (
     <div className={classNames('CareersList', css.root, css.darkMode, className)}>
-      <Eyebrow text="careers" variant={variants.DARK} />
+      <Eyebrow text={eyebrow} variant={variants.DARK} className={css.eyebrow} />
       <div>
-        <div className={css.title}>Lorem ipsum dolor sit</div>
-        {/* Search Filter component here */}
+        <h2 className={css.title}>{title}</h2>
+        {/* Search Filter component goes here */}
       </div>
       <Accordion variant={variants.DARK}>
         {Object.keys(jobMap).length > 0 &&
           Object.keys(jobMap).map((department, key) => (
-            <AccordionItem key={key} title={department} secondaryText={`${jobMap[department].length} openings`}>
+            <AccordionItem key={key} title={department} secondaryText={`${jobMap[department]?.length} openings`}>
               {Object.values(jobMap)[key].map((item, key) => {
                 return (
                   <AccordionContentCard

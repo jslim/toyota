@@ -46,6 +46,7 @@
         .secondaryWrapper {
           display: flex;
           flex-direction: row-reverse;
+          justify-content: flex-end;
           margin-top: px(4);
 
           @include media-desktopSm {
@@ -59,8 +60,6 @@
             color: $white;
 
             &:first-of-type {
-              margin-left: px(14);
-
               @include media-desktopSm {
                 margin-left: 0;
                 margin-right: px(24);
