@@ -22,12 +22,12 @@ export type RoadmapItemSingleProps = { title: string; text: string; image?: Base
 export type RoadmapItemProps = {
   item: RoadmapItemSingleProps;
   index: number;
-  max: number;
+  numOfSlides: number;
   theme?: RoadmapTypes;
   setStickyInfoHeight?: Dispatch<SetStateAction<number>>;
 };
 
-const RoadmapItem: FC<RoadmapItemProps> = ({ item, index, theme, max, setStickyInfoHeight }) => {
+const RoadmapItem: FC<RoadmapItemProps> = ({ item, index, theme, numOfSlides, setStickyInfoHeight }) => {
   const itemRef = useRef<HTMLDivElement>(null);
   const { layout } = useLayout();
   const tl = useRef() as MutableRefObject<GSAPTimeline>;
@@ -62,7 +62,7 @@ const RoadmapItem: FC<RoadmapItemProps> = ({ item, index, theme, max, setStickyI
 
     if (layout.mobile) {
       // fadeOut content on all but last slides
-      if (max - 1 !== index) {
+      if (numOfSlides - 1 !== index) {
         gsap.set(content, {
           opacity: 1
         });
@@ -74,7 +74,6 @@ const RoadmapItem: FC<RoadmapItemProps> = ({ item, index, theme, max, setStickyI
 
             scrollTrigger: {
               start: `top ${opacityTrigger}%`,
-              markers: true,
               trigger: item,
               toggleActions: 'play none none reverse'
             }
@@ -124,9 +123,7 @@ const RoadmapItem: FC<RoadmapItemProps> = ({ item, index, theme, max, setStickyI
       gsap.set(wrapper, {
         scale: 0.5
       });
-      gsap.set(scaleDown, {
-        scale: scale
-      });
+      gsap.set(scaleDown, { scale });
       gsap.set(content, {
         opacity: theme === RoadmapTypes.HOME ? 1 : 0
       });
@@ -164,7 +161,7 @@ const RoadmapItem: FC<RoadmapItemProps> = ({ item, index, theme, max, setStickyI
           '-=1'
         );
     }
-  }, [layout, index, theme, max]);
+  }, [layout, index, theme, numOfSlides]);
 
   return (
     <div ref={itemRef} className={css.item}>

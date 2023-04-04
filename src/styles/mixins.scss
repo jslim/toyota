@@ -232,7 +232,7 @@
   }
 }
 
-@mixin eyebrowTitle {
+@mixin eyebrowTitle($smallerTitle: false) {
   text-align: left;
 
   .title {
@@ -241,15 +241,27 @@
     margin-top: px(24);
 
     @include media-tablet {
-      @include use-tablet-columns(max-width, 4);
+      @if ($smallerTitle) {
+        @include use-tablet-columns(max-width, 4);
+      } @else {
+        @include use-tablet-columns(max-width, 5);
+      }
     }
 
     @include media-desktopSm {
-      @include use-desktop-columns(width, 5);
+      @if ($smallerTitle) {
+        @include use-desktop-columns(width, 5);
+      } @else {
+        @include use-desktop-columns(width, 6);
+      }
     }
 
     @include media-desktopMd {
-      @include use-desktop-columns(width, 4);
+      @if ($smallerTitle) {
+        @include use-desktop-columns(width, 4);
+      } @else {
+        @include use-desktop-columns(width, 6);
+      }
       max-width: px(550);
     }
   }

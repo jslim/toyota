@@ -17,8 +17,8 @@ export type SectionWrapperProps = {
 
 const SectionWrapper: FC<SectionWrapperProps> = ({ className, eyebrow, title, children, theme = variants.DARK }) => {
   return (
-    <div className={classNames('SectionWrapper', css.root, className, css[theme])}>
-      <div className={classNames(css.wrapper, 'wrapper')}>
+    <div className={classNames('SectionWrapper', css.root, className, css[theme], 'wrapper')}>
+      <div className={css.wrapper}>
         {eyebrow && <Eyebrow className={css.wrapperInfo} text={eyebrow} variant={theme} />}
         {title && <h2 className={css.title}>{title}</h2>}
         {children}

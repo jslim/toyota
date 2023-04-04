@@ -50,7 +50,7 @@ const Roadmap: FC<RoadmapProps> = ({ className, items, title, eyebrow, cta, them
           return (
             <RoadmapItem
               item={item}
-              max={items.length}
+              numOfSlides={items.length}
               index={i}
               theme={theme}
               setStickyInfoHeight={setStickyInfoHeight}

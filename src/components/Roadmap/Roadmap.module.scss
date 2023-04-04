@@ -3,7 +3,7 @@
 .root {
   position: relative;
   .wrapperInfo {
-    @include eyebrowTitle;
+    @include eyebrowTitle(true);
     position: sticky;
     top: 0;
     @include container;
