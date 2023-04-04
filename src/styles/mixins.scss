@@ -231,3 +231,30 @@
     border-radius: $radius;
   }
 }
+
+@mixin eyebrowTitle {
+  text-align: left;
+
+  .title {
+    @include typography-h2;
+    max-width: px(250);
+    margin-top: px(24);
+
+    @include media-tablet {
+      @include use-tablet-columns(max-width, 4);
+    }
+
+    @include media-desktopSm {
+      @include use-desktop-columns(width, 5);
+    }
+
+    @include media-desktopMd {
+      @include use-desktop-columns(width, 4);
+      max-width: px(550);
+    }
+  }
+
+  .cta {
+    margin-top: px(32);
+  }
+}

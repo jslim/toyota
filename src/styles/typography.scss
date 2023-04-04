@@ -146,7 +146,7 @@ $generic-fonts: system-ui, Helvetica, Arial, sans-serif;
   @include font-size(23, 24, -0.23);
 
   @include breakpoint(tablet) {
-    @include font-size(30, 34);
+    @include font-size(28, 34);
   }
 
   @include breakpoint(desktopSm) {
@@ -181,7 +181,7 @@ $generic-fonts: system-ui, Helvetica, Arial, sans-serif;
   }
 
   @include breakpoint(desktopSm) {
-    @include font-size(20, 36);
+    @include font-size(20, 30);
   }
 }
 
