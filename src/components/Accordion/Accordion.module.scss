@@ -67,7 +67,12 @@
             }
 
             &:last-of-type {
+              margin-right: px(14);
               opacity: 0.5;
+
+              @include media-desktopSm {
+                margin-right: 0;
+              }
             }
           }
         }
