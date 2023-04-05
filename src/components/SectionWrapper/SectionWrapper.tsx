@@ -5,9 +5,9 @@ import css from './SectionWrapper.module.scss';
 
 import { variants } from '@/data/variants';
 
-import { Color, getBackgroundColorClass } from '@/utils/colors';
+import Eyebrow from '@/components/Eyebrow/Eyebrow';
 
-import Eyebrow from '../Eyebrow/Eyebrow';
+import { Color, getBackgroundColorClass } from '@/utils/colors';
 
 export type SectionWrapperProps = {
   className?: string;

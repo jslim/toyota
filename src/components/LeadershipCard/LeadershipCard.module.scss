@@ -1,0 +1,52 @@
+@import 'shared';
+
+.root {
+  display: flex;
+  flex-direction: column;
+  width: px(114);
+  margin-bottom: px(21);
+
+  @include media-tablet {
+    width: px(231);
+    margin-bottom: px(25);
+  }
+
+  @include media-desktopSm {
+    width: px(264);
+  }
+
+  .title,
+  .description {
+    text-align: left;
+  }
+
+  .title {
+    @include typography-label;
+  }
+
+  .description {
+    @include font-size(9, 14);
+
+    @include media-tablet {
+      @include font-size(13, 22);
+    }
+
+    @include media-desktopSm {
+      @include font-size(16, 24);
+    }
+  }
+
+  .image {
+    @include aspect-ratio(264, 324);
+    object-fit: cover;
+    margin-bottom: px(6);
+
+    @include media-tablet {
+      margin-bottom: px(10);
+    }
+
+    @include media-desktopSm {
+      margin-bottom: px(12);
+    }
+  }
+}

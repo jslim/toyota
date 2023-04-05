@@ -1,0 +1,33 @@
+@import 'shared';
+
+.root {
+  position: relative;
+  overflow-x: scroll;
+  white-space: nowrap;
+  height: 500px;
+}
+
+.draggable {
+  display: inline-block;
+  white-space: normal;
+}
+
+.column {
+  //   @include flex-center-vert;
+  //   flex-direction: column;
+
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 20px;
+
+  //   flex-direction: column;
+  //   position: absolute;
+  //   top: 0;
+  //   bottom: 0;
+  //   width: 50%;
+  //   overflow: hidden;
+
+  .leader {
+    pointer-events: none;
+  }
+}
