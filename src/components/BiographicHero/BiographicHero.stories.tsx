@@ -18,7 +18,7 @@ const asset = {
         id: 'x1jx2zz0m6ly'
       }
     },
-    id: '3ZmNSLau8DHprqeqa9KO3r',
+    id: 'G7ua9WOelSJGJ4X4ybnAk',
     type: 'Asset',
     createdAt: '2023-03-03T18:41:48.320Z',
     updatedAt: '2023-03-03T18:41:48.320Z',
@@ -36,15 +36,15 @@ const asset = {
     title: 'Dummy Title',
     description: 'Description',
     file: {
-      url: '//images.ctfassets.net/x1jx2zz0m6ly/3ZmNSLau8DHprqeqa9KO3r/099955bf09da8b2cd3751c8af5997638/what_we_build_cta.jpeg',
+      url: 'https://images.ctfassets.net/x1jx2zz0m6ly/G7ua9WOelSJGJ4X4ybnAk/4521b7e06e3ed4ecc4ffb7a438df1c29/biographic-hero.jpg',
       details: {
-        size: 195080,
+        size: 170060,
         image: {
-          width: 1920,
-          height: 762
+          width: 456,
+          height: 612
         }
       },
-      fileName: 'what_we_build_cta.jpeg',
+      fileName: 'biographic-hero.jpg',
       contentType: 'image/jpeg'
     }
   }

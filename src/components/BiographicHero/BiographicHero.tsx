@@ -38,17 +38,20 @@ const BiographicHero: FC<BiographicHeroProps> = ({
       </div>
 
       <div className={css.contentContainer}>
-        <div className={css.imageContainer}>
-          <ContentfulImage
-            asset={asset}
-            useSrcSet={true}
-            imageQuality={50}
-            imageSizeDesktop={'5'}
-            imageSizeTablet={'4'}
-            imageSizeMobile={'3'}
-            withLazyLoad={withLazyLoad}
-            withLowResSwap={withLowResSwap}
-          />
+        <div className={css.rightMobileImage}>
+          <div className={css.imageContainer}>
+            <ContentfulImage
+              className={css.biographyHeroImage}
+              asset={asset}
+              useSrcSet={false}
+              imageQuality={50}
+              imageSizeDesktop={'5'}
+              imageSizeTablet={'4'}
+              imageSizeMobile={'3'}
+              withLazyLoad={withLazyLoad}
+              withLowResSwap={withLowResSwap}
+            />
+          </div>
         </div>
         <div className={css.description}>
           <div className={css.title}>{title}</div>

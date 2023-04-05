@@ -43,11 +43,6 @@
       height: auto;
       width: 80%;
     }
-
-    @include media-desktopMd {
-      height: auto;
-      width: 60%;
-    }
   }
 
   .contentContainer {
@@ -66,32 +61,36 @@
     }
   }
 
+  .rightMobileImage {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    position: relative;
+    height: 100%;
+  }
+
   .imageContainer {
     @include box(100%);
+    width: 100%;
+    height: auto;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    @include use-mobile-columns(max-width, 3);
 
     @include media-tablet {
-      width: 100%;
       flex-direction: column;
-      @include use-tablet-columns(max-width, 4);
+      @include use-tablet-columns(width, 4);
     }
 
     @include media-desktopSm {
-      @include use-desktop-columns(max-width, 5);
+      @include use-desktop-columns(width, 5);
     }
   }
 
   .biographyHeroImage {
     width: 100%;
     height: auto;
-
-    @include media-mobile {
-      width: 100%;
-      height: auto;
-      @include use-mobile-columns(max-width, 3);
-    }
   }
 
   .description {
