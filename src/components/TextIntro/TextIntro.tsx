@@ -54,21 +54,11 @@ const TextIntro: FC<TextIntroProps> = ({ className, layout, eyebrow, header, des
             <ToyotaBackground className={css.backgroundImage} />
           </div>
         )}
-        <div
-          // className={classNames(css.leftColumn, { [css.tabletColumnLayout]: layout === TextIntroLayout.HEADER_LEFT })}
-          className={css.leftColumn}
-        >
+        <div className={css.leftColumn}>
           <Eyebrow text={eyebrow} />
           {layout === TextIntroLayout.HEADER_LEFT && <h2 className={css.leftTitle}>{header}</h2>}
         </div>
-        <div
-          // className={classNames(css.rightColumn, {
-          //   [css.subSectionTabletView]: layout === TextIntroLayout.HEADER_LEFT,
-          //   [css.headerLeftTabletColumnLayout]: layout === TextIntroLayout.HEADER_LEFT
-          // })}
-          className={css.rightColumn}
-          ref={contentRef}
-        >
+        <div className={css.rightColumn} ref={contentRef}>
           {layout !== TextIntroLayout.HEADER_LEFT && <h2 className={css.title}>{header}</h2>}
           <p className={css.description}>{description}</p>
           {link && ctaText && (

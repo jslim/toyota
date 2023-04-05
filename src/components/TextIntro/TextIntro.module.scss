@@ -50,16 +50,6 @@
     }
   }
 
-  &.headerLeftTabletColumnLayout {
-    .rightColumn {
-      padding-left: 0;
-
-      @include media-tablet {
-        @include use-desktop-columns(width, 6);
-      }
-    }
-  }
-
   .backgroundImageContainer {
     position: absolute;
     top: 0;
