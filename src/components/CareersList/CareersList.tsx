@@ -1,14 +1,13 @@
-import { FC, memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { FC, memo, useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames';
 
 import css from './CareersList.module.scss';
 
 import { variants } from '@/data/variants';
 
+import { Accordion, AccordionItem } from '@/components/Accordion/Accordion';
 import AccordionContentCard from '@/components/AccordionContent/AccordionContentCard';
-
-import { Accordion, AccordionItem } from '../Accordion/Accordion';
-import Eyebrow from '../Eyebrow/Eyebrow';
+import Eyebrow from '@/components/Eyebrow/Eyebrow';
 
 export type CareersListProps = {
   className?: string;
@@ -24,6 +23,7 @@ interface Job {
   };
   text: string;
   applyUrl: string;
+  id: string;
 }
 
 interface JobsListByDepartment {
@@ -32,35 +32,32 @@ interface JobsListByDepartment {
 
 const CareersList: FC<CareersListProps> = ({ className, title, eyebrow }) => {
   const [jobMap, setJobMap] = useState<JobsListByDepartment>({});
-  const jobDepartmentMap: JobsListByDepartment = useMemo(() => ({}), []);
 
-  const sortJobDepartments = useCallback(
-    (data: Job[]) => {
-      data.forEach((job: Job) => {
-        if (jobDepartmentMap[job.categories.department]) {
-          // If department already exists, add to end of department array
-          jobDepartmentMap[job.categories.department] = [...jobDepartmentMap[job.categories.department], job];
-        } else {
-          // Otherwise create array with the job in the department
-          jobDepartmentMap[job.categories.department] = [job];
-        }
-      });
-    },
-    [jobDepartmentMap]
-  );
+  const sortJobDepartments = useCallback((data: Job[], jobDepartmentMap: JobsListByDepartment) => {
+    data.forEach((job: Job) => {
+      if (jobDepartmentMap[job.categories.department]) {
+        // If department already exists, add to end of department array
+        jobDepartmentMap[job.categories.department].push(job);
+      } else {
+        // Otherwise create array with the job in the department
+        jobDepartmentMap[job.categories.department] = [job];
+      }
+    });
+  }, []);
 
   useEffect(() => {
+    const jobDepartmentMap = {};
     try {
       fetch('https://api.lever.co/v0/postings/woven-planet-2?mode=json')
         .then((res) => res.json())
         .then((data) => {
-          sortJobDepartments(data);
+          sortJobDepartments(data, jobDepartmentMap);
           setJobMap(jobDepartmentMap);
         });
     } catch (e) {
       console.error('Unable to fetch Job postings: ', e);
     }
-  }, [sortJobDepartments, jobDepartmentMap]);
+  }, [sortJobDepartments]);
 
   return (
     <div className={classNames('CareersList', css.root, css.darkMode, className)}>
@@ -73,16 +70,14 @@ const CareersList: FC<CareersListProps> = ({ className, title, eyebrow }) => {
         {Object.keys(jobMap).length > 0 &&
           Object.keys(jobMap).map((department, key) => (
             <AccordionItem key={key} title={department} secondaryText={`${jobMap[department]?.length} openings`}>
-              {Object.values(jobMap)[key].map((item, key) => {
-                return (
-                  <AccordionContentCard
-                    key={key}
-                    title={item.text}
-                    text={`${item.categories.location} ${item.categories.department} - ${item.categories.team}`}
-                    cta={{ title: 'apply', href: item.applyUrl }}
-                  />
-                );
-              })}
+              {Object.values(jobMap)[key].map((item) => (
+                <AccordionContentCard
+                  key={item.id}
+                  title={item.text}
+                  text={`${item.categories.location} ${item.categories.department} - ${item.categories.team}`}
+                  cta={{ title: 'apply', href: item.applyUrl }}
+                />
+              ))}
             </AccordionItem>
           ))}
       </Accordion>
