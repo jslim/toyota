@@ -3,17 +3,34 @@ import classNames from 'classnames';
 
 import css from './BiographicHero.module.scss';
 
-import SvgBiographicHeroBackground from '@/components/svgs/biographic-hero-background.svg';
+import { ContentfulImageAsset, GridSize } from '@/data/types';
 
-import BiographicHeroImage from '../../../public/common/assets/images/biographic-hero.png';
+import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
+
+import SvgBiographicHeroBackground from '@/components/svgs/biographic-hero-background.svg';
 
 export type BiographicHeroProps = {
   className?: string;
   title: string;
   description: string;
+  asset: ContentfulImageAsset;
+  imageQuality: number;
+  useSrcSet: boolean;
+  imageSizeMobile: string | GridSize;
+  imageSizeTablet: string | GridSize;
+  imageSizeDesktop: string | GridSize;
+  withLazyLoad: boolean;
+  withLowResSwap: boolean;
 };
 
-const BiographicHero: FC<BiographicHeroProps> = ({ className, title, description }) => {
+const BiographicHero: FC<BiographicHeroProps> = ({
+  className,
+  title,
+  description,
+  asset,
+  withLazyLoad,
+  withLowResSwap
+}) => {
   return (
     <div className={classNames('BiographicHero', css.root, className)}>
       <div className={css.backgroundContainer}>
@@ -22,7 +39,16 @@ const BiographicHero: FC<BiographicHeroProps> = ({ className, title, description
 
       <div className={css.contentContainer}>
         <div className={css.imageContainer}>
-          <img src={BiographicHeroImage.src} className={css.biographyHeroImage} alt="Portrait of James Kuffner" />
+          <ContentfulImage
+            asset={asset}
+            useSrcSet={true}
+            imageQuality={50}
+            imageSizeDesktop={'5'}
+            imageSizeTablet={'4'}
+            imageSizeMobile={'3'}
+            withLazyLoad={withLazyLoad}
+            withLowResSwap={withLowResSwap}
+          />
         </div>
         <div className={css.description}>
           <div className={css.title}>{title}</div>
