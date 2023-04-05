@@ -7,36 +7,74 @@
   position: relative;
   align-items: center;
   text-align: left;
-  padding-top: px(100);
+  padding-top: px(250);
   padding-bottom: px(100);
 
-  &.tabletColumnLayout {
-    @include media-tablet {
-      flex-direction: column;
-    }
-    @include media-desktopSm {
-      flex-direction: row;
-    }
-  }
-
   @include media-tablet {
-    @include outer-container;
+    padding-top: px(100);
     flex-direction: row;
     justify-content: flex-start;
     align-items: flex-start;
     height: auto;
   }
 
+  &.tabletColumnLayout {
+    @include media-tablet {
+      flex-direction: column;
+    }
+
+    @include media-desktopSm {
+      flex-direction: row;
+    }
+
+    .leftColumn {
+      @include media-tablet {
+        @include use-tablet-columns(width, 5);
+      }
+      @include media-desktopSm {
+        @include use-desktop-columns(width, 6);
+      }
+    }
+
+    .rightColumn {
+      @include media-tablet {
+        @include use-tablet-columns(width, 7);
+        margin-left: 0;
+      }
+
+      @include media-desktopSm {
+        @include use-desktop-columns(width, 6);
+        @include use-tablet-gutter(margin-left, 1);
+        margin-top: px(25);
+      }
+    }
+  }
+
+  &.headerLeftTabletColumnLayout {
+    .rightColumn {
+      padding-left: 0;
+
+      @include media-tablet {
+        @include use-desktop-columns(width, 6);
+      }
+    }
+  }
+
   .backgroundImageContainer {
     position: absolute;
     top: 0;
     left: 0;
-    width: 50%;
-    height: 100%;
+    height: 50%;
+    width: 100%;
 
-    @include media-mobile {
-      width: 100%;
-      height: 75%;
+    @include media-tablet {
+      top: px(50);
+      @include use-tablet-columns(width, 3);
+    }
+
+    @include media-desktopSm {
+      top: px(60);
+      @include use-desktop-columns(width, 6);
     }
   }
 
@@ -48,87 +86,59 @@
   .leftColumn {
     width: 100%;
 
-    &.tabletColumnLayout {
-      @include media-tablet {
-        width: 100%;
-      }
-      @include media-desktopSm {
-        width: 50%;
-      }
-    }
-
     @include media-tablet {
-      width: 50%;
+      @include use-tablet-columns(width, 3, 0);
       padding-right: px(10);
     }
 
     @include media-desktopSm {
-      padding-left: px($grid-relative-side-padding-tablet);
+      @include use-tablet-columns(width, 6, 0);
     }
   }
 
   .rightColumn {
     width: 100%;
 
-    &.headerLeftTabletColumnLayout {
-      padding-left: 0;
-
-      @include media-tablet {
-        width: 100%;
-      }
-
-      @include media-desktopSm {
-        width: 50%;
-        padding-left: px(15);
-      }
-    }
-
     @include media-tablet {
-      width: 50%;
-      padding-left: px(15);
-      flex-basis: 85%;
+      @include use-tablet-columns(width, 5, 0);
+      @include use-tablet-gutter(margin-left, 1);
     }
     @include media-desktopSm {
+      @include use-tablet-columns(width, 6, 0);
+      @include use-tablet-gutter(margin-left, 1);
       flex-basis: initial;
     }
   }
 
   .title {
     @include typography-h2;
-    margin-bottom: px(50);
-    padding-left: px($grid-relative-gap-mobile);
+    margin-bottom: px(15);
+    margin-top: px(20);
 
     @include media-tablet {
-      padding: 0;
+      margin: 0;
     }
   }
 
   .description {
     @include typography-paragraph;
     margin: px(25) 0;
-    padding-left: px($grid-relative-gap-mobile);
 
     @include media-tablet {
-      margin: px(50) 0;
       padding: 0;
     }
   }
 
   .leftTitle {
     @include typography-h2;
-    padding-left: px($grid-relative-gap-mobile);
     margin-top: px(20);
 
     @include media-tablet {
-      padding-left: 0;
       margin-left: 0;
     }
   }
 
   .cta {
     display: flex;
-    @include media-mobile {
-      padding-left: px($grid-relative-gap-mobile);
-    }
   }
 }
