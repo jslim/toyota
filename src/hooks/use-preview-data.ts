@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { APIContentful } from '@/data/API';
-import { Lang } from '@/data/types';
+import { Lang, PageBlocksType } from '@/data/types';
 
 import extractUrlData from '@/utils/extract-url-data';
 import { getLocaleByLang } from '@/utils/locales';
 
 type Args = {
-  staticData: object;
+  staticData: PageBlocksType | null;
 };
 
 export default function usePreviewData({ staticData }: Args) {
@@ -15,25 +15,28 @@ export default function usePreviewData({ staticData }: Args) {
     return typeof window !== 'undefined' ? window.location : ({} as Location);
   }, []);
 
-  const { langSegment, urlParams } = useMemo(() => {
+  const { langSegment, urlParams, isPreview } = useMemo(() => {
     return extractUrlData(location);
   }, [location]);
 
   const {
-    isPreview,
     spaceId,
     envId,
     entryId,
     previewToken: accessToken
   } = useMemo(() => {
     return {
-      isPreview: urlParams.get('preview') === 'true',
+      isPreview,
       spaceId: urlParams.get('spaceId') ?? '',
       envId: urlParams.get('envId') ?? '',
       entryId: urlParams.get('entryId') ?? '',
       previewToken: urlParams.get('previewToken') ?? ''
     };
-  }, [urlParams]);
+  }, [isPreview, urlParams]);
+
+  const validPreviewParams = useMemo(() => {
+    return Boolean(spaceId && envId && entryId && accessToken);
+  }, [accessToken, entryId, envId, spaceId]);
 
   const [data, setData] = useState(staticData);
 
@@ -55,7 +58,7 @@ export default function usePreviewData({ staticData }: Args) {
   );
 
   useEffect(() => {
-    if (!isPreview) return;
+    if (!validPreviewParams) return;
 
     if (entryId) {
       fetchData();
@@ -63,7 +66,7 @@ export default function usePreviewData({ staticData }: Args) {
       console.error(`Required "entryId" is missing`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [entryId, isPreview]);
+  }, [entryId, validPreviewParams]);
 
   return data;
 }

@@ -135,6 +135,15 @@ export type TextBlockContentType = {
   textContent?: string;
 };
 
+export type PageBlocksType = {
+  pageTitle?: string;
+  innerBlocks?: Array<FilteredEntity>;
+};
+
+export type PageType = {
+  data: PageBlocksType | null;
+};
+
 export type SectionContentType = {
   displayTitle?: string;
   eyebrowText?: string;

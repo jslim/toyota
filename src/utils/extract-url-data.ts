@@ -8,12 +8,14 @@ export default function (location: Location) {
   if (typeof window === 'undefined') {
     return {
       langSegment: defaultLang,
-      urlParams: new URLSearchParams('')
+      urlParams: new URLSearchParams(''),
+      isPreview: false
     };
   }
 
   return {
     langSegment: location?.pathname?.split('/')[1] ?? defaultLang,
-    urlParams: new URLSearchParams(location?.search ?? '')
+    urlParams: new URLSearchParams(location?.search ?? ''),
+    isPreview: location.pathname.endsWith('preview') || location.pathname.endsWith('preview/')
   };
 }

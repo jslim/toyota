@@ -3,31 +3,23 @@ import { GetStaticProps } from 'next';
 import classNames from 'classnames';
 
 import { APIContentful } from '@/data/API';
-import { LocalizedPageParams, PageProps } from '@/data/types';
+import { LocalizedPageParams, PageType } from '@/data/types';
 
 import PageExample from '@/components/PageExample/PageExample';
 
 import usePreviewData from '@/hooks/use-preview-data';
 import { getAllLangSlugs, getLocaleByLang } from '@/utils/locales';
+import { getPageBlocks } from '@/utils/parsers/get-page-blocks';
 
-type ExamplePageData = {
-  pageHeading: string;
-};
-
-export interface ExamplePageProps extends PageProps {
-  data: ExamplePageData;
-}
-
-const Example: FC<ExamplePageProps> = ({ data }) => {
+const Example: FC<PageType> = ({ data }) => {
   const pageData = usePreviewData({
     // this is a mandatory hook to be called on every page
     staticData: data
-  }) as ExamplePageData;
+  });
 
   return (
     <main className={classNames('Example')}>
-      {/* always render nodes conditionally unless it's set as required field in CMS */}
-      {Boolean(pageData?.pageHeading) && <h1>{pageData.pageHeading}</h1>}
+      {pageData?.innerBlocks?.map((el) => getPageBlocks(el)) ?? null}
       <PageExample />
     </main>
   );
@@ -54,7 +46,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       head: { title: data?.entry?.pageTitle ?? '' },
-      // IMPORTANT: wrap everything in "data" so that it can be swapped dynamically with Preview data
+      // IMPORTANT: wrap content in "data" object so that it can be swapped dynamically with Preview draft data
       data: {
         pageHeading: data?.entry?.pageHeading ?? ''
       }
