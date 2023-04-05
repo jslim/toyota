@@ -19,7 +19,7 @@ const Example: FC<PageType> = ({ data }) => {
 
   return (
     <main className={classNames('Example')}>
-      {pageData?.innerBlocks?.map((el) => getPageBlocks(el)) ?? null}
+      {!!pageData?.fields ? getPageBlocks(pageData) : null}
       <PageExample />
     </main>
   );
@@ -45,11 +45,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return {
     props: {
-      head: { title: data?.entry?.pageTitle ?? '' },
+      head: { title: data?.fields?.pageTitle ?? '' },
       // IMPORTANT: wrap content in "data" object so that it can be swapped dynamically with Preview draft data
-      data: {
-        pageHeading: data?.entry?.pageHeading ?? ''
-      }
+      data
     }
   };
 };

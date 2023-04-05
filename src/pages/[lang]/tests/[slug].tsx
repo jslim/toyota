@@ -7,19 +7,15 @@ import {
   FilteredEntity,
   GenericEntity,
   NestedLocalizedPageParams,
-  NextChapterContentType,
-  PageProps
+  PageProps,
+  TestsPageContentType
 } from '@/data/types';
 
 import usePreviewData from '@/hooks/use-preview-data';
 import { getAllLangSlugs, getLocaleByLang } from '@/utils/locales';
 import { getPageBlocks } from '@/utils/parsers/get-page-blocks';
 
-type BioPageData = {
-  pageTitle: string;
-  nextChapter: FilteredEntity<NextChapterContentType>;
-  innerBlocks: Array<FilteredEntity>;
-};
+type BioPageData = FilteredEntity<TestsPageContentType>;
 
 export interface BioPageProps extends PageProps {
   data: BioPageData;
@@ -34,9 +30,7 @@ const Careers: FC<BioPageProps> = ({ data }) => {
   return (
     <main className={classNames('Test')}>
       {/* always render nodes conditionally unless it's set as required field in CMS */}
-      {!!pageData?.pageTitle && <h1>{pageData.pageTitle}</h1>}
-      {!!pageData?.innerBlocks ? pageData.innerBlocks.map((el) => getPageBlocks(el)) : null}
-      {!!pageData?.nextChapter?.fields ? getPageBlocks(pageData.nextChapter) : null}
+      {!!pageData?.fields ? getPageBlocks(pageData) : null}
     </main>
   );
 };
@@ -81,13 +75,9 @@ export const getStaticProps: GetStaticProps<BioPageProps> = async ({ params }) =
 
   return {
     props: {
-      head: { title: data?.entry?.pageTitle ?? '' },
+      head: { title: data?.fields?.pageTitle ?? '' },
       // IMPORTANT: wrap everything in "data" so that it can be swapped dynamically with Preview data
-      data: {
-        pageTitle: data?.entry?.pageTitle ?? 'Test',
-        nextChapter: data?.entry?.nextChapter ?? null,
-        innerBlocks: data?.entry?.innerBlocks ?? null
-      }
+      data
     }
   };
 };

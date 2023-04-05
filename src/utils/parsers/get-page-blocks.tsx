@@ -9,6 +9,7 @@ import {
   buildSectionWrapper,
   buildTabGroup,
   buildTabItem,
+  buildTestPage,
   buildTextBlock,
   ComponentBuilderFactory
 } from './block-builders';
@@ -22,10 +23,14 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
   tabGroup: buildTabGroup,
   tabItem: buildTabItem,
   textContent: buildTextBlock,
+  testPage: buildTestPage,
   // We can build an image from either a reference ImageBlock or a direct linked Asset
   contentfulAssetEntity: buildContentfulImage,
   imageBlock: buildImageBlock
 };
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const isEntity = (field: any) => field.id && field.contentType && field.fields;
 
 /**
  * Walks through a FilteredEntity object and builds up component structure based on each entity's content type.
@@ -40,13 +45,29 @@ export const getPageBlocks = (entry: FilteredEntity): JSX.Element | null => {
   const { props, component: Component, childrenFields } = componentFactories[contentType](entry.fields);
   let Children: Array<JSX.Element | null | string> = [];
 
-  // Array of referenced children items to build recursively
-  if (fields.innerBlocks && Array.isArray(fields.innerBlocks)) {
-    Children = fields.innerBlocks.map((block: FilteredEntity) => getPageBlocks(block));
-  }
-
-  // Specific fields set in the current ComponentBuilder that should be passed as children instead of a prop.
-  if (childrenFields) Children.push(...childrenFields);
+  /**
+   * For each entity we want to iterate over their fields and do one of three things:
+   *
+   * 1. If the field is an Entity assume it's a direct reference field and call getPageBlocks
+   * 2. If the field is an innerBlocks field pass those blocks to getPageBlocks and add to children
+   * 3. If the field is marked as being a child field in the builder, push that into children
+   *
+   * This allows us to keep the order of the fields on the content type.
+   */
+  Object.keys(fields).forEach((fieldId: string) => {
+    if (childrenFields && childrenFields[fieldId]) {
+      // Specific fields set in the current ComponentBuilder that should be passed as children instead of a prop.
+      Children.push(childrenFields[fieldId]);
+    } else if (isEntity(fields[fieldId])) {
+      // Single referenced field
+      Children.push(getPageBlocks(fields[fieldId]));
+    } else {
+      // Array of referenced children items to build recursively
+      if (fieldId === 'innerBlocks' && Array.isArray(fields[fieldId])) {
+        fields.innerBlocks.forEach((block: FilteredEntity) => Children.push(getPageBlocks(block)));
+      }
+    }
+  });
 
   return (
     <Component {...props} key={(Math.random() * 1000).toFixed(3)}>

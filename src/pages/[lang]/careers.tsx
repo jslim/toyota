@@ -9,11 +9,13 @@ import usePreviewData from '@/hooks/use-preview-data';
 import { getAllLangSlugs, getLocaleByLang } from '@/utils/locales';
 import { getPageBlocks } from '@/utils/parsers/get-page-blocks';
 
-type CareersPageData = {
+type CareersPageFields = {
   pageTitle: string;
   nextChapter: FilteredEntity<NextChapterContentType>;
   innerBlocks: Array<FilteredEntity>;
 };
+
+type CareersPageData = FilteredEntity<CareersPageFields>;
 
 export interface CareersPageProps extends PageProps {
   data: CareersPageData;
@@ -28,8 +30,7 @@ const Careers: FC<CareersPageProps> = ({ data }) => {
   return (
     <main className={classNames('Careers')}>
       {/* always render nodes conditionally unless it's set as required field in CMS */}
-      {!!pageData?.innerBlocks ? pageData.innerBlocks.map((el) => getPageBlocks(el)) : null}
-      {!!pageData?.nextChapter?.fields ? getPageBlocks(pageData.nextChapter) : null}
+      {!!pageData?.fields ? getPageBlocks(pageData) : null}
     </main>
   );
 };
@@ -54,13 +55,9 @@ export const getStaticProps: GetStaticProps<CareersPageProps> = async ({ params 
 
   return {
     props: {
-      head: { title: data?.entry?.pageTitle ?? '' },
+      head: { title: data?.fields?.pageTitle ?? '' },
       // IMPORTANT: wrap everything in "data" so that it can be swapped dynamically with Preview data
-      data: {
-        pageTitle: data?.entry?.pageTitle ?? 'Careers',
-        nextChapter: data?.entry?.nextChapter ?? null,
-        innerBlocks: data?.entry?.innerBlocks ?? null
-      }
+      data
     }
   };
 };
