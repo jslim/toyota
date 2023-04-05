@@ -1,4 +1,4 @@
-import { Dispatch, FC, FunctionComponent, memo, MutableRefObject, SetStateAction, useEffect, useRef } from 'react';
+import { Dispatch, FC, memo, MutableRefObject, SetStateAction, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 
 import { gsap } from 'gsap';
@@ -17,7 +17,7 @@ import { RoadmapTypes } from './Roadmap';
 gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(ExpoScaleEase);
 
-export type RoadmapItemSingleProps = { title: string; text: string; image?: BaseImageProps; svg?: FunctionComponent };
+export type RoadmapItemSingleProps = { title: string; text: string; image?: BaseImageProps; svg?: BaseImageProps };
 
 export type RoadmapItemProps = {
   item: RoadmapItemSingleProps;
@@ -48,7 +48,7 @@ const RoadmapItem: FC<RoadmapItemProps> = ({ item, index, theme, numOfSlides, se
 
   useEffect(() => {
     const scale = 2;
-    const opacityTrigger = theme === RoadmapTypes.HOME ? 47 : 32;
+    const opacityTrigger = theme === RoadmapTypes.HOME ? 47 : 29;
 
     const q = gsap.utils.selector(itemRef.current);
     const wrapper = q('.wrapper');
@@ -169,7 +169,9 @@ const RoadmapItem: FC<RoadmapItemProps> = ({ item, index, theme, numOfSlides, se
         {theme === RoadmapTypes.HOME && <BaseImage className={classNames(css.image, 'scaleDown')} {...item.image} />}
         <div className={classNames(css.wrapper, 'scaleDown')}>
           {theme === RoadmapTypes.DEFAULT && item.svg && (
-            <div className={classNames(css.svg, 'content')}>{<item.svg />}</div>
+            <div className={classNames(css.svg, 'content')}>
+              <BaseImage className={css.svgIcon} {...item.svg} />
+            </div>
           )}
           <div className={classNames(css.content, 'content')}>
             <div className={css.itemTitle}>{item.title}</div>

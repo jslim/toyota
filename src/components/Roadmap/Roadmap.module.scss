@@ -76,7 +76,7 @@
           @include use-desktop-columns(width, 4);
           @include use-desktop-columns(margin-left, 4, 1);
         }
-        svg {
+        .svgIcon {
           max-width: px(183);
 
           @include breakpoint(desktopSm) {
@@ -109,6 +109,10 @@
         .wrapper {
           @include container;
           margin-top: px(100);
+
+          @include breakpoint(tablet) {
+            margin-top: 0;
+          }
         }
 
         .content {

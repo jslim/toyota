@@ -3,10 +3,6 @@ import { Story } from '@storybook/react';
 import Roadmap, { RoadmapProps, RoadmapTypes } from './Roadmap';
 import { getImageUrl } from '@/utils/basic-functions';
 
-import ToyotaGlobeSvg from '@/components/svgs/toyota-globe.svg';
-import ToyotaIconSvg from '@/components/svgs/toyota-icon.svg';
-import ToyotaLogoSvg from '@/components/svgs/toyota-logo.svg';
-
 export default { title: 'components/Roadmap' };
 
 export const Default: Story<RoadmapProps> = (args) => (
@@ -22,17 +18,17 @@ Default.args = {
     {
       title: 'by Toyota',
       text: "We're advancing Toyota's vision for enhancing quality of life with a plan to develop the software, data, and hardware needed for human-centered mobility solutions.",
-      svg: ToyotaGlobeSvg
+      svg: getImageUrl('toyota-icon.svg')
     },
     {
       title: 'agility',
       text: 'Our agile tech start-up mentality combined with Japanese craftsmanship leads to the ceaseless innovation needed to achieve our goals.',
-      svg: ToyotaIconSvg
+      svg: getImageUrl('toyota-globe.svg')
     },
     {
       title: 'the right tools',
       text: 'From design, to development, to testing, we’re delivering the full-stack of tools and infrastructure needed for a software-first approach to mobility.',
-      svg: ToyotaLogoSvg
+      svg: getImageUrl('toyota-logo.svg')
     }
   ]
 };
