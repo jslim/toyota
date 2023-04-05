@@ -96,15 +96,18 @@
   .description {
     margin-bottom: px(50);
     text-align: left;
-    width: 80%;
+    @include use-mobile-columns(width, 3);
 
     @include media-tablet {
       margin-top: px(200);
       @include use-tablet-gutter(margin-left, 1);
+      @include use-tablet-columns(width, 3);
+      @include use-tablet-gutter(padding-right, 1);
     }
 
     @include media-desktopSm {
       @include use-desktop-columns(margin-left, 1, 2);
+      @include use-desktop-columns(width, 6);
     }
   }
 
