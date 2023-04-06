@@ -45,7 +45,8 @@ export type GenericEntity<T = GenericObject> = {
   fields?: T;
 };
 
-export type FilteredEntity<T = GenericObject> = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type FilteredEntity<T = any> = {
   id: string;
   contentType: string;
   fields: T;

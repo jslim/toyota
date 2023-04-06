@@ -1,4 +1,5 @@
 import resolveResponse from '@/utils/parsers/response-parser-util';
+import { makeFilteredEntity } from '@/utils/parsers/response-parser-util';
 
 function convertParamsToQueryString(params: {}) {
   return Object.entries(params).reduce((queryString, [key, value], index) => {
@@ -59,7 +60,7 @@ export class APIContentful {
       'sys.id[in]': entryId,
       ...params
     });
-    return response?.items?.[0] ?? null;
+    return makeFilteredEntity(response?.items?.[0]);
   };
 
   getEntryBySlug = async (slug: string, contentType: string, params = {}) => {
@@ -69,7 +70,7 @@ export class APIContentful {
       'fields.slug[in]': slug,
       ...params
     });
-    return { fields: response?.items?.[0]?.fields ?? null, id: response.items[0]?.sys?.id ?? null, contentType };
+    return makeFilteredEntity(response?.items?.[0]);
   };
 
   getContentModelById = async (contentTypeId: string) => {

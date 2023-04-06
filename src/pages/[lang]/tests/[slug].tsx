@@ -15,17 +15,17 @@ import usePreviewData from '@/hooks/use-preview-data';
 import { getAllLangSlugs, getLocaleByLang } from '@/utils/locales';
 import { getPageBlocks } from '@/utils/parsers/get-page-blocks';
 
-type BioPageData = FilteredEntity<TestsPageContentType>;
+type TestPageData = FilteredEntity<TestsPageContentType>;
 
-export interface BioPageProps extends PageProps {
-  data: BioPageData;
+export interface TestPageProps extends PageProps {
+  data: TestPageData;
 }
 
-const Careers: FC<BioPageProps> = ({ data }) => {
+const TestPage: FC<TestPageProps> = ({ data }) => {
   const pageData = usePreviewData({
     // this is a mandatory hook to be called on every page
     staticData: data
-  }) as BioPageData;
+  }) as TestPageData;
 
   return (
     <main className={classNames('Test')}>
@@ -63,7 +63,7 @@ export async function getStaticPaths() {
   };
 }
 
-export const getStaticProps: GetStaticProps<BioPageProps> = async ({ params }) => {
+export const getStaticProps: GetStaticProps<TestPageProps> = async ({ params }) => {
   const { lang, slug } = params as NestedLocalizedPageParams;
   const locale = getLocaleByLang(lang);
 
@@ -82,4 +82,4 @@ export const getStaticProps: GetStaticProps<BioPageProps> = async ({ params }) =
   };
 };
 
-export default memo(Careers);
+export default memo(TestPage);

@@ -1,8 +1,27 @@
 import cloneDeep from 'lodash.clonedeep';
 
-import { ContentfulOptions, EntityMap, GenericEntity, GenericObject, Response, Sys } from '@/data/types';
+import {
+  ContentfulOptions,
+  EntityMap,
+  FilteredEntity,
+  GenericEntity,
+  GenericObject,
+  Response,
+  Sys
+} from '@/data/types';
 
 const UNRESOLVED_LINK = {}; // unique object to avoid polyfill bloat using Symbol()
+
+export const makeFilteredEntity = (entity: GenericEntity): FilteredEntity => {
+  const isEntry = entity.sys.type === 'Entry';
+  return {
+    // Ensure we keep original object references intact, DON'T spread/clone here
+    fields: entity.fields!,
+    // Creating a "content type" for any assets so component/page builder has consistent structure
+    contentType: isEntry ? entity?.sys?.contentType?.sys?.id! : 'contentfulAssetEntity',
+    id: entity.sys.id!
+  };
+};
 
 /**
  * isLink Function
@@ -121,19 +140,7 @@ const makeEntryObject = (item: GenericObject, itemEntryPoints: ContentfulOptions
  * @returns Entity map with simplified object structure for parsing
  */
 const getEntityMap = (allEntries: GenericEntity<GenericObject>[]): EntityMap => {
-  return new Map(
-    allEntries.map((entity) => {
-      const isEntry = entity.sys.type === 'Entry';
-      const filteredEntity = {
-        // Ensure we keep original object references intact, DON'T spread/clone here
-        fields: entity.fields!,
-        // Creating a "content type" for any assets so component/page builder has consistent structure
-        contentType: isEntry ? entity.sys.contentType!.sys.id! : 'contentfulAssetEntity',
-        id: entity.sys.id!
-      };
-      return [makeLookupKey(entity.sys), filteredEntity];
-    })
-  );
+  return new Map(allEntries.map((entity) => [makeLookupKey(entity.sys), makeFilteredEntity(entity)]));
 };
 
 /**
@@ -147,7 +154,7 @@ const getEntityMap = (allEntries: GenericEntity<GenericObject>[]): EntityMap => 
  */
 const resolveResponse = (
   response: Response,
-  options: ContentfulOptions = { removeUnresolved: true }
+  options: ContentfulOptions = { removeUnresolved: false }
 ): Response['items'] => {
   options = options || {};
   if (!response.items) {
