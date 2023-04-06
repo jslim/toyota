@@ -33,7 +33,9 @@ interface JobsListByDepartment {
 const CareersList: FC<CareersListProps> = ({ className, title, eyebrow }) => {
   const [jobMap, setJobMap] = useState<JobsListByDepartment>({});
 
-  const sortJobDepartments = useCallback((data: Job[], jobDepartmentMap: JobsListByDepartment) => {
+  const sortJobDepartments = useCallback((data: Job[]) => {
+    const jobDepartmentMap: JobsListByDepartment = {};
+
     data.forEach((job: Job) => {
       if (jobDepartmentMap[job.categories.department]) {
         // If department already exists, add to end of department array
@@ -43,16 +45,16 @@ const CareersList: FC<CareersListProps> = ({ className, title, eyebrow }) => {
         jobDepartmentMap[job.categories.department] = [job];
       }
     });
+
+    setJobMap(jobDepartmentMap);
   }, []);
 
   useEffect(() => {
-    const jobDepartmentMap = {};
     try {
       fetch('https://api.lever.co/v0/postings/woven-planet-2?mode=json')
         .then((res) => res.json())
         .then((data) => {
-          sortJobDepartments(data, jobDepartmentMap);
-          setJobMap(jobDepartmentMap);
+          sortJobDepartments(data);
         });
     } catch (e) {
       console.error('Unable to fetch Job postings: ', e);
