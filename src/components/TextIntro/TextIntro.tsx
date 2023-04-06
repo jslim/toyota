@@ -40,31 +40,28 @@ const TextIntro: FC<TextIntroProps> = ({ className, layout, eyebrow, header, des
   }, []);
 
   return (
-    <div
-      className={classNames(
-        'TextIntro',
-        css.root,
-        { [css.tabletColumnLayout]: layout === TextIntroLayout.HEADER_LEFT },
-        className
-      )}
-    >
+    <div className={classNames('TextIntro', css.root, className)}>
       {layout === TextIntroLayout.DEFAULT_BACKGROUND_IMAGE && (
         <div className={css.backgroundImageContainer}>
           <ToyotaBackground className={css.backgroundImage} />
         </div>
       )}
-      <div className={css.leftColumn}>
-        <Eyebrow text={eyebrow} />
-        {layout === TextIntroLayout.HEADER_LEFT && <h2 className={css.leftTitle}>{header}</h2>}
-      </div>
-      <div className={css.rightColumn} ref={contentRef}>
-        {layout !== TextIntroLayout.HEADER_LEFT && <h2 className={css.title}>{header}</h2>}
-        <p className={css.description}>{description}</p>
-        {link && ctaText && (
-          <div className={css.cta}>
-            <Cta title={ctaText} href={link} />
-          </div>
-        )}
+      <div
+        className={classNames(css.layoutWrapper, { [css.tabletColumnLayout]: layout === TextIntroLayout.HEADER_LEFT })}
+      >
+        <div className={css.leftColumn}>
+          <Eyebrow text={eyebrow} />
+          {layout === TextIntroLayout.HEADER_LEFT && <h2 className={css.leftTitle}>{header}</h2>}
+        </div>
+        <div className={css.rightColumn} ref={contentRef}>
+          {layout !== TextIntroLayout.HEADER_LEFT && <h2 className={css.title}>{header}</h2>}
+          <p className={css.description}>{description}</p>
+          {link && ctaText && (
+            <div className={css.cta}>
+              <Cta title={ctaText} href={link} />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

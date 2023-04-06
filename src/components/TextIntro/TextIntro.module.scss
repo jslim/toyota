@@ -1,73 +1,83 @@
 @import 'shared';
 
 .root {
-  @include container;
-  display: flex;
-  flex-direction: column;
+  width: 100%;
   position: relative;
-  align-items: center;
-  text-align: left;
-  padding-top: px(250);
-  padding-bottom: px(100);
 
-  @include media-tablet {
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-start;
-    height: auto;
-  }
+  .layoutWrapper {
+    @include container;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+    text-align: left;
+    padding-top: px(250);
+    padding-bottom: px(50);
+    height: 100%;
 
-  @include media-desktopSm {
-    padding-top: px(100);
-  }
-
-  &.tabletColumnLayout {
     @include media-tablet {
-      flex-direction: column;
-    }
-
-    @include media-desktopSm {
+      @include container;
       flex-direction: row;
+      justify-content: flex-start;
+      align-items: flex-start;
+      height: auto;
+      padding-top: px(100);
     }
 
-    .leftColumn {
+    &.tabletColumnLayout {
       @include media-tablet {
-        @include use-tablet-columns(width, 5);
-      }
-      @include media-desktopSm {
-        @include use-desktop-columns(width, 6);
-      }
-    }
-
-    .rightColumn {
-      @include media-tablet {
-        @include use-tablet-columns(width, 7);
-        margin-left: 0;
+        flex-direction: column;
       }
 
       @include media-desktopSm {
-        @include use-desktop-columns(width, 6);
-        @include use-desktop-gutter(margin-left, 1);
-        margin-top: px(25);
+        flex-direction: row;
+      }
+
+      .leftColumn {
+        @include media-tablet {
+          @include use-tablet-columns(width, 5);
+        }
+        @include media-desktopSm {
+          @include use-desktop-columns(width, 6);
+        }
+      }
+
+      .rightColumn {
+        @include media-tablet {
+          @include use-tablet-columns(width, 7);
+          margin-left: 0;
+        }
+
+        @include media-desktopSm {
+          @include use-desktop-columns(width, 6);
+          @include use-desktop-gutter(margin-left, 1);
+          margin-top: px(25);
+        }
       }
     }
   }
 
   .backgroundImageContainer {
     position: absolute;
-    top: 0;
-    left: 0;
-    height: 50%;
-    width: 100%;
+    @include use-mobile-columns(width, 4);
+    margin-top: px(50);
 
     @include media-tablet {
-      top: px(50);
-      @include use-tablet-columns(width, 3);
+      @include use-tablet-columns(width, 4);
+      margin: 0;
+      padding: 0;
+      bottom: 0;
+      height: 100%;
     }
 
     @include media-desktopSm {
-      top: px(60);
-      @include use-desktop-columns(width, 6);
+      padding: 0;
+      margin: 0;
+      @include use-desktop-columns(width, 7);
+    }
+
+    @include media-desktopMd {
+      @include use-desktop-columns(width, 8);
     }
   }
 
