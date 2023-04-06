@@ -1,5 +1,6 @@
-import { FC, memo } from 'react';
+import { FC, memo, useEffect, useRef } from 'react';
 import classNames from 'classnames';
+import gsap from 'gsap';
 import SwiperCore, { A11y, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -24,6 +25,7 @@ SwiperCore.use([Pagination, A11y]);
 const SLIDE_DURATION = 450;
 
 const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title, description, slides, dragLabel }) => {
+  const textWrapperRef = useRef<HTMLDivElement | null>(null);
   const layout = getLayout;
   const pairsArray = [];
   for (let i = 0; i < slides.length; i += 2) {
@@ -32,11 +34,19 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title
     pairsArray.push(pair);
   }
 
+  useEffect(() => {
+    const timeline = gsap.timeline().fadeIn(textWrapperRef.current, { duration: 1, y: 50, delay: 1.75 });
+
+    return () => {
+      timeline?.kill();
+    };
+  }, []);
+
   return (
     <div className={classNames('LeadershipModule', css.root, className)}>
       <div className={css.wrapper}>
         <Eyebrow className={css.eyebrow} text={eyebrow} />
-        <div className={css.textWrapper}>
+        <div className={css.textWrapper} ref={textWrapperRef}>
           <h2 className={css.title}>{title}</h2>
           <p className={css.description}>{description}</p>
         </div>
