@@ -11,11 +11,14 @@
   padding-bottom: px(100);
 
   @include media-tablet {
-    padding-top: px(100);
     flex-direction: row;
     justify-content: flex-start;
     align-items: flex-start;
     height: auto;
+  }
+
+  @include media-desktopSm {
+    padding-top: px(100);
   }
 
   &.tabletColumnLayout {
@@ -44,7 +47,7 @@
 
       @include media-desktopSm {
         @include use-desktop-columns(width, 6);
-        @include use-tablet-gutter(margin-left, 1);
+        @include use-desktop-gutter(margin-left, 1);
         margin-top: px(25);
       }
     }
@@ -69,8 +72,7 @@
   }
 
   .backgroundImage {
-    height: 100%;
-    width: 100%;
+    @include box(100%);
   }
 
   .leftColumn {
@@ -78,11 +80,10 @@
 
     @include media-tablet {
       @include use-tablet-columns(width, 3, 0);
-      padding-right: px(10);
     }
 
     @include media-desktopSm {
-      @include use-tablet-columns(width, 6, 0);
+      @include use-desktop-columns(width, 6, 0);
     }
   }
 
@@ -94,15 +95,14 @@
       @include use-tablet-gutter(margin-left, 1);
     }
     @include media-desktopSm {
-      @include use-tablet-columns(width, 6, 0);
-      @include use-tablet-gutter(margin-left, 1);
+      @include use-desktop-columns(width, 6, 0);
+      @include use-desktop-gutter(margin-left, 1);
       flex-basis: initial;
     }
   }
 
   .title {
     @include typography-h2;
-    margin-bottom: px(15);
     margin-top: px(20);
 
     @include media-tablet {
