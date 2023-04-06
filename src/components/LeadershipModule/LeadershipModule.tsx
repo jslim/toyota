@@ -1,19 +1,15 @@
-import { FC, memo, useEffect, useMemo, useRef, useState } from 'react';
+import { FC, memo } from 'react';
 import classNames from 'classnames';
-import SwiperCore, { A11y, Grid, Pagination } from 'swiper';
-import { Swiper, SwiperSlide, useSwiperSlide } from 'swiper/react';
+import SwiperCore, { A11y, Pagination } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 import css from './LeadershipModule.module.scss';
 
-import { ContentfulImageAsset } from '@/data/types';
-import { variants } from '@/data/variants';
+import DraggableColumns from '@/components/DraggableColumns/DraggableColumns';
+import Eyebrow from '@/components/Eyebrow/Eyebrow';
+import LeadershipCard, { LeadershipCardProps } from '@/components/LeadershipCard/LeadershipCard';
 
-import BaseLink, { Props as LinkProps } from '@/components/BaseLink/BaseLink';
-import SectionWrapper, { SectionWrapperProps } from '@/components/SectionWrapper/SectionWrapper';
-
-import ContentfulImage from '../ContentfulImage/ContentfulImage';
-import Eyebrow from '../Eyebrow/Eyebrow';
-import LeadershipCard, { LeadershipCardProps } from '../LeadershipCard/LeadershipCard';
+import getLayout from '@/utils/layout';
 
 export type LeadershipModuleProps = {
   className?: string;
@@ -21,12 +17,14 @@ export type LeadershipModuleProps = {
   title: string;
   description: string;
   slides: LeadershipCardProps[];
+  dragLabel: string;
 };
 
 SwiperCore.use([Pagination, A11y]);
 const SLIDE_DURATION = 450;
 
-const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title, description, slides }) => {
+const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title, description, slides, dragLabel }) => {
+  const layout = getLayout;
   const pairsArray = [];
   for (let i = 0; i < slides.length; i += 2) {
     // Create a new array with the current item and the next item
@@ -43,37 +41,42 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title
           <p className={css.description}>{description}</p>
         </div>
       </div>
-      <Swiper
-        className={css.carouselContainer}
-        autoHeight={true}
-        speed={SLIDE_DURATION}
-        //  onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
-        pagination={{
-          el: `.${css.pagination}`,
-          type: 'bullets',
-          clickable: true
-        }}
-        centeredSlides={true}
-        slidesPerView={'auto'}
-        spaceBetween={24}
-        breakpoints={{
-          768: {
-            spaceBetween: 46
-          }
-        }}
-      >
-        {pairsArray.map((pair, i) => {
-          return (
-            <SwiperSlide className={css.slide} key={`slide-${i}`}>
-              {pair.map((item, i) => {
-                return <LeadershipCard {...item} key={i} />;
-              })}
-            </SwiperSlide>
-          );
-        })}
-      </Swiper>
 
-      <span className={css.pagination}></span>
+      {layout.mobile || layout.tablet ? (
+        <>
+          <Swiper
+            className={css.carouselContainer}
+            autoHeight={true}
+            speed={SLIDE_DURATION}
+            pagination={{
+              el: `.${css.pagination}`,
+              type: 'bullets',
+              clickable: true
+            }}
+            centeredSlides={true}
+            slidesPerView={'auto'}
+            spaceBetween={24}
+            breakpoints={{
+              768: {
+                spaceBetween: 46
+              }
+            }}
+          >
+            {pairsArray.map((pair, i) => {
+              return (
+                <SwiperSlide className={css.slide} key={`slide-${i}`}>
+                  {pair.map((item, i) => {
+                    return <LeadershipCard {...item} key={i} />;
+                  })}
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+          <span className={css.pagination}></span>
+        </>
+      ) : (
+        <DraggableColumns cards={slides} dragLabel={dragLabel} className={css.columns} />
+      )}
     </div>
   );
 };

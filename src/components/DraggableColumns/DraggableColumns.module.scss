@@ -2,32 +2,37 @@
 
 .root {
   position: relative;
-  overflow-x: scroll;
-  white-space: nowrap;
-  height: 500px;
-}
-
-.draggable {
-  display: inline-block;
-  white-space: normal;
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+  cursor: none;
 }
 
 .column {
-  //   @include flex-center-vert;
-  //   flex-direction: column;
+  flex: 1;
+  overflow: visible;
 
-  display: inline-block;
-  vertical-align: top;
-  margin-right: 20px;
+  &.right {
+    transform: translateY(-50%);
+  }
 
-  //   flex-direction: column;
-  //   position: absolute;
-  //   top: 0;
-  //   bottom: 0;
-  //   width: 50%;
-  //   overflow: hidden;
+  &:first-of-type {
+    .item {
+      @include use-desktop-columns(padding-right, 1, 2);
+    }
+  }
 
-  .leader {
-    pointer-events: none;
+  .item {
+    width: auto;
+    padding-bottom: px(86);
+
+    .leader {
+      @include use-desktop-columns(width, 3);
+    }
+
+    a,
+    img {
+      cursor: none !important;
+    }
   }
 }

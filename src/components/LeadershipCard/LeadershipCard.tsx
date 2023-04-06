@@ -3,9 +3,10 @@ import classNames from 'classnames';
 
 import css from './LeadershipCard.module.scss';
 
-import ContentfulImage from '../ContentfulImage/ContentfulImage';
 import { ContentfulImageAsset } from '@/data/types';
+
 import BaseLink, { Props as LinkProps } from '@/components/BaseLink/BaseLink';
+import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
 
 export type LeadershipCardProps = {
   className?: string;

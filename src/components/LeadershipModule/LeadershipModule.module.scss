@@ -1,7 +1,14 @@
 @import 'shared';
 
 .root {
+  @include outer-container;
   width: 100%;
+
+  @include media-desktopSm {
+    position: relative;
+    min-height: px(720);
+    overflow-y: hidden;
+  }
 
   .carouselContainer > div {
     align-items: center;
@@ -77,7 +84,6 @@
       margin-bottom: px(15);
 
       @include media-tablet {
-        @include use-tablet-columns(max-width, 5);
         margin-bottom: px(24);
       }
 
@@ -89,9 +95,16 @@
     .description {
       @include typography-paragraph;
       color: $mid-grey;
+    }
 
+    .title,
+    .description {
       @include media-tablet {
         @include use-tablet-columns(max-width, 5);
+      }
+
+      @include media-desktopSm {
+        @include use-desktop-columns(max-width, 4, 1);
       }
     }
   }
@@ -121,4 +134,11 @@
       }
     }
   }
+}
+
+.columns {
+  @include use-desktop-columns(width, 7);
+  position: absolute;
+  top: 0;
+  right: 0;
 }
