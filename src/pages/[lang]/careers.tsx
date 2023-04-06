@@ -3,19 +3,13 @@ import { GetStaticProps } from 'next';
 import classNames from 'classnames';
 
 import { APIContentful } from '@/data/API';
-import { FilteredEntity, LocalizedPageParams, NextChapterContentType, PageProps } from '@/data/types';
+import { CareersPageContentType, FilteredEntity, LocalizedPageParams, PageProps } from '@/data/types';
 
 import usePreviewData from '@/hooks/use-preview-data';
 import { getAllLangSlugs, getLocaleByLang } from '@/utils/locales';
 import { getPageBlocks } from '@/utils/parsers/get-page-blocks';
 
-type CareersPageFields = {
-  pageTitle: string;
-  nextChapter: FilteredEntity<NextChapterContentType>;
-  innerBlocks: Array<FilteredEntity>;
-};
-
-type CareersPageData = FilteredEntity<CareersPageFields>;
+type CareersPageData = FilteredEntity<CareersPageContentType>;
 
 export interface CareersPageProps extends PageProps {
   data: CareersPageData;

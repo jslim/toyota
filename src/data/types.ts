@@ -120,8 +120,14 @@ export type PageType = {
   data: FilteredEntity;
 };
 
-// Content "Page" Content Types
+// Contentful "Page" Content Types
 export type TestsPageContentType = {
+  pageTitle: string;
+  nextChapter: FilteredEntity<NextChapterContentType>;
+  innerBlocks: Array<FilteredEntity>;
+};
+
+export type CareersPageContentType = {
   pageTitle: string;
   nextChapter: FilteredEntity<NextChapterContentType>;
   innerBlocks: Array<FilteredEntity>;

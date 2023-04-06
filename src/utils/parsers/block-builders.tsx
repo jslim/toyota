@@ -3,6 +3,7 @@ import { FC } from 'react';
 import {
   AccordionGroupContentType,
   AccordionItemContentType,
+  CareersPageContentType,
   ContentfulImageAsset,
   GenericObject,
   NextChapterContentType,
@@ -61,6 +62,13 @@ export const buildTestPage = (fields: TestsPageContentType, extraProps?: Generic
   },
   childrenFields: {
     pageTitle: <h1>{fields.pageTitle}</h1>
+  },
+  component: EmptyComponent
+});
+
+export const buildCareersPage = (_fields: CareersPageContentType, extraProps?: GenericObject): ComponentBuilder => ({
+  props: {
+    ...extraProps
   },
   component: EmptyComponent
 });
