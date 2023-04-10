@@ -148,7 +148,7 @@ const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isHorizontal
     const { width, height } = imageRef.current?.querySelector('img')?.getBoundingClientRect() as DOMRect;
     setDimensions({ width, height }); // setting dimensions to be used in the svg wrapper
 
-    const offset = 20;
+    const offset = 24;
     const targets = [
       buildPath({
         width: width, // Desired width of end shape
