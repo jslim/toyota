@@ -10,10 +10,10 @@
 
 .container {
   @include position-100(absolute);
-  clip-path: url(#clipPaththing);
+  clip-path: url(#path);
 }
 
-svg {
+.svg {
   @include position-100(absolute);
   pointer-events: none;
   z-index: 1;

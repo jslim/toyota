@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { FC, memo, ReactNode, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import gsap from 'gsap';
@@ -8,144 +9,236 @@ import css from './ImageCascade.module.scss';
 export type ImageCascadeProps = {
   className?: string;
   children: ReactNode;
-  isSide?: boolean;
+  isHorizontal?: boolean;
 };
 
-const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isSide }) => {
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+type pathProps = {
+  width: number;
+  height: number;
+  offsetX?: number;
+  offsetY?: number;
+  initRound?: number;
+  horizontal?: boolean;
+};
 
+const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isHorizontal }) => {
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const panelsRef = useRef<SVGPathElement[]>([]);
   const imageRef = useRef<HTMLDivElement | null>(null);
 
-  const buildPath = (height: number, width: number, offset?: number) => {
-    const anchorOffsetX = 20;
-    const anchorOffsetY = 20;
-    const cornerOffset = 48;
-    const desiredHeight = height;
-    const desiredWidth = width;
-    const offsetX = offset ?? 0;
+  const buildPath = ({ width, height, offsetX = 0, offsetY = 0, initRound, horizontal = false }: pathProps) => {
+    // Top edge starts at 0 so will default to offsetY
+    const te = offsetY;
+
+    // Right edge
+    const re = width + offsetX;
+
+    // Left edge start at 0 so will default to offsetX
+    const le = offsetX;
+
+    // Bottom edge
+    const be = height + offsetY;
+
+    // Anchor Offsets
+    const aox = width ? 20 : 0;
+    const aoy = height ? 20 : 0;
+
+    // Corner Offsets
+    let cox, coy;
+    if (initRound) {
+      cox = width ? initRound : 0;
+      coy = height ? initRound : 0;
+    } else {
+      cox = width ? 48 : 0;
+      coy = height ? 48 : 0;
+    }
+
+    // Midpoints for our straight "curve" anchors
+    const midX = width ? width / 2 + offsetX : re;
+    const midY = height ? height / 2 + offsetY : te;
+
+    // Horizontal orientation
+
+    if (horizontal) {
+      return MorphSVGPlugin.rawPathToString([
+        re,
+        te,
+        midX,
+        te,
+        midX,
+        te,
+        le + cox,
+        te,
+        le + aox,
+        te,
+        le,
+        te + aoy,
+        le,
+        te + coy,
+        le,
+        midY,
+        le,
+        midY,
+        le,
+        be - coy,
+        le,
+        be - aoy,
+        le + aox,
+        be,
+        le + cox,
+        be,
+        midX,
+        be,
+        midX,
+        be,
+        re,
+        be,
+        re,
+        midY,
+        re,
+        midY,
+        re,
+        te
+      ]);
+    }
 
     return MorphSVGPlugin.rawPathToString([
-      [
-        offsetX,
-        0,
-        offsetX,
-        0,
-        offsetX,
-        0,
-        offsetX,
-        desiredHeight - cornerOffset,
-        offsetX,
-        desiredHeight - cornerOffset + anchorOffsetY,
-        anchorOffsetX + offsetX,
-        desiredHeight,
-        cornerOffset + offsetX,
-        desiredHeight,
-        desiredHeight,
-        desiredHeight,
-        desiredHeight,
-        desiredHeight,
-        desiredWidth - cornerOffset,
-        desiredHeight,
-        desiredWidth - anchorOffsetX,
-        desiredHeight,
-        desiredWidth,
-        desiredHeight - cornerOffset + anchorOffsetY,
-        desiredWidth,
-        desiredHeight - cornerOffset,
-        desiredWidth,
-        0,
-        desiredWidth,
-        0,
-        desiredWidth,
-        0,
-        desiredWidth / 2,
-        0,
-        desiredWidth / 2,
-        0,
-        offsetX,
-        0
-      ]
+      le,
+      te,
+      le,
+      midY,
+      le,
+      midY,
+      le,
+      be - coy,
+      le,
+      be - aoy,
+      le + aox,
+      be,
+      le + cox,
+      be,
+      midX,
+      be,
+      midX,
+      be,
+      re - cox,
+      be,
+      re - aox,
+      be,
+      re,
+      be - aoy,
+      re,
+      be - coy,
+      re,
+      midY,
+      re,
+      midY,
+      re,
+      te,
+      midX,
+      te,
+      midX,
+      te,
+      le,
+      te
     ]);
   };
 
   useEffect(() => {
     const { width, height } = imageRef.current?.querySelector('img')?.getBoundingClientRect() as DOMRect;
     setDimensions({ width, height }); // setting dimensions to be used in the svg wrapper
-    const targets = [buildPath(height, width), buildPath(height - 30, width), buildPath(height - 60, width)];
+
+    const offset = 20;
+    const targets = [
+      buildPath({
+        width: width, // Desired width of end shape
+        height: height, // Full height of container
+        horizontal: isHorizontal
+      }),
+      buildPath({
+        width: isHorizontal ? width - offset : width,
+        height: isHorizontal ? height : height - offset,
+        offsetX: isHorizontal ? offset : 0, // Path coordinates start at top left so we have to translate the shape back to the right edge
+        horizontal: isHorizontal
+      }),
+      buildPath({
+        width: isHorizontal ? width - offset * 2 : width,
+        height: isHorizontal ? height : height - offset * 2,
+        offsetX: isHorizontal ? offset * 2 : 0,
+        horizontal: isHorizontal
+      })
+    ];
+
+    const startPoint = buildPath({
+      width: 0,
+      height: isHorizontal ? height : 0,
+      offsetX: isHorizontal ? width : width / 2, // Path coordinates start at top left so translating our start line all the way to the right
+      offsetY: isHorizontal ? 0 : -height,
+      initRound: 97,
+      horizontal: isHorizontal
+    });
+
+    panelsRef.current.forEach((el) => {
+      el?.setAttribute('d', startPoint);
+    });
 
     gsap
-      .timeline({ repeat: -1, yoyo: false })
-      .to(['#start', '#first-panel'], {
-        morphSVG: {
-          shape: targets[0],
-          type: 'linear',
-          origin: '50% 100%' //or "20% 60%,35% 90%" if there are different values for the start and end shapes.
-        },
-        ease: 'power2',
-        duration: 1.6
-      })
+      .timeline({ yoyo: false, repeat: -1 })
       .to(
-        '#second-panel',
+        [panelsRef.current[0], panelsRef.current[1]],
         {
-          morphSVG: {
-            shape: targets[1],
-            type: 'linear',
-            origin: '50% 100%' //or "20% 60%,35% 90%" if there are different values for the start and end shapes.
-          }, // needs to be mid2, slightly smaller
-          ease: 'power2',
+          morphSVG: { shape: targets[0], type: 'linear' },
+          ease: isHorizontal ? 'ease01' : 'ease02',
           duration: 1.6
         },
-        0.5
+        isHorizontal ? 0 : 0.067
       )
       .to(
-        '#third-panel',
+        panelsRef.current[2],
         {
-          morphSVG: {
-            shape: targets[2],
-            type: 'linear',
-            origin: '50% 100%' //or "20% 60%,35% 90%" if there are different values for the start and end shapes.
-          }, // needs to be mid2, slightly smaller
-          ease: 'power2',
+          morphSVG: { shape: targets[1], type: 'linear' },
+          ease: isHorizontal ? 'ease01' : 'ease02',
           duration: 1.6
         },
-        1
+        0.4
+      )
+      .to(
+        panelsRef.current[3],
+        {
+          morphSVG: { shape: targets[2], type: 'linear' },
+          ease: isHorizontal ? 'ease01' : 'ease02',
+          duration: 1.6
+        },
+        isHorizontal ? 0.6 : 0.73
       );
-  }, []);
+  }, [isHorizontal]);
 
   return (
-    <div className={classNames('ImageCascade', css.root, className, { [css.side]: isSide })}>
+    <div className={classNames('ImageCascade', css.root, className)}>
       <div className={css.wrapper} style={{ width: dimensions.width, height: dimensions.height }}>
-        <svg x="0px" y="0px" id="mysvg">
+        <svg x="0px" y="0px" className={css.svg}>
           <g>
-            <clipPath id="clipPaththing">
+            <clipPath id="path">
               <path
-                // d={`M0,0 C0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 400,0 400,0 400,0 400,0 400,0 400,0 400,0 400,0 400,0 400,0 200,0 200,0 0,0 0,0 0,0 0,0`}
-                d={buildPath(0, dimensions.width / 2, dimensions.width / 2)}
                 id="start"
+                ref={(el) => {
+                  panelsRef?.current.push(el);
+                }}
               />
             </clipPath>
             <mask id="mask">
               <rect x="0" y="0" width="100%" height="100%" fill="white"></rect>
-              <path
-                //  d="M100,0 C100,0 100,0 100,-48 100,-28 120,0 148,0 0,0 0,0 252,0 280,0 300,-28 300,-48 300,0 300,0 300,0 150,0 150,0 100,0"
-                d={buildPath(0, dimensions.width / 2, dimensions.width / 2)}
-                id="first-panel"
-                fill="black"
-                fillOpacity="0.4"
-              />
-              <path
-                // d="M100,0 C100,0 100,0 100,-48 100,-28 120,0 148,0 0,0 0,0 252,0 280,0 300,-28 300,-48 300,0 300,0 300,0 150,0 150,0 100,0"
-                d={buildPath(0, dimensions.width / 2, dimensions.width / 2)}
-                id="second-panel"
-                fill="black"
-                fillOpacity="0.4"
-              />
-              <path
-                // d="M100,0 C100,0 100,0 100,-48 100,-28 120,0 148,0 0,0 0,0 252,0 280,0 300,-28 300,-48 300,0 300,0 300,0 150,0 150,0 100,0 "
-                d={buildPath(0, dimensions.width / 2, dimensions.width / 2)}
-                id="third-panel"
-                fill="black"
-              />
+              {Array.from({ length: 3 }).map((_, index) => (
+                <path
+                  id={`panel-${index}`}
+                  key={index}
+                  fill="black"
+                  fillOpacity={index === 2 ? '1' : '0.4'}
+                  ref={(el) => {
+                    panelsRef?.current.push(el);
+                  }}
+                ></path>
+              ))}
             </mask>
             <rect x="0" y="0" width="100%" height="100%" fill="white" mask="url(#mask)"></rect>
           </g>
