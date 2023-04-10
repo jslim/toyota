@@ -183,7 +183,7 @@ const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isHorizontal
     });
 
     gsap
-      .timeline({ yoyo: false, repeat: -1 })
+      .timeline({})
       .to(
         [panelsRef.current[0], panelsRef.current[1]],
         {
