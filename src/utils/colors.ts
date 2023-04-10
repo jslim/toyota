@@ -11,40 +11,40 @@ export enum Color {
 
 export function getColorClass(color: Color) {
   switch (color) {
-    case 'red':
+    case Color.RED:
       return 'redColorClass';
-    case 'black':
+    case Color.BLACK:
       return 'blackColorClass';
-    case 'darkGrey':
+    case Color.DARK_GREY:
       return 'darkGreyColorClass';
-    case 'midGrey':
+    case Color.MID_GREY:
       return 'midGreyColorClass';
-    case 'grey':
+    case Color.GREY:
       return 'greyColorClass';
-    case 'lightGrey':
+    case Color.LIGHT_GREY:
       return 'lightGreyColorClass';
-    case 'white':
+    case Color.WHITE:
       return 'whiteColorClass';
   }
 }
 
 export function getBackgroundColorClass(color: Color) {
   switch (color) {
-    case 'red':
+    case Color.RED:
       return 'redBackgroundColorClass';
-    case 'black':
+    case Color.BLACK:
       return 'blackBackgroundColorClass';
-    case 'darkGrey':
+    case Color.DARK_GREY:
       return 'darkGreyBackgroundColorClass';
-    case 'midGrey':
+    case Color.MID_GREY:
       return 'midGreyBackgroundColorClass';
-    case 'grey':
+    case Color.GREY:
       return 'greyBackgroundColorClass';
-    case 'lightGrey':
+    case Color.LIGHT_GREY:
       return 'lightGreyBackgroundColorClass';
-    case 'white':
+    case Color.WHITE:
       return 'whiteBackgroundColorClass';
-    case 'linear':
+    case Color.LINEAR:
       return 'linearBackgroundColorClass';
   }
 }
