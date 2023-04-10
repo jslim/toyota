@@ -18,8 +18,8 @@ const Preview: FC<PageType> = ({ data: staticData }) => {
 
   return (
     <>
-      <Head {...{ title: pageData?.pageTitle ?? 'Preview' }} />
-      <main className={classNames('Preview')}>{pageData?.innerBlocks?.map((el) => getPageBlocks(el)) ?? null}</main>
+      <Head {...{ title: pageData?.fields?.pageTitle ?? 'Preview' }} />
+      <main className={classNames('Preview')}>{getPageBlocks(pageData) ?? null}</main>
     </>
   );
 };

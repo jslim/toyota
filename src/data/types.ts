@@ -45,7 +45,8 @@ export type GenericEntity<T = GenericObject> = {
   fields?: T;
 };
 
-export type FilteredEntity<T = GenericObject> = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type FilteredEntity<T = any> = {
   id: string;
   contentType: string;
   fields: T;
@@ -115,7 +116,24 @@ export type ContentfulImageAsset = {
   };
 };
 
-// Contentful Content Types
+export type PageType = {
+  data: FilteredEntity;
+};
+
+// Contentful "Page" Content Types
+export type TestsPageContentType = {
+  pageTitle: string;
+  nextChapter: FilteredEntity<NextChapterContentType>;
+  innerBlocks: Array<FilteredEntity>;
+};
+
+export type CareersPageContentType = {
+  pageTitle: string;
+  nextChapter: FilteredEntity<NextChapterContentType>;
+  innerBlocks: Array<FilteredEntity>;
+};
+
+// Contentful Component Content Types
 export type CTAContentType = {
   linkText?: string;
   linkUrl: string;
@@ -133,15 +151,6 @@ export type TextBlockContentType = {
   heading?: string;
   eyebrowText?: string;
   textContent?: string;
-};
-
-export type PageBlocksType = {
-  pageTitle?: string;
-  innerBlocks?: Array<FilteredEntity>;
-};
-
-export type PageType = {
-  data: PageBlocksType | null;
 };
 
 export type SectionContentType = {

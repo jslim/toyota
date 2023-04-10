@@ -3,12 +3,14 @@ import { FC } from 'react';
 import {
   AccordionGroupContentType,
   AccordionItemContentType,
+  CareersPageContentType,
   ContentfulImageAsset,
   GenericObject,
   NextChapterContentType,
   SectionContentType,
   TabGroupContentType,
   TabItemContentType,
+  TestsPageContentType,
   TextBlockContentType
 } from '@/data/types';
 import { variants } from '@/data/variants';
@@ -41,7 +43,7 @@ export type ComponentBuilder = {
    * This can also be used for direct content type references on a field.
    * ex. A CTA content type may be referenced but we want to override the props.
    * */
-  childrenFields?: Array<JSX.Element | null | string>;
+  childrenFields?: { [key: string]: JSX.Element | null | string };
 };
 
 export type ComponentBuilderFactory = (
@@ -50,13 +52,36 @@ export type ComponentBuilderFactory = (
   extraProps?: GenericObject
 ) => ComponentBuilder;
 
+type Children = string | JSX.Element | JSX.Element[] | (() => JSX.Element);
+
+const EmptyComponent: ({ children }: { children: Children }) => JSX.Element = ({ children }) => <>{children}</>;
+
+export const buildTestPage = (fields: TestsPageContentType, extraProps?: GenericObject): ComponentBuilder => ({
+  props: {
+    ...extraProps
+  },
+  childrenFields: {
+    pageTitle: <h1>{fields.pageTitle}</h1>
+  },
+  component: EmptyComponent
+});
+
+export const buildCareersPage = (_fields: CareersPageContentType, extraProps?: GenericObject): ComponentBuilder => ({
+  props: {
+    ...extraProps
+  },
+  component: EmptyComponent
+});
+
 export const buildAccordionItem = (fields: AccordionItemContentType, extraProps?: GenericObject): ComponentBuilder => ({
   props: {
     title: fields.title,
     key: fields.title,
     ...extraProps
   },
-  childrenFields: [<p key="content">{fields.hiddenContent}</p>],
+  childrenFields: {
+    hiddenContent: <p>{fields.hiddenContent}</p>
+  },
   component: AccordionItem
 });
 
@@ -89,15 +114,17 @@ export const buildImageBlock = (
   props: {
     ...extraProps
   },
-  childrenFields: [
-    <ContentfulImage
-      key={fields.image.fields.title}
-      asset={fields.image}
-      imageSizeDesktop="100%"
-      imageSizeTablet="100%"
-      imageSizeMobile="100%"
-    />
-  ],
+  childrenFields: {
+    image: (
+      <ContentfulImage
+        key={fields.image.fields.title}
+        asset={fields.image}
+        imageSizeDesktop="100%"
+        imageSizeTablet="100%"
+        imageSizeMobile="100%"
+      />
+    )
+  },
   component: ({ children }) => <>{children}</>
 });
 

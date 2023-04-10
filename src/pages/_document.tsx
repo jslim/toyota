@@ -29,7 +29,7 @@ class MyDocument extends Document<ExtendedDocumentInitialProps> {
       include: 1
     });
 
-    const { mainNavLinks, footerNavLinks } = globalDataResponse.entry;
+    const { mainNavLinks, footerNavLinks } = globalDataResponse.fields;
 
     // TODO: Create dedicated parser for global data to map Entities to correct type - EX2332-121
     const globalData = {

@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { APIContentful } from '@/data/API';
-import { Lang, PageBlocksType } from '@/data/types';
+import { FilteredEntity, Lang } from '@/data/types';
 
 import extractUrlData from '@/utils/extract-url-data';
 import { getLocaleByLang } from '@/utils/locales';
 
 type Args = {
-  staticData: PageBlocksType | null;
+  staticData: FilteredEntity;
 };
 
 export default function usePreviewData({ staticData }: Args) {
