@@ -33,13 +33,15 @@ const Card: FC<CardProps> = ({ className, cardType = CardTypes.NEWS, image, titl
       <>
         <BaseImage {...image} className={css.image} />
         <div className={css.textWrapper}>
+          {cardType === CardTypes.QUOTE && <p className={css.text}>{'"' + text + '"'}</p>}
           <div className={css.titleWrapper}>
             {date && <span className={css.date}>{date}</span>}
             <span className={css.title}>{title}</span>
             {cardType === CardTypes.QUOTE && subTitle && <span className={css.subTitle}>{subTitle}</span>}
           </div>
 
-          <p className={css.text}>{cardType === CardTypes.QUOTE ? '"' + text + '"' : text}</p>
+          {cardType !== CardTypes.QUOTE && <p className={css.text}>{text}</p>}
+
           {cardType !== CardTypes.NEWS && cta && (
             <Cta {...cta} className={css.cta} theme={ButtonType.Secondary} isInteractable={false} />
           )}

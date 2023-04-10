@@ -14,6 +14,10 @@ export const News: Story<CardProps> = (args) => <Card {...args} />;
 
 export const Default: Story<CardProps> = (args) => <Card {...args} />;
 
+export const DefaultTall: Story<CardProps> = (args) => <Card {...args} />;
+
+export const Quote: Story<CardProps> = (args) => <Card {...args} />;
+
 export const Milestone: Story<CardProps> = (args) => <Card {...args} />;
 
 const url = 'https://i1.wp.com/thetalkinggeek.com/wp-content/uploads/2015/09/sintel1.png?fit=1920%2C817&ssl=1';
@@ -90,4 +94,6 @@ export const milestoneArgs = {
 Product.args = productArgs;
 News.args = newsArgs;
 Default.args = defaultArgs;
+DefaultTall.args = defaultTallArgs;
 Milestone.args = milestoneArgs;
+Quote.args = quoteArgs;
