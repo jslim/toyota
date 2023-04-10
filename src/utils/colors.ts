@@ -25,8 +25,6 @@ export function getColorClass(color: Color) {
       return 'lightGreyColorClass';
     case 'white':
       return 'whiteColorClass';
-    case 'linear':
-      return 'linearColorClass';
   }
 }
 
