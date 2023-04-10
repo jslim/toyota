@@ -12,8 +12,10 @@ Default.args = {
   header: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   description:
     'With offices around the world, but with global headquarters in Japan, Woven Planet serves as a bridge between ideas and cultures. It’s a role we take seriously—and are honored to play. We are on constant lookout for talented, committed people from around the world to join our movement.',
-  ctaText: 'ALL NEWS',
-  link: 'https://www.google.com'
+  ctaProps: {
+    title: 'ALL NEWS',
+    href: 'https://www.google.com'
+  }
 };
 
 Default.argTypes = {

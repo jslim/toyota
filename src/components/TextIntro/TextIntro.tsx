@@ -4,6 +4,7 @@ import gsap from 'gsap';
 
 import css from './TextIntro.module.scss';
 
+import { Props as LinkProps } from '@/components/BaseLink/BaseLink';
 import Cta from '@/components/Cta/Cta';
 
 import ToyotaBackground from '@/components/svgs/svg-toyota-background.svg';
@@ -22,11 +23,10 @@ export type TextIntroProps = {
   eyebrow: string;
   header: string;
   description: string;
-  ctaText?: string;
-  link?: string;
+  ctaProps?: LinkProps;
 };
 
-const TextIntro: FC<TextIntroProps> = ({ className, layout, eyebrow, header, description, ctaText, link }) => {
+const TextIntro: FC<TextIntroProps> = ({ className, layout, eyebrow, header, description, ctaProps }) => {
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -56,9 +56,9 @@ const TextIntro: FC<TextIntroProps> = ({ className, layout, eyebrow, header, des
         <div className={css.rightColumn} ref={contentRef}>
           {layout !== TextIntroLayout.HEADER_LEFT && <h2 className={css.title}>{header}</h2>}
           <p className={css.description}>{description}</p>
-          {link && ctaText && (
+          {ctaProps && (
             <div className={css.cta}>
-              <Cta title={ctaText} href={link} />
+              <Cta {...ctaProps} />
             </div>
           )}
         </div>
