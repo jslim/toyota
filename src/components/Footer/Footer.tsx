@@ -61,7 +61,7 @@ const externalLinks = [
 const siteName = 'Woven Planet Holdings, Inc.';
 
 const Footer: FC<FooterProps> = ({ className }) => {
-  const { footerNavLinks } = useAppSelector((state) => state.globalData);
+  const { footerNavLinks } = useAppSelector((state) => state.activeGlobalData);
 
   return (
     <footer className={classNames('Footer', css.root, className)}>
@@ -127,13 +127,13 @@ const Footer: FC<FooterProps> = ({ className }) => {
           </div>
           <div className={css.logosWrapper}>
             <BaseLink href="#" className={css.logoTitle} title={'Toyota footer link'}>
-              <SvgLogoTitle />
+              <SvgLogoTitle className={css.footerLogos} />
             </BaseLink>
             <BaseLink href="#" className={css.logoCity} title={'Woven City footer link'}>
-              <SvgLogoCity />
+              <SvgLogoCity className={css.footerLogos} />
             </BaseLink>
             <BaseLink href="#" className={css.logoCapital} title={'Woven Capital footer link'}>
-              <SvgLogoCapital />
+              <SvgLogoCapital className={css.footerLogos} />
             </BaseLink>
           </div>
         </div>

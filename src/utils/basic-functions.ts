@@ -47,3 +47,7 @@ export function checkWebpSupport(feature: keyof typeof testImages, callback: (is
   };
   img.src = 'data:image/webp;base64,' + testImages[feature];
 }
+
+export const getImageUrl = (filePath: string) => {
+  return require(`../assets/images/${filePath}`).default;
+};

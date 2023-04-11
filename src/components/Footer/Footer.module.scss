@@ -192,6 +192,10 @@
         display: inline-flex;
       }
 
+      .footerLogos {
+        @include box(100%);
+      }
+
       .logoTitle {
         width: px(60);
         margin-bottom: px(13);

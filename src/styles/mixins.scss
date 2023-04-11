@@ -231,3 +231,42 @@
     border-radius: $radius;
   }
 }
+
+@mixin eyebrowTitle($smallerTitle: false) {
+  text-align: left;
+
+  .title {
+    @include typography-h2;
+    max-width: px(250);
+    margin-top: px(24);
+
+    @include media-tablet {
+      @if ($smallerTitle) {
+        @include use-tablet-columns(max-width, 4);
+      } @else {
+        @include use-tablet-columns(max-width, 5);
+      }
+    }
+
+    @include media-desktopSm {
+      @if ($smallerTitle) {
+        @include use-desktop-columns(width, 5);
+      } @else {
+        @include use-desktop-columns(width, 6);
+      }
+    }
+
+    @include media-desktopMd {
+      @if ($smallerTitle) {
+        @include use-desktop-columns(width, 4);
+      } @else {
+        @include use-desktop-columns(width, 6);
+      }
+      max-width: px(550);
+    }
+  }
+
+  .cta {
+    margin-top: px(32);
+  }
+}

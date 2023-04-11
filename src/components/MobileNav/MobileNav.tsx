@@ -15,7 +15,7 @@ export type MobileNavProps = {
 };
 
 const MobileNav: FC<MobileNavProps> = ({ className }) => {
-  const { mainNavLinks } = useAppSelector((state) => state.globalData);
+  const { mainNavLinks } = useAppSelector((state) => state.activeGlobalData);
   const [menuOpen, setMenuOpen] = useState(false);
   const hamburgerRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLDivElement>(null);

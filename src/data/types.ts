@@ -11,14 +11,30 @@ export type GridSize = {
   extraGutters: number;
 };
 
+export type NavLinks = CTAContentType & {
+  isActive: boolean;
+};
+
+export type GlobalDataFields = {
+  mainNavLinks: Array<NavLinks>;
+  footerNavLinks: Array<NavLinks>;
+  skipToContentText: string;
+};
+
 export type GlobalData = {
-  mainNavLinks: Array<CTAContentType>;
-  footerNavLinks: Array<CTAContentType>;
+  [key in Lang]: GlobalDataFields;
 };
 
 export type PageProps = {
   head: HeadProps;
   unsupported?: boolean;
+};
+
+export type PreviewURLParamsType = {
+  spaceId: string;
+  envId: string;
+  entryId: string;
+  previewToken: string;
 };
 
 // While annoying, we can't be sure on type signature of full response
@@ -45,7 +61,8 @@ export type GenericEntity<T = GenericObject> = {
   fields?: T;
 };
 
-export type FilteredEntity<T = GenericObject> = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type FilteredEntity<T = any> = {
   id: string;
   contentType: string;
   fields: T;
@@ -115,7 +132,30 @@ export type ContentfulImageAsset = {
   };
 };
 
-// Contentful Content Types
+export type PageType = {
+  data: FilteredEntity;
+};
+
+// Contentful "Page" Content Types
+export type TestsPageContentType = {
+  pageTitle: string;
+  nextChapter: FilteredEntity<NextChapterContentType>;
+  innerBlocks: Array<FilteredEntity>;
+};
+
+export type CareersPageContentType = {
+  pageTitle: string;
+  nextChapter: FilteredEntity<NextChapterContentType>;
+  innerBlocks: Array<FilteredEntity>;
+};
+
+// Contentful Component Content Types
+export type GlobalDataContentType = {
+  mainNavLinks: Array<GenericEntity<CTAContentType>>;
+  footerNavLinks: Array<GenericEntity<CTAContentType>>;
+  skipToContentText: string;
+};
+
 export type CTAContentType = {
   linkText?: string;
   linkUrl: string;

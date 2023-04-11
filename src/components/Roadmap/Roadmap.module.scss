@@ -1,0 +1,205 @@
+@import 'shared';
+
+.root {
+  position: relative;
+  .wrapperInfo {
+    @include eyebrowTitle(true);
+    position: sticky;
+    top: 0;
+    @include container;
+    z-index: 3;
+    padding-top: px(20 * 2);
+    pointer-events: none;
+
+    .cta {
+      pointer-events: all;
+    }
+
+    @include media-desktopMd {
+      padding-top: px(43 * 2);
+    }
+  }
+
+  .list {
+    padding-top: px(20);
+
+    @include media-desktopMd {
+      padding-top: px(40);
+    }
+
+    > li {
+      display: flex;
+    }
+
+    .item {
+      margin-bottom: px(30);
+
+      @include breakpoint(tablet) {
+        margin-bottom: px(40);
+      }
+
+      @include breakpoint(desktopSm) {
+        margin-bottom: px(80);
+      }
+
+      .sectionWrapper {
+        height: 100%;
+      }
+
+      .image {
+        @include position-100(absolute);
+        object-fit: cover;
+      }
+
+      .wrapper {
+        width: 100%;
+        @include breakpoint(desktopSm) {
+          display: flex;
+        }
+      }
+
+      .svg {
+        @include flex-center;
+        @include use-mobile-columns(width, 4);
+        height: px(228);
+        margin-top: px(25);
+
+        @include breakpoint(tablet) {
+          @include use-tablet-columns(width, 4);
+          @include use-tablet-columns(margin-left, 4, 1);
+          margin-top: px(40);
+        }
+
+        @include breakpoint(desktopSm) {
+          margin-top: 0;
+          height: auto;
+          @include use-desktop-columns(width, 4);
+          @include use-desktop-columns(margin-left, 4, 1);
+        }
+        .svgIcon {
+          max-width: px(183);
+
+          @include breakpoint(desktopSm) {
+            max-width: px(216);
+          }
+        }
+      }
+      .content {
+        margin-left: auto;
+        @include flex-center-horiz;
+        flex-direction: column;
+        @include use-mobile-columns(width, 4);
+
+        .itemTitle {
+          @include typography-eyebrow;
+          text-transform: uppercase;
+          opacity: 0.5;
+          margin-bottom: px(10);
+        }
+      }
+    }
+  }
+
+  &.default {
+    .list {
+      .item {
+        min-height: px(588);
+        height: 1px;
+
+        .wrapper {
+          @include container;
+          margin-top: px(100);
+
+          @include breakpoint(tablet) {
+            margin-top: 0;
+          }
+        }
+
+        .content {
+          @include breakpoint(tablet) {
+            @include use-tablet-columns(width, 4);
+            @include use-tablet-columns(margin-left, 4, 1);
+          }
+
+          @include breakpoint(desktopSm) {
+            @include use-desktop-columns(width, 4);
+            @include use-desktop-columns(margin-left, 0, 1);
+          }
+
+          .itemText {
+            @include typography-h4;
+          }
+        }
+      }
+    }
+  }
+
+  &.home {
+    .wrapperInfo {
+      color: $white;
+    }
+    .list {
+      .item {
+        min-height: vh(100);
+        // TODO: remove next line for actual mobile devices to calculate window height with above line
+        min-height: 100vh;
+        height: 1px;
+
+        @include breakpoint(tablet) {
+          min-height: px(696);
+        }
+        @include breakpoint(desktopSm) {
+          min-height: px(714);
+        }
+
+        @include media-mobile-tablet {
+          .sectionWrapper {
+            width: 100%;
+          }
+        }
+
+        .wrapper {
+          display: flex;
+          flex-wrap: wrap;
+          z-index: 1;
+          @include outer-container;
+          margin-bottom: 0;
+        }
+
+        .content {
+          background-color: $white;
+          border-radius: px(8);
+          padding: px(18) px(24);
+          margin-top: auto;
+          margin-right: auto;
+          min-height: px(185);
+
+          @include breakpoint(tablet) {
+            @include use-tablet-columns(width, 5);
+            @include use-tablet-gutter(margin-right, 1);
+            min-height: px(210);
+          }
+
+          @include breakpoint(desktopSm) {
+            @include use-desktop-columns(width, 4.5, 2.5);
+            margin-right: 0;
+            min-height: px(228);
+          }
+
+          @include breakpoint(desktopMd) {
+            margin-bottom: px(-50);
+          }
+
+          .itemText {
+            margin-top: auto;
+            @include typography-paragraph;
+
+            @include breakpoint(tablet) {
+              @include typography-label;
+            }
+          }
+        }
+      }
+    }
+  }
+}

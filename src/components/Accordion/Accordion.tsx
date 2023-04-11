@@ -9,7 +9,7 @@ import { variants } from '@/data/variants';
 import BaseButton from '@/components/BaseButton/BaseButton';
 import IconCircle from '@/components/IconCircle/IconCircle';
 
-import ArrowSvg from '@/components/svgs/svg-arrow-down.svg';
+import ChevronDown from '@/components/svgs/svg-chevron-down.svg';
 
 interface AccordionProps {
   className?: string;
@@ -100,7 +100,7 @@ export const AccordionItem: FC<AccordionItemProps> = ({
             </div>
 
             <IconCircle className={css.icon} isWhite={variant === variants.LIGHT}>
-              <ArrowSvg />
+              <ChevronDown />
             </IconCircle>
           </div>
         </BaseButton>

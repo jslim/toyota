@@ -1,0 +1,30 @@
+@import 'shared';
+
+.root {
+  display: flex;
+  flex-direction: column;
+  border-radius: px(15);
+  @include outer-container;
+  @include pagePadding(padding-left);
+  @include pagePadding(padding-right);
+
+  @include media-tablet {
+    @include outer-container(true);
+  }
+
+  &.darkMode {
+    background-color: $dark-grey;
+  }
+
+  .title {
+    display: flex;
+    @include typography-h2;
+    color: $white;
+    margin-bottom: px(30);
+  }
+
+  .eyebrow {
+    margin-bottom: px(30);
+    padding-top: px(15);
+  }
+}
