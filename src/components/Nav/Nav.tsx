@@ -17,7 +17,7 @@ export interface NavProps {
 }
 
 const Nav: FC<NavProps> = ({ className }) => {
-  const { mainNavLinks } = useAppSelector((state) => state.globalData);
+  const { mainNavLinks, skipToContentText } = useAppSelector((state) => state.activeGlobalData);
   const [isMobile, setIsMobile] = useState(false);
   const { layout } = useLayout();
   useEffect(() => {
@@ -30,8 +30,8 @@ const Nav: FC<NavProps> = ({ className }) => {
         {!isMobile ? (
           <>
             <div className={css.menuWrapper}>
-              <a tabIndex={0} aria-label="Skip to content" className={css.skipToContent} href="#start-of-content">
-                Skip to content
+              <a tabIndex={0} aria-label={skipToContentText} className={css.skipToContent} href="#start-of-content">
+                {skipToContentText}
               </a>
               <Logo className={css.logo} href="/" />
               <ul className={css.routes}>

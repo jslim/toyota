@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { device } from '@jam3/detect';
 
-import { PageProps } from '@/data/types';
+import { Lang, PageProps } from '@/data/types';
 
 import { ExtendedAppProps } from '@/pages/_app';
 import Footer from '@/components/Footer/Footer';
@@ -14,7 +14,7 @@ import { useCookieBanner } from '@/hooks';
 // import { GtmScript } from '@/utils/analytics';
 import { checkWebpSupport } from '@/utils/basic-functions';
 
-import { setGlobalData, setIsWebpSupported, setPrevRoute, useAppDispatch } from '@/redux';
+import { setActiveLang, setGlobalData, setIsWebpSupported, setPrevRoute, useAppDispatch } from '@/redux';
 
 const DebugGrid = dynamic(() => import('@/components/DebugGrid/DebugGrid'), { ssr: false });
 const RotateScreen = dynamic(() => import('@/components/RotateScreen/RotateScreen'), { ssr: false });
@@ -57,11 +57,15 @@ const Layout: FC<ExtendedAppProps<PageProps>> = ({ Component, pageProps, globalD
       // Set in _document.tsx
       const data = JSON.parse(document.getElementById('__GLOBAL_DATA__')!.textContent as string);
       dispatch(setGlobalData(data));
+      dispatch(setActiveLang((router?.query?.lang as Lang) ?? Lang.EN));
     }
-  }, [dispatch, globalData]);
+  }, [dispatch, globalData, router]);
 
   // Should only run during build of each page to initialize state used when static building out nav
-  if (typeof window === 'undefined' && globalData != null) dispatch(setGlobalData(globalData));
+  if (typeof window === 'undefined' && globalData != null) {
+    dispatch(setGlobalData(globalData));
+    dispatch(setActiveLang((router?.query?.lang as Lang) ?? Lang.EN));
+  }
 
   return (
     <>

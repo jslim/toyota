@@ -11,9 +11,18 @@ export type GridSize = {
   extraGutters: number;
 };
 
+export type NavLinks = CTAContentType & {
+  isActive: boolean;
+};
+
+export type GlobalDataFields = {
+  mainNavLinks: Array<NavLinks>;
+  footerNavLinks: Array<NavLinks>;
+  skipToContentText: string;
+};
+
 export type GlobalData = {
-  mainNavLinks: Array<CTAContentType>;
-  footerNavLinks: Array<CTAContentType>;
+  [key in Lang]: GlobalDataFields;
 };
 
 export type PageProps = {
@@ -134,6 +143,12 @@ export type CareersPageContentType = {
 };
 
 // Contentful Component Content Types
+export type GlobalDataContentType = {
+  mainNavLinks: Array<GenericEntity<CTAContentType>>;
+  footerNavLinks: Array<GenericEntity<CTAContentType>>;
+  skipToContentText: string;
+};
+
 export type CTAContentType = {
   linkText?: string;
   linkUrl: string;

@@ -1,7 +1,7 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { CTAContentType, GlobalData } from '@/data/types';
+import { GlobalData, Lang, NavLinks } from '@/data/types';
 
 const { actions, reducer } = createSlice({
   name: 'app',
@@ -9,9 +9,23 @@ const { actions, reducer } = createSlice({
     prevRoute: '',
     isWebpSupported: true,
     globalData: {
-      mainNavLinks: [] as Array<CTAContentType>,
-      footerNavLinks: [] as Array<CTAContentType>
-    }
+      [Lang.EN]: {
+        mainNavLinks: [] as Array<NavLinks>,
+        footerNavLinks: [] as Array<NavLinks>,
+        skipToContentText: ''
+      },
+      [Lang.JP]: {
+        mainNavLinks: [] as Array<NavLinks>,
+        footerNavLinks: [] as Array<NavLinks>,
+        skipToContentText: ''
+      }
+    },
+    activeGlobalData: {
+      mainNavLinks: [] as Array<NavLinks>,
+      footerNavLinks: [] as Array<NavLinks>,
+      skipToContentText: ''
+    },
+    activeLang: Lang.EN
   },
   reducers: {
     setPrevRoute(state, action: PayloadAction<string>) {
@@ -22,11 +36,16 @@ const { actions, reducer } = createSlice({
     },
     setGlobalData(state, action: PayloadAction<GlobalData>) {
       state.globalData = action.payload;
+    },
+    setActiveLang(state, action: PayloadAction<Lang>) {
+      // Set any necessary state to the localized version based on Lang
+      state.activeGlobalData = state.globalData[action.payload];
+      state.activeLang = action.payload;
     }
   }
 });
 
-export const { setPrevRoute, setIsWebpSupported, setGlobalData } = actions;
+export const { setPrevRoute, setIsWebpSupported, setGlobalData, setActiveLang } = actions;
 
 export const store = configureStore({ reducer, devTools: process.env.NEXT_PUBLIC_ENVIRONMENT !== 'production' });
 
