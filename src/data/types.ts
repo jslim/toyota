@@ -30,6 +30,13 @@ export type PageProps = {
   unsupported?: boolean;
 };
 
+export type PreviewURLParamsType = {
+  spaceId: string;
+  envId: string;
+  entryId: string;
+  previewToken: string;
+};
+
 // While annoying, we can't be sure on type signature of full response
 export type GenericObject = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

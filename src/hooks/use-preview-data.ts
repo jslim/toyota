@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useRouter } from 'next/router';
 
 import { APIContentful } from '@/data/API';
 import { FilteredEntity, Lang } from '@/data/types';
@@ -11,28 +12,19 @@ type Args = {
 };
 
 export default function usePreviewData({ staticData }: Args) {
-  const location = useMemo(() => {
-    return typeof window !== 'undefined' ? window.location : ({} as Location);
-  }, []);
-
-  const { langSegment, urlParams, isPreview } = useMemo(() => {
-    return extractUrlData(location);
-  }, [location]);
+  const router = useRouter();
 
   const {
+    isPreviewRoute: isPreview,
+    langSegment,
     spaceId,
     envId,
     entryId,
     previewToken: accessToken
   } = useMemo(() => {
-    return {
-      isPreview,
-      spaceId: urlParams.get('spaceId') ?? '',
-      envId: urlParams.get('envId') ?? '',
-      entryId: urlParams.get('entryId') ?? '',
-      previewToken: urlParams.get('previewToken') ?? ''
-    };
-  }, [isPreview, urlParams]);
+    const { langSegment, urlParams, isPreviewRoute } = extractUrlData(router);
+    return { isPreviewRoute, langSegment, ...urlParams };
+  }, [router]);
 
   const validPreviewParams = useMemo(() => {
     return Boolean(spaceId && envId && entryId && accessToken);
