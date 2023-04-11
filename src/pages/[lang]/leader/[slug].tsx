@@ -3,14 +3,13 @@ import { GetStaticProps } from 'next';
 import classNames from 'classnames';
 
 import { APIContentful } from '@/data/API';
-import { NestedLocalizedPageParams, PageProps } from '@/data/types';
+import { FilteredEntity, LeaderPageContentType, NestedLocalizedPageParams, PageProps } from '@/data/types';
 
 import usePreviewData from '@/hooks/use-preview-data';
 import { getAllLangSlugs, getLocaleByLang } from '@/utils/locales';
+import { getPageBlocks } from '@/utils/parsers/get-page-blocks';
 
-type LeaderPageData = {
-  pageTitle: string;
-};
+type LeaderPageData = FilteredEntity<LeaderPageContentType>;
 
 export interface LeaderPageProps extends PageProps {
   data: LeaderPageData;
@@ -25,7 +24,7 @@ const Leader: FC<LeaderPageProps> = ({ data }) => {
   return (
     <main className={classNames('Leader')}>
       {/* always render nodes conditionally unless it's set as required field in CMS */}
-      {Boolean(pageData?.pageTitle) && <h1>{pageData.pageTitle}</h1>}
+      {!!pageData?.fields ? getPageBlocks(pageData) : null}
     </main>
   );
 };
@@ -50,11 +49,9 @@ export const getStaticProps: GetStaticProps<LeaderPageProps> = async ({ params }
 
   return {
     props: {
-      head: { title: data?.entry?.pageTitle ?? 'Leader' },
+      head: { title: data?.fields?.pageTitle ?? 'Leader' },
       // IMPORTANT: wrap everything in "data" so that it can be swapped dynamically with Preview data
-      data: {
-        pageTitle: data.entry.pageTitle ?? 'Leader'
-      }
+      data
     }
   };
 };

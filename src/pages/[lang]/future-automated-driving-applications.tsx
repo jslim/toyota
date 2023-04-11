@@ -3,14 +3,13 @@ import { GetStaticProps } from 'next';
 import classNames from 'classnames';
 
 import { APIContentful } from '@/data/API';
-import { LocalizedPageParams, PageProps } from '@/data/types';
+import { ADASPageContentType, FilteredEntity, LocalizedPageParams, PageProps } from '@/data/types';
 
 import usePreviewData from '@/hooks/use-preview-data';
 import { getAllLangSlugs, getLocaleByLang } from '@/utils/locales';
+import { getPageBlocks } from '@/utils/parsers/get-page-blocks';
 
-type ADASPageData = {
-  pageTitle: string;
-};
+type ADASPageData = FilteredEntity<ADASPageContentType>;
 
 export interface ADASPageProps extends PageProps {
   data: ADASPageData;
@@ -25,7 +24,7 @@ const ADAS: FC<ADASPageProps> = ({ data }) => {
   return (
     <main className={classNames('ADAS')}>
       {/* always render nodes conditionally unless it's set as required field in CMS */}
-      {Boolean(pageData?.pageTitle) && <h1>{pageData.pageTitle}</h1>}
+      {!!pageData?.fields ? getPageBlocks(pageData) : null}
     </main>
   );
 };
@@ -53,11 +52,9 @@ export const getStaticProps: GetStaticProps<ADASPageProps> = async ({ params }) 
 
   return {
     props: {
-      head: { title: data?.entry?.pageTitle ?? 'Future Automated Driving Applications' },
+      head: { title: data?.fields?.pageTitle ?? 'Future Automated Driving Applications' },
       // IMPORTANT: wrap everything in "data" so that it can be swapped dynamically with Preview data
-      data: {
-        pageTitle: data.entry.pageTitle ?? 'Future Automated Driving Ppplications'
-      }
+      data
     }
   };
 };

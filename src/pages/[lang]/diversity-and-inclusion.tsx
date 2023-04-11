@@ -3,14 +3,13 @@ import { GetStaticProps } from 'next';
 import classNames from 'classnames';
 
 import { APIContentful } from '@/data/API';
-import { LocalizedPageParams, PageProps } from '@/data/types';
+import { DAndIPageContentType, FilteredEntity, LocalizedPageParams, PageProps } from '@/data/types';
 
 import usePreviewData from '@/hooks/use-preview-data';
 import { getAllLangSlugs, getLocaleByLang } from '@/utils/locales';
+import { getPageBlocks } from '@/utils/parsers/get-page-blocks';
 
-type DAndIPageData = {
-  pageTitle: string;
-};
+type DAndIPageData = FilteredEntity<DAndIPageContentType>;
 
 export interface DAndIPageProps extends PageProps {
   data: DAndIPageData;
@@ -25,7 +24,7 @@ const Diversity: FC<DAndIPageProps> = ({ data }) => {
   return (
     <main className={classNames('Diversity')}>
       {/* always render nodes conditionally unless it's set as required field in CMS */}
-      {Boolean(pageData?.pageTitle) && <h1>{pageData.pageTitle}</h1>}
+      {!!pageData?.fields ? getPageBlocks(pageData) : null}
     </main>
   );
 };
@@ -50,11 +49,9 @@ export const getStaticProps: GetStaticProps<DAndIPageProps> = async ({ params })
 
   return {
     props: {
-      head: { title: data?.entry?.pageTitle ?? 'Diversity And Inclusion' },
+      head: { title: data?.fields?.pageTitle ?? 'Diversity And Inclusion' },
       // IMPORTANT: wrap everything in "data" so that it can be swapped dynamically with Preview data
-      data: {
-        pageTitle: data.entry.pageTitle ?? 'Diversity And Inclusion'
-      }
+      data
     }
   };
 };

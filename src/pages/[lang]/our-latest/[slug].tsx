@@ -3,14 +3,13 @@ import { GetStaticProps } from 'next';
 import classNames from 'classnames';
 
 import { APIContentful } from '@/data/API';
-import { NestedLocalizedPageParams, PageProps } from '@/data/types';
+import { FilteredEntity, NestedLocalizedPageParams, OurLatestPostPageContentType, PageProps } from '@/data/types';
 
 import usePreviewData from '@/hooks/use-preview-data';
 import { getAllLangSlugs, getLocaleByLang } from '@/utils/locales';
+import { getPageBlocks } from '@/utils/parsers/get-page-blocks';
 
-type OurLatestPostData = {
-  pageTitle: string;
-};
+type OurLatestPostData = FilteredEntity<OurLatestPostPageContentType>;
 
 export interface OurLatestPostPageProps extends PageProps {
   data: OurLatestPostData;
@@ -25,7 +24,7 @@ const OurLatestPost: FC<OurLatestPostPageProps> = ({ data }) => {
   return (
     <main className={classNames('OurLatestPost')}>
       {/* always render nodes conditionally unless it's set as required field in CMS */}
-      {Boolean(pageData?.pageTitle) && <h1>{pageData.pageTitle}</h1>}
+      {!!pageData?.fields ? getPageBlocks(pageData) : null}
     </main>
   );
 };
@@ -50,11 +49,9 @@ export const getStaticProps: GetStaticProps<OurLatestPostPageProps> = async ({ p
 
   return {
     props: {
-      head: { title: data?.entry?.pageTitle ?? 'Our Latest' },
+      head: { title: data?.fields?.pageTitle ?? 'Our Latest' },
       // IMPORTANT: wrap everything in "data" so that it can be swapped dynamically with Preview data
-      data: {
-        pageTitle: data.entry.pageTitle ?? 'Our Latest'
-      }
+      data
     }
   };
 };

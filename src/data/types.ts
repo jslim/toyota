@@ -136,6 +136,54 @@ export type TestsPageContentType = {
   innerBlocks: Array<FilteredEntity>;
 };
 
+export type WhoWeArePageContentType = {
+  pageTitle: string;
+};
+
+export type WhatWeBuildPageContentType = {
+  pageTitle: string;
+};
+
+export type LegalPageContentType = {
+  pageTitle: string;
+};
+
+export type GeoPageContentType = {
+  pageTitle: string;
+};
+
+export type DAndIPageContentType = {
+  pageTitle: string;
+};
+
+export type ADASPageContentType = {
+  pageTitle: string;
+};
+
+export type TeammatePageContentType = {
+  pageTitle: string;
+};
+
+export type SoftwareDefinedVehiclePageContentType = {
+  pageTitle: string;
+};
+
+export type LeaderPageContentType = {
+  pageTitle: string;
+};
+
+export type OurLatestPageContentType = {
+  pageTitle: string;
+};
+
+export type OurLatestPostPageContentType = {
+  pageTitle: string;
+};
+
+export type ContactPageContentType = {
+  pageTitle: string;
+};
+
 export type CareersPageContentType = {
   pageTitle: string;
   nextChapter: FilteredEntity<NextChapterContentType>;

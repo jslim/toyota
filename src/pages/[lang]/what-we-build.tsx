@@ -3,14 +3,13 @@ import { GetStaticProps } from 'next';
 import classNames from 'classnames';
 
 import { APIContentful } from '@/data/API';
-import { LocalizedPageParams, PageProps } from '@/data/types';
+import { FilteredEntity, LocalizedPageParams, PageProps, WhatWeBuildPageContentType } from '@/data/types';
 
 import usePreviewData from '@/hooks/use-preview-data';
 import { getAllLangSlugs, getLocaleByLang } from '@/utils/locales';
+import { getPageBlocks } from '@/utils/parsers/get-page-blocks';
 
-type WhatWeBuildPageData = {
-  pageTitle: string;
-};
+type WhatWeBuildPageData = FilteredEntity<WhatWeBuildPageContentType>;
 
 export interface WhatWeBuildPageProps extends PageProps {
   data: WhatWeBuildPageData;
@@ -25,7 +24,7 @@ const WhatWeBuild: FC<WhatWeBuildPageProps> = ({ data }) => {
   return (
     <main className={classNames('WhatWeBuild')}>
       {/* always render nodes conditionally unless it's set as required field in CMS */}
-      {Boolean(pageData?.pageTitle) && <h1>{pageData.pageTitle}</h1>}
+      {!!pageData?.fields ? getPageBlocks(pageData) : null}
     </main>
   );
 };
@@ -50,11 +49,9 @@ export const getStaticProps: GetStaticProps<WhatWeBuildPageProps> = async ({ par
 
   return {
     props: {
-      head: { title: data?.entry?.pageTitle ?? 'What We Build' },
+      head: { title: data?.fields?.pageTitle ?? 'What We Build' },
       // IMPORTANT: wrap everything in "data" so that it can be swapped dynamically with Preview data
-      data: {
-        pageTitle: data.entry.pageTitle ?? 'What We Build'
-      }
+      data
     }
   };
 };
