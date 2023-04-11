@@ -3,22 +3,18 @@ import classNames from 'classnames';
 
 import css from './FilterDropdownModal.module.scss';
 
-import CloseSvg from '@/components/svgs/close.svg';
-
 export type FilterDropdownModalProps = {
   className?: string;
-  header?: string;
-  isOpen: boolean;
-  onClose: () => void;
+  isOpen?: boolean;
   children: ReactNode;
 };
 
-const FilterDropdownModal: FC<FilterDropdownModalProps> = ({ className, header, isOpen, children, onClose }) => {
+const FilterDropdownModal: FC<FilterDropdownModalProps> = ({ className, children, isOpen }) => {
   return (
-    <div className={classNames('FilterDropdownModal', css.root, className, { [css.open]: isOpen })}>
-      <CloseSvg className={css.close} onClick={() => onClose} />
-      {header && <div className={css.header}>{header}</div>}
-      <div className={css.container}>{children}</div>
+    <div className={classNames('FilterDropdownModal', css.root, className, { [css.isOpen]: isOpen })}>
+      <div className={css.containerWrapper}>
+        <div className={css.container}>{children}</div>
+      </div>
     </div>
   );
 };

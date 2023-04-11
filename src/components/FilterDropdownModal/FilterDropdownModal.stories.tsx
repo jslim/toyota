@@ -43,50 +43,6 @@ const categoriesType = {
         {
           label: 'Item2',
           value: 'item2'
-        }
-      ]
-    }
-  ]
-};
-
-const categoriesTeam = {
-  header: 'Team',
-  categories: [
-    {
-      options: [
-        {
-          label: 'All',
-          value: 'all'
-        }
-      ]
-    },
-    {
-      title: 'Global Operations',
-      options: [
-        {
-          label: 'On-site',
-          value: 'on-site'
-        },
-        {
-          label: 'Hybrid',
-          value: 'hybrid'
-        },
-        {
-          label: 'Remote',
-          value: 'remote'
-        }
-      ]
-    },
-    {
-      title: 'Investment & Acquisitions',
-      options: [
-        {
-          label: 'Item1',
-          value: 'item1'
-        },
-        {
-          label: 'Item2',
-          value: 'item2'
         },
         {
           label: 'Item3',
@@ -95,32 +51,22 @@ const categoriesTeam = {
         {
           label: 'Item4',
           value: 'item4'
-        }
-      ]
-    }
-  ]
-};
-
-const categoriesLocation = {
-  header: 'Location',
-  categories: [
-    {
-      options: [
-        {
-          label: 'All',
-          value: 'all'
-        }
-      ]
-    },
-    {
-      options: [
-        {
-          label: 'Tokyo',
-          value: 'tokyo'
         },
         {
-          label: 'London',
-          value: 'london'
+          label: 'Item5',
+          value: 'item5'
+        },
+        {
+          label: 'Item6',
+          value: 'item6'
+        },
+        {
+          label: 'Item7',
+          value: 'item7'
+        },
+        {
+          label: 'Item8',
+          value: 'item8'
         }
       ]
     }
@@ -130,10 +76,5 @@ const categoriesLocation = {
 export const Default: Story<FilterDropdownModalProps> = (args) => <FilterDropdownModal {...args} isOpen />;
 
 Default.args = {
-  header: 'Filters',
-  children: [
-    <FilterDropdownModalOptions key={1} {...categoriesType}></FilterDropdownModalOptions>,
-    <FilterDropdownModalOptions key={2} {...categoriesLocation}></FilterDropdownModalOptions>,
-    <FilterDropdownModalOptions key={3} {...categoriesTeam}></FilterDropdownModalOptions>
-  ]
+  children: [<FilterDropdownModalOptions key={1} {...categoriesType}></FilterDropdownModalOptions>]
 };

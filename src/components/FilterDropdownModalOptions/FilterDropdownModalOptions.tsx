@@ -17,7 +17,6 @@ export type FilterDropdownModalOptionsProps = {
   header?: string;
   categories: { title?: string; options: Option[] }[];
   onSelectOption?: (option: string) => void;
-  onHandleKeyPress?: () => void;
 };
 
 const FilterDropdownModalOptions: FC<FilterDropdownModalOptionsProps> = ({ className, header, categories }) => {

@@ -1,0 +1,47 @@
+@import 'shared';
+
+.root {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  background-color: $white;
+  padding: px(20) px(33) px(24) px(24);
+  border-radius: px(8);
+  overflow: hidden;
+
+  @include media-tablet {
+    height: px(824);
+  }
+}
+
+.close {
+  @include box(px(8));
+  position: absolute;
+  top: px(36);
+  right: px(24);
+
+  @include media-tablet {
+    right: px(40);
+  }
+}
+
+.header {
+  @include typography-h2;
+  margin-bottom: px(31);
+  text-align: left;
+
+  @include media-tablet {
+    margin-bottom: px(34);
+  }
+}
+
+.container {
+  display: flex;
+  flex-flow: column wrap;
+  gap: px(34);
+  height: 100%;
+}
+
+.open {
+  display: block;
+}

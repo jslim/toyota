@@ -18,8 +18,6 @@ export type FilterDropdownProps = {
   title: string;
   alt?: string;
   categories: { title?: string; options: Option[] }[];
-  selectedOption: string;
-  onSelectOption?: (option: string) => void;
 };
 
 const FilterDropdown: FC<FilterDropdownProps> = ({ className, title, alt, categories }) => {
@@ -68,7 +66,8 @@ const FilterDropdown: FC<FilterDropdownProps> = ({ className, title, alt, catego
       <div className={css.title}>
         {title} <CaretSvg className={css.caret} />
       </div>
-      <FilterDropdownModal isOpen={isOpen} onClose={handleToggleDropdown}>
+
+      <FilterDropdownModal isOpen={isOpen}>
         <FilterDropdownModalOptions categories={categories} />
       </FilterDropdownModal>
     </div>
