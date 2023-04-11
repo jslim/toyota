@@ -189,7 +189,11 @@
       }
 
       a {
-        display: inline-block;
+        display: inline-flex;
+      }
+
+      .footerLogos {
+        @include box(100%);
       }
 
       .logoTitle {
