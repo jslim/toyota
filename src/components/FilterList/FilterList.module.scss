@@ -19,6 +19,7 @@
   position: absolute;
   top: px(36);
   right: px(24);
+  cursor: pointer;
 
   @include media-tablet {
     right: px(40);
