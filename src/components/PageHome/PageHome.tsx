@@ -6,6 +6,8 @@ import css from './PageHome.module.scss';
 
 import { PageProps } from '@/data/types';
 
+import { Color, getColorClass } from '@/utils/colors';
+
 export interface PageHomeProps extends PageProps {
   className?: string;
 }
@@ -51,7 +53,7 @@ const PageHome: FC<PageHomeProps> = ({ className }) => {
           <li>
             <a href="https://jam3.dev" className={css.card} target="_blank" rel="noopener noreferrer">
               <h3>Jam3.dev</h3>
-              <p>Learn more about Jam3.dev</p>
+              <p className={getColorClass(Color.RED)}>Learn more about Jam3.dev</p>
             </a>
           </li>
         </ul>
