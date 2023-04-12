@@ -14,7 +14,8 @@ export enum ButtonType {
   Primary = 'primary',
   Secondary = 'secondary',
   Large = 'large',
-  Icon = 'icon'
+  Icon = 'icon',
+  Pill = 'pill'
 }
 export type CtaProps = (BaseButtonProps | BaseLinkProps) & {
   isWhite?: boolean;
@@ -57,14 +58,17 @@ const Cta: FC<CtaProps> = ({
   );
 
   const internalContent = useMemo(
-    () => (
-      <>
-        <IconCircle isWhite={isWhite} isActive={setActiveOutside ? isActive : hover} theme={theme}>
-          {theme === ButtonType.Primary ? <ArrowSvg /> : props.children}
-        </IconCircle>
-        {props.title && <div className={css.label}>{props.title}</div>}
-      </>
-    ),
+    () =>
+      theme === ButtonType.Pill ? (
+        <div className={css[theme]}>{props.title && <div className={css.label}>{props.title}</div>}</div>
+      ) : (
+        <>
+          <IconCircle isWhite={isWhite} isActive={setActiveOutside ? isActive : hover} theme={theme}>
+            {theme === ButtonType.Primary ? <ArrowSvg /> : props.children}
+          </IconCircle>
+          {props.title && <div className={css.label}>{props.title}</div>}
+        </>
+      ),
     [hover, isActive, isWhite, props.children, props.title, setActiveOutside, theme]
   );
 
