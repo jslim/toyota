@@ -11,6 +11,10 @@
     margin-bottom: px(25);
   }
 
+  @include media-desktopSm {
+    margin-bottom: 0;
+  }
+
   .title,
   .description {
     text-align: left;
@@ -36,12 +40,14 @@
     @include aspect-ratio(264, 324);
     object-fit: cover;
     margin-bottom: px(6);
+    border-radius: px(8);
 
     @include media-tablet {
       margin-bottom: px(10);
     }
 
     @include media-desktopSm {
+      height: px(324);
       margin-bottom: px(12);
     }
   }

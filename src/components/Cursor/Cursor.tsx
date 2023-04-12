@@ -1,7 +1,6 @@
 import { FC, memo, RefObject, useCallback, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import gsap from 'gsap';
-import PointerMoveService from '@/services/pointer-move';
 
 import css from './Cursor.module.scss';
 

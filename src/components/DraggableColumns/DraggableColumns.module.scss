@@ -12,19 +12,11 @@
   flex: 1;
   overflow: visible;
 
-  &.right {
-    transform: translateY(-50%);
-  }
-
-  &:first-of-type {
-    .item {
-      @include use-desktop-columns(padding-right, 1, 2);
-    }
-  }
-
   .item {
-    width: auto;
-    padding-bottom: px(86);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 
     .leader {
       @include use-desktop-columns(width, 3);
@@ -33,6 +25,12 @@
     a,
     img {
       cursor: none !important;
+    }
+
+    &.shift {
+      .leader {
+        align-self: flex-end;
+      }
     }
   }
 }

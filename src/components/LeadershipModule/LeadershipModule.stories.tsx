@@ -17,7 +17,7 @@ Default.args = {
   slides: [
     {
       title: 'Name Person',
-      description: 'Job title goes here.',
+      description: 'Job title goes here. Lorem ipsum dolor sit amet.',
       image: contentfulTestAsset,
       cta: {
         title: 'sss',
@@ -44,7 +44,7 @@ Default.args = {
     },
     {
       title: 'Name Person 4',
-      description: 'Job title 4',
+      description: 'Job title 4 whatever',
       image: contentfulTestAsset,
       cta: {
         title: 'maping',

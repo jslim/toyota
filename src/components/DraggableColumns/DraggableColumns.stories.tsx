@@ -13,7 +13,7 @@ Default.args = {
   cards: [
     {
       title: 'Name Person',
-      description: 'Job title goes here.',
+      description: 'Job title goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       image: contentfulTestAsset,
       cta: {
         title: 'sss',
@@ -58,7 +58,7 @@ Default.args = {
     },
     {
       title: 'Name Person 6',
-      description: 'Job title 6',
+      description: 'Job title 6 goes here',
       image: contentfulTestAsset,
       cta: {
         title: 'maping',

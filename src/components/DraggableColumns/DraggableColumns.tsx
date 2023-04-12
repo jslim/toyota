@@ -1,6 +1,6 @@
 import { FC, memo, useRef, useState } from 'react';
 import classNames from 'classnames';
-import { A11y, Controller, Swiper as SwiperClass } from 'swiper';
+import { A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import css from './DraggableColumns.module.scss';
@@ -15,13 +15,7 @@ export type DraggableColumnsProps = {
 };
 
 const DraggableColumns: FC<DraggableColumnsProps> = ({ cards, className, dragLabel }) => {
-  const leftColumnItems = cards.slice(0, cards.length / 2);
-  const rightColumnItems = cards.slice(cards.length / 2, cards.length);
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const firstSwiperRef = useRef<SwiperClass | null>(null);
-  const secondSwiperRef = useRef<SwiperClass | null>(null);
-  const [firstSwiper, setFirstSwiper] = useState<SwiperClass | null>(null);
-  const [secondSwiper, setSecondSwiper] = useState<SwiperClass | null>(null);
   const [isGrabbing, setIsGrabbing] = useState(false);
 
   const handleTouchStart = () => {
@@ -35,51 +29,28 @@ const DraggableColumns: FC<DraggableColumnsProps> = ({ cards, className, dragLab
   return (
     <div className={classNames('DraggableColumns', css.root, className)} ref={containerRef}>
       <Swiper
-        modules={[Controller, A11y]}
+        modules={[A11y]}
         className={css.column}
         direction="vertical"
-        slidesPerView="auto"
+        slidesPerView={4}
         autoHeight={true}
-        controller={{ control: secondSwiper! }}
-        onBeforeInit={(swiper) => {
-          firstSwiperRef.current! = swiper;
-        }}
         loop
         speed={500}
+        freeMode={true}
+        centeredSlides={true}
+        spaceBetween={182}
+        touchEventsTarget={'container'}
         onSwiper={(swiper) => {
-          setFirstSwiper(swiper);
-          swiper.on('touchStart', () => handleTouchStart());
-          swiper.on('touchEnd', () => handleTouchEnd());
+          swiper.on('touchStart', handleTouchStart);
+          swiper.on('touchEnd', handleTouchEnd);
         }}
       >
-        {leftColumnItems.map((item, index) => (
-          <SwiperSlide key={index} className={css.item}>
-            <LeadershipCard {...item} className={classNames(css.leader)} />
-          </SwiperSlide>
-        ))}
-      </Swiper>
-      <Swiper
-        modules={[Controller, A11y]}
-        className={classNames(css.column, css.right)}
-        direction="vertical"
-        slidesPerView="auto"
-        autoHeight={true}
-        controller={{ control: firstSwiper! }}
-        onBeforeInit={(swiper) => {
-          secondSwiperRef.current! = swiper;
-        }}
-        loop
-        speed={500}
-        onSwiper={(swiper) => {
-          setSecondSwiper(swiper);
-          swiper.on('touchStart', () => handleTouchStart());
-          swiper.on('touchEnd', () => handleTouchEnd());
-        }}
-      >
-        {rightColumnItems.map((item, index) => (
-          <SwiperSlide key={index} className={css.item}>
-            <LeadershipCard {...item} className={classNames(css.leader, css.right)} />
-          </SwiperSlide>
+        {cards.map((item, index) => (
+          <>
+            <SwiperSlide key={index} className={classNames(css.item, { [css.shift]: index % 2 !== 0 })}>
+              <LeadershipCard {...item} className={css.leader} />
+            </SwiperSlide>
+          </>
         ))}
       </Swiper>
       <Cursor text={dragLabel} isDragging={isGrabbing} containerRef={containerRef} />
