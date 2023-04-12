@@ -9,7 +9,7 @@
 }
 
 .container {
-  @include position-100(absolute);
+  @include position-100;
   clip-path: url(#path);
 }
 
