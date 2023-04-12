@@ -3,7 +3,13 @@ import { GetStaticProps } from 'next';
 import classNames from 'classnames';
 
 import { APIContentful } from '@/data/API';
-import { FilteredEntity, NestedLocalizedPageParams, OurLatestPostPageContentType, PageProps } from '@/data/types';
+import {
+  FilteredEntity,
+  GenericEntity,
+  NestedLocalizedPageParams,
+  OurLatestPostPageContentType,
+  PageProps
+} from '@/data/types';
 
 import usePreviewData from '@/hooks/use-preview-data';
 import { getAllLangSlugs, getLocaleByLang } from '@/utils/locales';
@@ -30,7 +36,27 @@ const OurLatestPost: FC<OurLatestPostPageProps> = ({ data }) => {
 };
 
 export async function getStaticPaths() {
-  const paths = getAllLangSlugs();
+  const accessToken = process.env.CONTENTFUL_DELIVERY_API_ACCESS_TOKEN; // IMPORTANT: keep content token within 'getStaticProps' of each page
+  const spaceId = process.env.CONTENTFUL_SPACE_ID; // IMPORTANT: keep space ID within 'getStaticProps' of each page
+
+  const apiContentful = new APIContentful({ spaceId, accessToken });
+  const data = await apiContentful.getEntriesByContentType('ourLatestPagePost', {});
+  const pageSlugs = data.items.map((entry: GenericEntity) => entry.fields!.slug);
+  const langPaths = getAllLangSlugs();
+
+  const paths: Array<{ [key: string]: NestedLocalizedPageParams }> = [];
+
+  pageSlugs.forEach((slug: string) => {
+    paths.push(
+      ...langPaths.map(({ params }) => ({
+        params: {
+          lang: params.lang,
+          slug
+        }
+      }))
+    );
+  });
+
   return {
     paths,
     fallback: false

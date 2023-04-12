@@ -3,7 +3,13 @@ import { GetStaticProps } from 'next';
 import classNames from 'classnames';
 
 import { APIContentful } from '@/data/API';
-import { FilteredEntity, LegalPageContentType, LocalizedPageParams, PageProps } from '@/data/types';
+import {
+  FilteredEntity,
+  GenericEntity,
+  LegalPageContentType,
+  NestedLocalizedPageParams,
+  PageProps
+} from '@/data/types';
 
 import usePreviewData from '@/hooks/use-preview-data';
 import { getAllLangSlugs, getLocaleByLang } from '@/utils/locales';
@@ -30,26 +36,45 @@ const CookiePolicy: FC<CookiePolicyPageProps> = ({ data }) => {
 };
 
 export async function getStaticPaths() {
-  const paths = getAllLangSlugs();
+  const accessToken = process.env.CONTENTFUL_DELIVERY_API_ACCESS_TOKEN; // IMPORTANT: keep content token within 'getStaticProps' of each page
+  const spaceId = process.env.CONTENTFUL_SPACE_ID; // IMPORTANT: keep space ID within 'getStaticProps' of each page
+
+  const apiContentful = new APIContentful({ spaceId, accessToken });
+  const data = await apiContentful.getEntriesByContentType('legalPage', {});
+  const pageSlugs = data.items.map((entry: GenericEntity) => entry.fields!.slug);
+  const langPaths = getAllLangSlugs();
+
+  const paths: Array<{ [key: string]: NestedLocalizedPageParams }> = [];
+
+  pageSlugs.forEach((slug: string) => {
+    paths.push(
+      ...langPaths.map(({ params }) => ({
+        params: {
+          lang: params.lang,
+          slug
+        }
+      }))
+    );
+  });
+
   return {
     paths,
     fallback: false
   };
 }
-
 export const getStaticProps: GetStaticProps<CookiePolicyPageProps> = async ({ params }) => {
-  const { lang } = params as LocalizedPageParams;
+  const { lang, legal } = params as NestedLocalizedPageParams;
   const locale = getLocaleByLang(lang);
 
   const accessToken = process.env.CONTENTFUL_DELIVERY_API_ACCESS_TOKEN; // IMPORTANT: keep content token within 'getStaticProps' of each page
   const spaceId = process.env.CONTENTFUL_SPACE_ID; // IMPORTANT: keep space ID within 'getStaticProps' of each page
 
   const apiContentful = new APIContentful({ spaceId, accessToken });
-  const data = await apiContentful.getEntryBySlug('cookie-policy', 'legalPage', { locale, include: 10 });
+  const data = await apiContentful.getEntryBySlug(legal as string, 'legalPage', { locale, include: 10 });
 
   return {
     props: {
-      head: { title: data?.fields?.pageTitle ?? 'Cookie Policy' },
+      head: { title: data?.fields?.pageTitle ?? '' },
       // IMPORTANT: wrap everything in "data" so that it can be swapped dynamically with Preview data
       data
     }

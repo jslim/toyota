@@ -101,7 +101,7 @@ export interface LocalizedPageParams extends ParsedUrlQuery {
 }
 
 export interface NestedLocalizedPageParams extends LocalizedPageParams {
-  slug: string;
+  [key: string]: string | Array<string>;
 }
 
 export type ContentfulImageAsset = {
@@ -136,58 +136,31 @@ export type TestsPageContentType = {
   innerBlocks: Array<FilteredEntity>;
 };
 
-export type WhoWeArePageContentType = {
+export type DefaultPageContentType = {
   pageTitle: string;
-};
-
-export type WhatWeBuildPageContentType = {
-  pageTitle: string;
-};
-
-export type LegalPageContentType = {
-  pageTitle: string;
-};
-
-export type GeoPageContentType = {
-  pageTitle: string;
-};
-
-export type DAndIPageContentType = {
-  pageTitle: string;
-};
-
-export type ADASPageContentType = {
-  pageTitle: string;
-};
-
-export type TeammatePageContentType = {
-  pageTitle: string;
-};
-
-export type SoftwareDefinedVehiclePageContentType = {
-  pageTitle: string;
+  slug: string;
+  innerBlocks: Array<FilteredEntity>;
+  nextChapter: FilteredEntity<NextChapterContentType>;
 };
 
 export type LeaderPageContentType = {
   pageTitle: string;
+  slug: string;
+};
+
+export type LegalPageContentType = {
+  pageTitle: string;
+  slug: string;
 };
 
 export type OurLatestPageContentType = {
   pageTitle: string;
+  slug: string;
 };
 
 export type OurLatestPostPageContentType = {
   pageTitle: string;
-};
-
-export type ContactPageContentType = {
-  pageTitle: string;
-};
-
-export type CareersPageContentType = {
-  pageTitle: string;
-  nextChapter: FilteredEntity<NextChapterContentType>;
-  innerBlocks: Array<FilteredEntity>;
+  slug: string;
 };
 
 // Contentful Component Content Types
