@@ -12,6 +12,7 @@ export type ImageCascadeProps = {
   className?: string;
   children: ReactNode;
   isHorizontal?: boolean;
+  fill?: string;
 };
 
 type pathProps = {
@@ -163,17 +164,19 @@ const buildTargets = (width: number, height: number, offset: number, isHorizonta
   ];
 };
 
-const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isHorizontal }) => {
+const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isHorizontal, fill = 'white' }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const panelsRef = useRef<(SVGPathElement | null)[]>([]);
   const assetRef = useRef<HTMLDivElement | null>(null);
 
   // eslint-disable-next-line sonarjs/cognitive-complexity
   useEffect(() => {
-    const resizeAnimation = () => {
-      const { width, height } = assetRef.current?.querySelector('*')?.getBoundingClientRect() as DOMRect;
+    let targets: string[] = [];
 
-      const targets = buildTargets(width, height, 24, isHorizontal);
+    const getPathSizes = () => {
+      const { width, height } = assetRef.current?.getBoundingClientRect() as DOMRect;
+
+      targets = buildTargets(width, height, 24, isHorizontal);
 
       const startPoint = buildPath({
         width: 0,
@@ -187,47 +190,60 @@ const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isHorizontal
       panelsRef.current.forEach((el) => {
         el?.setAttribute('d', startPoint);
       });
-
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: 'top 30%',
-            end: 'bottom 30%'
-          }
-        })
-        .to(
-          [panelsRef.current[0], panelsRef.current[1]],
-          {
-            morphSVG: { shape: targets[0], type: 'linear' },
-            ease: isHorizontal ? 'ease01' : 'ease02',
-            duration: 1.6
-          },
-          isHorizontal ? 0 : 0.067
-        )
-        .to(
-          panelsRef.current[2],
-          {
-            morphSVG: { shape: targets[1], type: 'linear' },
-            ease: isHorizontal ? 'ease01' : 'ease02',
-            duration: 1.6
-          },
-          0.4
-        )
-        .to(
-          panelsRef.current[3],
-          {
-            morphSVG: { shape: targets[2], type: 'linear' },
-            ease: isHorizontal ? 'ease01' : 'ease02',
-            duration: 1.6
-          },
-          isHorizontal ? 0.6 : 0.73
-        );
     };
 
-    resizeAnimation();
+    getPathSizes();
+    // animating paths
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 30%',
+          end: 'bottom 30%'
+        }
+      })
+      .to(
+        [panelsRef.current[0], panelsRef.current[1]],
+        {
+          morphSVG: { shape: targets[0], type: 'linear' },
+          ease: isHorizontal ? 'ease01' : 'ease02',
+          duration: 1.6
+        },
+        isHorizontal ? 0 : 0.067
+      )
+      .to(
+        panelsRef.current[2],
+        {
+          morphSVG: { shape: targets[1], type: 'linear' },
+          ease: isHorizontal ? 'ease01' : 'ease02',
+          duration: 1.6
+        },
+        0.4
+      )
+      .to(
+        panelsRef.current[3],
+        {
+          morphSVG: { shape: targets[2], type: 'linear' },
+          ease: isHorizontal ? 'ease01' : 'ease02',
+          duration: 1.6
+        },
+        isHorizontal ? 0.6 : 0.73
+      );
 
-    resize.listen(resizeAnimation);
+    const resizePath = () => {
+      getPathSizes();
+      gsap.to([panelsRef.current[0], panelsRef.current[1]], {
+        morphSVG: { shape: targets[0], type: 'linear' }
+      });
+      gsap.to(panelsRef.current[2], {
+        morphSVG: { shape: targets[1], type: 'linear' }
+      });
+      gsap.to(panelsRef.current[3], {
+        morphSVG: { shape: targets[2], type: 'linear' }
+      });
+    };
+
+    resize.listen(resizePath);
   }, [isHorizontal]);
 
   return (
@@ -257,7 +273,7 @@ const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isHorizontal
                 ></path>
               ))}
             </mask>
-            <rect x="0" y="0" width="100%" height="100%" fill="white" mask="url(#mask)"></rect>
+            <rect x="0" y="0" width="100%" height="100%" fill={fill} mask="url(#mask)"></rect>
           </g>
         </svg>
         <div className={css.container} ref={assetRef}>

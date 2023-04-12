@@ -12,7 +12,7 @@ export const Default: Story<ImageCascadeProps> = () => (
 );
 
 export const Horizontal: Story<ImageCascadeProps> = () => (
-  <ImageCascade isHorizontal>
-    <BaseImage width={800} height={500} data={require('@/assets/images/three-logo.jpeg').default} />
+  <ImageCascade isHorizontal fill={'black'}>
+    <BaseImage width={800} height={500} data={require('@/assets/images/home-slide-2.jpg').default} />
   </ImageCascade>
 );
