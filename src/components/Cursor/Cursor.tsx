@@ -1,6 +1,7 @@
-import { FC, memo, RefObject, useEffect, useRef, useState } from 'react';
+import { FC, memo, RefObject, useCallback, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import gsap from 'gsap';
+import PointerMoveService from '@/services/pointer-move';
 
 import css from './Cursor.module.scss';
 
@@ -17,34 +18,52 @@ const Cursor: FC<CursorProps> = ({ className, text, containerRef, isDragging }) 
   const textRef = useRef<HTMLDivElement>(null);
   const [isInside, setIsInside] = useState(false);
 
-  const moveCircle = (e: MouseEvent) => {
-    gsap.to(cursorRef.current, {
-      css: {
-        left: e.x,
-        top: e.y
-      }
-    });
+  const moveCircle = useCallback(
+    (e: MouseEvent) => {
+      if (containerRef.current === null) return;
+
+      const relX = e.pageX - containerRef.current.offsetLeft;
+      const relY = e.pageY - containerRef.current.offsetTop;
+
+      gsap.to(cursorRef.current, {
+        x: relX,
+        y: relY
+      });
+    },
+    [containerRef]
+  );
+
+  const cursorInside = () => {
+    setIsInside(true);
+  };
+
+  const cursorOutside = () => {
+    setIsInside(false);
   };
 
   useEffect(() => {
-    const container = containerRef.current;
+    if (isInside) {
+      gsap.set(cursorRef.current, { top: 'unset', left: 'unset' });
+    }
+  }, [isInside]);
+
+  useEffect(() => {
+    const container = containerRef?.current;
 
     if (container) {
       container.addEventListener('mousemove', moveCircle);
-      container.addEventListener('mouseover', () => {
-        setIsInside(true);
-      });
-      container.addEventListener('mouseleave', () => {
-        setIsInside(false);
-      });
+      container.addEventListener('mouseover', cursorInside);
+      container.addEventListener('mouseleave', cursorOutside);
     }
 
     return () => {
-      container && container.removeEventListener('mousemove', moveCircle);
-      container && container.removeEventListener('mouseover', () => {});
-      container && container.removeEventListener('mouseleave', () => {});
+      if (container) {
+        container.removeEventListener('mousemove', moveCircle);
+        container.removeEventListener('mouseover', cursorInside);
+        container.removeEventListener('mouseleave', cursorOutside);
+      }
     };
-  }, [containerRef]);
+  }, [containerRef, moveCircle]);
 
   useEffect(() => {
     if (isInside) {
