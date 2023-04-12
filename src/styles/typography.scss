@@ -219,3 +219,16 @@ $generic-fonts: system-ui, Helvetica, Arial, sans-serif;
     @include font-size(12, 24);
   }
 }
+
+@mixin typography-subtitle {
+  @include font-family('Toyota Type');
+  @include font-size(18, 24);
+
+  @include breakpoint(tablet) {
+    @include font-size(22, 26);
+  }
+
+  @include breakpoint(desktopSm) {
+    @include font-size(24, 32);
+  }
+}
