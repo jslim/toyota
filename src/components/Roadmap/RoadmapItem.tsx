@@ -1,21 +1,18 @@
 import { Dispatch, FC, memo, MutableRefObject, SetStateAction, useEffect, useRef } from 'react';
 import classNames from 'classnames';
-
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { ExpoScaleEase } from 'gsap/EasePack';
+
 import css from './Roadmap.module.scss';
 
-import resize from '@/services/resize';
+import { variants } from '@/data/variants';
+
 import BaseImage, { BaseImageProps } from '@/components/BaseImage/BaseImage';
 import SectionWrapper from '@/components/SectionWrapper/SectionWrapper';
 
+import resize from '@/services/resize';
 import useLayout from '@/hooks/use-layout';
-import { variants } from '@/data/variants';
-import { RoadmapTypes } from './Roadmap';
 
-gsap.registerPlugin(ScrollTrigger);
-gsap.registerPlugin(ExpoScaleEase);
+import { RoadmapTypes } from './Roadmap';
 
 export type RoadmapItemSingleProps = { title: string; text: string; image?: BaseImageProps; svg?: BaseImageProps };
 
