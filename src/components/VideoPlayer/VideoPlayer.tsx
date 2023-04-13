@@ -39,6 +39,7 @@ export type Props = {
   allowKeyboardControl: boolean;
   showControlsOnLoad: boolean;
   hasControls: boolean;
+  hasPlayOnly: boolean;
   autoPlayDelay: number;
   disableBackgroundCover: boolean;
   controlsTimeout: number;
@@ -66,6 +67,7 @@ const VideoPlayer = ({
   allowKeyboardControl = true,
   showControlsOnLoad = true,
   hasControls = true,
+  hasPlayOnly = false,
   autoPlayDelay = 0,
   disableBackgroundCover = true,
   controlsTimeout = 2.5,
@@ -370,12 +372,13 @@ const VideoPlayer = ({
         </div>
       )}
 
-      {hasControls && (
+      {(hasControls || hasPlayOnly) && (
         <VideoControls
           className={styles.controls}
           captions={Boolean(captions)}
           currentTime={Number(currentTime)}
           isPlaying={isPlaying}
+          hasPlayOnly={hasPlayOnly}
           isMuted={isMuted}
           isFullScreen={isFullScreen}
           isShowingCaptions={isShowingCaptions}

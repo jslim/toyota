@@ -54,3 +54,16 @@ IconOnly.args = {
   theme: ButtonType.Icon,
   href: '/'
 };
+
+export const Pill: Story<CtaProps> = (args) => (
+  <Cta {...args}>
+    <ArrowDownSvg />
+  </Cta>
+);
+
+Pill.args = {
+  isWhite: false,
+  theme: ButtonType.Pill,
+  title: 'Learn More',
+  href: '/'
+};

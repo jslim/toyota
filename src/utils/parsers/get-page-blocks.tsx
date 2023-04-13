@@ -3,15 +3,18 @@ import { FilteredEntity } from '@/data/types';
 import {
   buildAccordionGroup,
   buildAccordionItem,
-  buildCareersPage,
+  buildCardGrid,
   buildContentfulImage,
+  buildDefaultPage,
   buildImageBlock,
   buildNextChapter,
+  buildRoadmapGroup,
   buildSectionWrapper,
   buildTabGroup,
   buildTabItem,
   buildTestPage,
   buildTextBlock,
+  buildTextIntro,
   ComponentBuilderFactory
 } from './block-builders';
 
@@ -25,10 +28,13 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
   tabItem: buildTabItem,
   textContent: buildTextBlock,
   testPage: buildTestPage,
-  careersPage: buildCareersPage,
+  defaultPage: buildDefaultPage,
+  cardGrid: buildCardGrid,
   // We can build an image from either a reference ImageBlock or a direct linked Asset
   contentfulAssetEntity: buildContentfulImage,
-  imageBlock: buildImageBlock
+  imageBlock: buildImageBlock,
+  textIntro: buildTextIntro,
+  roadmapGroup: buildRoadmapGroup
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

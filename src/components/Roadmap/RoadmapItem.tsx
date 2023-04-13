@@ -1,23 +1,26 @@
 import { Dispatch, FC, memo, MutableRefObject, SetStateAction, useEffect, useRef } from 'react';
 import classNames from 'classnames';
-
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { ExpoScaleEase } from 'gsap/EasePack';
+
 import css from './Roadmap.module.scss';
 
-import resize from '@/services/resize';
-import BaseImage, { BaseImageProps } from '@/components/BaseImage/BaseImage';
+import { ContentfulImageAsset } from '@/data/types';
+import { variants } from '@/data/variants';
+
 import SectionWrapper from '@/components/SectionWrapper/SectionWrapper';
 
+import resize from '@/services/resize';
 import useLayout from '@/hooks/use-layout';
-import { variants } from '@/data/variants';
+
+import ContentfulImage from '../ContentfulImage/ContentfulImage';
 import { RoadmapTypes } from './Roadmap';
 
-gsap.registerPlugin(ScrollTrigger);
-gsap.registerPlugin(ExpoScaleEase);
-
-export type RoadmapItemSingleProps = { title: string; text: string; image?: BaseImageProps; svg?: BaseImageProps };
+export type RoadmapItemSingleProps = {
+  title: string;
+  text: string;
+  image?: ContentfulImageAsset;
+  svg?: ContentfulImageAsset;
+};
 
 export type RoadmapItemProps = {
   item: RoadmapItemSingleProps;
@@ -166,11 +169,27 @@ const RoadmapItem: FC<RoadmapItemProps> = ({ item, index, theme, numOfSlides, se
   return (
     <div ref={itemRef} className={css.item}>
       <SectionWrapper className={css.sectionWrapper} theme={variants.LIGHT}>
-        {theme === RoadmapTypes.HOME && <BaseImage className={classNames(css.image, 'scaleDown')} {...item.image} />}
+        {theme === RoadmapTypes.HOME && item.image && (
+          <ContentfulImage
+            className={classNames(css.image, 'scaleDown')}
+            asset={item.image}
+            useSrcSet={false}
+            imageSizeMobile={{ extraGutters: 0, numCols: 4 }}
+            imageSizeTablet={{ extraGutters: 0, numCols: 8 }}
+            imageSizeDesktop={{ extraGutters: 0, numCols: 12 }}
+          />
+        )}
         <div className={classNames(css.wrapper, 'scaleDown')}>
           {theme === RoadmapTypes.DEFAULT && item.svg && (
             <div className={classNames(css.svg, 'content')}>
-              <BaseImage className={css.svgIcon} {...item.svg} />
+              <ContentfulImage
+                className={css.svgIcon}
+                asset={item.svg}
+                useSrcSet={false}
+                imageSizeMobile={{ extraGutters: 0, numCols: 4 }}
+                imageSizeTablet={{ extraGutters: 0, numCols: 8 }}
+                imageSizeDesktop={{ extraGutters: 0, numCols: 12 }}
+              />
             </div>
           )}
           <div className={classNames(css.content, 'content')}>

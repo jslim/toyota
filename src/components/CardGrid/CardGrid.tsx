@@ -2,6 +2,7 @@ import { FC, memo } from 'react';
 import classNames from 'classnames';
 
 import css from './CardGrid.module.scss';
+
 import Card, { CardProps, CardTypes } from '@/components/Card/Card';
 
 export type CardGridProps = {

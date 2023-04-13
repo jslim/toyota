@@ -23,6 +23,7 @@ export type Props = {
   duration: number;
   currentTime: number;
   onPlayToggle?: Function;
+  hasPlayOnly: boolean;
   isPlaying?: boolean;
   onTimeUpdate?: Function;
   captions?: boolean;
@@ -50,6 +51,7 @@ const VideoControls = ({
   duration,
   currentTime,
   onPlayToggle = noop,
+  hasPlayOnly,
   isPlaying,
   onTimeUpdate = noop,
   captions,
@@ -99,17 +101,72 @@ const VideoControls = ({
 
   return (
     <nav
-      className={classnames(styles.VideoControls, className)}
+      className={classnames(styles.VideoControls, className, { [styles.hasPlayOnly]: hasPlayOnly })}
       aria-label={navAriaLabel}
       onFocus={onFocus as FocusEventHandler}
       onBlur={onBlur as FocusEventHandler}
     >
-      <VideoTimeline duration={duration} currentTime={Number(currentTime)} onTimeUpdate={onTimeUpdate} />
+      {!hasPlayOnly ? (
+        <>
+          <VideoTimeline duration={duration} currentTime={Number(currentTime)} onTimeUpdate={onTimeUpdate} />
 
-      <div className={styles.controlsContainer}>
-        <div className={styles.leftContainer}>
+          <div className={styles.controlsContainer}>
+            <div className={styles.leftContainer}>
+              <Cta
+                className={styles.button}
+                aria-label={isPlaying ? pauseLabel : playLabel}
+                isWhite={true}
+                onClick={onPlayToggle}
+                theme={ButtonType.Icon}
+              >
+                {isPlaying ? <PauseIcon aria-hidden /> : <PlayIcon aria-hidden />}
+              </Cta>
+
+              <Cta
+                className={styles.button}
+                aria-label={isMuted ? unmuteLabel : muteLabel}
+                isWhite={true}
+                onClick={onMuteToggle}
+                theme={ButtonType.Icon}
+              >
+                {isMuted ? <MutedIcon aria-hidden /> : <UnmutedIcon aria-hidden />}
+              </Cta>
+
+              <time className={styles.time}>
+                {formatTime(Number(currentTime))} / {formatTime(Number(duration))}
+              </time>
+            </div>
+            <div className={styles.rightContainer}>
+              {captions && (
+                <Cta
+                  className={styles.button}
+                  aria-label={isShowingCaptions ? captionsHideLabel : captionsShowLabel}
+                  isWhite={true}
+                  onClick={onCaptionsToggle}
+                  theme={ButtonType.Icon}
+                >
+                  {isShowingCaptions ? <CaptionsOnIcon aria-hidden /> : <CaptionsOffIcon aria-hidden />}
+                </Cta>
+              )}
+
+              {isFullscreenAPISupported && (
+                <Cta
+                  className={styles.button}
+                  aria-label={isFullScreen ? exitFullscreenLabel : enterFullscreenLabel}
+                  isWhite={true}
+                  onClick={onFullscreenToggle}
+                  theme={ButtonType.Icon}
+                >
+                  {isFullScreen ? <ExitFullscreenIcon aria-hidden /> : <EnterFullscreenIcon aria-hidden />}
+                </Cta>
+              )}
+            </div>
+          </div>
+        </>
+      ) : (
+        <div className={styles.controlsContainer}>
           <Cta
-            className={styles.button}
+            className={styles.playPauseButton}
             aria-label={isPlaying ? pauseLabel : playLabel}
             isWhite={true}
             onClick={onPlayToggle}
@@ -117,46 +174,8 @@ const VideoControls = ({
           >
             {isPlaying ? <PauseIcon aria-hidden /> : <PlayIcon aria-hidden />}
           </Cta>
-          <Cta
-            className={styles.button}
-            aria-label={isMuted ? unmuteLabel : muteLabel}
-            isWhite={true}
-            onClick={onMuteToggle}
-            theme={ButtonType.Icon}
-          >
-            {isMuted ? <MutedIcon aria-hidden /> : <UnmutedIcon aria-hidden />}
-          </Cta>
-
-          <time className={styles.time}>
-            {formatTime(Number(currentTime))} / {formatTime(Number(duration))}
-          </time>
         </div>
-        <div className={styles.rightContainer}>
-          {captions && (
-            <Cta
-              className={styles.button}
-              aria-label={isShowingCaptions ? captionsHideLabel : captionsShowLabel}
-              isWhite={true}
-              onClick={onCaptionsToggle}
-              theme={ButtonType.Icon}
-            >
-              {isShowingCaptions ? <CaptionsOnIcon aria-hidden /> : <CaptionsOffIcon aria-hidden />}
-            </Cta>
-          )}
-
-          {isFullscreenAPISupported && (
-            <Cta
-              className={styles.button}
-              aria-label={isFullScreen ? exitFullscreenLabel : enterFullscreenLabel}
-              isWhite={true}
-              onClick={onFullscreenToggle}
-              theme={ButtonType.Icon}
-            >
-              {isFullScreen ? <ExitFullscreenIcon aria-hidden /> : <EnterFullscreenIcon aria-hidden />}
-            </Cta>
-          )}
-        </div>
-      </div>
+      )}
     </nav>
   );
 };

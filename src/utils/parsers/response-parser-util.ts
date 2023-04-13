@@ -13,7 +13,14 @@ import {
 const UNRESOLVED_LINK = {}; // unique object to avoid polyfill bloat using Symbol()
 
 export const makeFilteredEntity = (entity: GenericEntity): FilteredEntity => {
-  const isEntry = entity.sys.type === 'Entry';
+  if (entity == null) {
+    return {
+      fields: {},
+      contentType: 'null',
+      id: ''
+    };
+  }
+  const isEntry = entity?.sys?.type === 'Entry';
   return {
     // Ensure we keep original object references intact, DON'T spread/clone here
     fields: entity.fields!,

@@ -1,3 +1,5 @@
+import { CardTypes } from '@/components/Card/Card';
+
 export type HeadProps = {
   title: string;
   image?: string;
@@ -108,7 +110,7 @@ export interface LocalizedPageParams extends ParsedUrlQuery {
 }
 
 export interface NestedLocalizedPageParams extends LocalizedPageParams {
-  slug: string;
+  [key: string]: string | Array<string>;
 }
 
 export type ContentfulImageAsset = {
@@ -143,10 +145,31 @@ export type TestsPageContentType = {
   innerBlocks: Array<FilteredEntity>;
 };
 
-export type CareersPageContentType = {
+export type DefaultPageContentType = {
   pageTitle: string;
-  nextChapter: FilteredEntity<NextChapterContentType>;
+  slug: string;
   innerBlocks: Array<FilteredEntity>;
+  nextChapter: FilteredEntity<NextChapterContentType>;
+};
+
+export type LeaderPageContentType = {
+  pageTitle: string;
+  slug: string;
+};
+
+export type LegalPageContentType = {
+  pageTitle: string;
+  slug: string;
+};
+
+export type OurLatestPageContentType = {
+  pageTitle: string;
+  slug: string;
+};
+
+export type OurLatestPostPageContentType = {
+  pageTitle: string;
+  slug: string;
 };
 
 // Contentful Component Content Types
@@ -211,4 +234,41 @@ export type MediaGalleryItemContentType = {
 export type MediaGalleryGroupContentType = {
   title: string;
   innerBlocks: Array<GenericEntity<MediaGalleryItemContentType>>;
+};
+
+export type TextIntroContentType = {
+  eyebrow: string;
+  header: string;
+  description: string;
+  ctaLabel: string;
+  ctaLink: string;
+  layout: string;
+};
+
+export type RoadmapItemContentType = {
+  title: string;
+  text: string;
+  svg: ContentfulImageAsset;
+  image: ContentfulImageAsset;
+};
+
+export type RoadmapGroupContentType = {
+  title: string;
+  eyebrow: string;
+  theme: string;
+  items: Array<GenericEntity<RoadmapItemContentType>>;
+};
+
+export type CardContentType = {
+  title: string;
+  text: string;
+  subTitle: string;
+  cta: CTAContentType;
+  image: ContentfulImageAsset;
+};
+
+export type CardGridContentType = {
+  title: string;
+  cardType: CardTypes;
+  cards: Array<FilteredEntity<CardContentType>>;
 };

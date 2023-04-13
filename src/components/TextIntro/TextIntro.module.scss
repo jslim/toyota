@@ -1,0 +1,144 @@
+@import 'shared';
+
+.root {
+  width: 100%;
+  position: relative;
+
+  .layoutWrapper {
+    @include container;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+    text-align: left;
+    padding-top: px(250);
+    padding-bottom: px(50);
+    height: 100%;
+
+    @include media-tablet {
+      @include container;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: flex-start;
+      height: auto;
+      padding-top: px(100);
+    }
+
+    &.tabletColumnLayout {
+      @include media-tablet {
+        flex-direction: column;
+      }
+
+      @include media-desktopSm {
+        flex-direction: row;
+      }
+
+      .leftColumn {
+        @include media-tablet {
+          @include use-tablet-columns(width, 5);
+        }
+        @include media-desktopSm {
+          @include use-desktop-columns(width, 6);
+        }
+      }
+
+      .rightColumn {
+        @include media-tablet {
+          @include use-tablet-columns(width, 7);
+          margin-left: 0;
+        }
+
+        @include media-desktopSm {
+          @include use-desktop-columns(width, 6);
+          @include use-desktop-gutter(margin-left, 1);
+          margin-top: px(25);
+        }
+      }
+    }
+  }
+
+  .backgroundImageContainer {
+    position: absolute;
+    @include use-mobile-columns(width, 4);
+    margin-top: px(50);
+
+    @include media-tablet {
+      @include use-tablet-columns(width, 4);
+      margin: 0;
+      padding: 0;
+      bottom: 0;
+      height: 100%;
+    }
+
+    @include media-desktopSm {
+      padding: 0;
+      margin: 0;
+      @include use-desktop-columns(width, 7);
+    }
+
+    @include media-desktopMd {
+      @include use-desktop-columns(width, 8);
+    }
+  }
+
+  .backgroundImage {
+    @include box(100%);
+  }
+
+  .leftColumn {
+    width: 100%;
+
+    @include media-tablet {
+      @include use-tablet-columns(width, 3, 0);
+    }
+
+    @include media-desktopSm {
+      @include use-desktop-columns(width, 6, 0);
+    }
+  }
+
+  .rightColumn {
+    width: 100%;
+
+    @include media-tablet {
+      @include use-tablet-columns(width, 5, 0);
+      @include use-tablet-gutter(margin-left, 1);
+    }
+    @include media-desktopSm {
+      @include use-desktop-columns(width, 6, 0);
+      @include use-desktop-gutter(margin-left, 1);
+      flex-basis: initial;
+    }
+  }
+
+  .title {
+    @include typography-h2;
+    margin-top: px(20);
+
+    @include media-tablet {
+      margin: 0;
+    }
+  }
+
+  .description {
+    @include typography-paragraph;
+    margin: px(25) 0;
+
+    @include media-tablet {
+      padding: 0;
+    }
+  }
+
+  .leftTitle {
+    @include typography-h2;
+    margin-top: px(20);
+
+    @include media-tablet {
+      margin-left: 0;
+    }
+  }
+
+  .cta {
+    display: flex;
+  }
+}

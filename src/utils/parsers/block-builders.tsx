@@ -3,23 +3,29 @@ import { FC } from 'react';
 import {
   AccordionGroupContentType,
   AccordionItemContentType,
-  CareersPageContentType,
+  CardGridContentType,
   ContentfulImageAsset,
+  DefaultPageContentType,
   GenericObject,
   NextChapterContentType,
+  RoadmapGroupContentType,
   SectionContentType,
   TabGroupContentType,
   TabItemContentType,
   TestsPageContentType,
-  TextBlockContentType
+  TextBlockContentType,
+  TextIntroContentType
 } from '@/data/types';
 import { variants } from '@/data/variants';
 
 import Accordion, { AccordionItem } from '@/components/Accordion/Accordion';
+import CardGrid from '@/components/CardGrid/CardGrid';
 import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
 import NextChapter from '@/components/NextChapter/NextChapter';
+import Roadmap from '@/components/Roadmap/Roadmap';
 import SectionWrapper from '@/components/SectionWrapper/SectionWrapper';
 import Tabs from '@/components/Tabs/Tabs';
+import TextIntro, { TextIntroLayout } from '@/components/TextIntro/TextIntro';
 
 export type ComponentBuilder = {
   /**
@@ -66,7 +72,7 @@ export const buildTestPage = (fields: TestsPageContentType, extraProps?: Generic
   component: EmptyComponent
 });
 
-export const buildCareersPage = (_fields: CareersPageContentType, extraProps?: GenericObject): ComponentBuilder => ({
+export const buildDefaultPage = (_fields: DefaultPageContentType, extraProps?: GenericObject): ComponentBuilder => ({
   props: {
     ...extraProps
   },
@@ -139,11 +145,12 @@ export const buildNextChapter = (fields: NextChapterContentType, extraProps?: Ge
 });
 
 export const buildSectionWrapper = (fields: SectionContentType, extraProps?: GenericObject): ComponentBuilder => {
-  const theme = fields.colorBackground && fields.colorBackground[0] === 'Black' ? variants.DARK : variants.LIGHT;
+  const theme = fields.colorBackground && fields.colorBackground[0];
   return {
     props: {
       eyebrow: fields.eyebrowText,
       title: fields.displayTitle,
+      backgroundColor: fields?.colorBackground ? fields.colorBackground[0] : null,
       theme,
       ...extraProps
     },
@@ -174,3 +181,59 @@ export const buildTextBlock = (fields: TextBlockContentType, extraProps?: Generi
   },
   component: ({ textContent }) => <p>{textContent}</p>
 });
+
+export const buildTextIntro = (fields: TextIntroContentType, extraProps?: GenericObject): ComponentBuilder => {
+  const hasCta = fields.ctaLabel && fields.ctaLink && fields.layout === TextIntroLayout.HEADER_LEFT;
+
+  return {
+    props: {
+      layout: fields.layout,
+      eyebrow: fields.eyebrow,
+      header: fields.header,
+      description: fields.description,
+      ctaProps: hasCta && {
+        href: fields.ctaLink,
+        title: fields.ctaLabel
+      },
+      ...extraProps
+    },
+    component: TextIntro
+  };
+};
+
+export const buildRoadmapGroup = (fields: RoadmapGroupContentType, extraProps?: GenericObject): ComponentBuilder => {
+  const items = fields.items.map((item) => ({
+    title: item.fields?.title,
+    text: item.fields?.text,
+    svg: item.fields?.svg,
+    image: item.fields?.image
+  }));
+
+  return {
+    props: {
+      title: fields.title,
+      eyebrow: fields.eyebrow,
+      items,
+      theme: fields.theme,
+      ...extraProps
+    },
+    component: Roadmap
+  };
+};
+export const buildCardGrid = (fields: CardGridContentType, extraProps?: GenericObject): ComponentBuilder => {
+  const cardType = fields?.cardType[0] || null;
+  const cards = fields?.cards.map((card) => {
+    return {
+      cardType,
+      ...card.fields
+    };
+  });
+  return {
+    props: {
+      cardType,
+      cards,
+      ...extraProps
+    },
+    component: CardGrid
+  };
+};

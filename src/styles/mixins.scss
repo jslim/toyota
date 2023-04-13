@@ -217,6 +217,7 @@
 }
 
 @mixin rounded($radius: px(24), $mobile: true) {
+  overflow: hidden;
   @if ($mobile) {
     border-radius: px(12);
   } @else {
