@@ -53,7 +53,7 @@
     "focus-visible": "5.2.0",
     "fullscreen-handler": "^0.0.2",
     "get-scroll": "2.0.1",
-    "gsap": "npm:@gsap/business@^3.11.5",
+    "gsap": "file:gsap/gsap-bonus.tgz",
     "js-cookie": "^3.0.1",
     "lodash.clonedeep": "^4.5.0",
     "next": "^12.3.1",
