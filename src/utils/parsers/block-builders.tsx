@@ -179,7 +179,7 @@ export const buildTextBlock = (fields: TextBlockContentType, extraProps?: Generi
 
 export const buildTextIntro = (fields: TextIntroContentType, extraProps?: GenericObject): ComponentBuilder => {
   const hasCta = fields.ctaLabel && fields.ctaLink && fields.layout === TextIntroLayout.HEADER_LEFT;
-  console.log(fields);
+
   return {
     props: {
       layout: fields.layout,
