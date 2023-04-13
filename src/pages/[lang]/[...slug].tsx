@@ -46,16 +46,18 @@ export async function getStaticPaths() {
 
   const paths: Array<{ [key: string]: NestedLocalizedPageParams }> = [];
 
-  pageSlugs.forEach((slug: string) => {
-    paths.push(
-      ...langPaths.map(({ params }) => ({
-        params: {
-          lang: params.lang,
-          slug: [slug]
-        }
-      }))
-    );
-  });
+  pageSlugs
+    .filter((el: string) => el !== 'homepage')
+    .forEach((slug: string) => {
+      paths.push(
+        ...langPaths.map(({ params }) => ({
+          params: {
+            lang: params.lang,
+            slug: [slug]
+          }
+        }))
+      );
+    });
 
   return {
     paths,
