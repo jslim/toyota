@@ -55,21 +55,7 @@ Default.args = {
   description: `Chief Executive Officer
   Woven Planet Holdings & 
   Executive Advisor, TRI`,
-  asset,
-  useSrcSet: true,
-  imageQuality: 50,
-  imageSizeDesktop: {
-    numCols: 5,
-    extraGutters: 0
-  },
-  imageSizeTablet: {
-    numCols: 4,
-    extraGutters: 0
-  },
-  imageSizeMobile: {
-    numCols: 3,
-    extraGutters: 0
-  }
+  asset
 };
 
 Default.argTypes = {};

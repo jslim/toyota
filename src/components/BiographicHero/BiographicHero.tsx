@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import css from './BiographicHero.module.scss';
 
-import { ContentfulImageAsset, GridSize } from '@/data/types';
+import { ContentfulImageAsset } from '@/data/types';
 
 import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
 
@@ -14,23 +14,9 @@ export type BiographicHeroProps = {
   title: string;
   description: string;
   asset: ContentfulImageAsset;
-  imageQuality: number;
-  useSrcSet: boolean;
-  imageSizeMobile: string | GridSize;
-  imageSizeTablet: string | GridSize;
-  imageSizeDesktop: string | GridSize;
-  withLazyLoad: boolean;
-  withLowResSwap: boolean;
 };
 
-const BiographicHero: FC<BiographicHeroProps> = ({
-  className,
-  title,
-  description,
-  asset,
-  withLazyLoad,
-  withLowResSwap
-}) => {
+const BiographicHero: FC<BiographicHeroProps> = ({ className, title, description, asset }) => {
   return (
     <div className={classNames('BiographicHero', css.root, className)}>
       <div className={css.backgroundContainer}>
@@ -48,8 +34,8 @@ const BiographicHero: FC<BiographicHeroProps> = ({
               imageSizeDesktop={'5'}
               imageSizeTablet={'4'}
               imageSizeMobile={'3'}
-              withLazyLoad={withLazyLoad}
-              withLowResSwap={withLowResSwap}
+              withLazyLoad={false}
+              withLowResSwap={false}
             />
           </div>
         </div>
