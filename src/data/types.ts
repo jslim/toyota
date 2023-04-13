@@ -1,4 +1,5 @@
 import { CardTypes } from '@/components/Card/Card';
+import { HeroType } from '@/components/Hero/Hero';
 
 export type HeadProps = {
   title: string;
@@ -312,4 +313,11 @@ export type ProductListContentType = {
   title: string;
   eyebrow: string;
   productListRow: Array<FilteredEntity<ProductListRowContentType>>;
+};
+
+export type HeroContentType = {
+  title: string;
+  image: ContentfulImageAsset;
+  video: ContentfulVideoAsset;
+  theme: HeroType;
 };
