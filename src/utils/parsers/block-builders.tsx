@@ -7,6 +7,7 @@ import {
   DefaultPageContentType,
   GenericObject,
   NextChapterContentType,
+  RoadmapGroupContentType,
   SectionContentType,
   TabGroupContentType,
   TabItemContentType,
@@ -19,6 +20,7 @@ import { variants } from '@/data/variants';
 import Accordion, { AccordionItem } from '@/components/Accordion/Accordion';
 import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
 import NextChapter from '@/components/NextChapter/NextChapter';
+import Roadmap from '@/components/Roadmap/Roadmap';
 import SectionWrapper from '@/components/SectionWrapper/SectionWrapper';
 import Tabs from '@/components/Tabs/Tabs';
 import TextIntro, { TextIntroLayout } from '@/components/TextIntro/TextIntro';
@@ -193,5 +195,25 @@ export const buildTextIntro = (fields: TextIntroContentType, extraProps?: Generi
       ...extraProps
     },
     component: TextIntro
+  };
+};
+
+export const buildRoadmapGroup = (fields: RoadmapGroupContentType, extraProps?: GenericObject): ComponentBuilder => {
+  const items = fields.items.map((item) => ({
+    title: item.fields?.title,
+    text: item.fields?.text,
+    svg: item.fields?.svg,
+    image: item.fields?.image
+  }));
+
+  return {
+    props: {
+      title: fields.title,
+      eyebrow: fields.eyebrow,
+      items,
+      theme: fields.theme,
+      ...extraProps
+    },
+    component: Roadmap
   };
 };

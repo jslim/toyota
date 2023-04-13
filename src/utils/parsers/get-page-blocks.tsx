@@ -7,6 +7,7 @@ import {
   buildDefaultPage,
   buildImageBlock,
   buildNextChapter,
+  buildRoadmapGroup,
   buildSectionWrapper,
   buildTabGroup,
   buildTabItem,
@@ -30,7 +31,8 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
   // We can build an image from either a reference ImageBlock or a direct linked Asset
   contentfulAssetEntity: buildContentfulImage,
   imageBlock: buildImageBlock,
-  textIntro: buildTextIntro
+  textIntro: buildTextIntro,
+  roadmapGroup: buildRoadmapGroup
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
