@@ -12,6 +12,7 @@ import {
   buildTabItem,
   buildTestPage,
   buildTextBlock,
+  buildTextIntro,
   ComponentBuilderFactory
 } from './block-builders';
 
@@ -28,7 +29,8 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
   careersPage: buildCareersPage,
   // We can build an image from either a reference ImageBlock or a direct linked Asset
   contentfulAssetEntity: buildContentfulImage,
-  imageBlock: buildImageBlock
+  imageBlock: buildImageBlock,
+  textIntro: buildTextIntro
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

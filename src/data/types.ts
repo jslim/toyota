@@ -212,3 +212,12 @@ export type MediaGalleryGroupContentType = {
   title: string;
   innerBlocks: Array<GenericEntity<MediaGalleryItemContentType>>;
 };
+
+export type TextIntroContentType = {
+  eyebrow: string;
+  header: string;
+  description: string;
+  ctaLabel: string;
+  ctaLink: string;
+  layout: string;
+};

@@ -11,7 +11,8 @@ import {
   TabGroupContentType,
   TabItemContentType,
   TestsPageContentType,
-  TextBlockContentType
+  TextBlockContentType,
+  TextIntroContentType
 } from '@/data/types';
 import { variants } from '@/data/variants';
 
@@ -20,6 +21,7 @@ import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
 import NextChapter from '@/components/NextChapter/NextChapter';
 import SectionWrapper from '@/components/SectionWrapper/SectionWrapper';
 import Tabs from '@/components/Tabs/Tabs';
+import TextIntro, { TextIntroLayout } from '@/components/TextIntro/TextIntro';
 
 export type ComponentBuilder = {
   /**
@@ -174,3 +176,22 @@ export const buildTextBlock = (fields: TextBlockContentType, extraProps?: Generi
   },
   component: ({ textContent }) => <p>{textContent}</p>
 });
+
+export const buildTextIntro = (fields: TextIntroContentType, extraProps?: GenericObject): ComponentBuilder => {
+  const hasCta = fields.ctaLabel && fields.ctaLink && fields.layout === TextIntroLayout.HEADER_LEFT;
+  console.log(fields);
+  return {
+    props: {
+      layout: fields.layout,
+      eyebrow: fields.eyebrow,
+      header: fields.header,
+      description: fields.description,
+      ctaProps: hasCta && {
+        href: fields.ctaLink,
+        title: fields.ctaLabel
+      },
+      ...extraProps
+    },
+    component: TextIntro
+  };
+};
