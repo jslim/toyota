@@ -15,9 +15,9 @@ export interface ContentfulImageProps extends ImgHTMLAttributes<HTMLImageElement
   asset: ContentfulImageAsset;
   imageQuality?: number;
   useSrcSet?: boolean;
-  imageSizeMobile: string | GridSize;
-  imageSizeTablet: string | GridSize;
-  imageSizeDesktop: string | GridSize;
+  imageSizeMobile?: string | GridSize;
+  imageSizeTablet?: string | GridSize;
+  imageSizeDesktop?: string | GridSize;
   withLazyLoad?: boolean;
   withLowResSwap?: boolean;
 }
@@ -31,9 +31,9 @@ const ContentfulImage = forwardRef<HTMLImageElement, ContentfulImageProps>(
       imageQuality = 50,
       withLazyLoad = false,
       withLowResSwap = false,
-      imageSizeDesktop,
-      imageSizeTablet,
-      imageSizeMobile,
+      imageSizeDesktop = { numCols: 12, extraGutters: 0 },
+      imageSizeTablet = { numCols: 12, extraGutters: 0 },
+      imageSizeMobile = { numCols: 12, extraGutters: 0 },
       ...props
     },
     ref

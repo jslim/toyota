@@ -1,5 +1,6 @@
 import { Story } from '@storybook/react';
 
+import { contentfulTestAsset } from '../ContentfulImage/ContentfulImage.stories';
 import Gallery, { GalleryProps } from './Gallery';
 
 export default { title: 'components/Gallery' };
@@ -10,7 +11,6 @@ export const Default: Story<GalleryProps> = (args) => (
   </div>
 );
 
-const url = 'https://i1.wp.com/thetalkinggeek.com/wp-content/uploads/2015/09/sintel1.png?fit=1920%2C817&ssl=1';
 const button = 'Learn more';
 
 Default.args = {
@@ -18,10 +18,7 @@ Default.args = {
     {
       title: 'Arene',
       text: 'Integer posuere erat a ante venenatis suere velit aliquet. Vestibulum id ligula porta felis euismod semper.',
-      image: {
-        src: url,
-        alt: ''
-      },
+      image: contentfulTestAsset,
       cta: {
         title: button,
         href: '/'
@@ -30,10 +27,7 @@ Default.args = {
     {
       title: 'Ad/adas technologies',
       text: 'Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Vestibulta felis euismod semper.',
-      image: {
-        src: url,
-        alt: ''
-      },
+      image: contentfulTestAsset,
       cta: {
         title: button,
         href: 'https://google.com'
@@ -42,10 +36,7 @@ Default.args = {
     {
       title: 'automated mapping',
       text: 'Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Vestibulum id ligula porta felis euismod semper.',
-      image: {
-        src: url,
-        alt: ''
-      },
+      image: contentfulTestAsset,
       cta: {
         title: button,
         href: '/'
@@ -54,10 +45,7 @@ Default.args = {
     {
       title: 'automated mapping',
       text: 'Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Vestibulum id ligufelis euismod semper.',
-      image: {
-        src: url,
-        alt: ''
-      },
+      image: contentfulTestAsset,
       cta: {
         title: button,
         href: 'https://google.com'

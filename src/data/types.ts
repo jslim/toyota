@@ -1,3 +1,5 @@
+import { CardTypes } from '@/components/Card/Card';
+
 export type HeadProps = {
   title: string;
   image?: string;
@@ -255,4 +257,18 @@ export type RoadmapGroupContentType = {
   eyebrow: string;
   theme: string;
   items: Array<GenericEntity<RoadmapItemContentType>>;
+};
+
+export type CardContentType = {
+  title: string;
+  text: string;
+  subTitle: string;
+  cta: CTAContentType;
+  image: ContentfulImageAsset;
+};
+
+export type CardGridContentType = {
+  title: string;
+  cardType: CardTypes;
+  cards: Array<FilteredEntity<CardContentType>>;
 };
