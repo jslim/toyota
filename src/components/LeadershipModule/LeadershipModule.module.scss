@@ -15,7 +15,7 @@
   }
 
   .pagination {
-    margin: px(48) 0 px(20);
+    margin: px(48) 0 px(40);
     @include flex-center;
 
     @include breakpoint(desktopSm) {
@@ -105,6 +105,82 @@
 
       @include media-desktopSm {
         @include use-desktop-columns(max-width, 4, 1);
+      }
+    }
+
+    .board {
+      display: none;
+
+      @include media-desktopSm {
+        @include use-desktop-columns(width, 5);
+        display: block;
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+.board {
+  @include container;
+
+  .label {
+    @include typography-eyebrow;
+    text-transform: uppercase;
+    text-align: left;
+    color: $mid-grey;
+    margin-bottom: px(17);
+
+    @include media-tablet {
+      margin-bottom: px(30);
+    }
+
+    @include media-desktopSm {
+      margin-top: px(66);
+      margin-bottom: px(18);
+    }
+
+    &::before {
+      content: '';
+      display: inline-block;
+      @include box(px(4));
+      background-color: $red;
+      border-radius: 50%;
+      margin-right: px(20);
+
+      @include media-desktopSm {
+        display: none;
+      }
+    }
+  }
+
+  .list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: px(18);
+
+    @include media-tablet {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include media-desktopSm {
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: px(12);
+    }
+
+    .listItem {
+      @include use-mobile-columns(width, 2);
+      text-align: left;
+
+      @include media-tablet {
+        width: auto;
+      }
+
+      .name {
+        @include typography-label;
+      }
+      .role {
+        @include typography-paragraph;
+        color: $mid-grey;
       }
     }
   }

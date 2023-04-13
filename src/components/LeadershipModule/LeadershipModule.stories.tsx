@@ -14,6 +14,16 @@ Default.args = {
   description:
     'Representing a complementary array of expertise across multiple disciplines, our leaders come together from diverse backgrounds to conceive, build, test and deliver the safest and smartest mobility on the planet.',
   dragLabel: 'Drag',
+  directors: {
+    label: 'Board of directors',
+    list: [
+      { name: 'James Kuffner', role: 'Representative Director  ' },
+      { name: 'Kenta Kon', role: 'Representative Director' },
+      { name: 'Takanori Azuma', role: 'Director' },
+      { name: 'Julie Hamp', role: 'Director' },
+      { name: 'Koji Kobayashi', role: 'Audit & Supervisory' }
+    ]
+  },
   slides: [
     {
       title: 'Name Person',

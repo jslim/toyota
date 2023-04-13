@@ -1,4 +1,4 @@
-import { FC, memo, useEffect, useRef } from 'react';
+import { FC, memo, useEffect, useMemo, useRef } from 'react';
 import classNames from 'classnames';
 import gsap from 'gsap';
 import SwiperCore, { A11y, Pagination } from 'swiper';
@@ -12,19 +12,36 @@ import LeadershipCard, { LeadershipCardProps } from '@/components/LeadershipCard
 
 import getLayout from '@/utils/layout';
 
+type directorsProps = {
+  list: {
+    name: string;
+    role: string;
+  }[];
+  label: string;
+};
+
 export type LeadershipModuleProps = {
   className?: string;
   eyebrow: string;
   title: string;
   description: string;
   slides: LeadershipCardProps[];
+  directors: directorsProps;
   dragLabel: string;
 };
 
 SwiperCore.use([Pagination, A11y]);
 const SLIDE_DURATION = 450;
 
-const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title, description, slides, dragLabel }) => {
+const LeadershipModule: FC<LeadershipModuleProps> = ({
+  className,
+  eyebrow,
+  title,
+  description,
+  slides,
+  dragLabel,
+  directors
+}) => {
   const textWrapperRef = useRef<HTMLDivElement | null>(null);
   const layout = getLayout;
   const pairsArray = [];
@@ -33,6 +50,24 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title
     const pair = [slides[i], slides[i + 1]];
     pairsArray.push(pair);
   }
+
+  const board = useMemo(() => {
+    return (
+      <div className={css.board}>
+        <div className={css.label}>{directors.label}</div>
+        <ul className={css.list}>
+          {directors.list.map((item, index) => {
+            return (
+              <li className={css.listItem} key={index}>
+                <div className={css.name}>{item.name}</div>
+                <div className={css.role}>{item.role}</div>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    );
+  }, [directors.label, directors.list]);
 
   useEffect(() => {
     const timeline = gsap.timeline().fadeIn(textWrapperRef.current, { duration: 1, y: 50, delay: 1.75 });
@@ -49,6 +84,7 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title
         <div className={css.textWrapper} ref={textWrapperRef}>
           <h2 className={css.title}>{title}</h2>
           <p className={css.description}>{description}</p>
+          {board}
         </div>
       </div>
 
@@ -71,6 +107,7 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title
                 spaceBetween: 46
               }
             }}
+            freeMode={true}
           >
             {pairsArray.map((pair, i) => {
               return (
@@ -83,6 +120,7 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title
             })}
           </Swiper>
           <span className={css.pagination}></span>
+          {board}
         </>
       ) : (
         <DraggableColumns cards={slides} dragLabel={dragLabel} className={css.columns} />
