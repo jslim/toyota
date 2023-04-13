@@ -202,15 +202,16 @@ export const buildRoadmapGroup = (fields: RoadmapGroupContentType, extraProps?: 
   const items = fields.items.map((item) => ({
     title: item.fields?.title,
     text: item.fields?.text,
-    svg: {
-      src: item.fields?.svg.fields.file.url
-    }
+    svg: item.fields?.svg,
+    image: item.fields?.image
   }));
+
   return {
     props: {
       title: fields.title,
       eyebrow: fields.eyebrow,
       items,
+      theme: fields.theme,
       ...extraProps
     },
     component: Roadmap

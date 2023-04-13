@@ -247,10 +247,12 @@ export type RoadmapItemContentType = {
   title: string;
   text: string;
   svg: ContentfulImageAsset;
+  image: ContentfulImageAsset;
 };
 
 export type RoadmapGroupContentType = {
   title: string;
   eyebrow: string;
+  theme: string;
   items: Array<GenericEntity<RoadmapItemContentType>>;
 };
