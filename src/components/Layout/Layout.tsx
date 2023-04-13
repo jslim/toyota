@@ -1,6 +1,7 @@
 import { FC, memo, PropsWithChildren, useCallback, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
 import { device } from '@jam3/detect';
 
 import { Lang, PageProps } from '@/data/types';
@@ -10,7 +11,7 @@ import Footer from '@/components/Footer/Footer';
 import Head from '@/components/Head/Head';
 import Nav from '@/components/Nav/Nav';
 
-import { useCookieBanner } from '@/hooks';
+// import { useCookieBanner } from '@/hooks';
 // import { GtmScript } from '@/utils/analytics';
 import { checkWebpSupport } from '@/utils/basic-functions';
 
@@ -18,7 +19,7 @@ import { setActiveLang, setGlobalData, setIsWebpSupported, setPrevRoute, useAppD
 
 const DebugGrid = dynamic(() => import('@/components/DebugGrid/DebugGrid'), { ssr: false });
 const RotateScreen = dynamic(() => import('@/components/RotateScreen/RotateScreen'), { ssr: false });
-const CookieBanner = dynamic(() => import('@/components/CookieBanner/CookieBanner'), { ssr: false });
+// const CookieBanner = dynamic(() => import('@/components/CookieBanner/CookieBanner'), { ssr: false });
 const AppAdmin = dynamic(() => import('@/components/AppAdmin/AppAdmin'), { ssr: false });
 
 export type Props = PropsWithChildren<{}>;
@@ -28,7 +29,7 @@ const Layout: FC<ExtendedAppProps<PageProps>> = ({ Component, pageProps, globalD
   const router = useRouter();
   const [showDebugGrid, setShowDebugGrid] = useState(true);
 
-  const { validCookie, cookieConsent, updateCookies, acceptAllCookies, rejectAllCookies } = useCookieBanner();
+  // const { validCookie, cookieConsent, updateCookies, acceptAllCookies, rejectAllCookies } = useCookieBanner();
 
   const handleRouteChange = useCallback(
     (url: string) => {
@@ -81,14 +82,22 @@ const Layout: FC<ExtendedAppProps<PageProps>> = ({ Component, pageProps, globalD
 
       {!device.desktop && <RotateScreen />}
 
-      {!validCookie && (
+      {/* {!validCookie && (
         <CookieBanner
           cookieConsent={cookieConsent}
           onAccept={acceptAllCookies}
           onUpdate={updateCookies}
           onReject={rejectAllCookies}
         />
-      )}
+      )} */}
+      <Script
+        id="Cookiebot"
+        src="https://consent.cookiebot.com/uc.js"
+        data-cbid="d06f53bd-2bee-4c36-bfb9-4c09b9a9f406"
+        type="text/javascript"
+        data-georegions="{'region':'US-06','cbid':'d1371937-1682-4728-a01d-eb33d7f1c2e4'}"
+        data-cookieconsent="preferences,statistics,marketing"
+      ></Script>
       {process.env.NEXT_PUBLIC_ENVIRONMENT !== 'production' && (
         <>
           {showDebugGrid && <DebugGrid />}
