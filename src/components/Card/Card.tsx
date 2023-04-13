@@ -3,9 +3,12 @@ import classNames from 'classnames';
 
 import css from './Card.module.scss';
 
-import BaseImage, { BaseImageProps } from '@/components/BaseImage/BaseImage';
+import { ContentfulImageAsset } from '@/data/types';
+
 import BaseLink, { Props as LinkProps } from '@/components/BaseLink/BaseLink';
 import Cta, { ButtonType } from '@/components/Cta/Cta';
+
+import ContentfulImage from '../ContentfulImage/ContentfulImage';
 
 export enum CardTypes {
   NEWS = 'news',
@@ -19,7 +22,7 @@ export enum CardTypes {
 export type CardProps = {
   className?: string;
   cardType?: string;
-  image: BaseImageProps;
+  image: ContentfulImageAsset;
   title: string;
   text: string;
   date?: string;
@@ -31,7 +34,7 @@ const Card: FC<CardProps> = ({ className, cardType = CardTypes.NEWS, image, titl
   const InnerContent = () => {
     return (
       <>
-        <BaseImage {...image} className={css.image} />
+        <ContentfulImage asset={image} className={css.image} />
         <div className={css.textWrapper}>
           {cardType === CardTypes.QUOTE && <p className={css.text}>{'"' + text + '"'}</p>}
           <div className={css.titleWrapper}>

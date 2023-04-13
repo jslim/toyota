@@ -1,9 +1,8 @@
 import { Story } from '@storybook/react';
 
-import CardGrid, { CardGridProps } from './CardGrid';
-
-import { productArgs, defaultArgs, defaultTallArgs, newsArgs, milestoneArgs, quoteArgs } from '../Card/Card.stories';
 import { CardTypes } from '../Card/Card';
+import { defaultArgs, defaultTallArgs, milestoneArgs, newsArgs, productArgs, quoteArgs } from '../Card/Card.stories';
+import CardGrid, { CardGridProps } from './CardGrid';
 
 export default { title: 'components/CardGrid' };
 

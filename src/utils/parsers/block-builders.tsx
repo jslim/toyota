@@ -3,6 +3,7 @@ import { FC } from 'react';
 import {
   AccordionGroupContentType,
   AccordionItemContentType,
+  CardGridContentType,
   ContentfulImageAsset,
   DefaultPageContentType,
   GenericObject,
@@ -18,6 +19,7 @@ import {
 import { variants } from '@/data/variants';
 
 import Accordion, { AccordionItem } from '@/components/Accordion/Accordion';
+import CardGrid from '@/components/CardGrid/CardGrid';
 import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
 import NextChapter from '@/components/NextChapter/NextChapter';
 import Roadmap from '@/components/Roadmap/Roadmap';
@@ -143,11 +145,12 @@ export const buildNextChapter = (fields: NextChapterContentType, extraProps?: Ge
 });
 
 export const buildSectionWrapper = (fields: SectionContentType, extraProps?: GenericObject): ComponentBuilder => {
-  const theme = fields.colorBackground && fields.colorBackground[0] === 'Black' ? variants.DARK : variants.LIGHT;
+  const theme = fields.colorBackground && fields.colorBackground[0];
   return {
     props: {
       eyebrow: fields.eyebrowText,
       title: fields.displayTitle,
+      backgroundColor: fields?.colorBackground ? fields.colorBackground[0] : null,
       theme,
       ...extraProps
     },
@@ -215,5 +218,22 @@ export const buildRoadmapGroup = (fields: RoadmapGroupContentType, extraProps?: 
       ...extraProps
     },
     component: Roadmap
+  };
+};
+export const buildCardGrid = (fields: CardGridContentType, extraProps?: GenericObject): ComponentBuilder => {
+  const cardType = fields?.cardType[0] || null;
+  const cards = fields?.cards.map((card) => {
+    return {
+      cardType,
+      ...card.fields
+    };
+  });
+  return {
+    props: {
+      cardType,
+      cards,
+      ...extraProps
+    },
+    component: CardGrid
   };
 };
