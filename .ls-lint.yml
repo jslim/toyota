@@ -20,7 +20,7 @@ ls:
       .svg: kebab-case | PascalCase
     pages:
       .js: kebab-case | regex:^_[a-z-.]* | regex:^\[\w*\] #regex for kebab-case with preceeding underscore or [] for dynamic routing
-      .tsx: kebab-case | regex:^_[a-z-.]* | regex:^\[\w*\] #regex for kebab-case with preceeding underscore or [] for dynamic routing
+      .tsx: kebab-case | regex:^_[a-z-.]* | regex:^\[\w*\] | regex:^[\[]{1,2}[\.]{3}\w*[\]]{1,2} #regex for kebab-case with preceeding underscore or [] for dynamic routing
   scripts:
     templates:
       .js: PascalCase
