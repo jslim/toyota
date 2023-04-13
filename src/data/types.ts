@@ -283,3 +283,16 @@ export type FeatureListContentType = {
   eyebrow: string;
   items: Array<FilteredEntity<FeatureListItemContentType>>;
 };
+
+export type ProductListRowContentType = {
+  title: string;
+  text: string;
+  image: ContentfulImageAsset;
+  ctaLink: string;
+};
+
+export type ProductListContentType = {
+  title: string;
+  eyebrow: string;
+  productListRow: Array<GenericEntity<ProductListRowContentType>>;
+};

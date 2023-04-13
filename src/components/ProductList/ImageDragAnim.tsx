@@ -1,16 +1,17 @@
 import { FC, memo, MutableRefObject, useEffect, useRef } from 'react';
 import classNames from 'classnames';
-
 import { gsap } from 'gsap';
 
 import css from './ProductList.module.scss';
 
-import BaseImage, { BaseImageProps } from '@/components/BaseImage/BaseImage';
+import { ContentfulImageAsset } from '@/data/types';
+
+import ContentfulImage from '../ContentfulImage/ContentfulImage';
 
 export type ImageDragProps = {
   className?: string;
   getParentRef: MutableRefObject<HTMLDivElement>;
-  image: BaseImageProps;
+  image: ContentfulImageAsset;
   handleShowImage: Boolean;
 };
 
@@ -102,7 +103,15 @@ const ImageDrag: FC<ImageDragProps> = ({ className, image, getParentRef, handleS
   return (
     <div className={classNames(css.imageWrapper, className)} ref={wrapperRef}>
       <div className={css.imageWrapperInner} ref={wrapperInnerRef}>
-        <BaseImage className={css.image} {...image} ref={imageRef} />
+        <ContentfulImage
+          className={css.image}
+          asset={image}
+          ref={imageRef}
+          useSrcSet={false}
+          imageSizeMobile={{ extraGutters: 0, numCols: 4 }}
+          imageSizeTablet={{ extraGutters: 0, numCols: 8 }}
+          imageSizeDesktop={{ extraGutters: 0, numCols: 12 }}
+        />
       </div>
     </div>
   );

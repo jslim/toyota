@@ -9,6 +9,7 @@ import {
   buildFeatureList,
   buildImageBlock,
   buildNextChapter,
+  buildProductList,
   buildRoadmapGroup,
   buildSectionWrapper,
   buildTabGroup,
@@ -36,7 +37,8 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
   imageBlock: buildImageBlock,
   textIntro: buildTextIntro,
   roadmapGroup: buildRoadmapGroup,
-  featureList: buildFeatureList
+  featureList: buildFeatureList,
+  productList: buildProductList
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
