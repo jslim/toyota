@@ -319,5 +319,5 @@ export type HeroContentType = {
   title: string;
   image: ContentfulImageAsset;
   video: ContentfulVideoAsset;
-  theme: HeroType;
+  theme: string;
 };
