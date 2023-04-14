@@ -4,7 +4,9 @@ import classNames from 'classnames';
 import css from './Hero.module.scss';
 
 import BaseImage, { BaseImageProps } from '@/components/BaseImage/BaseImage';
+import ImageCascade from '@/components/ImageCascade/ImageCascade';
 import VideoPlayer, { Props as VideoProps } from '@/components/VideoPlayer/VideoPlayer';
+
 import sanitizer from '@/utils/sanitizer';
 
 export enum HeroType {
@@ -67,7 +69,7 @@ const Hero: FC<HeroProps> = ({ className, title, image, video, theme = HeroType.
           )}
         </>
       ) : (
-        /* wrap background inside image cascade */ background
+        <ImageCascade className={css.cascade}>{background}</ImageCascade>
       )}
     </div>
   );

@@ -1,16 +1,15 @@
 import { FC, memo, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
-
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
 import css from './FeaturesList.module.scss';
 
-import resize from '@/services/resize';
+import { variants } from '@/data/variants';
 
 import Eyebrow from '@/components/Eyebrow/Eyebrow';
 
-import { variants } from '@/data/variants';
+import resize from '@/services/resize';
 
 gsap.registerPlugin(ScrollTrigger);
 
