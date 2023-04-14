@@ -6,7 +6,7 @@ import {
   CardGridContentType,
   ContentfulImageAsset,
   DefaultPageContentType,
-  FeatureList,
+  FeatureListContentType,
   GenericObject,
   NextChapterContentType,
   RoadmapGroupContentType,
@@ -241,7 +241,7 @@ export const buildCardGrid = (fields: CardGridContentType, extraProps?: GenericO
   };
 };
 
-export const buildFeatureList = (fields: FeatureList, extraProps?: GenericObject): ComponentBuilder => {
+export const buildFeatureList = (fields: FeatureListContentType, extraProps?: GenericObject): ComponentBuilder => {
   const items = fields.items.map((item) => ({
     title: item.fields.title,
     text: item.fields.text
