@@ -10,6 +10,7 @@ import {
   GenericObject,
   NextChapterContentType,
   ProductListContentType,
+  ProductListRowContentType,
   RoadmapGroupContentType,
   SectionContentType,
   TabGroupContentType,
@@ -26,6 +27,7 @@ import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
 import FeaturesList from '@/components/FeaturesList/FeaturesList';
 import NextChapter from '@/components/NextChapter/NextChapter';
 import ProductList from '@/components/ProductList/ProductList';
+import ProductListRow from '@/components/ProductList/ProductListRow';
 import Roadmap from '@/components/Roadmap/Roadmap';
 import SectionWrapper from '@/components/SectionWrapper/SectionWrapper';
 import Tabs from '@/components/Tabs/Tabs';
