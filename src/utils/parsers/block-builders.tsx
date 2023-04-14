@@ -6,6 +6,7 @@ import {
   CardGridContentType,
   ContentfulImageAsset,
   DefaultPageContentType,
+  FeatureListContentType,
   GenericObject,
   NextChapterContentType,
   RoadmapGroupContentType,
@@ -21,6 +22,7 @@ import { variants } from '@/data/variants';
 import Accordion, { AccordionItem } from '@/components/Accordion/Accordion';
 import CardGrid from '@/components/CardGrid/CardGrid';
 import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
+import FeaturesList from '@/components/FeaturesList/FeaturesList';
 import NextChapter from '@/components/NextChapter/NextChapter';
 import Roadmap from '@/components/Roadmap/Roadmap';
 import SectionWrapper from '@/components/SectionWrapper/SectionWrapper';
@@ -220,6 +222,7 @@ export const buildRoadmapGroup = (fields: RoadmapGroupContentType, extraProps?: 
     component: Roadmap
   };
 };
+
 export const buildCardGrid = (fields: CardGridContentType, extraProps?: GenericObject): ComponentBuilder => {
   const cardType = fields?.cardType[0] || null;
   const cards = fields?.cards.map((card) => {
@@ -235,5 +238,22 @@ export const buildCardGrid = (fields: CardGridContentType, extraProps?: GenericO
       ...extraProps
     },
     component: CardGrid
+  };
+};
+
+export const buildFeatureList = (fields: FeatureListContentType, extraProps?: GenericObject): ComponentBuilder => {
+  const items = fields.items.map((item) => ({
+    title: item.fields.title,
+    text: item.fields.text
+  }));
+
+  return {
+    props: {
+      title: fields.title,
+      eyebrow: fields.eyebrow,
+      items,
+      ...extraProps
+    },
+    component: FeaturesList
   };
 };

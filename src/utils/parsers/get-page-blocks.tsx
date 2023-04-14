@@ -6,6 +6,7 @@ import {
   buildCardGrid,
   buildContentfulImage,
   buildDefaultPage,
+  buildFeatureList,
   buildImageBlock,
   buildNextChapter,
   buildRoadmapGroup,
@@ -34,7 +35,8 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
   contentfulAssetEntity: buildContentfulImage,
   imageBlock: buildImageBlock,
   textIntro: buildTextIntro,
-  roadmapGroup: buildRoadmapGroup
+  roadmapGroup: buildRoadmapGroup,
+  featureList: buildFeatureList
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

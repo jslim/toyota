@@ -272,3 +272,14 @@ export type CardGridContentType = {
   cardType: CardTypes;
   cards: Array<FilteredEntity<CardContentType>>;
 };
+
+export type FeatureListItemContentType = {
+  title: string;
+  text: string;
+};
+
+export type FeatureListContentType = {
+  title: string;
+  eyebrow: string;
+  items: Array<FilteredEntity<FeatureListItemContentType>>;
+};
