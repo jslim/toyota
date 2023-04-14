@@ -24,7 +24,7 @@ const SectionWrapper: FC<SectionWrapperProps> = ({
   title,
   children,
   theme = variants.DARK,
-  backgroundColor = (variants.DARK && Color.DARK_GREY) || Color.WHITE
+  backgroundColor = Color.DARK_GREY
 }) => {
   return (
     <div
