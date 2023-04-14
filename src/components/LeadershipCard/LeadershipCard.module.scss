@@ -21,11 +21,19 @@
   }
 
   .title {
-    @include typography-label;
+    @include font-size(8.6, 13);
+
+    @include media-tablet {
+      @include font-size(18, 26);
+    }
+
+    @include media-desktopSm {
+      @include font-size(20, 30);
+    }
   }
 
   .description {
-    @include font-size(9, 14);
+    @include font-size(7, 10);
 
     @include media-tablet {
       @include font-size(13, 22);

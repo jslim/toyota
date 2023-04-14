@@ -101,13 +101,12 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({
             }}
             centeredSlides={true}
             slidesPerView={'auto'}
-            spaceBetween={24}
+            spaceBetween={30}
             breakpoints={{
               768: {
                 spaceBetween: 46
               }
             }}
-            freeMode={true}
           >
             {pairsArray.map((pair, i) => {
               return (

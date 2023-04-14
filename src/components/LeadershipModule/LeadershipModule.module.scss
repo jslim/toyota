@@ -3,6 +3,7 @@
 .root {
   @include outer-container;
   width: 100%;
+  overflow-x: hidden;
 
   @include media-desktopSm {
     position: relative;
@@ -69,6 +70,7 @@
     display: flex;
     flex-direction: column;
     margin-top: px(18);
+    margin-bottom: px(62);
     text-align: left;
 
     @include media-tablet {
@@ -77,6 +79,7 @@
 
     @include media-desktopSm {
       margin-top: px(22);
+      margin-bottom: 0;
     }
 
     .title {
@@ -187,26 +190,29 @@
 }
 
 .carouselContainer {
-  margin-top: px(26);
+  padding-top: px(26);
   padding-right: px(170);
+  overflow: visible;
 
   @include media-tablet {
-    margin-top: px(62);
+    padding-top: px(62);
     padding-right: px(400);
   }
 
   .slide {
     width: px(114);
+    transform: scale(1);
+    transition: transform 0.3s linear;
 
     @include media-tablet {
       width: px(231);
     }
 
     &:global(.swiper-slide-active) {
-      width: px(150);
+      transform: scale(1.25);
 
       @include media-tablet {
-        width: px(264);
+        transform: scale(1.15);
       }
     }
   }
