@@ -46,11 +46,9 @@ const DraggableColumns: FC<DraggableColumnsProps> = ({ cards, className, dragLab
         }}
       >
         {cards.map((item, index) => (
-          <>
-            <SwiperSlide key={index} className={classNames(css.item, { [css.shift]: index % 2 !== 0 })}>
-              <LeadershipCard {...item} className={css.leader} />
-            </SwiperSlide>
-          </>
+          <SwiperSlide key={index} className={classNames(css.item, { [css.shift]: index % 2 !== 0 })}>
+            <LeadershipCard {...item} className={css.leader} />
+          </SwiperSlide>
         ))}
       </Swiper>
       <Cursor text={dragLabel} isDragging={isGrabbing} containerRef={containerRef} />
