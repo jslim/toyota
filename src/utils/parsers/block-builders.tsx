@@ -10,7 +10,6 @@ import {
   GenericObject,
   NextChapterContentType,
   ProductListContentType,
-  ProductListRowContentType,
   RoadmapGroupContentType,
   SectionContentType,
   TabGroupContentType,
@@ -27,7 +26,6 @@ import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
 import FeaturesList from '@/components/FeaturesList/FeaturesList';
 import NextChapter from '@/components/NextChapter/NextChapter';
 import ProductList from '@/components/ProductList/ProductList';
-import ProductListRow from '@/components/ProductList/ProductListRow';
 import Roadmap from '@/components/Roadmap/Roadmap';
 import SectionWrapper from '@/components/SectionWrapper/SectionWrapper';
 import Tabs from '@/components/Tabs/Tabs';
@@ -259,22 +257,6 @@ export const buildFeatureList = (fields: FeatureListContentType, extraProps?: Ge
       ...extraProps
     },
     component: FeaturesList
-  };
-};
-
-export const buildProductListRow = (
-  fields: ProductListRowContentType,
-  extraProps?: GenericObject
-): ComponentBuilder => {
-  return {
-    props: {
-      title: fields.title,
-      text: fields.text,
-      image: fields.image,
-      ctaLink: fields.ctaLink,
-      ...extraProps
-    },
-    component: ProductListRow
   };
 };
 
