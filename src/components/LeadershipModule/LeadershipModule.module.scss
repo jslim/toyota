@@ -11,8 +11,10 @@
     overflow-y: hidden;
   }
 
-  .carouselContainer > div {
-    align-items: center;
+  .container {
+    .carouselContainer > div {
+      align-items: center;
+    }
   }
 
   .pagination {

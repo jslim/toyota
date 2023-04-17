@@ -21,12 +21,9 @@ const Cursor: FC<CursorProps> = ({ className, text, containerRef, isDragging }) 
     (e: MouseEvent) => {
       if (containerRef.current === null) return;
 
-      const relX = e.pageX - containerRef.current.offsetLeft;
-      const relY = e.pageY - containerRef.current.offsetTop;
-
       gsap.to(cursorRef.current, {
-        x: relX,
-        y: relY
+        x: e.clientX - containerRef.current.offsetLeft,
+        y: e.clientY - containerRef.current.offsetTop
       });
     },
     [containerRef]

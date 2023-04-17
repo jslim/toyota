@@ -44,12 +44,19 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({
 }) => {
   const textWrapperRef = useRef<HTMLDivElement | null>(null);
   const { layout } = useLayout();
-  const pairsArray = [];
-  for (let i = 0; i < slides.length; i += 2) {
-    // Create a new array with the current item and the next item
-    const pair = [slides[i], slides[i + 1]];
-    pairsArray.push(pair);
-  }
+  const isDesktop = useMemo(() => {
+    return !(layout.mobile || layout.tablet);
+  }, [layout.mobile, layout.tablet]);
+  const pairsArray = useMemo(() => {
+    let pairs = [];
+    for (let i = 0; i < slides.length; i += 2) {
+      // Create a new array with the current item and the next item
+      const pair = [slides[i], slides[i + 1]];
+      pairs.push(pair);
+    }
+
+    return pairs;
+  }, [slides]);
 
   const board = useMemo(() => {
     return (
@@ -88,8 +95,8 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({
         </div>
       </div>
 
-      {layout.mobile || layout.tablet ? (
-        <>
+      {!isDesktop ? (
+        <div className={css.container}>
           <Swiper
             className={css.carouselContainer}
             autoHeight={true}
@@ -123,7 +130,7 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({
           </Swiper>
           <span className={css.pagination}></span>
           {board}
-        </>
+        </div>
       ) : (
         <DraggableColumns cards={slides} dragLabel={dragLabel} className={css.columns} />
       )}
