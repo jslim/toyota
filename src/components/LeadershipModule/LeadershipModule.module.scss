@@ -191,12 +191,10 @@
 
 .carouselContainer {
   padding-top: px(26);
-  padding-right: px(170);
   overflow: visible;
 
   @include media-tablet {
     padding-top: px(62);
-    padding-right: px(400);
   }
 
   .slide {

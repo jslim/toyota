@@ -10,7 +10,7 @@ import DraggableColumns from '@/components/DraggableColumns/DraggableColumns';
 import Eyebrow from '@/components/Eyebrow/Eyebrow';
 import LeadershipCard, { LeadershipCardProps } from '@/components/LeadershipCard/LeadershipCard';
 
-import getLayout from '@/utils/layout';
+import { useLayout } from '@/hooks';
 
 type directorsProps = {
   list: {
@@ -43,7 +43,7 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({
   directors
 }) => {
   const textWrapperRef = useRef<HTMLDivElement | null>(null);
-  const layout = getLayout;
+  const { layout } = useLayout();
   const pairsArray = [];
   for (let i = 0; i < slides.length; i += 2) {
     // Create a new array with the current item and the next item
@@ -99,12 +99,15 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({
               type: 'bullets',
               clickable: true
             }}
-            centeredSlides={true}
             slidesPerView={'auto'}
+            centeredSlides={true}
             spaceBetween={30}
+            slidesOffsetBefore={-100}
+            slidesOffsetAfter={50}
             breakpoints={{
               768: {
-                spaceBetween: 46
+                spaceBetween: 46,
+                slidesOffsetBefore: -200
               }
             }}
           >

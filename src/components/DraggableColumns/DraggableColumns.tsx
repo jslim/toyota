@@ -41,12 +41,18 @@ const DraggableColumns: FC<DraggableColumnsProps> = ({ cards, className, dragLab
         spaceBetween={182}
         touchEventsTarget={'container'}
         onSwiper={(swiper) => {
-          swiper.on('touchStart', handleTouchStart);
+          swiper.on('touchMove', handleTouchStart);
           swiper.on('touchEnd', handleTouchEnd);
         }}
+        touchStartPreventDefault={false}
+        preventClicks={true}
+        preventClicksPropagation={true}
       >
         {cards.map((item, index) => (
-          <SwiperSlide key={index} className={classNames(css.item, { [css.shift]: index % 2 !== 0 })}>
+          <SwiperSlide
+            key={index}
+            className={classNames(css.item, { [css.shift]: index % 2 !== 0, [css.disable]: isGrabbing })}
+          >
             <LeadershipCard {...item} className={css.leader} />
           </SwiperSlide>
         ))}
