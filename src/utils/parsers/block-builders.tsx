@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import {
   AccordionGroupContentType,
@@ -35,6 +35,8 @@ import SectionWrapper from '@/components/SectionWrapper/SectionWrapper';
 import Tabs from '@/components/Tabs/Tabs';
 import TextIntro, { TextIntroLayout } from '@/components/TextIntro/TextIntro';
 
+import { parseContentfulRichText } from './rich-text-parser';
+
 export type ComponentBuilder = {
   /**
    * Object representing props for the component with values coming from Contentful field values.
@@ -57,7 +59,7 @@ export type ComponentBuilder = {
    * This can also be used for direct content type references on a field.
    * ex. A CTA content type may be referenced but we want to override the props.
    * */
-  childrenFields?: { [key: string]: JSX.Element | null | string };
+  childrenFields?: { [key: string]: JSX.Element | ReactNode | null | string };
 };
 
 export type ComponentBuilderFactory = (
@@ -70,15 +72,24 @@ type Children = string | JSX.Element | JSX.Element[] | (() => JSX.Element);
 
 const EmptyComponent: ({ children }: { children: Children }) => JSX.Element = ({ children }) => <>{children}</>;
 
-export const buildTestPage = (fields: TestsPageContentType, extraProps?: GenericObject): ComponentBuilder => ({
-  props: {
-    ...extraProps
-  },
-  childrenFields: {
-    pageTitle: <h1>{fields.pageTitle}</h1>
-  },
-  component: EmptyComponent
-});
+export const buildTestPage = (fields: TestsPageContentType, extraProps?: GenericObject): ComponentBuilder => {
+  console.log('fields: ', fields);
+  const richText = fields.innerBlocks[1].fields.innerBlocks[0].fields.richtext;
+  console.log('richText: ', richText);
+  const el = parseContentfulRichText(richText);
+  console.log('el: ', el);
+
+  return {
+    props: {
+      ...extraProps
+    },
+    childrenFields: {
+      pageTitle: el
+      // pageTitle: <h1>{fields.pageTitle}</h1>
+    },
+    component: EmptyComponent
+  };
+};
 
 export const buildDefaultPage = (_fields: DefaultPageContentType, extraProps?: GenericObject): ComponentBuilder => ({
   props: {

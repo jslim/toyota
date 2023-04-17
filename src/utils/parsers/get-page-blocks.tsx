@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 import { FilteredEntity } from '@/data/types';
 
 import {
@@ -60,7 +62,7 @@ export const getPageBlocks = (entry: FilteredEntity): JSX.Element | null => {
   if (!contentType || !componentFactories[contentType]) return null;
 
   const { props, component: Component, childrenFields } = componentFactories[contentType](entry.fields);
-  let Children: Array<JSX.Element | null | string> = [];
+  let Children: Array<JSX.Element | ReactNode | null | string> = [];
 
   /**
    * For each entity we want to iterate over their fields and do one of three things:
