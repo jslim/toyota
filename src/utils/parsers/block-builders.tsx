@@ -305,16 +305,14 @@ export const buildMediaGalleryGroup = (
 };
 
 export const buildHero = (fields: HeroContentType, extraProps?: GenericObject): ComponentBuilder => {
+  console.log(fields);
   const videoSrc = fields.video?.fields.file.url;
-  const imageSrc = fields.image?.fields.file.url;
   const theme = fields.theme;
 
   return {
     props: {
       title: fields.title,
-      image: {
-        src: imageSrc
-      },
+      image: fields.image,
       video: videoSrc
         ? {
             src: videoSrc
