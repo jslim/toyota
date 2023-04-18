@@ -305,7 +305,6 @@ export const buildMediaGalleryGroup = (
 };
 
 export const buildHero = (fields: HeroContentType, extraProps?: GenericObject): ComponentBuilder => {
-  console.log(fields);
   const videoSrc = fields.video?.fields.file.url;
   const theme = fields.theme;
 
