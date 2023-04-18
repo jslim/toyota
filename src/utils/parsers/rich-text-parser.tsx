@@ -2,9 +2,13 @@ import { ReactNode } from 'react';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS, Document, INLINES } from '@contentful/rich-text-types';
 
-// import { ContentfulImageAsset } from '@/data/types';
+import { FilteredEntity } from '@/data/types';
+import { ContentfulImageAsset } from '@/data/types';
 
-// import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
+import BaseLink, { Target } from '@/components/BaseLink/BaseLink';
+import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
+
+import { getPageBlocks } from './get-page-blocks';
 
 type ContentfulNodeType = {
   data: {
@@ -12,26 +16,25 @@ type ContentfulNodeType = {
   };
 };
 
-// type ContentfulImageNodeType = {
-//   nodeType: string;
-//   data: {
-//     target: ContentfulImageAsset;
-//   };
-// };
+type ContentfulEmbeddedNodeType = {
+  data: { target?: FilteredEntity };
+};
+
+type ContentfulImageNodeType = {
+  nodeType: string;
+  data: {
+    target?: ContentfulImageAsset;
+  };
+};
 
 export const parseContentfulRichText = (richText: Document, className?: string): ReactNode => {
   const renderOptions = {
     renderNode: {
-      [INLINES.HYPERLINK]: (node: ContentfulNodeType, children: ReactNode) =>
-        node.data.uri?.includes('mailto') ? (
-          <a className={className} href={node.data.uri}>
-            {children}
-          </a>
-        ) : (
-          <a className={className} href={node.data.uri} target="_blank" rel="noopener noreferrer">
-            {children}
-          </a>
-        ),
+      [INLINES.HYPERLINK]: (node: ContentfulNodeType, children: ReactNode) => (
+        <BaseLink className={className} target={Target.BLANK} href={node.data.uri}>
+          {children}
+        </BaseLink>
+      ),
       [BLOCKS.PARAGRAPH]: (_node: ContentfulNodeType, children: ReactNode) => <p className={className}>{children}</p>,
       [BLOCKS.HEADING_1]: (_node: ContentfulNodeType, children: ReactNode) => <h1 className={className}>{children}</h1>,
       [BLOCKS.HEADING_2]: (_node: ContentfulNodeType, children: ReactNode) => <h2 className={className}>{children}</h2>,
@@ -40,16 +43,20 @@ export const parseContentfulRichText = (richText: Document, className?: string):
       [BLOCKS.HEADING_5]: (_node: ContentfulNodeType, children: ReactNode) => <h5 className={className}>{children}</h5>,
       [BLOCKS.HEADING_6]: (_node: ContentfulNodeType, children: ReactNode) => <h6 className={className}>{children}</h6>,
       [BLOCKS.UL_LIST]: (_node: ContentfulNodeType, children: ReactNode) => <ul className={className}>{children}</ul>,
-      [BLOCKS.OL_LIST]: (_node: ContentfulNodeType, children: ReactNode) => <ol className={className}>{children}</ol>
+      [BLOCKS.OL_LIST]: (_node: ContentfulNodeType, children: ReactNode) => <ol className={className}>{children}</ol>,
+      [BLOCKS.EMBEDDED_ENTRY]: (node: ContentfulEmbeddedNodeType) => {
+        const entity = node?.data?.target;
+        return entity && getPageBlocks(entity);
+      },
+      [INLINES.EMBEDDED_ENTRY]: (node: ContentfulEmbeddedNodeType) => {
+        const entity = node?.data?.target;
+        return entity && getPageBlocks(entity);
+      },
 
-      // [BLOCKS.EMBEDDED_ASSET]: (node: ContentfulImageNodeType) => {
-      //   console.log('ndoe: ', node);
-      //   return (
-      //     node.nodeType === 'embedded-asset-block' && (
-      //       <ContentfulImage className={className} asset={node.data.target || undefined} />
-      //     )
-      //   );
-      // }
+      [BLOCKS.EMBEDDED_ASSET]: (node: ContentfulImageNodeType) => {
+        const imageAsset = node.data.target;
+        return imageAsset && <ContentfulImage className={className} asset={imageAsset} />;
+      }
     }
   };
 

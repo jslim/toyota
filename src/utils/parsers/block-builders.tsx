@@ -338,15 +338,13 @@ export const buildHero = (fields: HeroContentType, extraProps?: GenericObject): 
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+// testing component builder for rich text content
 export const buildRichTextTestComponent = (
   fields: richTextContentType,
   extraProps?: GenericObject
 ): ComponentBuilder => {
-  console.log('fields: ', fields);
   const richText = fields.richtext;
-  console.log('richText: ', richText);
-  const el = parseContentfulRichText(richText);
-  console.log('el: ', el);
+  const elements = parseContentfulRichText(richText);
 
   return {
     props: {
@@ -354,7 +352,7 @@ export const buildRichTextTestComponent = (
     },
 
     component: () => {
-      return <div>{el}</div>;
+      return <div>{elements}</div>;
     }
   };
 };
