@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 
 import {
   AccordionGroupContentType,
@@ -60,7 +60,7 @@ export type ComponentBuilder = {
    * This can also be used for direct content type references on a field.
    * ex. A CTA content type may be referenced but we want to override the props.
    * */
-  childrenFields?: { [key: string]: JSX.Element | ReactNode | null | string };
+  childrenFields?: { [key: string]: JSX.Element | null | string };
 };
 
 export type ComponentBuilderFactory = (
@@ -73,17 +73,15 @@ type Children = string | JSX.Element | JSX.Element[] | (() => JSX.Element);
 
 const EmptyComponent: ({ children }: { children: Children }) => JSX.Element = ({ children }) => <>{children}</>;
 
-export const buildTestPage = (fields: TestsPageContentType, extraProps?: GenericObject): ComponentBuilder => {
-  return {
-    props: {
-      ...extraProps
-    },
-    childrenFields: {
-      pageTitle: <h1>{fields.pageTitle}</h1>
-    },
-    component: EmptyComponent
-  };
-};
+export const buildTestPage = (fields: TestsPageContentType, extraProps?: GenericObject): ComponentBuilder => ({
+  props: {
+    ...extraProps
+  },
+  childrenFields: {
+    pageTitle: <h1>{fields.pageTitle}</h1>
+  },
+  component: EmptyComponent
+});
 
 export const buildDefaultPage = (_fields: DefaultPageContentType, extraProps?: GenericObject): ComponentBuilder => ({
   props: {
