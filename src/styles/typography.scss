@@ -202,19 +202,6 @@ $generic-fonts: system-ui, Helvetica, Arial, sans-serif;
   }
 }
 
-@mixin typography-body {
-  @include font-family('Toyota Type Book');
-  @include font-size(14, 22, 0.5);
-
-  @include breakpoint(tablet) {
-    @include font-size(13, 22, 0.5);
-  }
-
-  @include breakpoint(desktopSm) {
-    @include font-size(16, 24, 0.5);
-  }
-}
-
 @mixin typography-body-small {
   @include font-family('Toyota Type Book');
   @include breakpoint(desktopSm) {
