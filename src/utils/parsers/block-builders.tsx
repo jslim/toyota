@@ -12,6 +12,7 @@ import {
   MediaGalleryGroupContentType,
   NextChapterContentType,
   ProductListContentType,
+  richTextContentType,
   RoadmapGroupContentType,
   SectionContentType,
   TabGroupContentType,
@@ -73,19 +74,12 @@ type Children = string | JSX.Element | JSX.Element[] | (() => JSX.Element);
 const EmptyComponent: ({ children }: { children: Children }) => JSX.Element = ({ children }) => <>{children}</>;
 
 export const buildTestPage = (fields: TestsPageContentType, extraProps?: GenericObject): ComponentBuilder => {
-  console.log('fields: ', fields);
-  const richText = fields.innerBlocks[1].fields.innerBlocks[0].fields.richtext;
-  console.log('richText: ', richText);
-  const el = parseContentfulRichText(richText);
-  console.log('el: ', el);
-
   return {
     props: {
       ...extraProps
     },
     childrenFields: {
-      pageTitle: el
-      // pageTitle: <h1>{fields.pageTitle}</h1>
+      pageTitle: <h1>{fields.pageTitle}</h1>
     },
     component: EmptyComponent
   };
@@ -340,5 +334,27 @@ export const buildHero = (fields: HeroContentType, extraProps?: GenericObject): 
       ...extraProps
     },
     component: Hero
+  };
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const buildRichTextTestComponent = (
+  fields: richTextContentType,
+  extraProps?: GenericObject
+): ComponentBuilder => {
+  console.log('fields: ', fields);
+  const richText = fields.richtext;
+  console.log('richText: ', richText);
+  const el = parseContentfulRichText(richText);
+  console.log('el: ', el);
+
+  return {
+    props: {
+      ...extraProps
+    },
+
+    component: () => {
+      return <div>{el}</div>;
+    }
   };
 };

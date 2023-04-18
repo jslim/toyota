@@ -38,7 +38,9 @@ export const parseContentfulRichText = (richText: Document, className?: string):
       [BLOCKS.HEADING_3]: (_node: ContentfulNodeType, children: ReactNode) => <h3 className={className}>{children}</h3>,
       [BLOCKS.HEADING_4]: (_node: ContentfulNodeType, children: ReactNode) => <h4 className={className}>{children}</h4>,
       [BLOCKS.HEADING_5]: (_node: ContentfulNodeType, children: ReactNode) => <h5 className={className}>{children}</h5>,
-      [BLOCKS.HEADING_6]: (_node: ContentfulNodeType, children: ReactNode) => <h6 className={className}>{children}</h6>
+      [BLOCKS.HEADING_6]: (_node: ContentfulNodeType, children: ReactNode) => <h6 className={className}>{children}</h6>,
+      [BLOCKS.UL_LIST]: (_node: ContentfulNodeType, children: ReactNode) => <ul className={className}>{children}</ul>,
+      [BLOCKS.OL_LIST]: (_node: ContentfulNodeType, children: ReactNode) => <ol className={className}>{children}</ol>
 
       // [BLOCKS.EMBEDDED_ASSET]: (node: ContentfulImageNodeType) => {
       //   console.log('ndoe: ', node);
