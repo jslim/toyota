@@ -1,5 +1,4 @@
 import { CardTypes } from '@/components/Card/Card';
-import { HeroType } from '@/components/Hero/Hero';
 
 export type HeadProps = {
   title: string;
