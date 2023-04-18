@@ -1,6 +1,6 @@
-import { CTAContentType, GenericEntity, GlobalDataContentType, GlobalDataFields, NavLinks } from '@/data/types';
+import { CTAContentType, FilteredEntity, GlobalDataContentType, GlobalDataFields, NavLinks } from '@/data/types';
 
-const convertCtaToNavLink = (link: GenericEntity<CTAContentType>) => ({
+const convertCtaToNavLink = (link: FilteredEntity<CTAContentType>) => ({
   linkUrl: link.fields?.linkUrl ?? '',
   linkText: link.fields?.linkText ?? '',
   ariaLabel: link.fields?.ariaLabel ?? '',

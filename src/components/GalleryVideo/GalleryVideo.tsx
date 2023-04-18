@@ -48,7 +48,7 @@ const GalleryVideo: FC<GalleryVideoProps> = ({ className, slides }) => {
                   theme={VideoType.Gallery}
                 />
               ) : (
-                <ContentfulImage asset={item.image} />
+                <ContentfulImage asset={item.image} className={css.image} />
               )}
             </SwiperSlide>
           );
