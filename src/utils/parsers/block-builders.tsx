@@ -9,6 +9,7 @@ import {
   FeatureListContentType,
   GenericObject,
   NextChapterContentType,
+  ProductListContentType,
   RoadmapGroupContentType,
   SectionContentType,
   TabGroupContentType,
@@ -24,6 +25,7 @@ import CardGrid from '@/components/CardGrid/CardGrid';
 import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
 import FeaturesList from '@/components/FeaturesList/FeaturesList';
 import NextChapter from '@/components/NextChapter/NextChapter';
+import ProductList from '@/components/ProductList/ProductList';
 import Roadmap from '@/components/Roadmap/Roadmap';
 import SectionWrapper from '@/components/SectionWrapper/SectionWrapper';
 import Tabs from '@/components/Tabs/Tabs';
@@ -255,5 +257,24 @@ export const buildFeatureList = (fields: FeatureListContentType, extraProps?: Ge
       ...extraProps
     },
     component: FeaturesList
+  };
+};
+
+export const buildProductList = (fields: ProductListContentType, extraProps?: GenericObject): ComponentBuilder => {
+  const items = fields.productListRow?.map((row) => ({
+    title: row.fields?.title,
+    text: row.fields?.text,
+    cta: { href: row.fields?.ctaLink },
+    image: row.fields?.image
+  }));
+
+  return {
+    props: {
+      title: fields.title,
+      eyebrow: fields.eyebrow,
+      items,
+      ...extraProps
+    },
+    component: ProductList
   };
 };

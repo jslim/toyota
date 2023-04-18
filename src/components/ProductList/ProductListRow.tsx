@@ -1,19 +1,22 @@
 import { FC, memo, MutableRefObject, useRef, useState } from 'react';
-import classNames from 'classnames';
 import { device } from '@jam3/detect';
+import classNames from 'classnames';
 
 import css from './ProductList.module.scss';
-import ImageDragAnim from './ImageDragAnim';
+
+import { ContentfulImageAsset } from '@/data/types';
+
+import { Props as LinkProps } from '@/components/BaseLink/BaseLink';
+import Cta, { ButtonType } from '@/components/Cta/Cta';
 
 import useLayout from '@/hooks/use-layout';
 
-import BaseImage, { BaseImageProps } from '@/components/BaseImage/BaseImage';
-import Cta, { ButtonType } from '@/components/Cta/Cta';
-import { Props as LinkProps } from '@/components/BaseLink/BaseLink';
+import ContentfulImage from '../ContentfulImage/ContentfulImage';
+import ImageDragAnim from './ImageDragAnim';
 
 export type ProductListRowProps = {
   title: string;
-  image: BaseImageProps;
+  image: ContentfulImageAsset;
   text: string;
   cta: LinkProps;
 };
@@ -39,7 +42,14 @@ const ProductListRow: FC<ProductListRowProps> = ({ title, image, text, cta }) =>
           <ImageDragAnim image={image} getParentRef={itemRef} handleShowImage={showImage} />
         ) : (
           <div className={css.imageWrapperInner}>
-            <BaseImage className={css.image} {...image} />
+            <ContentfulImage
+              className={css.image}
+              asset={image}
+              useSrcSet={false}
+              imageSizeMobile={{ extraGutters: 0, numCols: 4 }}
+              imageSizeTablet={{ extraGutters: 0, numCols: 8 }}
+              imageSizeDesktop={{ extraGutters: 0, numCols: 12 }}
+            />
           </div>
         )}
       </div>
