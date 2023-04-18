@@ -307,7 +307,7 @@ export const buildMediaGalleryGroup = (
 export const buildHero = (fields: HeroContentType, extraProps?: GenericObject): ComponentBuilder => {
   const videoSrc = fields.video?.fields.file.url;
   const imageSrc = fields.image?.fields.file.url;
-  const theme = fields.theme[0]; // TODO: currently this is type string but we need it to be type HeroType to be passed as prop
+  const theme = fields.theme;
 
   return {
     props: {
@@ -321,6 +321,11 @@ export const buildHero = (fields: HeroContentType, extraProps?: GenericObject): 
           }
         : undefined, // hero component will render image when no video is passed
       theme,
+      featured: {
+        date: fields.featured.fields.date,
+        cat: fields.featured.fields.cat,
+        title: fields.featured.fields.title
+      },
       ...extraProps
     },
     component: Hero
