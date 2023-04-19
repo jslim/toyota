@@ -1,0 +1,118 @@
+@import 'shared';
+
+.root {
+  @include container;
+  display: flex;
+  text-align: left;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  .eyebrow {
+    width: 100%;
+    margin-bottom: px(20);
+
+    @include media-desktopSm {
+      margin-bottom: px(24);
+    }
+  }
+  .titleContainer {
+    width: 100%;
+    .titleWrapper {
+      @include typography-h4;
+      .title {
+        margin-bottom: px(24);
+        > * {
+          margin-bottom: px(24);
+        }
+      }
+    }
+  }
+  .textContainer {
+    .text {
+      width: 100%;
+      @include typography-paragraph;
+      margin-bottom: px(16);
+
+      @include media-desktopSm {
+        margin-bottom: px(26);
+      }
+      > p,
+      b {
+        margin-bottom: px(24);
+        display: block;
+      }
+
+      b {
+        @include typography-h4;
+        font-weight: 300;
+      }
+      a {
+        color: $red;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &.columns-50-50 {
+    @include media-desktopSm {
+    }
+    .titleContainer {
+      @include media-tablet {
+        @include use-tablet-columns(width, 7);
+      }
+
+      @include media-desktopSm {
+        @include use-desktop-columns(width, 5);
+      }
+    }
+
+    .textContainer {
+      @include media-tablet {
+        @include use-tablet-columns(width, 7);
+      }
+
+      @include media-desktopSm {
+        @include use-desktop-columns(width, 6);
+      }
+    }
+  }
+
+  &.columns-30-70 {
+    @include media-tablet {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    .titleContainer {
+      @include media-desktopSm {
+        @include use-desktop-columns(width, 3);
+      }
+    }
+
+    .textContainer {
+      @include media-desktopSm {
+        @include use-desktop-columns(width, 9);
+      }
+    }
+  }
+  &.isCareer {
+    .titleContainer {
+      .titleWrapper {
+        position: sticky;
+        top: calc(#{$navbar-height} + #{px(24)});
+      }
+
+      @include media-tablet {
+        @include use-tablet-columns(width, 3);
+      }
+      @include media-desktopSm {
+        margin-left: px(-$grid-relative-side-padding-desktop-external);
+        width: calc(#{desktop-columns(3, 0)} + #{px($grid-relative-side-padding-desktop-external)});
+      }
+    }
+    .textContainer {
+      @include media-tablet {
+        @include use-tablet-columns(width, 5);
+      }
+    }
+  }
+}

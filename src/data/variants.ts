@@ -11,3 +11,8 @@ export enum SocialPlatform {
   TWITTER = 'twitter',
   YOUTUBE = 'youtube'
 }
+
+export enum ColumnType {
+  'columns-50-50' = 'columns-50-50',
+  'columns-30-70' = 'columns-30-70'
+}

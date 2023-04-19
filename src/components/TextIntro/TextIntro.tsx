@@ -10,16 +10,19 @@ import Cta from '@/components/Cta/Cta';
 import ToyotaBackground from '@/components/svgs/svg-toyota-background.svg';
 
 import Eyebrow from '../Eyebrow/Eyebrow';
+import { ColumnType } from '@/data/variants';
 
-export enum TextIntroLayout {
+enum DefaultLayoutType {
   DEFAULT = 'default',
   DEFAULT_BACKGROUND_IMAGE = 'defaultBackgroundImage',
   HEADER_LEFT = 'headerLeft'
 }
 
+export const TextIntroLayout = { ...DefaultLayoutType, ...ColumnType };
+
 export type TextIntroProps = {
   className?: string;
-  layout: TextIntroLayout;
+  layout: DefaultLayoutType | ColumnType;
   eyebrow: string;
   header: string;
   description: string;
@@ -40,7 +43,7 @@ const TextIntro: FC<TextIntroProps> = ({ className, layout, eyebrow, header, des
   }, []);
 
   return (
-    <div className={classNames('TextIntro', css.root, className)}>
+    <div className={classNames('TextIntro', css.root, className, css[layout])}>
       {layout === TextIntroLayout.DEFAULT_BACKGROUND_IMAGE && (
         <div className={css.backgroundImageContainer}>
           <ToyotaBackground className={css.backgroundImage} />
