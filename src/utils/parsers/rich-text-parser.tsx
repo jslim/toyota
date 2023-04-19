@@ -35,15 +35,6 @@ export const parseContentfulRichText = (richText: Document, className?: string):
           {children}
         </BaseLink>
       ),
-      [BLOCKS.PARAGRAPH]: (_node: ContentfulNodeType, children: ReactNode) => <p className={className}>{children}</p>,
-      [BLOCKS.HEADING_1]: (_node: ContentfulNodeType, children: ReactNode) => <h1 className={className}>{children}</h1>,
-      [BLOCKS.HEADING_2]: (_node: ContentfulNodeType, children: ReactNode) => <h2 className={className}>{children}</h2>,
-      [BLOCKS.HEADING_3]: (_node: ContentfulNodeType, children: ReactNode) => <h3 className={className}>{children}</h3>,
-      [BLOCKS.HEADING_4]: (_node: ContentfulNodeType, children: ReactNode) => <h4 className={className}>{children}</h4>,
-      [BLOCKS.HEADING_5]: (_node: ContentfulNodeType, children: ReactNode) => <h5 className={className}>{children}</h5>,
-      [BLOCKS.HEADING_6]: (_node: ContentfulNodeType, children: ReactNode) => <h6 className={className}>{children}</h6>,
-      [BLOCKS.UL_LIST]: (_node: ContentfulNodeType, children: ReactNode) => <ul className={className}>{children}</ul>,
-      [BLOCKS.OL_LIST]: (_node: ContentfulNodeType, children: ReactNode) => <ol className={className}>{children}</ol>,
       [BLOCKS.EMBEDDED_ENTRY]: (node: ContentfulEmbeddedNodeType) => {
         const entity = node?.data?.target;
         return entity && getPageBlocks(entity);

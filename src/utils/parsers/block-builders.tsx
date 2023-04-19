@@ -335,13 +335,12 @@ export const buildHero = (fields: HeroContentType, extraProps?: GenericObject): 
   };
 };
 
-// testing component builder for rich text content
+// TESTING: component builder for rich text content
 export const buildRichTextTestComponent = (
   fields: richTextContentType,
   extraProps?: GenericObject
 ): ComponentBuilder => {
-  const richText = fields.richtext;
-  const elements = parseContentfulRichText(richText);
+  const elements = parseContentfulRichText(fields.richtext);
 
   return {
     props: {
@@ -349,7 +348,7 @@ export const buildRichTextTestComponent = (
     },
 
     component: () => {
-      return <div>{elements}</div>;
+      return <>{elements}</>;
     }
   };
 };
