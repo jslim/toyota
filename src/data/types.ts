@@ -334,6 +334,7 @@ export type HeroContentType = {
 };
 
 export type richTextContentType = {
+  listText: Document;
   richtext: Document;
 };
 
