@@ -285,11 +285,14 @@ export const buildMediaGalleryGroup = (
   fields: MediaGalleryGroupContentType,
   extraProps?: GenericObject
 ): ComponentBuilder => {
-  const slides = fields.mediaItems?.map(({ fields }) => ({
-    title: fields?.title,
-    image: fields?.image,
-    video: { src: fields?.video?.fields?.file?.url || null }
-  }));
+  const slides = fields.mediaItems?.map(({ fields }) => {
+    const videoSrc = fields?.video?.fields?.file?.url;
+    return {
+      title: fields?.title,
+      image: fields?.image,
+      video: videoSrc ? { src: videoSrc } : null
+    };
+  });
   return {
     props: {
       slides,
