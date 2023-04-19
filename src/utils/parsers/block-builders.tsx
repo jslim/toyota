@@ -8,6 +8,7 @@ import {
   DefaultPageContentType,
   FeatureListContentType,
   GenericObject,
+  MediaGalleryGroupContentType,
   NextChapterContentType,
   ProductListContentType,
   RoadmapGroupContentType,
@@ -24,6 +25,7 @@ import Accordion, { AccordionItem } from '@/components/Accordion/Accordion';
 import CardGrid from '@/components/CardGrid/CardGrid';
 import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
 import FeaturesList from '@/components/FeaturesList/FeaturesList';
+import GalleryVideo from '@/components/GalleryVideo/GalleryVideo';
 import NextChapter from '@/components/NextChapter/NextChapter';
 import ProductList from '@/components/ProductList/ProductList';
 import Roadmap from '@/components/Roadmap/Roadmap';
@@ -276,5 +278,26 @@ export const buildProductList = (fields: ProductListContentType, extraProps?: Ge
       ...extraProps
     },
     component: ProductList
+  };
+};
+
+export const buildMediaGalleryGroup = (
+  fields: MediaGalleryGroupContentType,
+  extraProps?: GenericObject
+): ComponentBuilder => {
+  const slides = fields.mediaItems?.map(({ fields }) => {
+    const videoSrc = fields?.video?.fields?.file?.url;
+    return {
+      title: fields?.title,
+      image: fields?.image,
+      video: videoSrc ? { src: videoSrc } : null
+    };
+  });
+  return {
+    props: {
+      slides,
+      ...extraProps
+    },
+    component: GalleryVideo
   };
 };
