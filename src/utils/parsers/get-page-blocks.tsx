@@ -54,7 +54,8 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
   videoPlayerSection: buildVideoPlayerSection,
   columnsText: buildColumnsText,
   spacer: buildSpacer,
-  newsBottom: buildFeaturedArticles
+  newsBottom: buildFeaturedArticles,
+  featuredArticles: buildFeaturedArticles
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
