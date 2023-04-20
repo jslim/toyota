@@ -3,9 +3,14 @@ import classNames from 'classnames';
 
 import css from './Hero.module.scss';
 
-import BaseImage, { BaseImageProps } from '@/components/BaseImage/BaseImage';
+import { ContentfulImageAsset } from '@/data/types';
+
+import ImageCascade from '@/components/ImageCascade/ImageCascade';
 import VideoPlayer, { Props as VideoProps } from '@/components/VideoPlayer/VideoPlayer';
+
 import sanitizer from '@/utils/sanitizer';
+
+import ContentfulImage from '../ContentfulImage/ContentfulImage';
 
 export enum HeroType {
   Primary = 'primary',
@@ -18,7 +23,7 @@ export enum HeroType {
 export type HeroProps = {
   className?: string;
   title?: string;
-  image?: BaseImageProps;
+  image: ContentfulImageAsset;
   video?: VideoProps;
   theme?: HeroType;
   featured?: { date?: string; cat?: string; title?: string };
@@ -34,14 +39,14 @@ const Hero: FC<HeroProps> = ({ className, title, image, video, theme = HeroType.
             {...video}
             muted={true}
             autoPlay={true}
-            poster={image?.src}
+            poster={image?.fields.file.url}
             hasControls={false}
             togglePlayOnClick={false}
             hasPlayOnly={true}
           />
         </>
       ) : (
-        <BaseImage {...image} />
+        <ContentfulImage asset={image} />
       ),
     [image, video]
   );
@@ -67,7 +72,7 @@ const Hero: FC<HeroProps> = ({ className, title, image, video, theme = HeroType.
           )}
         </>
       ) : (
-        /* wrap background inside image cascade */ background
+        <ImageCascade className={css.cascade}>{background}</ImageCascade>
       )}
     </div>
   );

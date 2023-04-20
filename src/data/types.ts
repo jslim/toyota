@@ -134,6 +134,23 @@ export type ContentfulImageAsset = {
   };
 };
 
+export type ContentfulVideoAsset = {
+  metadata: Metadata;
+  sys: Sys;
+  fields: {
+    title: string;
+    description: string;
+    file: {
+      url: string;
+      details: {
+        size: number;
+      };
+      fileName: string;
+      contentType: string;
+    };
+  };
+};
+
 export type PageType = {
   data: FilteredEntity;
 };
@@ -174,8 +191,8 @@ export type OurLatestPostPageContentType = {
 
 // Contentful Component Content Types
 export type GlobalDataContentType = {
-  mainNavLinks: Array<GenericEntity<CTAContentType>>;
-  footerNavLinks: Array<GenericEntity<CTAContentType>>;
+  mainNavLinks: Array<FilteredEntity<CTAContentType>>;
+  footerNavLinks: Array<FilteredEntity<CTAContentType>>;
   skipToContentText: string;
 };
 
@@ -201,17 +218,17 @@ export type TextBlockContentType = {
 export type SectionContentType = {
   displayTitle?: string;
   eyebrowText?: string;
-  innerBlocks: Array<GenericEntity>;
+  innerBlocks: Array<FilteredEntity>;
   colorBackground?: Array<string>;
 };
 
 export type TabItemContentType = {
   tabTitle: string;
-  innerBlocks: Array<GenericEntity>;
+  innerBlocks: Array<FilteredEntity>;
 };
 
 export type TabGroupContentType = {
-  innerBlocks: Array<GenericEntity<TabGroupContentType>>;
+  innerBlocks: Array<FilteredEntity<TabGroupContentType>>;
 };
 
 export type AccordionItemContentType = {
@@ -222,18 +239,18 @@ export type AccordionItemContentType = {
 export type AccordionGroupContentType = {
   colorBackground: Array<string>;
   title: string;
-  innerBlocks: Array<GenericEntity<AccordionItemContentType>>;
+  innerBlocks: Array<FilteredEntity<AccordionItemContentType>>;
 };
 
 export type MediaGalleryItemContentType = {
   title: string;
   image: ContentfulImageAsset;
-  video: unknown; // TODO: Add video asset type
+  video: ContentfulVideoAsset;
 };
 
 export type MediaGalleryGroupContentType = {
   title: string;
-  innerBlocks: Array<GenericEntity<MediaGalleryItemContentType>>;
+  mediaItems: Array<FilteredEntity<MediaGalleryItemContentType>>;
 };
 
 export type TextIntroContentType = {
@@ -256,7 +273,7 @@ export type RoadmapGroupContentType = {
   title: string;
   eyebrow: string;
   theme: string;
-  items: Array<GenericEntity<RoadmapItemContentType>>;
+  items: Array<FilteredEntity<RoadmapItemContentType>>;
 };
 
 export type CardContentType = {
@@ -271,4 +288,44 @@ export type CardGridContentType = {
   title: string;
   cardType: CardTypes;
   cards: Array<FilteredEntity<CardContentType>>;
+};
+
+export type FeatureListItemContentType = {
+  title: string;
+  text: string;
+};
+
+export type FeatureListContentType = {
+  title: string;
+  eyebrow: string;
+  items: Array<FilteredEntity<FeatureListItemContentType>>;
+};
+
+export type ProductListRowContentType = {
+  title: string;
+  text: string;
+  image: ContentfulImageAsset;
+  ctaLink: string;
+};
+
+export type ProductListContentType = {
+  title: string;
+  eyebrow: string;
+  productListRow: Array<FilteredEntity<ProductListRowContentType>>;
+};
+
+export type HeroFeaturedContentType = {
+  date: string;
+  title: string;
+  cat: string;
+};
+
+export type HeroContentType = {
+  title: string;
+  image: ContentfulImageAsset;
+  video: ContentfulVideoAsset;
+  theme: string;
+  featured: {
+    fields: HeroFeaturedContentType;
+  };
 };

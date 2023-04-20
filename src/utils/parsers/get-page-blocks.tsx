@@ -6,8 +6,12 @@ import {
   buildCardGrid,
   buildContentfulImage,
   buildDefaultPage,
+  buildFeatureList,
+  buildHero,
   buildImageBlock,
+  buildMediaGalleryGroup,
   buildNextChapter,
+  buildProductList,
   buildRoadmapGroup,
   buildSectionWrapper,
   buildTabGroup,
@@ -34,7 +38,11 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
   contentfulAssetEntity: buildContentfulImage,
   imageBlock: buildImageBlock,
   textIntro: buildTextIntro,
-  roadmapGroup: buildRoadmapGroup
+  roadmapGroup: buildRoadmapGroup,
+  featureList: buildFeatureList,
+  productList: buildProductList,
+  mediaGalleryGroup: buildMediaGalleryGroup,
+  hero: buildHero
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

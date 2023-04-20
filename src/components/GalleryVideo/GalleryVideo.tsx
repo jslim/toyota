@@ -5,9 +5,12 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import css from './GalleryVideo.module.scss';
 
-import BaseImage from '@/components/BaseImage/BaseImage';
+import { ContentfulImageAsset } from '@/data/types';
+
 import { Props as VideoProps } from '@/components/VideoPlayer/VideoPlayer';
 import VideoPlayerContainer, { VideoType } from '@/components/VideoPlayerContainer/VideoPlayerContainer';
+
+import ContentfulImage from '../ContentfulImage/ContentfulImage';
 
 SwiperCore.use([Pagination, A11y]);
 
@@ -15,7 +18,7 @@ const SLIDE_DURATION = 450;
 
 export type GalleryVideoProps = {
   className?: string;
-  slides: { video?: VideoProps; title?: string; image: { src: string; alt: string } }[];
+  slides: { video?: VideoProps; title?: string; image: ContentfulImageAsset }[];
 };
 
 const GalleryVideo: FC<GalleryVideoProps> = ({ className, slides }) => {
@@ -45,7 +48,7 @@ const GalleryVideo: FC<GalleryVideoProps> = ({ className, slides }) => {
                   theme={VideoType.Gallery}
                 />
               ) : (
-                <BaseImage {...item.image} className={css.image} />
+                <ContentfulImage asset={item.image} className={css.image} />
               )}
             </SwiperSlide>
           );

@@ -6,8 +6,12 @@ import {
   CardGridContentType,
   ContentfulImageAsset,
   DefaultPageContentType,
+  FeatureListContentType,
   GenericObject,
+  HeroContentType,
+  MediaGalleryGroupContentType,
   NextChapterContentType,
+  ProductListContentType,
   RoadmapGroupContentType,
   SectionContentType,
   TabGroupContentType,
@@ -21,7 +25,11 @@ import { variants } from '@/data/variants';
 import Accordion, { AccordionItem } from '@/components/Accordion/Accordion';
 import CardGrid from '@/components/CardGrid/CardGrid';
 import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
+import FeaturesList from '@/components/FeaturesList/FeaturesList';
+import GalleryVideo from '@/components/GalleryVideo/GalleryVideo';
+import Hero from '@/components/Hero/Hero';
 import NextChapter from '@/components/NextChapter/NextChapter';
+import ProductList from '@/components/ProductList/ProductList';
 import Roadmap from '@/components/Roadmap/Roadmap';
 import SectionWrapper from '@/components/SectionWrapper/SectionWrapper';
 import Tabs from '@/components/Tabs/Tabs';
@@ -220,6 +228,7 @@ export const buildRoadmapGroup = (fields: RoadmapGroupContentType, extraProps?: 
     component: Roadmap
   };
 };
+
 export const buildCardGrid = (fields: CardGridContentType, extraProps?: GenericObject): ComponentBuilder => {
   const cardType = fields?.cardType[0] || null;
   const cards = fields?.cards.map((card) => {
@@ -235,5 +244,90 @@ export const buildCardGrid = (fields: CardGridContentType, extraProps?: GenericO
       ...extraProps
     },
     component: CardGrid
+  };
+};
+
+export const buildFeatureList = (fields: FeatureListContentType, extraProps?: GenericObject): ComponentBuilder => {
+  const items = fields.items.map((item) => ({
+    title: item.fields.title,
+    text: item.fields.text
+  }));
+
+  return {
+    props: {
+      title: fields.title,
+      eyebrow: fields.eyebrow,
+      items,
+      ...extraProps
+    },
+    component: FeaturesList
+  };
+};
+
+export const buildProductList = (fields: ProductListContentType, extraProps?: GenericObject): ComponentBuilder => {
+  const items = fields.productListRow?.map((row) => ({
+    title: row.fields?.title,
+    text: row.fields?.text,
+    cta: { href: row.fields?.ctaLink },
+    image: row.fields?.image
+  }));
+
+  return {
+    props: {
+      title: fields.title,
+      eyebrow: fields.eyebrow,
+      items,
+      ...extraProps
+    },
+    component: ProductList
+  };
+};
+
+export const buildMediaGalleryGroup = (
+  fields: MediaGalleryGroupContentType,
+  extraProps?: GenericObject
+): ComponentBuilder => {
+  const slides = fields.mediaItems?.map(({ fields }) => {
+    const videoSrc = fields?.video?.fields?.file?.url;
+    return {
+      title: fields?.title,
+      image: fields?.image,
+      video: videoSrc ? { src: videoSrc } : null
+    };
+  });
+  return {
+    props: {
+      slides,
+      ...extraProps
+    },
+    component: GalleryVideo
+  };
+};
+
+export const buildHero = (fields: HeroContentType, extraProps?: GenericObject): ComponentBuilder => {
+  const videoSrc = fields?.video?.fields?.file.url;
+  const postDate = new Date(fields?.featured?.fields?.date);
+  const month = postDate.toLocaleString('default', { month: 'short', timeZone: 'UTC' }).toUpperCase();
+  const day = postDate.getUTCDate();
+  const year = postDate.getUTCFullYear();
+
+  return {
+    props: {
+      title: fields?.title,
+      image: fields?.image,
+      video: videoSrc
+        ? {
+            src: videoSrc
+          }
+        : undefined, // hero component will render image when no video is passed
+      theme: fields?.theme,
+      featured: {
+        date: `${month} ${day}, ${year}`,
+        cat: fields?.featured?.fields?.cat,
+        title: fields?.featured?.fields?.title
+      },
+      ...extraProps
+    },
+    component: Hero
   };
 };

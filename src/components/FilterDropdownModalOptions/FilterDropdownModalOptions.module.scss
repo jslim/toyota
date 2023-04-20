@@ -1,0 +1,78 @@
+@import 'shared';
+
+.root {
+  width: 100%;
+  background-color: $white;
+
+  @include media-tablet {
+    width: fit-content;
+  }
+}
+
+.header,
+.title {
+  @include font-size(11, 24, 0.44);
+  color: $dark-grey;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+.header {
+  margin-bottom: px(17);
+}
+
+.title {
+  opacity: 0.75;
+  margin-bottom: px(15);
+}
+
+.wrapper {
+  margin-top: px(15);
+  margin-bottom: px(15);
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .options {
+    .option {
+      @include flex-center-vert;
+      margin-bottom: px(12);
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+
+      .circle {
+        margin-right: px(13);
+
+        svg {
+          opacity: 0;
+        }
+      }
+
+      .label {
+        color: $dark-grey;
+        opacity: 0.75;
+      }
+
+      &.selected {
+        .circle {
+          svg {
+            opacity: 1;
+          }
+        }
+      }
+    }
+
+    @at-root body:global(.desktop) {
+      .option:hover {
+        cursor: pointer;
+
+        .label {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

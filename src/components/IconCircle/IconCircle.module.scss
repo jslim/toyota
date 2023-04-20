@@ -2,7 +2,7 @@
 
 .IconCircle {
   border-radius: 50%;
-  border: 1px solid $mid-grey;
+  border: 1px solid $grey;
   @include box(px(35));
   @include flex-center;
   position: relative;
@@ -138,5 +138,9 @@
     @include breakpoint(desktopSm) {
       @include box(px(25));
     }
+  }
+
+  &.iconOnly {
+    border-color: $mid-grey;
   }
 }
