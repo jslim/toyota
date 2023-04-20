@@ -60,7 +60,7 @@ export const parseContentfulRichText = (richText: Document, className?: string):
             videoSrc && (
               <VideoPlayer
                 src={videoSrc}
-                style={{ width: '720px', height: '306px' }}
+                style={{ width: '720px', height: '306px', margin: 'auto' }}
                 poster={''}
                 windowWidth={window.innerWidth}
                 windowHeight={window.innerHeight}
