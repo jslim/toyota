@@ -323,7 +323,7 @@ export type HeroFeaturedContentType = {
 export type HeroContentType = {
   title: string;
   image: ContentfulImageAsset;
-  video: ContentfulImageAsset;
+  video: ContentfulVideoAsset;
   theme: string;
   featured: {
     fields: HeroFeaturedContentType;
