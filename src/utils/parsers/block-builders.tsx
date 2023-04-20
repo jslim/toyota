@@ -306,17 +306,10 @@ export const buildMediaGalleryGroup = (
 
 export const buildHero = (fields: HeroContentType, extraProps?: GenericObject): ComponentBuilder => {
   const videoSrc = fields?.video?.fields?.file.url;
-  const postDate = new Date(fields?.featured?.fields?.date).getTime();
-  const today = new Date().getTime();
-  let diff;
-
-  // NOTE: Contentful doesn't have good date validation so this conditional is used in case client picks date greater than today
-  if (postDate < today) {
-    diff = Math.abs(today - postDate);
-  } else {
-    diff = 0;
-  }
-  const diffDays = Math.floor(diff / (1000 * 3600 * 24)); // convert to num days
+  const postDate = new Date(fields?.featured?.fields?.date);
+  const month = postDate.toLocaleString('default', { month: 'short', timeZone: 'UTC' }).toUpperCase();
+  const day = postDate.getUTCDate();
+  const year = postDate.getUTCFullYear();
 
   return {
     props: {
@@ -329,7 +322,7 @@ export const buildHero = (fields: HeroContentType, extraProps?: GenericObject): 
         : undefined, // hero component will render image when no video is passed
       theme: fields?.theme,
       featured: {
-        date: `${diffDays} day${diffDays > 1 ? 's' : ''} ago`,
+        date: `${month} ${day}, ${year}`,
         cat: fields?.featured?.fields?.cat,
         title: fields?.featured?.fields?.title
       },
