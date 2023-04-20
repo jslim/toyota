@@ -335,7 +335,7 @@ export const buildHero = (fields: HeroContentType, extraProps?: GenericObject): 
   };
 };
 
-// TESTING: component builder for rich text content
+// component builder for rich text content
 export const buildRichTextTestComponent = (
   fields: richTextContentType,
   extraProps?: GenericObject
