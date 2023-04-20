@@ -423,15 +423,15 @@ export const buildFeaturedArticles = (
 ): ComponentBuilder => {
   const cardType = fields?.newsPosts?.fields?.cardType[0] || null;
   const cards = fields?.newsPosts?.fields?.cards.map((card) => {
-    const postDate = new Date(card.fields.date);
+    const postDate = new Date(card?.fields?.date);
     const month = postDate.toLocaleString('default', { month: 'short', timeZone: 'UTC' }).toUpperCase();
     const day = postDate.getUTCDate();
     const year = postDate.getUTCFullYear();
     return {
       cardType,
-      ...card.fields,
+      ...card?.fields,
       cta: {
-        href: card.fields.cta.fields.linkUrl
+        href: card?.fields?.cta?.fields?.linkUrl
       },
       date: `${month} ${day}, ${year}`
     };
