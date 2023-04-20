@@ -7,6 +7,7 @@ import {
   ColumnsTextContentType,
   ContentfulImageAsset,
   DefaultPageContentType,
+  FeaturedArticlesContentyType,
   FeatureListContentType,
   GenericObject,
   HeroContentType,
@@ -30,6 +31,7 @@ import Accordion, { AccordionItem } from '@/components/Accordion/Accordion';
 import CardGrid from '@/components/CardGrid/CardGrid';
 import ColumnsText from '@/components/ColumnsText/ColumnsText';
 import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
+import FeaturedArticles from '@/components/FeaturedArticles/FeaturedArticles';
 import FeaturesList from '@/components/FeaturesList/FeaturesList';
 import GalleryVideo from '@/components/GalleryVideo/GalleryVideo';
 import Hero from '@/components/Hero/Hero';
@@ -406,5 +408,37 @@ export const buildSpacer = (fields: spacerContentType, extraProps?: GenericObjec
       ...extraProps
     },
     component: Spacer
+  };
+};
+
+export const buildFeaturedArticles = (
+  fields: FeaturedArticlesContentyType,
+  extraProps?: GenericObject
+): ComponentBuilder => {
+  const cardType = fields?.newsPosts?.fields?.cardType[0] || null;
+  const cards = fields?.newsPosts?.fields?.cards.map((card) => {
+    const postDate = new Date(card.fields.date);
+    const month = postDate.toLocaleString('default', { month: 'short', timeZone: 'UTC' }).toUpperCase();
+    const day = postDate.getUTCDate();
+    const year = postDate.getUTCFullYear();
+    return {
+      cardType,
+      ...card.fields,
+      date: `${month} ${day}, ${year}`
+    };
+  });
+  return {
+    props: {
+      eyebrow: fields?.eyebrow,
+      title: fields?.heading,
+      cta: {
+        title: fields?.cta?.fields?.linkText,
+        href: fields?.cta?.fields?.linkUrl,
+        'aria-label': fields?.cta?.fields?.ariaLabel
+      },
+      cards,
+      ...extraProps
+    },
+    component: FeaturedArticles
   };
 };

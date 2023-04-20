@@ -9,6 +9,7 @@ import {
   buildColumnsText,
   buildContentfulImage,
   buildDefaultPage,
+  buildFeaturedArticles,
   buildFeatureList,
   buildHero,
   buildImageBlock,
@@ -52,7 +53,8 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
   richTextTest: buildRichTextTestComponent,
   videoPlayerSection: buildVideoPlayerSection,
   columnsText: buildColumnsText,
-  spacer: buildSpacer
+  spacer: buildSpacer,
+  newsBottom: buildFeaturedArticles
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

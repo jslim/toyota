@@ -284,6 +284,7 @@ export type CardContentType = {
   subTitle: string;
   cta: CTAContentType;
   image: ContentfulImageAsset;
+  date: string;
 };
 
 export type CardGridContentType = {
@@ -357,4 +358,11 @@ export type ColumnsTextContentType = {
 
 export type spacerContentType = {
   size: string;
+};
+
+export type FeaturedArticlesContentyType = {
+  eyebrow: string;
+  heading: string;
+  cta: FilteredEntity<CTAContentType>;
+  newsPosts: FilteredEntity<CardGridContentType>;
 };
