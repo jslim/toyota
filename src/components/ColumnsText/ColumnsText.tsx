@@ -1,49 +1,33 @@
-import { FC, memo } from 'react';
+import { FC, ReactNode, memo } from 'react';
 import classNames from 'classnames';
 
 import css from './ColumnsText.module.scss';
-import sanitizer from '@/utils/sanitizer';
-import { useLayout } from '@/hooks';
 import { ColumnType } from '@/data/variants';
 
 import Eyebrow, { EyebrowProps } from '../Eyebrow/Eyebrow';
-import Cta, { CtaProps } from '../Cta/Cta';
 
 export type ColumnsTextProps = {
   className?: string;
-  title: string;
-  text: string;
+  leftSide: string | ReactNode;
   theme?: ColumnType;
   eyebrow?: EyebrowProps;
-  cta?: CtaProps;
-  isCareer?: boolean;
+  isSticky?: boolean;
+  children: ReactNode;
 };
 
 const ColumnsText: FC<ColumnsTextProps> = ({
   className,
-  title,
+  leftSide,
   eyebrow,
-  text,
-  cta,
-  isCareer = false,
-  theme = ColumnType['columns-50-50']
+  children,
+  isSticky = false,
+  theme = ColumnType.Columns_50_50
 }) => {
-  const { layout } = useLayout();
   return (
-    <div className={classNames('ColumnsTextText', css.root, className, css[theme], { [css.isCareer]: isCareer })}>
-      {eyebrow && !isCareer && <Eyebrow className={css.eyebrow} {...eyebrow} />}
-      <div className={css.titleContainer}>
-        {((isCareer && !layout.mobile) || !isCareer) && (
-          <div className={css.titleWrapper}>
-            <div className={css.title} dangerouslySetInnerHTML={{ __html: sanitizer(title) }} />
-            {cta && <Cta className={css.cta} {...cta} />}
-          </div>
-        )}
-      </div>
-      <div className={css.textContainer}>
-        <div className={css.text} dangerouslySetInnerHTML={{ __html: sanitizer(text) }} />
-        {isCareer && layout.mobile && cta && <Cta className={css.cta} {...cta} />}
-      </div>
+    <div className={classNames('ColumnsTextText', css.root, className, css[theme], { [css.isSticky]: isSticky })}>
+      {eyebrow && !isSticky && <Eyebrow className={css.eyebrow} {...eyebrow} />}
+      <div className={css.titleContainer}>{leftSide}</div>
+      <div className={css.textContainer}>{children}</div>
     </div>
   );
 };

@@ -13,6 +13,6 @@ export enum SocialPlatform {
 }
 
 export enum ColumnType {
-  'columns-50-50' = 'columns-50-50',
-  'columns-30-70' = 'columns-30-70'
+  Columns_50_50 = 'columns-50-50',
+  Columns_30_70 = 'columns-30-70'
 }
