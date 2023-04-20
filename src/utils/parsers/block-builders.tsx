@@ -8,6 +8,7 @@ import {
   DefaultPageContentType,
   FeatureListContentType,
   GenericObject,
+  HeroContentType,
   MediaGalleryGroupContentType,
   NextChapterContentType,
   ProductListContentType,
@@ -26,6 +27,7 @@ import CardGrid from '@/components/CardGrid/CardGrid';
 import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
 import FeaturesList from '@/components/FeaturesList/FeaturesList';
 import GalleryVideo from '@/components/GalleryVideo/GalleryVideo';
+import Hero from '@/components/Hero/Hero';
 import NextChapter from '@/components/NextChapter/NextChapter';
 import ProductList from '@/components/ProductList/ProductList';
 import Roadmap from '@/components/Roadmap/Roadmap';
@@ -299,5 +301,33 @@ export const buildMediaGalleryGroup = (
       ...extraProps
     },
     component: GalleryVideo
+  };
+};
+
+export const buildHero = (fields: HeroContentType, extraProps?: GenericObject): ComponentBuilder => {
+  const videoSrc = fields?.video?.fields?.file.url;
+  const postDate = new Date(fields?.featured?.fields?.date);
+  const month = postDate.toLocaleString('default', { month: 'short', timeZone: 'UTC' }).toUpperCase();
+  const day = postDate.getUTCDate();
+  const year = postDate.getUTCFullYear();
+
+  return {
+    props: {
+      title: fields?.title,
+      image: fields?.image,
+      video: videoSrc
+        ? {
+            src: videoSrc
+          }
+        : undefined, // hero component will render image when no video is passed
+      theme: fields?.theme,
+      featured: {
+        date: `${month} ${day}, ${year}`,
+        cat: fields?.featured?.fields?.cat,
+        title: fields?.featured?.fields?.title
+      },
+      ...extraProps
+    },
+    component: Hero
   };
 };

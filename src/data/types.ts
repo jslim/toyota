@@ -313,3 +313,19 @@ export type ProductListContentType = {
   eyebrow: string;
   productListRow: Array<FilteredEntity<ProductListRowContentType>>;
 };
+
+export type HeroFeaturedContentType = {
+  date: string;
+  title: string;
+  cat: string;
+};
+
+export type HeroContentType = {
+  title: string;
+  image: ContentfulImageAsset;
+  video: ContentfulVideoAsset;
+  theme: string;
+  featured: {
+    fields: HeroFeaturedContentType;
+  };
+};
