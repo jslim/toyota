@@ -387,3 +387,9 @@ export type FeaturedArticlesContentyType = {
   cta: FilteredEntity<CTAContentType>;
   newsPosts: FilteredEntity<NewsPostContentType>[];
 };
+
+export type BiographicHeroContentType = {
+  title: string;
+  description: string;
+  asset: ContentfulImageAsset;
+};

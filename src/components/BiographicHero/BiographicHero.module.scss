@@ -3,7 +3,7 @@
 .root {
   @include container;
   position: relative;
-  max-height: 85vh;
+  max-height: 100vh;
   min-height: 55vh;
   padding-top: px(75);
 
@@ -17,7 +17,7 @@
   }
 
   @include media-desktopMd {
-    height: 85vh;
+    height: 100vh;
   }
 
   .backgroundContainer {

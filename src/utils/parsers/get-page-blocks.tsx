@@ -5,6 +5,7 @@ import { FilteredEntity } from '@/data/types';
 import {
   buildAccordionGroup,
   buildAccordionItem,
+  buildBiographicHero,
   buildCardGallery,
   buildCardGrid,
   buildCareersList,
@@ -59,7 +60,8 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
   columnsText: buildColumnsText,
   spacer: buildSpacer,
   newsBottom: buildFeaturedArticles,
-  featuredArticles: buildFeaturedArticles
+  featuredArticles: buildFeaturedArticles,
+  biographicHero: buildBiographicHero
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

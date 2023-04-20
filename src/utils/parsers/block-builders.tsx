@@ -3,6 +3,7 @@ import { FC, ReactNode } from 'react';
 import {
   AccordionGroupContentType,
   AccordionItemContentType,
+  BiographicHeroContentType,
   CardGalleryContentType,
   CardGridContentType,
   CareersListContentType,
@@ -30,6 +31,7 @@ import {
 import { variants } from '@/data/variants';
 
 import Accordion, { AccordionItem } from '@/components/Accordion/Accordion';
+import BiographicHero from '@/components/BiographicHero/BiographicHero';
 import { CardTypes } from '@/components/Card/Card';
 import CardGrid from '@/components/CardGrid/CardGrid';
 import CareersList from '@/components/CareersList/CareersList';
@@ -490,3 +492,14 @@ export const buildFeaturedArticles = (
     component: FeaturedArticles
   };
 };
+
+export const buildBiographicHero = (
+  fields: BiographicHeroContentType,
+  extraProps?: GenericObject
+): ComponentBuilder => ({
+  props: {
+    ...fields,
+    ...extraProps
+  },
+  component: BiographicHero
+});
