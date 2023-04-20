@@ -36,7 +36,6 @@ const DraggableColumns: FC<DraggableColumnsProps> = ({ cards, className, dragLab
         autoHeight={true}
         loop
         speed={500}
-        freeMode={true}
         centeredSlides={true}
         spaceBetween={182}
         touchEventsTarget={'container'}

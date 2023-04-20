@@ -107,14 +107,11 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({
               clickable: true
             }}
             slidesPerView={'auto'}
-            centeredSlides={true}
             spaceBetween={30}
-            slidesOffsetBefore={-100}
-            slidesOffsetAfter={50}
+            slidesOffsetAfter={600}
             breakpoints={{
               768: {
-                spaceBetween: 46,
-                slidesOffsetBefore: -200
+                spaceBetween: 46
               }
             }}
           >
@@ -122,7 +119,7 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({
               return (
                 <SwiperSlide className={css.slide} key={`slide-${i}`}>
                   {pair.map((item, i) => {
-                    return <LeadershipCard {...item} key={i} />;
+                    return <LeadershipCard {...item} key={i} className={css.card} />;
                   })}
                 </SwiperSlide>
               );
