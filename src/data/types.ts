@@ -282,7 +282,7 @@ export type CardContentType = {
   title: string;
   text: string;
   subTitle: string;
-  cta: CTAContentType;
+  cta: FilteredEntity<CTAContentType>;
   image: ContentfulImageAsset;
   date: string;
 };

@@ -243,9 +243,15 @@ export const buildRoadmapGroup = (fields: RoadmapGroupContentType, extraProps?: 
 export const buildCardGrid = (fields: CardGridContentType, extraProps?: GenericObject): ComponentBuilder => {
   const cardType = fields?.cardType[0] || null;
   const cards = fields?.cards.map((card) => {
+    console.log('card: ', card);
     return {
       cardType,
-      ...card.fields
+      ...card.fields,
+      cta: {
+        title: card?.fields?.cta?.fields?.linkText,
+        href: card?.fields?.cta?.fields?.linkUrl,
+        'aria-label': card?.fields?.cta?.fields?.ariaLabel
+      }
     };
   });
   return {
@@ -424,6 +430,9 @@ export const buildFeaturedArticles = (
     return {
       cardType,
       ...card.fields,
+      cta: {
+        href: card.fields.cta.fields.linkUrl
+      },
       date: `${month} ${day}, ${year}`
     };
   });
