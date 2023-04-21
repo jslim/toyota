@@ -141,4 +141,24 @@
   .cta {
     display: flex;
   }
+
+  &.columns-30-70 {
+    .leftColumn {
+      @include media-tablet {
+        @include use-tablet-columns(width, 3);
+      }
+      @include media-desktopSm {
+        @include use-desktop-columns(width, 3);
+      }
+    }
+
+    .rightColumn {
+      @include media-tablet {
+        @include use-tablet-columns(width, 5);
+      }
+      @include media-desktopSm {
+        @include use-desktop-columns(width, 9);
+      }
+    }
+  }
 }
