@@ -1,4 +1,4 @@
-import { LegacyRef, MutableRefObject, forwardRef, memo, useEffect } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 
 import { gsap } from 'gsap';
@@ -14,31 +14,32 @@ export type EyebrowProps = {
   className?: string;
   text: string;
   variant?: string;
-  animInTL?: MutableRefObject<GSAPTimeline>;
+  playAnimIn?: boolean;
 };
 
-const Eyebrow = (
-  { className, text, variant = variants.LIGHT, animInTL }: EyebrowProps,
-  ref: LegacyRef<HTMLDivElement>
-) => {
+const Eyebrow = ({ className, text, variant = variants.LIGHT, playAnimIn = false }: EyebrowProps) => {
+  const circleRef = useRef<HTMLDivElement>(null);
+  const animTL = useRef<GSAPTimeline>();
   useEffect(() => {
     {
-      if (!animInTL) return;
-      const q = gsap.utils.selector(ref);
-      animInTL.current = gsap.timeline({ paused: true }).from(q('.circle'), {
+      animTL.current = gsap.timeline({ paused: true }).from(circleRef.current, {
         xPercent: 80
       });
     }
-  }, [animInTL, ref]);
+  }, [animTL]);
+
+  useEffect(() => {
+    playAnimIn && animTL.current?.play();
+  }, [playAnimIn]);
 
   return (
-    <div ref={ref} className={classNames('Eyebrow', css.root, className, { [css.dark]: variant === variants.DARK })}>
+    <div className={classNames('Eyebrow', css.root, className, { [css.dark]: variant === variants.DARK })}>
       <p className={css.text}>
-        <span className={classNames('circle', css.circle)} />
+        <span className={classNames('circle', css.circle)} ref={circleRef} />
         {text}
       </p>
     </div>
   );
 };
 
-export default memo(forwardRef(Eyebrow));
+export default memo(Eyebrow);

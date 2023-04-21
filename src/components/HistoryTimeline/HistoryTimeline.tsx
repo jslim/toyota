@@ -1,4 +1,4 @@
-import { FC, MutableRefObject, SetStateAction, memo, useEffect, useRef, useState } from 'react';
+import { FC, SetStateAction, memo, useCallback, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import SwiperCore, { A11y, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -27,40 +27,42 @@ export type HistoryTimelineProps = {
 
 const HistoryTimeline: FC<HistoryTimelineProps> = ({ className, eyebrow, title, slides }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const eyebrowRef = useRef<HTMLDivElement>(null);
-  const eyebrowTL = useRef() as MutableRefObject<GSAPTimeline>;
-  const animInTL = useRef() as MutableRefObject<GSAPTimeline>;
+  const titleRef = useRef<HTMLDivElement>(null);
   const [imageHeight, setImageHeight] = useState(0);
   const [swiper, setSwiper] = useState<SwiperCore>();
   const [isDraggable, setDraggable] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
   const [slideProgress, setSlideProgress] = useState(0);
+  const [playAnimIn, setPlayAnimIn] = useState(false);
 
-  const handleOnProgress = (swiper: SwiperCore, progress: SetStateAction<number>) => {
+  const handleOnProgress = useCallback((swiper: SwiperCore, progress: SetStateAction<number>) => {
     setSwiper(swiper);
     setSlideProgress(progress);
-  };
+  }, []);
 
   useEffect(() => {
-    const q = gsap.utils.selector(ref.current);
-    animInTL.current = gsap
+    const timeline = gsap
       .timeline({
         scrollTrigger: {
           start: 'top 75%',
           trigger: ref.current,
-          onEnter: () => eyebrowTL.current.play()
+          onEnter: () => setPlayAnimIn(true)
         }
       })
-      .fadeIn(q('.text')[0].children, { stagger: 0.05 });
-  }, [animInTL]);
+      .fadeIn(titleRef.current?.children, { stagger: 0.05 });
+
+    return () => {
+      timeline?.kill();
+    };
+  }, []);
 
   return (
     <div className={classNames('HistoryTimeline', css.root, className)} ref={ref}>
       <div className={css.wrapper}>
-        <Eyebrow text={eyebrow} ref={eyebrowRef} animInTL={eyebrowTL} />
-        <div className={classNames('text', css.titleWrapper)}>
+        <Eyebrow text={eyebrow} playAnimIn={playAnimIn} />
+        <div className={css.titleWrapper} ref={titleRef}>
           <h3 className={css.title}>{title}</h3>
-          <div className={classNames('year', css.year)}>{slides[swiper?.activeIndex || 0].year}</div>
+          <div className={css.year}>{slides[swiper?.activeIndex || 0].year}</div>
         </div>
         <Swiper
           className={css.slides}
@@ -82,7 +84,17 @@ const HistoryTimeline: FC<HistoryTimelineProps> = ({ className, eyebrow, title, 
         >
           {slides.map((item, i) => {
             return (
-              <SwiperSlide className={css.slide} key={`slide-${i}`}>
+              <SwiperSlide
+                className={css.slide}
+                key={`slide-${i}`}
+                onFocus={() => {
+                  if (!swiper) {
+                    return;
+                  }
+                  // on tab, slide to next/prev slide
+                  swiper?.slideTo(i);
+                }}
+              >
                 <HistoryTimelineSlide
                   {...item}
                   inProgress={slideProgress}

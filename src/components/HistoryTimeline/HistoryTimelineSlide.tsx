@@ -41,6 +41,7 @@ const HistorySlide: FC<SlideProps> = ({
 }) => {
   const itemRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
   const tl = useRef() as MutableRefObject<GSAPTimeline>;
   const tlProgressBar = useRef() as MutableRefObject<GSAPTimeline>;
   const [firstRender, setFirstRender] = useState(true);
@@ -75,12 +76,11 @@ const HistorySlide: FC<SlideProps> = ({
       }
     });
     const initTL = () => {
-      const q = gsap.utils.selector(itemRef.current);
       tlProgressBar.current = gsap
         .timeline({
           paused: true
         })
-        .from(q('.progressBar'), {
+        .from([progressRef.current?.children[2]], {
           scaleX: 0,
           duration: 0.8,
           ease: 'linear'
@@ -89,13 +89,13 @@ const HistorySlide: FC<SlideProps> = ({
         .timeline({
           paused: true
         })
-        .to(q('.dot'), {
+        .to([progressRef.current?.children[0]], {
           x: 0,
           duration: 0.66,
           ease: 'linear'
         })
         .from(
-          q('.image'),
+          imageRef.current,
           {
             scale: 0.7,
             duration: 0.66,
@@ -104,7 +104,7 @@ const HistorySlide: FC<SlideProps> = ({
           '-=0.66'
         )
         .from(
-          q('.image')[0].children,
+          [imageRef.current?.children],
           {
             opacity: 0.2,
             duration: 0.66,
@@ -112,7 +112,11 @@ const HistorySlide: FC<SlideProps> = ({
           },
           '-=0.66'
         )
-        .fadeIn(q('.text')[0].children, { stagger: 0.06, duration: 0.4 }, '-=0.4');
+        .fadeIn(
+          itemRef.current?.children[itemRef.current?.children.length - 1],
+          { stagger: 0.06, duration: 0.4 },
+          '-=0.4'
+        );
       if (active) {
         tl.current.progress(1);
         tlProgressBar.current.progress(1);
@@ -170,16 +174,16 @@ const HistorySlide: FC<SlideProps> = ({
 
   return (
     <div ref={itemRef} className={css.item}>
-      <div ref={imageRef} className={classNames(css.imageWrapper, 'image')}>
+      <div ref={imageRef} className={css.imageWrapper}>
         <ContentfulImage asset={item.image} className={css.image} />
       </div>
-      <div className={css.progress} style={{ top: imageHeight && imageHeight / 2 }}>
-        <span className={classNames(css.dot, css.left, 'dot')} />
+      <div className={css.progress} style={{ top: imageHeight && imageHeight / 2 }} ref={progressRef}>
+        <span className={classNames(css.dot, css.left)} />
         <span className={classNames(css.dot, css.right)} />
-        <span className={classNames(css.progressBar, 'progressBar')} />
+        <span className={css.progressBar} />
       </div>
 
-      <div className={classNames(css.textWrapper, 'text')}>
+      <div className={css.textWrapper}>
         {item.title && <span className={css.eyebrow}>{item.title}</span>}
         <p className={css.text}>{item.text}</p>
         {item.cta && <Cta {...item.cta} className={css.cta} theme={ButtonType.Secondary} />}
