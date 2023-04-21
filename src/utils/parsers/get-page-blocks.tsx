@@ -12,6 +12,7 @@ import {
   buildMediaGalleryGroup,
   buildNextChapter,
   buildProductList,
+  buildRichTextTestComponent,
   buildRoadmapGroup,
   buildSectionWrapper,
   buildTabGroup,
@@ -42,7 +43,8 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
   featureList: buildFeatureList,
   productList: buildProductList,
   mediaGalleryGroup: buildMediaGalleryGroup,
-  hero: buildHero
+  hero: buildHero,
+  richTextTest: buildRichTextTestComponent
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

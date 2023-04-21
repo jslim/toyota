@@ -12,6 +12,7 @@ import {
   MediaGalleryGroupContentType,
   NextChapterContentType,
   ProductListContentType,
+  richTextContentType,
   RoadmapGroupContentType,
   SectionContentType,
   TabGroupContentType,
@@ -34,6 +35,8 @@ import Roadmap from '@/components/Roadmap/Roadmap';
 import SectionWrapper from '@/components/SectionWrapper/SectionWrapper';
 import Tabs from '@/components/Tabs/Tabs';
 import TextIntro, { TextIntroLayout } from '@/components/TextIntro/TextIntro';
+
+import { parseContentfulRichText } from './rich-text-parser';
 
 export type ComponentBuilder = {
   /**
@@ -329,5 +332,23 @@ export const buildHero = (fields: HeroContentType, extraProps?: GenericObject): 
       ...extraProps
     },
     component: Hero
+  };
+};
+
+// component builder for rich text content
+export const buildRichTextTestComponent = (
+  fields: richTextContentType,
+  extraProps?: GenericObject
+): ComponentBuilder => {
+  const elements = parseContentfulRichText(fields.richtext);
+
+  return {
+    props: {
+      ...extraProps
+    },
+
+    component: () => {
+      return <>{elements}</>;
+    }
   };
 };
