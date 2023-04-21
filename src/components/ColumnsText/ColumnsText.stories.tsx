@@ -43,7 +43,7 @@ export const Columns30_70: Story<ColumnsTextProps> = (args) => {
   );
   return (
     <div style={{ paddingTop: '200px' }}>
-      <ColumnsText {...args} theme={ColumnType.Columns_30_70} leftSide={leftSideContent}>
+      <ColumnsText {...args} theme={ColumnType.COLUMNS_30_70} leftSide={leftSideContent}>
         <div
           style={{ marginBottom: '26px' }}
           dangerouslySetInnerHTML={{ __html: sanitizer(Columns30_70Content.text) }}
@@ -69,7 +69,7 @@ Columns30_70.args = {
 export const BlogText: Story<ColumnsTextProps> = (args) => (
   <ColumnsText
     {...args}
-    theme={ColumnType.Columns_30_70}
+    theme={ColumnType.COLUMNS_30_70}
     leftSide={<div dangerouslySetInnerHTML={{ __html: sanitizer(BlogTextContent.title) }} />}
   >
     <div dangerouslySetInnerHTML={{ __html: sanitizer(BlogTextContent.text) }} />

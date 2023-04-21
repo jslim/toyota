@@ -27,11 +27,6 @@
   }
   .textContainer {
     @include typography-paragraph;
-    // margin-bottom: px(16);
-
-    // @include media-desktopSm {
-    //   margin-bottom: px(26);
-    // }
     p,
     b {
       margin-bottom: px(24);

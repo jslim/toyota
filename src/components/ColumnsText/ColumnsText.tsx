@@ -21,7 +21,7 @@ const ColumnsText: FC<ColumnsTextProps> = ({
   eyebrow,
   children,
   isSticky = false,
-  theme = ColumnType.Columns_50_50
+  theme = ColumnType.COLUMNS_50_50
 }) => {
   return (
     <div className={classNames('ColumnsTextText', css.root, className, css[theme], { [css.isSticky]: isSticky })}>
