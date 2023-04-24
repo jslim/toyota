@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import css from './CareersList.module.scss';
 
 import { variants } from '@/data/variants';
+import { Job } from '@/data/types';
 
 import { Accordion, AccordionItem } from '@/components/Accordion/Accordion';
 import AccordionContentCard from '@/components/AccordionContent/AccordionContentCard';
@@ -14,17 +15,6 @@ export type CareersListProps = {
   title: string;
   eyebrow: string;
 };
-
-interface Job {
-  categories: {
-    department: string;
-    location: string;
-    team: string;
-  };
-  text: string;
-  applyUrl: string;
-  id: string;
-}
 
 interface JobsListByDepartment {
   [department: string]: Job[];

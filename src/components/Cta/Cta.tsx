@@ -41,7 +41,7 @@ const Cta: FC<CtaProps> = ({
   const [hover, setHover] = useState(false);
   const classes = useMemo(
     () =>
-      classNames(className, css.root, {
+      classNames(className, 'cta', css.root, {
         [css.isWhite]: isWhite
       }),
     [isWhite, className]

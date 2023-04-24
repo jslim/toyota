@@ -37,15 +37,13 @@
       @include typography-h4;
       font-weight: 300;
     }
-    a {
+    a:not(:global(.cta)) {
       color: $red;
       text-decoration: underline;
     }
   }
 
   &.columns-50-50 {
-    @include media-desktopSm {
-    }
     .titleContainer {
       @include media-tablet {
         @include use-tablet-columns(width, 7);
@@ -81,7 +79,19 @@
     }
   }
   &.isSticky {
+    margin-bottom: px(45);
+    @include media-tablet {
+      margin-bottom: px(140);
+    }
+    @include media-desktopSm {
+      margin-bottom: px(192);
+    }
+
     .titleContainer {
+      > div {
+        position: sticky;
+        top: calc(#{$navbar-height} + #{px(30)});
+      }
       @include media-tablet {
         @include use-tablet-columns(width, 3);
       }
@@ -93,6 +103,9 @@
     .textContainer {
       @include media-tablet {
         @include use-tablet-columns(width, 5);
+      }
+      @include media-desktopSm {
+        @include use-desktop-columns(width, 9);
       }
     }
   }
