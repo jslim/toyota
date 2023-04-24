@@ -1,0 +1,230 @@
+@import 'shared';
+
+.root {
+  overflow: hidden;
+  text-align: left;
+  width: 100%;
+
+  .wrapper {
+    @include container;
+  }
+  .titleWrapper {
+    @include flex-center-vert;
+    flex-wrap: wrap;
+    margin-top: px(20);
+
+    @include breakpoint(tablet) {
+      flex-wrap: nowrap;
+    }
+
+    .title {
+      @include typography-h2;
+      max-width: px(396);
+      margin-bottom: px(50);
+
+      @include breakpoint(tablet) {
+        margin-bottom: 0;
+      }
+
+      @include breakpoint(desktopSm) {
+        margin-bottom: 0;
+        max-width: px(650);
+      }
+    }
+
+    .year {
+      margin-left: auto;
+      @include typography-h0;
+      @include use-mobile-gutter(margin-right, 1);
+      @include breakpoint(tablet) {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .slides {
+    overflow: unset;
+    margin-top: px(24);
+
+    @include breakpoint(tablet) {
+      margin-top: px(54);
+    }
+
+    .slide {
+      overflow: unset;
+      @include use-mobile-columns(width, 3.4);
+      @include use-mobile-gutter(padding-left, 1);
+
+      @include breakpoint(tablet) {
+        @include use-tablet-columns(width, 6);
+        @include use-tablet-columns(padding-left, 1, 1);
+      }
+
+      @include breakpoint(desktopSm) {
+        @include use-desktop-columns(width, 7);
+        @include use-desktop-columns(padding-left, 1, 1);
+        @include use-desktop-gutter(padding-right, 1);
+      }
+
+      &:last-child {
+        @include use-mobile-columns(margin-right, 0, 1);
+
+        @include breakpoint(tablet) {
+          @include use-tablet-columns(margin-right, 1, 1);
+        }
+
+        @include breakpoint(desktopSm) {
+          @include use-desktop-columns(margin-right, 4, 0);
+        }
+
+        .progress {
+          .dot {
+            &.right {
+              display: block;
+            }
+          }
+        }
+      }
+      .imageWrapper {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        @include aspect-ratio(16, 9);
+        border-radius: px(5);
+        margin-bottom: px(40);
+        overflow: hidden;
+        background-color: $white;
+
+        @include breakpoint(tablet) {
+          border-radius: px(8);
+          margin-bottom: px(25);
+        }
+
+        @include breakpoint(desktopSm) {
+          border-radius: px(10);
+          margin-bottom: px(36);
+        }
+
+        .image {
+          object-fit: cover;
+          @include box(100%);
+        }
+      }
+
+      .eyebrow {
+        @include typography-eyebrow;
+        text-transform: uppercase;
+        display: block;
+      }
+
+      .text {
+        margin: px(6) 0;
+        @include breakpoint(tablet) {
+          margin: px(7.5) 0 px(14);
+        }
+
+        @include breakpoint(desktopSm) {
+          margin: px(10) 0 px(20);
+        }
+      }
+
+      &:global(.swiper-slide-active) {
+        z-index: 2;
+        .image {
+          transform: scale(1);
+        }
+      }
+      .progressItem {
+        position: absolute;
+        left: 0;
+        height: 1px;
+      }
+
+      .progress {
+        z-index: 1;
+        position: absolute;
+        left: 0;
+        height: 1px;
+        @include use-mobile-columns(width, 4);
+
+        @include breakpoint(tablet) {
+          width: calc(100% + #{tablet-columns(1, 1)});
+        }
+
+        @include breakpoint(desktopSm) {
+          width: calc(100% + #{desktop-columns(1, 1)});
+        }
+
+        &::before {
+          content: '';
+          background-color: $grey;
+          @include position-100(absolute);
+        }
+
+        .dot {
+          display: block;
+          margin-top: px(-1.5);
+          @include box(px(4));
+          background-color: $red;
+          border-radius: 50%;
+
+          @include breakpoint(tablet) {
+            @include box(px(6));
+            margin-top: px(-3);
+          }
+
+          @include breakpoint(desktopSm) {
+            @include box(px(8));
+            margin-top: px(-4);
+          }
+
+          &.left {
+            transform: translateX(desktop-columns(1, 1));
+            @include breakpoint(tablet) {
+              transform: translateX(tablet-columns(1, 1));
+              @include box(px(6));
+              margin-top: px(-3);
+            }
+
+            @include breakpoint(desktopSm) {
+              transform: translateX(desktop-columns(1, 1));
+              @include box(px(8));
+              margin-top: px(-4);
+            }
+          }
+
+          &.right {
+            position: absolute;
+            display: none;
+            right: 0;
+            top: 0;
+          }
+        }
+
+        .progressBar {
+          position: absolute;
+          left: 0;
+          top: 0;
+          display: block;
+          height: 1px;
+          width: 100%;
+          background-color: $red;
+          transform-origin: left;
+        }
+      }
+    }
+  }
+  .pagination {
+    margin: px(45) 0 px(35);
+
+    @include breakpoint(tablet) {
+      margin: px(68) 0 px(35);
+    }
+
+    @include breakpoint(desktopSm) {
+      margin: px(42) 0;
+    }
+
+    @include pagination($black);
+  }
+}
