@@ -1,3 +1,5 @@
+import { Document } from '@contentful/rich-text-types';
+
 import { CardTypes } from '@/components/Card/Card';
 
 export type HeadProps = {
@@ -328,4 +330,8 @@ export type HeroContentType = {
   featured: {
     fields: HeroFeaturedContentType;
   };
+};
+
+export type richTextContentType = {
+  richtext: Document;
 };

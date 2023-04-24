@@ -98,6 +98,12 @@ h6 {
   @include font-header;
 }
 
+h4 {
+  @include typography-h4;
+}
+p {
+  @include typography-paragraph;
+}
 // Colors utility classes for utils/colors.ts
 .redColorClass {
   color: $red;
