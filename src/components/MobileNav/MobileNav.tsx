@@ -16,6 +16,7 @@ export type MobileNavProps = {
 
 const MobileNav: FC<MobileNavProps> = ({ className }) => {
   const { mainNavLinks } = useAppSelector((state) => state.activeGlobalData);
+  const activeRoute = useAppSelector((state) => state.activeRoute);
   const [menuOpen, setMenuOpen] = useState(false);
   const hamburgerRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLDivElement>(null);
@@ -50,13 +51,12 @@ const MobileNav: FC<MobileNavProps> = ({ className }) => {
           <div className={css.mobileMenuWrapper}>
             <ul className={css.routes}>
               {mainNavLinks.map(
-                ({ linkUrl, linkText, ariaLabel }, i) =>
+                ({ linkUrl, linkText, ariaLabel }) =>
                   linkText !== 'Home' && (
                     <li
                       key={linkText}
                       className={classNames({
-                        // TODO: set active based on the page
-                        [css.active]: i === 2
+                        [css.active]: activeRoute === linkUrl
                       })}
                     >
                       <BaseLink href={linkUrl} title={linkText} aria-label={ariaLabel}>

@@ -62,6 +62,7 @@ const siteName = 'Woven Planet Holdings, Inc.';
 
 const Footer: FC<FooterProps> = ({ className }) => {
   const { footerNavLinks } = useAppSelector((state) => state.activeGlobalData);
+  const activeRoute = useAppSelector((state) => state.activeRoute);
 
   return (
     <footer className={classNames('Footer', css.root, className)}>
@@ -72,13 +73,12 @@ const Footer: FC<FooterProps> = ({ className }) => {
           </div>
           <ul className={css.routes}>
             {footerNavLinks.map(
-              ({ linkUrl, linkText, ariaLabel }, i) =>
+              ({ linkUrl, linkText, ariaLabel }) =>
                 linkText !== 'Home' && (
                   <li
                     key={linkText}
                     className={classNames({
-                      // TODO: set active based on the page
-                      [css.active]: i === 2
+                      [css.active]: activeRoute === linkUrl
                     })}
                   >
                     <BaseLink href={linkUrl} title={linkText} aria-label={ariaLabel}>

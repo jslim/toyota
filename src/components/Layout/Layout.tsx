@@ -14,7 +14,14 @@ import { useCookieBanner } from '@/hooks';
 // import { GtmScript } from '@/utils/analytics';
 import { checkWebpSupport } from '@/utils/basic-functions';
 
-import { setActiveLang, setGlobalData, setIsWebpSupported, setPrevRoute, useAppDispatch } from '@/redux';
+import {
+  setActiveLang,
+  setGlobalData,
+  setIsWebpSupported,
+  setPrevRoute,
+  setActiveRoute,
+  useAppDispatch
+} from '@/redux';
 
 const DebugGrid = dynamic(() => import('@/components/DebugGrid/DebugGrid'), { ssr: false });
 const RotateScreen = dynamic(() => import('@/components/RotateScreen/RotateScreen'), { ssr: false });
@@ -38,6 +45,10 @@ const Layout: FC<ExtendedAppProps<PageProps>> = ({ Component, pageProps, globalD
     },
     [dispatch, router.asPath]
   );
+
+  useEffect(() => {
+    dispatch(setActiveRoute(router.asPath));
+  }, [dispatch, router.asPath]);
 
   useEffect(() => {
     router.events.on('routeChangeStart', handleRouteChange);

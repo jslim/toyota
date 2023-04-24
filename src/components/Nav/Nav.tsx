@@ -18,6 +18,7 @@ export interface NavProps {
 
 const Nav: FC<NavProps> = ({ className }) => {
   const { mainNavLinks, skipToContentText } = useAppSelector((state) => state.activeGlobalData);
+  const activeRoute = useAppSelector((state) => state.activeRoute);
   const [isMobile, setIsMobile] = useState(false);
   const { layout } = useLayout();
   useEffect(() => {
@@ -36,13 +37,12 @@ const Nav: FC<NavProps> = ({ className }) => {
               <Logo className={css.logo} href="/" />
               <ul className={css.routes}>
                 {mainNavLinks.map(
-                  ({ linkUrl, linkText, ariaLabel }, i) =>
+                  ({ linkUrl, linkText, ariaLabel }) =>
                     linkText !== 'Home' && (
                       <li
                         key={linkText}
                         className={classNames({
-                          // TODO: set active based on the page
-                          [css.active]: i === 2
+                          [css.active]: activeRoute === linkUrl
                         })}
                       >
                         <BaseLink href={linkUrl} title={linkText} aria-label={ariaLabel}>

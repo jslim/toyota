@@ -7,6 +7,7 @@ const { actions, reducer } = createSlice({
   name: 'app',
   initialState: {
     prevRoute: '',
+    activeRoute: '',
     isWebpSupported: true,
     globalData: {
       [Lang.EN]: {
@@ -28,6 +29,9 @@ const { actions, reducer } = createSlice({
     activeLang: Lang.EN
   },
   reducers: {
+    setActiveRoute(state, action: PayloadAction<string>) {
+      state.activeRoute = action.payload;
+    },
     setPrevRoute(state, action: PayloadAction<string>) {
       state.prevRoute = action.payload;
     },
@@ -45,7 +49,7 @@ const { actions, reducer } = createSlice({
   }
 });
 
-export const { setPrevRoute, setIsWebpSupported, setGlobalData, setActiveLang } = actions;
+export const { setActiveRoute, setPrevRoute, setIsWebpSupported, setGlobalData, setActiveLang } = actions;
 
 export const store = configureStore({ reducer, devTools: process.env.NEXT_PUBLIC_ENVIRONMENT !== 'production' });
 
