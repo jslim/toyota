@@ -20,6 +20,7 @@ import {
   buildTestPage,
   buildTextBlock,
   buildTextIntro,
+  buildVideoPlayerSection,
   ComponentBuilderFactory
 } from './block-builders';
 
@@ -44,7 +45,8 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
   productList: buildProductList,
   mediaGalleryGroup: buildMediaGalleryGroup,
   hero: buildHero,
-  richTextTest: buildRichTextTestComponent
+  richTextTest: buildRichTextTestComponent,
+  videoPlayerSection: buildVideoPlayerSection
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -19,7 +19,8 @@ import {
   TabItemContentType,
   TestsPageContentType,
   TextBlockContentType,
-  TextIntroContentType
+  TextIntroContentType,
+  videoPlayerSectionContentType
 } from '@/data/types';
 import { variants } from '@/data/variants';
 
@@ -35,6 +36,7 @@ import Roadmap from '@/components/Roadmap/Roadmap';
 import SectionWrapper from '@/components/SectionWrapper/SectionWrapper';
 import Tabs from '@/components/Tabs/Tabs';
 import TextIntro, { TextIntroLayout } from '@/components/TextIntro/TextIntro';
+import VideoPlayerSection from '@/components/VideoPlayerSection/VideoPlayerSection';
 
 import { parseContentfulRichText } from './rich-text-parser';
 
@@ -350,5 +352,27 @@ export const buildRichTextTestComponent = (
     component: () => {
       return <>{elements}</>;
     }
+  };
+};
+
+export const buildVideoPlayerSection = (
+  fields: videoPlayerSectionContentType,
+  extraProps?: GenericObject
+): ComponentBuilder => {
+  const videoPlayerSection = {
+    poster: fields?.videoPlayerSection?.fields?.poster,
+    video: { src: fields?.videoPlayerSection?.fields?.video.fields.file.url },
+    title: fields?.videoPlayerSection?.fields?.title,
+    theme: fields?.videoPlayerSection?.fields?.theme
+  };
+  return {
+    props: {
+      quote: fields?.quote,
+      author: fields?.author,
+      videoPlayerSection,
+      ...extraProps
+    },
+
+    component: VideoPlayerSection
   };
 };
