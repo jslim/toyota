@@ -347,3 +347,10 @@ export type videoPlayerSectionContentType = {
   author: string;
   videoPlayerSection: FilteredEntity<videoPlayerContainerContentType>;
 };
+
+export type ColumnsTextContentType = {
+  leftSide: Document;
+  rightSide: Document;
+  eyebrow: string;
+  theme: string;
+};

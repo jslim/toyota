@@ -1,9 +1,12 @@
+import { ReactNode } from 'react';
+
 import { FilteredEntity } from '@/data/types';
 
 import {
   buildAccordionGroup,
   buildAccordionItem,
   buildCardGrid,
+  buildColumnsText,
   buildContentfulImage,
   buildDefaultPage,
   buildFeatureList,
@@ -46,7 +49,8 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
   mediaGalleryGroup: buildMediaGalleryGroup,
   hero: buildHero,
   richTextTest: buildRichTextTestComponent,
-  videoPlayerSection: buildVideoPlayerSection
+  videoPlayerSection: buildVideoPlayerSection,
+  columnsText: buildColumnsText
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -64,7 +68,7 @@ export const getPageBlocks = (entry: FilteredEntity): JSX.Element | null => {
   if (!contentType || !componentFactories[contentType]) return null;
 
   const { props, component: Component, childrenFields } = componentFactories[contentType](entry.fields);
-  let Children: Array<JSX.Element | null | string> = [];
+  let Children: Array<JSX.Element | null | string | ReactNode> = [];
 
   /**
    * For each entity we want to iterate over their fields and do one of three things:
