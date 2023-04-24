@@ -335,3 +335,15 @@ export type HeroContentType = {
 export type richTextContentType = {
   richtext: Document;
 };
+
+export type videoPlayerContainerContentType = {
+  poster: ContentfulImageAsset;
+  title: string;
+  theme: string;
+  video: ContentfulVideoAsset;
+};
+export type videoPlayerSectionContentType = {
+  quote: string;
+  author: string;
+  videoPlayerSection: FilteredEntity<videoPlayerContainerContentType>;
+};
