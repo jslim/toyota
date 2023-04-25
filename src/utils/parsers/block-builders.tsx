@@ -16,6 +16,7 @@ import {
   richTextContentType,
   RoadmapGroupContentType,
   SectionContentType,
+  spacerContentType,
   TabGroupContentType,
   TabItemContentType,
   TestsPageContentType,
@@ -36,6 +37,7 @@ import NextChapter from '@/components/NextChapter/NextChapter';
 import ProductList from '@/components/ProductList/ProductList';
 import Roadmap from '@/components/Roadmap/Roadmap';
 import SectionWrapper from '@/components/SectionWrapper/SectionWrapper';
+import Spacer from '@/components/Spacer/Spacer';
 import Tabs from '@/components/Tabs/Tabs';
 import TextIntro, { TextIntroLayout } from '@/components/TextIntro/TextIntro';
 import VideoPlayerSection from '@/components/VideoPlayerSection/VideoPlayerSection';
@@ -394,5 +396,15 @@ export const buildColumnsText = (fields: ColumnsTextContentType, extraProps?: Ge
       rightSide
     },
     component: ColumnsText
+  };
+};
+
+export const buildSpacer = (fields: spacerContentType, extraProps?: GenericObject): ComponentBuilder => {
+  return {
+    props: {
+      size: fields?.size,
+      ...extraProps
+    },
+    component: Spacer
   };
 };
