@@ -354,3 +354,7 @@ export type ColumnsTextContentType = {
   eyebrow: string;
   theme: string;
 };
+
+export type spacerContentType = {
+  size: string;
+};

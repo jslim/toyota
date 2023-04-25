@@ -18,6 +18,7 @@ import {
   buildRichTextTestComponent,
   buildRoadmapGroup,
   buildSectionWrapper,
+  buildSpacer,
   buildTabGroup,
   buildTabItem,
   buildTestPage,
@@ -50,7 +51,8 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
   hero: buildHero,
   richTextTest: buildRichTextTestComponent,
   videoPlayerSection: buildVideoPlayerSection,
-  columnsText: buildColumnsText
+  columnsText: buildColumnsText,
+  spacer: buildSpacer
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
