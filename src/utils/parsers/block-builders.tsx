@@ -243,7 +243,6 @@ export const buildRoadmapGroup = (fields: RoadmapGroupContentType, extraProps?: 
 export const buildCardGrid = (fields: CardGridContentType, extraProps?: GenericObject): ComponentBuilder => {
   const cardType = fields?.cardType[0] || null;
   const cards = fields?.cards.map((card) => {
-    console.log('card: ', card);
     return {
       cardType,
       ...card.fields,
