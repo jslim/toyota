@@ -14,6 +14,10 @@
   @include media-tablet {
     @include outer-container(true);
   }
+
+  @include media-desktopSm {
+    height: px(276);
+  }
 }
 
 .imageWrapper {
