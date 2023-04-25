@@ -5,7 +5,6 @@
   position: relative;
   @include flex-center;
   background-color: $white;
-  margin-top: $navbar-height;
   height: calc(vh(100) - #{$navbar-height});
   // TODO: remove next line for actual mobile devices to calculate window height with above line
   height: calc(100vh - #{$navbar-height});

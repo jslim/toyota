@@ -1,6 +1,5 @@
 import { FC, memo } from 'react';
 import { GetStaticProps } from 'next';
-import classNames from 'classnames';
 
 import { APIContentful } from '@/data/API';
 import {
@@ -10,6 +9,8 @@ import {
   NestedLocalizedPageParams,
   PageProps
 } from '@/data/types';
+
+import PageDefault from '@/components/PageDefault/PageDefault';
 
 import usePreviewData from '@/hooks/use-preview-data';
 import { getAllLangSlugs, getLocaleByLang } from '@/utils/locales';
@@ -30,10 +31,10 @@ const DefaultPage: FC<DefaultPageProps> = ({ data }) => {
   }) as DefaultPageData;
 
   return (
-    <main className={classNames('')}>
+    <PageDefault>
       {/* always render nodes conditionally unless it's set as required field in CMS */}
       {!!pageData?.fields ? getPageBlocks(pageData) : null}
-    </main>
+    </PageDefault>
   );
 };
 

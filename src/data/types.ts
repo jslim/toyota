@@ -22,6 +22,8 @@ export type NavLinks = CTAContentType & {
 export type GlobalDataFields = {
   mainNavLinks: Array<NavLinks>;
   footerNavLinks: Array<NavLinks>;
+  homepageBannerText: string;
+  showHomepageBanner: boolean;
   skipToContentText: string;
 };
 
@@ -195,6 +197,8 @@ export type OurLatestPostPageContentType = {
 export type GlobalDataContentType = {
   mainNavLinks: Array<FilteredEntity<CTAContentType>>;
   footerNavLinks: Array<FilteredEntity<CTAContentType>>;
+  homepageBannerText: string;
+  showHomepageBanner: boolean;
   skipToContentText: string;
 };
 
