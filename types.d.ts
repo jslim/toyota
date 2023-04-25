@@ -1,5 +1,30 @@
+type CookieBot = {
+  consent: {
+    necessary: boolean;
+    preferences: boolean;
+    statistics: boolean;
+    marketing: boolean;
+    method: string;
+  };
+  consented: boolean;
+  declined: boolean;
+  hasResponse: boolean;
+  doNotTrack: boolean;
+  regulations: {
+    gdprApplies: boolean;
+    ccpaAppliess: boolean;
+    lgpdApplies: boolean;
+  };
+  show: () => void;
+  hide: () => void;
+  rendew: () => void;
+  withdraw: () => void;
+};
+
 interface Window {
   dataLayer: Array<object>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  Cookiebot: CookieBot;
 }
 
 type SetTimeout = ReturnType<typeof setTimeout>;
