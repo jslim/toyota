@@ -11,8 +11,8 @@
   border-top-left-radius: px(16);
   border-top-right-radius: px(16);
 
-  @include media-desktopSm {
-    @include box(px(1134), px(276));
+  @include media-tablet {
+    @include outer-container(true);
   }
 }
 
