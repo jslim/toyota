@@ -361,9 +361,9 @@ export type spacerContentType = {
 };
 
 export type NewsPostContentType = {
-  title: string;
+  pageTitle: string;
   slug: string;
-  body: Document;
+  category: string;
   thumbnail: ContentfulImageAsset;
   publishDate: string;
 };

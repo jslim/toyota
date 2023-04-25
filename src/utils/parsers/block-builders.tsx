@@ -425,13 +425,12 @@ export const buildFeaturedArticles = (
     const month = postDate.toLocaleString('default', { month: 'short', timeZone: 'UTC' }).toUpperCase();
     const day = postDate.getUTCDate();
     const year = postDate.getUTCFullYear();
-    const parsedBody = parseContentfulRichText(post?.fields?.body);
 
     return {
       image: post?.fields?.thumbnail,
-      title: post?.fields?.title,
+      title: post?.fields?.category,
       date: `${month} ${day}, ${year}`,
-      text: parsedBody,
+      text: post?.fields?.pageTitle,
       cta: {
         href: `/${post?.fields?.slug}`
       }
