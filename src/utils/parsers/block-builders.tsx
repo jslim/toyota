@@ -421,30 +421,23 @@ export const buildFeaturedArticles = (
   fields: FeaturedArticlesContentyType,
   extraProps?: GenericObject
 ): ComponentBuilder => {
-  console.log('fields: ', fields);
-  // const cardType = fields?.newsPosts?.fields?.cardType[0] || null;
-  // const cards = fields?.newsPosts?.fields?.cards.map((card) => {
-  //   const postDate = new Date(card?.fields?.publishDate);
-  //   const month = postDate.toLocaleString('default', { month: 'short', timeZone: 'UTC' }).toUpperCase();
-  //   const day = postDate.getUTCDate();
-  //   const year = postDate.getUTCFullYear();
-  //   return {
-  //     cardType,
-  //     ...card?.fields,
-  //     cta: {
-  //       href: card?.fields?.cta?.fields?.linkUrl
-  //     },
-  //     date: `${month} ${day}, ${year}`
-  //   };
-  // });
-  // const cards = fields?.newsPosts.map((post) => {
-  // const postDate = new Date(post?.fields?.publishDate);
-  // const month = postDate.toLocaleString('default', { month: 'short', timeZone: 'UTC' }).toUpperCase();
-  // const day = postDate.getUTCDate();
-  // const year = postDate.getUTCFullYear();
+  const cards = fields?.newsPosts.map((post) => {
+    const postDate = new Date(post?.fields?.publishDate);
+    const month = postDate.toLocaleString('default', { month: 'short', timeZone: 'UTC' }).toUpperCase();
+    const day = postDate.getUTCDate();
+    const year = postDate.getUTCFullYear();
+    const parsedBody = parseContentfulRichText(post?.fields?.body);
 
-  // return {};
-  // });
+    return {
+      image: post?.fields?.thumbnail,
+      title: post?.fields?.title,
+      date: `${month} ${day}, ${year}`,
+      text: parsedBody,
+      cta: {
+        href: `/${post?.fields?.slug}`
+      }
+    };
+  });
   return {
     props: {
       eyebrow: fields?.eyebrow,
@@ -454,7 +447,7 @@ export const buildFeaturedArticles = (
         href: fields?.cta?.fields?.linkUrl,
         'aria-label': fields?.cta?.fields?.ariaLabel
       },
-      // cards,
+      cards,
       ...extraProps
     },
     component: FeaturedArticles

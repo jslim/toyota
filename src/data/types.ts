@@ -362,9 +362,8 @@ export type spacerContentType = {
 
 export type NewsPostContentType = {
   title: string;
+  slug: string;
   body: Document;
-  subTitle: string;
-  // cta: FilteredEntity<CTAContentType>;
   thumbnail: ContentfulImageAsset;
   publishDate: string;
 };
@@ -373,5 +372,5 @@ export type FeaturedArticlesContentyType = {
   eyebrow: string;
   heading: string;
   cta: FilteredEntity<CTAContentType>;
-  newsPosts: FilteredEntity<NewsPostContentType>;
+  newsPosts: FilteredEntity<NewsPostContentType>[];
 };
