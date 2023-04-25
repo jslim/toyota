@@ -37,6 +37,9 @@ export const parseContentfulRichText = (richText: Document, className?: string):
           {children}
         </BaseLink>
       ),
+      [BLOCKS.PARAGRAPH]: (_node: ContentfulNodeType, children: ReactNode) => {
+        return <p style={{ margin: '1.12em 0' }}>{children}</p>;
+      },
       [BLOCKS.EMBEDDED_ENTRY]: (node: ContentfulEmbeddedNodeType) => {
         const entity = node?.data?.target;
         return entity && getPageBlocks(entity);
