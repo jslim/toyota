@@ -1,9 +1,10 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import {
   AccordionGroupContentType,
   AccordionItemContentType,
   CardGridContentType,
+  ColumnsTextContentType,
   ContentfulImageAsset,
   DefaultPageContentType,
   FeatureListContentType,
@@ -26,6 +27,7 @@ import { variants } from '@/data/variants';
 
 import Accordion, { AccordionItem } from '@/components/Accordion/Accordion';
 import CardGrid from '@/components/CardGrid/CardGrid';
+import ColumnsText from '@/components/ColumnsText/ColumnsText';
 import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
 import FeaturesList from '@/components/FeaturesList/FeaturesList';
 import GalleryVideo from '@/components/GalleryVideo/GalleryVideo';
@@ -62,7 +64,7 @@ export type ComponentBuilder = {
    * This can also be used for direct content type references on a field.
    * ex. A CTA content type may be referenced but we want to override the props.
    * */
-  childrenFields?: { [key: string]: JSX.Element | null | string };
+  childrenFields?: { [key: string]: JSX.Element | ReactNode | null | string };
 };
 
 export type ComponentBuilderFactory = (
@@ -374,5 +376,23 @@ export const buildVideoPlayerSection = (
     },
 
     component: VideoPlayerSection
+  };
+};
+
+export const buildColumnsText = (fields: ColumnsTextContentType, extraProps?: GenericObject): ComponentBuilder => {
+  const rightSide = parseContentfulRichText(fields?.rightSide);
+  const leftSide = parseContentfulRichText(fields?.leftSide);
+
+  return {
+    props: {
+      eyebrow: { text: fields?.eyebrow },
+      theme: fields?.theme,
+      leftSide,
+      ...extraProps
+    },
+    childrenFields: {
+      rightSide
+    },
+    component: ColumnsText
   };
 };
