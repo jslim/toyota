@@ -2,7 +2,7 @@ import { FC, memo, useEffect, useState, ReactNode } from 'react';
 import { GetStaticProps } from 'next';
 import classNames from 'classnames';
 
-import { Job, PageType } from '@/data/types';
+import { Job, PageProps } from '@/data/types';
 import { getAllLangSlugs } from '@/utils/locales';
 import { ColumnType } from '@/data/variants';
 
@@ -13,14 +13,15 @@ import TextIntro from '@/components/TextIntro/TextIntro';
 import sanitizer from '@/utils/sanitizer';
 import useLayout from '@/hooks/use-layout';
 
-// TODO: pass id into API fetch
-const id = '1cc17d69-071a-4b5a-8b73-3b7b859913b2';
-
 // set as global var for local translation
 const eyebrowText = 'Careers';
 const applyText = 'apply for this job';
 
-const CareerDetail: FC<PageType> = () => {
+export interface CareerDetailPageProps extends PageProps {
+  id: string;
+}
+
+const CareerDetail: FC<CareerDetailPageProps> = ({ id }) => {
   const { layout } = useLayout();
   const [career, setCareer] = useState<Job>();
   const [leftSideContent, setLeftSideContent] = useState<ReactNode>();
@@ -30,13 +31,12 @@ const CareerDetail: FC<PageType> = () => {
       fetch('https://api.lever.co/v0/postings/woven-planet-2/' + id + '?mode=json')
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           setCareer(data);
         });
     } catch (e) {
       console.error('Unable to fetch Job postings: ', e);
     }
-  }, [setCareer]);
+  }, [setCareer, id]);
 
   const subtitle = [
     career?.categories.location && career.categories.location,
@@ -49,7 +49,7 @@ const CareerDetail: FC<PageType> = () => {
     setLeftSideContent(
       !layout.mobile && career ? (
         <div>
-          <div dangerouslySetInnerHTML={{ __html: sanitizer(career.text || '') }} style={{ marginBottom: '26px' }} />
+          <div dangerouslySetInnerHTML={{ __html: sanitizer(career.text || '') }} />
           <Cta href={career.applyUrl} title={applyText} />
         </div>
       ) : null
@@ -88,7 +88,8 @@ export async function getStaticPaths() {
 export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
-      head: { title: '' }
+      head: { title: 'Careers' },
+      id: '1cc17d69-071a-4b5a-8b73-3b7b859913b2'
     }
   };
 };

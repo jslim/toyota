@@ -24,6 +24,9 @@
         margin-bottom: px(24);
       }
     }
+    :global(.cta) {
+      margin-top: px(24);
+    }
   }
   .textContainer {
     @include typography-paragraph;
@@ -98,6 +101,10 @@
       @include media-desktopSm {
         margin-left: px(-$grid-relative-side-padding-desktop-external);
         width: calc(#{desktop-columns(3, 0)} + #{px($grid-relative-side-padding-desktop-external)});
+      }
+      @include breakpoint(desktopLock) {
+        margin-left: 0;
+        width: desktop-lock-columns(3, 0);
       }
     }
     .textContainer {
