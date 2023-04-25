@@ -7,6 +7,7 @@ import {
   ColumnsTextContentType,
   ContentfulImageAsset,
   DefaultPageContentType,
+  FeaturedArticlesContentyType,
   FeatureListContentType,
   GenericObject,
   HeroContentType,
@@ -30,6 +31,7 @@ import Accordion, { AccordionItem } from '@/components/Accordion/Accordion';
 import CardGrid from '@/components/CardGrid/CardGrid';
 import ColumnsText from '@/components/ColumnsText/ColumnsText';
 import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
+import FeaturedArticles from '@/components/FeaturedArticles/FeaturedArticles';
 import FeaturesList from '@/components/FeaturesList/FeaturesList';
 import GalleryVideo from '@/components/GalleryVideo/GalleryVideo';
 import Hero from '@/components/Hero/Hero';
@@ -243,7 +245,12 @@ export const buildCardGrid = (fields: CardGridContentType, extraProps?: GenericO
   const cards = fields?.cards.map((card) => {
     return {
       cardType,
-      ...card.fields
+      ...card.fields,
+      cta: {
+        title: card?.fields?.cta?.fields?.linkText,
+        href: card?.fields?.cta?.fields?.linkUrl,
+        'aria-label': card?.fields?.cta?.fields?.ariaLabel
+      }
     };
   });
   return {
@@ -406,5 +413,41 @@ export const buildSpacer = (fields: spacerContentType, extraProps?: GenericObjec
       ...extraProps
     },
     component: Spacer
+  };
+};
+
+export const buildFeaturedArticles = (
+  fields: FeaturedArticlesContentyType,
+  extraProps?: GenericObject
+): ComponentBuilder => {
+  const cards = fields?.newsPosts.map((post) => {
+    const postDate = new Date(post?.fields?.publishDate);
+    const month = postDate.toLocaleString('default', { month: 'short', timeZone: 'UTC' }).toUpperCase();
+    const day = postDate.getUTCDate();
+    const year = postDate.getUTCFullYear();
+
+    return {
+      image: post?.fields?.thumbnail,
+      title: post?.fields?.category,
+      date: `${month} ${day}, ${year}`,
+      text: post?.fields?.pageTitle,
+      cta: {
+        href: `/${post?.fields?.slug}`
+      }
+    };
+  });
+  return {
+    props: {
+      eyebrow: fields?.eyebrow,
+      title: fields?.heading,
+      cta: {
+        title: fields?.cta?.fields?.linkText,
+        href: fields?.cta?.fields?.linkUrl,
+        'aria-label': fields?.cta?.fields?.ariaLabel
+      },
+      cards,
+      ...extraProps
+    },
+    component: FeaturedArticles
   };
 };
