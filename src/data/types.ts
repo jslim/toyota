@@ -282,8 +282,9 @@ export type CardContentType = {
   title: string;
   text: string;
   subTitle: string;
-  cta: CTAContentType;
+  cta: FilteredEntity<CTAContentType>;
   image: ContentfulImageAsset;
+  date: string;
 };
 
 export type CardGridContentType = {
@@ -334,4 +335,42 @@ export type HeroContentType = {
 
 export type richTextContentType = {
   richtext: Document;
+};
+
+export type videoPlayerContainerContentType = {
+  poster: ContentfulImageAsset;
+  title: string;
+  theme: string;
+  video: ContentfulVideoAsset;
+};
+export type videoPlayerSectionContentType = {
+  quote: string;
+  author: string;
+  videoPlayerSection: FilteredEntity<videoPlayerContainerContentType>;
+};
+
+export type ColumnsTextContentType = {
+  leftSide: Document;
+  rightSide: Document;
+  eyebrow: string;
+  theme: string;
+};
+
+export type spacerContentType = {
+  size: string;
+};
+
+export type NewsPostContentType = {
+  pageTitle: string;
+  slug: string;
+  category: string;
+  thumbnail: ContentfulImageAsset;
+  publishDate: string;
+};
+
+export type FeaturedArticlesContentyType = {
+  eyebrow: string;
+  heading: string;
+  cta: FilteredEntity<CTAContentType>;
+  newsPosts: FilteredEntity<NewsPostContentType>[];
 };

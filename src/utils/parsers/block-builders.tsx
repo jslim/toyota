@@ -1,11 +1,13 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import {
   AccordionGroupContentType,
   AccordionItemContentType,
   CardGridContentType,
+  ColumnsTextContentType,
   ContentfulImageAsset,
   DefaultPageContentType,
+  FeaturedArticlesContentyType,
   FeatureListContentType,
   GenericObject,
   HeroContentType,
@@ -15,17 +17,21 @@ import {
   richTextContentType,
   RoadmapGroupContentType,
   SectionContentType,
+  spacerContentType,
   TabGroupContentType,
   TabItemContentType,
   TestsPageContentType,
   TextBlockContentType,
-  TextIntroContentType
+  TextIntroContentType,
+  videoPlayerSectionContentType
 } from '@/data/types';
 import { variants } from '@/data/variants';
 
 import Accordion, { AccordionItem } from '@/components/Accordion/Accordion';
 import CardGrid from '@/components/CardGrid/CardGrid';
+import ColumnsText from '@/components/ColumnsText/ColumnsText';
 import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
+import FeaturedArticles from '@/components/FeaturedArticles/FeaturedArticles';
 import FeaturesList from '@/components/FeaturesList/FeaturesList';
 import GalleryVideo from '@/components/GalleryVideo/GalleryVideo';
 import Hero from '@/components/Hero/Hero';
@@ -33,8 +39,10 @@ import NextChapter from '@/components/NextChapter/NextChapter';
 import ProductList from '@/components/ProductList/ProductList';
 import Roadmap from '@/components/Roadmap/Roadmap';
 import SectionWrapper from '@/components/SectionWrapper/SectionWrapper';
+import Spacer from '@/components/Spacer/Spacer';
 import Tabs from '@/components/Tabs/Tabs';
 import TextIntro, { TextIntroLayout } from '@/components/TextIntro/TextIntro';
+import VideoPlayerSection from '@/components/VideoPlayerSection/VideoPlayerSection';
 
 import { parseContentfulRichText } from './rich-text-parser';
 
@@ -60,7 +68,7 @@ export type ComponentBuilder = {
    * This can also be used for direct content type references on a field.
    * ex. A CTA content type may be referenced but we want to override the props.
    * */
-  childrenFields?: { [key: string]: JSX.Element | null | string };
+  childrenFields?: { [key: string]: JSX.Element | ReactNode | null | string };
 };
 
 export type ComponentBuilderFactory = (
@@ -237,7 +245,12 @@ export const buildCardGrid = (fields: CardGridContentType, extraProps?: GenericO
   const cards = fields?.cards.map((card) => {
     return {
       cardType,
-      ...card.fields
+      ...card.fields,
+      cta: {
+        title: card?.fields?.cta?.fields?.linkText,
+        href: card?.fields?.cta?.fields?.linkUrl,
+        'aria-label': card?.fields?.cta?.fields?.ariaLabel
+      }
     };
   });
   return {
@@ -350,5 +363,91 @@ export const buildRichTextTestComponent = (
     component: () => {
       return <>{elements}</>;
     }
+  };
+};
+
+export const buildVideoPlayerSection = (
+  fields: videoPlayerSectionContentType,
+  extraProps?: GenericObject
+): ComponentBuilder => {
+  const videoPlayerSection = {
+    poster: fields?.videoPlayerSection?.fields?.poster,
+    video: { src: fields?.videoPlayerSection?.fields?.video.fields.file.url },
+    title: fields?.videoPlayerSection?.fields?.title,
+    theme: fields?.videoPlayerSection?.fields?.theme
+  };
+  return {
+    props: {
+      quote: fields?.quote,
+      author: fields?.author,
+      videoPlayerSection,
+      ...extraProps
+    },
+
+    component: VideoPlayerSection
+  };
+};
+
+export const buildColumnsText = (fields: ColumnsTextContentType, extraProps?: GenericObject): ComponentBuilder => {
+  const rightSide = parseContentfulRichText(fields?.rightSide);
+  const leftSide = parseContentfulRichText(fields?.leftSide);
+
+  return {
+    props: {
+      eyebrow: { text: fields?.eyebrow },
+      theme: fields?.theme,
+      leftSide,
+      ...extraProps
+    },
+    childrenFields: {
+      rightSide
+    },
+    component: ColumnsText
+  };
+};
+
+export const buildSpacer = (fields: spacerContentType, extraProps?: GenericObject): ComponentBuilder => {
+  return {
+    props: {
+      size: fields?.size,
+      ...extraProps
+    },
+    component: Spacer
+  };
+};
+
+export const buildFeaturedArticles = (
+  fields: FeaturedArticlesContentyType,
+  extraProps?: GenericObject
+): ComponentBuilder => {
+  const cards = fields?.newsPosts.map((post) => {
+    const postDate = new Date(post?.fields?.publishDate);
+    const month = postDate.toLocaleString('default', { month: 'short', timeZone: 'UTC' }).toUpperCase();
+    const day = postDate.getUTCDate();
+    const year = postDate.getUTCFullYear();
+
+    return {
+      image: post?.fields?.thumbnail,
+      title: post?.fields?.category,
+      date: `${month} ${day}, ${year}`,
+      text: post?.fields?.pageTitle,
+      cta: {
+        href: `/${post?.fields?.slug}`
+      }
+    };
+  });
+  return {
+    props: {
+      eyebrow: fields?.eyebrow,
+      title: fields?.heading,
+      cta: {
+        title: fields?.cta?.fields?.linkText,
+        href: fields?.cta?.fields?.linkUrl,
+        'aria-label': fields?.cta?.fields?.ariaLabel
+      },
+      cards,
+      ...extraProps
+    },
+    component: FeaturedArticles
   };
 };

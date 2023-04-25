@@ -1,7 +1,8 @@
-import { FC, ReactNode, memo } from 'react';
+import { FC, memo, ReactNode } from 'react';
 import classNames from 'classnames';
 
 import css from './ColumnsText.module.scss';
+
 import { ColumnType } from '@/data/variants';
 
 import Eyebrow, { EyebrowProps } from '../Eyebrow/Eyebrow';
