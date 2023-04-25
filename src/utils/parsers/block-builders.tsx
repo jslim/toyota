@@ -388,7 +388,6 @@ export const buildColumnsText = (fields: ColumnsTextContentType, extraProps?: Ge
       eyebrow: { text: fields?.eyebrow },
       theme: fields?.theme,
       leftSide,
-      rightSide,
       ...extraProps
     },
     childrenFields: {
