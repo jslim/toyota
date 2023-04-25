@@ -30,9 +30,9 @@ const GalleryVideo: FC<GalleryVideoProps> = ({ className, slides }) => {
         slidesPerView={'auto'}
         speed={SLIDE_DURATION}
         pagination={{
-          el: `.${css.pagination}`,
           type: 'bullets',
-          clickable: true
+          clickable: true,
+          horizontalClass: css.pagination
         }}
         preventClicks={true}
         preventClicksPropagation={true}
@@ -54,7 +54,6 @@ const GalleryVideo: FC<GalleryVideoProps> = ({ className, slides }) => {
           );
         })}
       </Swiper>
-      <span className={css.pagination}>{/* pagination number rendered by swiper */}</span>
     </div>
   );
 };
