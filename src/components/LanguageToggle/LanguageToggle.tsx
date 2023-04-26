@@ -18,10 +18,11 @@ export type LanguageToggleProps = {
 
 const LanguageToggle: FC<LanguageToggleProps> = ({ className }) => {
   const router = useRouter();
-  const activeLang = useAppSelector((state) => state.activeLang);
+  const [activeLang, setActiveLang] = useState(useAppSelector((state) => state.activeLang));
   const [open, setOpen] = useState(false);
   const handleLangChange = (lang: Lang) => {
     setOpen(false);
+    setActiveLang(lang);
     router.push({
       query: {
         lang: lang,
@@ -34,11 +35,12 @@ const LanguageToggle: FC<LanguageToggleProps> = ({ className }) => {
   };
   return (
     <div className={classNames('LanguageToggle', css.root, className)}>
-      <button
+      <div
         className={classNames(css.langWrapper, { [css.open]: open })}
         onMouseEnter={() => !device.touch && setOpen(true)}
         onMouseLeave={() => !device.touch && setOpen(false)}
-        onClick={() => device.touch && setOpen(!open)}
+        onFocus={() => setOpen(true)}
+        onBlur={() => setOpen(false)}
       >
         <div className={css.bg} />
         {Object.values(Lang).map((lang) => (
@@ -52,7 +54,7 @@ const LanguageToggle: FC<LanguageToggleProps> = ({ className }) => {
             </BaseButton>
           </div>
         ))}
-      </button>
+      </div>
     </div>
   );
 };
