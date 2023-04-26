@@ -2,6 +2,7 @@
 
 .root {
   @include use-mobile-columns(width, 4);
+  @include outer-container(true);
   display: block;
   margin: 0 auto;
   position: relative;
@@ -10,10 +11,6 @@
   background-color: $white;
   border-top-left-radius: px(16);
   border-top-right-radius: px(16);
-
-  @include media-tablet {
-    @include outer-container(true);
-  }
 
   @include media-desktopSm {
     height: px(276);
@@ -37,29 +34,33 @@
 }
 
 .wrapper {
-  @include position-100(absolute);
+  @include container;
   display: flex;
   justify-content: space-between;
-  padding: px(20) px(24) px(24);
+  padding: px(20) px($grid-relative-gap-mobile) px(24);
+  height: 100%;
 
   @include media-desktopSm {
-    padding: px(55) px(108) px(55) px(48);
+    padding: px(55) 0;
   }
 
   .textWrapper {
     .title {
       @include font-size(22, 28);
       @include use-mobile-columns(max-width, 3);
+      position: relative;
       margin-top: px(6);
       text-align: left;
       color: $white;
       overflow-wrap: break-word;
 
+      @include media-tablet {
+        margin-top: px(23);
+      }
+
       @include media-desktopSm {
         @include font-size(40, 48);
         @include use-desktop-columns(max-width, 10);
-        margin-top: px(23);
-        margin-left: px(56);
       }
     }
   }
@@ -67,7 +68,7 @@
   .circle {
     align-self: flex-end;
 
-    @include media-desktopSm {
+    @include media-tablet {
       align-self: center;
     }
   }
