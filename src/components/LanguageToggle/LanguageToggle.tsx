@@ -22,7 +22,15 @@ const LanguageToggle: FC<LanguageToggleProps> = ({ className }) => {
   const [open, setOpen] = useState(false);
   const handleLangChange = (lang: Lang) => {
     setOpen(false);
-    router.push({ query: { lang: lang, slug: router.query.slug } });
+    router.push({
+      query: {
+        lang: lang,
+        slug: router.asPath
+          .split('/')
+          .filter((item) => item !== '' && Object.values(Lang).every((lang) => item !== lang) && item)
+          .join('/')
+      }
+    });
   };
   return (
     <div className={classNames('LanguageToggle', css.root, className)}>
