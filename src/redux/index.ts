@@ -3,7 +3,7 @@ import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { GlobalData, GlobalDataFields, Lang, NavLinks } from '@/data/types';
 
-const defaultGlobalData: GlobalDataFields = {
+export const defaultGlobalData: GlobalDataFields = {
   mainNavLinks: [] as Array<NavLinks>,
   footerNavLinks: [] as Array<NavLinks>,
   homepageBannerText: '',

@@ -17,7 +17,7 @@ const Banner: FC<BannerProps> = () => {
   const dispatch = useAppDispatch();
   const { showHomepageBanner, homepageBannerText } = useAppSelector((state) => state.activeGlobalData);
 
-  // Using ref callback so we can be certain
+  // Using ref callback so we can be certain banner in DOM before applying margin
   const bannerRef = useCallback(
     (node: HTMLDivElement | null) => {
       const updatePadding = () => {
