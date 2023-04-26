@@ -1,10 +1,9 @@
 import { Story } from '@storybook/react';
 
+import { contentfulTestAsset } from '../ContentfulImage/ContentfulImage.stories';
 import FeaturedArticles, { FeaturedArticlesProps } from './FeaturedArticles';
 
 export default { title: 'components/FeaturedArticles' };
-
-const url = 'https://i1.wp.com/thetalkinggeek.com/wp-content/uploads/2015/09/sintel1.png?fit=1920%2C817&ssl=1';
 
 export const Default: Story<FeaturedArticlesProps> = (args) => <FeaturedArticles {...args} />;
 
@@ -15,42 +14,30 @@ Default.args = {
   cards: [
     {
       date: 'JAN 12',
-      eyebrow: 'automated driving',
+      title: 'automated driving',
       text: 'Woven Planet’s CEO James Kuffner presented at Toyota Motor.1',
-      image: {
-        src: url,
-        alt: ''
-      },
+      image: contentfulTestAsset,
       cta: {
         href: 'https://google.com'
       }
     },
     {
       date: 'JAN 12',
-      eyebrow: 'automated driving2',
+      title: 'automated driving2',
       text: 'Woven Planet’s CEO James Kuffner presented at Toyota Motor.2, Woven Planet’s CEO James Kuffner presented at Toyota Motor.1',
-      image: {
-        src: url,
-        alt: ''
-      }
+      image: contentfulTestAsset
     },
     {
       date: 'JAN 12',
-      eyebrow: 'automated driving3',
+      title: 'automated driving3',
       text: 'Woven Planet’s CEO James Kuffner presented at Toyota Motor.3',
-      image: {
-        src: url,
-        alt: ''
-      }
+      image: contentfulTestAsset
     },
     {
       date: 'JAN 12',
-      eyebrow: 'automated driving',
+      title: 'automated driving',
       text: 'Woven Planet’s CEO James Kuffner presented at Toyota Motor.4',
-      image: {
-        src: url,
-        alt: ''
-      }
+      image: contentfulTestAsset
     }
   ]
 };

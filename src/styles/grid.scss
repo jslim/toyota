@@ -122,7 +122,7 @@ $grid-column-width-desktop: (
 
 // columns container
 @mixin container {
-  margin: auto;
+  margin: 0 auto;
   @include use-mobile-columns(width, $grid-num-of-cols-mobile);
 
   @include breakpoint(tablet) {
@@ -142,7 +142,7 @@ $grid-column-width-desktop: (
         tablet-columns($grid-num-of-cols-tablet, 0) + $grid-relative-side-padding-tablet / $grid-base-design-tablet *
           $grid-column-multiplier
       );
-      margin: auto;
+      margin: 0 auto;
     }
     @include breakpoint(desktopSm) {
       width: calc(
@@ -150,12 +150,12 @@ $grid-column-width-desktop: (
           ($grid-relative-side-padding-desktop - $grid-relative-side-padding-desktop-external) /
           $grid-base-design-desktop * $grid-column-multiplier
       );
-      margin: auto;
+      margin: 0 auto;
     }
   } @else {
     @include breakpoint(desktopSm) {
       width: calc(desktop-columns($grid-num-of-cols-desktop, 0) + px($grid-relative-side-padding-desktop-external * 2));
-      margin: auto;
+      margin: 0 auto;
     }
   }
 }

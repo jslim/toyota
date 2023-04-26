@@ -16,12 +16,9 @@ export type IconCircleProps = {
 const IconCircle: FC<IconCircleProps> = ({ className, children, isWhite, isActive, theme }) => {
   return (
     <div
-      className={classNames('IconCircle', css.IconCircle, className, {
+      className={classNames('IconCircle', css.IconCircle, css[theme || ''], className, {
         [css.isWhite]: isWhite,
-        [css.active]: isActive,
-        [css.primary]: theme === ButtonType.Primary,
-        [css.large]: theme === ButtonType.Large,
-        [css.secondary]: theme === ButtonType.Secondary
+        [css.active]: isActive
       })}
     >
       {(theme === ButtonType.Primary || theme === ButtonType.Secondary) && <span className={css.dot} />}

@@ -6,6 +6,7 @@ import '@/utils/why-did-you-render';
 
 import '@/styles/global.scss';
 
+import { GlobalData } from '@/data/types';
 import { PageProps } from '@/data/types';
 
 import Layout from '@/components/Layout/Layout';
@@ -20,8 +21,12 @@ require('default-passive-events');
 require('focus-visible');
 gsapInit();
 
+export type ExtendedAppProps<T> = AppProps<T> & {
+  globalData: GlobalData;
+};
+
 // This default export is required in a new `pages/_app.js` file.
-const App: FC<AppProps<PageProps>> = (props) => {
+const App: FC<ExtendedAppProps<PageProps>> = (props) => {
   useEffect(() => {
     setBodyClasses();
 
@@ -48,5 +53,7 @@ const App: FC<AppProps<PageProps>> = (props) => {
     </Provider>
   );
 };
+
+App.displayName = 'App';
 
 export default App;

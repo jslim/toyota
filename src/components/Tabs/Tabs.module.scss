@@ -84,5 +84,22 @@
       @include use-desktop-columns(width, 9);
       padding: 0;
     }
+
+    p {
+      @include media-mobile {
+        @include use-mobile-columns(width, 4);
+      }
+
+      @include media-tablet {
+        @include use-tablet-columns(width, 7);
+      }
+      @include media-desktopSm {
+        @include use-desktop-columns(width, 7);
+      }
+    }
+  }
+
+  .tabWrapper {
+    display: contents;
   }
 }

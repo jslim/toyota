@@ -217,6 +217,7 @@
 }
 
 @mixin rounded($radius: px(24), $mobile: true) {
+  overflow: hidden;
   @if ($mobile) {
     border-radius: px(12);
   } @else {
@@ -229,5 +230,85 @@
 
   @include breakpoint(desktopSm) {
     border-radius: $radius;
+  }
+}
+
+@mixin eyebrowTitle($smallerTitle: false) {
+  text-align: left;
+
+  .title {
+    @include typography-h2;
+    max-width: px(250);
+    margin-top: px(24);
+
+    @include media-tablet {
+      @if ($smallerTitle) {
+        @include use-tablet-columns(max-width, 4);
+      } @else {
+        @include use-tablet-columns(max-width, 5);
+      }
+    }
+
+    @include media-desktopSm {
+      @if ($smallerTitle) {
+        @include use-desktop-columns(width, 5);
+      } @else {
+        @include use-desktop-columns(width, 6);
+      }
+    }
+
+    @include media-desktopMd {
+      @if ($smallerTitle) {
+        @include use-desktop-columns(width, 4);
+      } @else {
+        @include use-desktop-columns(width, 6);
+      }
+      max-width: px(550);
+    }
+  }
+
+  .cta {
+    margin-top: px(32);
+  }
+}
+
+@mixin pagination($color: $white) {
+  @include flex-center;
+
+  > span {
+    position: relative;
+    @include box(px(25));
+    @include flex-center;
+    margin: 0 px(13);
+    margin: 0;
+    cursor: pointer;
+
+    @include breakpoint(desktopSm) {
+      margin: 0 px(13);
+    }
+
+    &:global(.swiper-pagination-bullet-active) {
+      &::after {
+        transform: scale(1);
+      }
+    }
+
+    &::before {
+      content: '';
+      @include box(px(3));
+      border-radius: 50%;
+      background-color: $color;
+      display: block;
+    }
+
+    &::after {
+      content: '';
+      @include position-100(absolute);
+      border: 1px solid $color;
+      border-radius: 50%;
+      display: block;
+      transform: scale(0);
+      transition: $ease1 0.66s transform;
+    }
   }
 }

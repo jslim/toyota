@@ -45,6 +45,8 @@
     "not op_mini all"
   ],
   "dependencies": {
+    "@contentful/rich-text-react-renderer": "^15.16.3",
+    "@contentful/rich-text-types": "^16.0.3",
     "@jam3/detect": "2.0.5",
     "@reduxjs/toolkit": "^1.8.2",
     "@types/lodash.clonedeep": "^4.5.7",
@@ -53,7 +55,7 @@
     "focus-visible": "5.2.0",
     "fullscreen-handler": "^0.0.2",
     "get-scroll": "2.0.1",
-    "gsap": "3.10.4",
+    "gsap": "file:gsap/gsap-bonus.tgz",
     "js-cookie": "^3.0.1",
     "lodash.clonedeep": "^4.5.0",
     "next": "^12.3.1",

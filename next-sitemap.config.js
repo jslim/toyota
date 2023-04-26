@@ -11,12 +11,7 @@ module.exports = {
   changefreq: 'daily', // always hourly daily weekly monthly yearly never
   priority: 0.7, // between 0 and 1
   sitemapSize: 5000,
-  exclude: [
-    '/unsupported'
-    // '/page-0'
-    // '/page-*'
-    // '/private/*'
-  ],
+  exclude: ['/404', '/unsupported', '/en/preview', '/jp/preview'],
   alternateRefs: [
     // multi-language support
     // {
@@ -38,7 +33,7 @@ module.exports = {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/_next', '/404', '/500', '/unsupported', '/favicons']
+        disallow: ['/_next', '/common/favicons', '/404', '/unsupported', '/en/preview', '/jp/preview']
       }
     ]
   }

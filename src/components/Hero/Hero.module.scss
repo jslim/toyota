@@ -1,0 +1,238 @@
+@import 'shared';
+
+.root {
+  width: 100%;
+  position: relative;
+  @include flex-center;
+  background-color: $white;
+  margin-top: $navbar-height;
+  height: calc(vh(100) - #{$navbar-height});
+  // TODO: remove next line for actual mobile devices to calculate window height with above line
+  height: calc(100vh - #{$navbar-height});
+
+  @include breakpoint(desktopSm) {
+    margin-top: 0;
+    @include aspect-ratio(3, 1.9);
+    height: auto;
+  }
+
+  .videoBg {
+    position: absolute;
+    video {
+      @include box(100%);
+      object-fit: cover;
+    }
+  }
+  img {
+    @include position-100(absolute);
+    object-fit: cover;
+  }
+
+  .backgroundWrapper {
+    @include rounded;
+    @include outer-container(true);
+    position: relative;
+    @include use-mobile-columns(width, 4);
+    @include aspect-ratio(13, 14);
+
+    @include breakpoint(tablet) {
+      @include aspect-ratio(16, 9);
+    }
+  }
+  .overlay {
+    background-color: $light-grey;
+    width: 100%;
+    @include position-0;
+    position: absolute;
+  }
+
+  .title {
+    color: $white;
+    position: relative;
+    z-index: 1;
+  }
+
+  &.home {
+    .title {
+      text-transform: uppercase;
+      @include typography-h0;
+    }
+  }
+
+  &.primary,
+  &.secondary {
+    .title {
+      @include container;
+      @include typography-h1;
+      margin-top: auto;
+      > div {
+        margin-left: auto;
+      }
+    }
+  }
+
+  &.primary {
+    .title {
+      text-align: left;
+      margin-bottom: px(67);
+
+      @include breakpoint(tablet) {
+        margin-bottom: px(89);
+      }
+      @include breakpoint(desktopMd) {
+        margin-bottom: px(114);
+      }
+
+      > div {
+        @include breakpoint(tablet) {
+          @include use-tablet-columns(width, 6);
+        }
+        @include breakpoint(desktopSm) {
+          @include use-desktop-columns(width, 6);
+        }
+        &::before {
+          content: '';
+          @include box(px(18));
+          margin: 0 px(14);
+          border: 1px solid $red;
+          border-radius: 50%;
+          display: inline-block;
+
+          @include breakpoint(tablet) {
+            @include box(px(26));
+            margin: px(0) px(20);
+          }
+
+          @include breakpoint(desktopMd) {
+            @include box(px(32));
+            margin: px(0) px(32);
+          }
+        }
+      }
+    }
+  }
+
+  &.secondary {
+    @include aspect-ratio(6, 7);
+    height: auto;
+
+    @include breakpoint(tablet) {
+      @include aspect-ratio(32, 27);
+    }
+
+    @include breakpoint(desktopSm) {
+      @include aspect-ratio(2.4, 1);
+    }
+
+    .title {
+      text-align: right;
+      margin-bottom: px(56);
+
+      @include breakpoint(tablet) {
+        margin-bottom: px(88);
+      }
+    }
+  }
+
+  &.overview {
+    flex-wrap: wrap;
+    text-align: left;
+    align-items: flex-start;
+    height: auto;
+    padding-bottom: px(44);
+
+    @include breakpoint(desktopMd) {
+      padding-bottom: px(54);
+    }
+    .overlay {
+      @include aspect-ratio(10, 9);
+
+      @include breakpoint(tablet) {
+        @include aspect-ratio(12, 5);
+      }
+
+      @include breakpoint(desktopMd) {
+        @include aspect-ratio(20, 9);
+      }
+    }
+
+    .title {
+      width: 100%;
+      @include container;
+      @include typography-h2;
+      margin: px(80) 0 px(42);
+      color: $dark-grey;
+
+      @include breakpoint(tablet) {
+        margin: px(58) 0 px(30);
+      }
+      @include breakpoint(desktopMd) {
+        margin: px(202) 0 px(42);
+      }
+    }
+
+    .featuredItem {
+      @include container;
+      margin-top: px(20);
+
+      .featuredTopBar {
+        color: $dark-grey;
+        margin-bottom: px(11);
+
+        @include breakpoint(desktopSm) {
+          margin-bottom: px(16);
+        }
+
+        .cat,
+        .date {
+          @include typography-eyebrow;
+          text-transform: uppercase;
+        }
+        .date {
+          color: $red;
+          margin-right: px(16);
+        }
+      }
+
+      .featuredTitle {
+        @include typography-h2;
+        @include breakpoint(desktopMd) {
+          @include use-desktop-columns(max-width, 10);
+        }
+      }
+    }
+  }
+
+  &.detail {
+    height: auto;
+
+    .overlay {
+      @include aspect-ratio(30, 19);
+
+      @include breakpoint(tablet) {
+        @include aspect-ratio(8, 3);
+      }
+
+      @include breakpoint(desktopMd) {
+        @include aspect-ratio(20, 7);
+      }
+    }
+
+    .backgroundWrapper {
+      margin-top: px(60);
+
+      @include breakpoint(tablet) {
+        margin-top: px(80);
+      }
+
+      @include breakpoint(desktopMd) {
+        margin-top: px(156);
+        @include use-desktop-columns(width, 12);
+      }
+    }
+  }
+
+  .cascade {
+    @include position-100(absolute);
+  }
+}

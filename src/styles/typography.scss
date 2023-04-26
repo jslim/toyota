@@ -124,7 +124,7 @@ $generic-fonts: system-ui, Helvetica, Arial, sans-serif;
   @include font-size(14, 22, 0.07);
 
   @include breakpoint(tablet) {
-    @include font-size(15, 24);
+    @include font-size(13, 24);
   }
 
   @include breakpoint(desktopSm) {
@@ -132,11 +132,28 @@ $generic-fonts: system-ui, Helvetica, Arial, sans-serif;
   }
 }
 
+@mixin typography-h0 {
+  @include font-family('Toyota Type Light');
+  @include font-size(36, 40, -0.36);
+
+  @include breakpoint(tablet) {
+    @include font-size(72, 85);
+  }
+
+  @include breakpoint(desktopSm) {
+    @include font-size(96, 120);
+  }
+}
+
 @mixin typography-h1 {
   @include font-family('Toyota Type Book');
   @include font-size(24, 32, -0.25);
 
-  @include breakpoint(desktopSm) {
+  @include breakpoint(tablet) {
+    @include font-size(36, 42);
+  }
+
+  @include breakpoint(desktopMd) {
     @include font-size(48, 56);
   }
 }
@@ -146,7 +163,7 @@ $generic-fonts: system-ui, Helvetica, Arial, sans-serif;
   @include font-size(23, 24, -0.23);
 
   @include breakpoint(tablet) {
-    @include font-size(30, 34);
+    @include font-size(28, 34);
   }
 
   @include breakpoint(desktopSm) {
@@ -176,8 +193,19 @@ $generic-fonts: system-ui, Helvetica, Arial, sans-serif;
   @include font-family('Toyota Type Book');
   @include font-size(16, 24);
 
+  @include breakpoint(tablet) {
+    @include font-size(18, 26);
+  }
+
   @include breakpoint(desktopSm) {
-    @include font-size(20, 36);
+    @include font-size(20, 30);
+  }
+}
+
+@mixin typography-body-small {
+  @include font-family('Toyota Type Book');
+  @include breakpoint(desktopSm) {
+    @include font-size(14, 24, 0.5);
   }
 }
 
@@ -196,5 +224,18 @@ $generic-fonts: system-ui, Helvetica, Arial, sans-serif;
 
   @include breakpoint(desktopSm) {
     @include font-size(12, 24);
+  }
+}
+
+@mixin typography-subtitle {
+  @include font-family('Toyota Type');
+  @include font-size(18, 24);
+
+  @include breakpoint(tablet) {
+    @include font-size(22, 26);
+  }
+
+  @include breakpoint(desktopSm) {
+    @include font-size(24, 32);
   }
 }

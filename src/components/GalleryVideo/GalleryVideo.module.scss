@@ -12,7 +12,6 @@
       width: 100%;
       margin-right: px($grid-relative-gap-desktop);
       @include rounded;
-      overflow: hidden;
 
       &:last-child {
         margin-right: 0;

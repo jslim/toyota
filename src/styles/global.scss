@@ -97,3 +97,72 @@ h5,
 h6 {
   @include font-header;
 }
+
+h4 {
+  @include typography-h4;
+}
+p {
+  @include typography-paragraph;
+}
+// Colors utility classes for utils/colors.ts
+.redColorClass {
+  color: $red;
+}
+
+.blackColorClass {
+  color: $black;
+}
+
+.darkGreyColorClass {
+  color: $dark-grey;
+}
+
+.midGreyColorClass {
+  color: $mid-grey;
+}
+
+.greyColorClass {
+  color: $grey;
+}
+
+.lightGreyColorClass {
+  color: $light-grey;
+}
+
+.whiteColorClass {
+  color: $white;
+}
+
+// background colors utility classes
+
+.redBackgroundColorClass {
+  background: $red;
+}
+
+.blackBackgroundColorClass {
+  background: $black;
+}
+
+.darkGreyBackgroundColorClass {
+  background: $dark-grey;
+}
+
+.midGreyBackgroundColorClass {
+  background: $mid-grey;
+}
+
+.greyBackgroundColorClass {
+  background: $grey;
+}
+
+.lightGreyBackgroundColorClass {
+  background: $light-grey;
+}
+
+.whiteBackgroundColorClass {
+  background: $white;
+}
+
+.linearBackgroundColorClass {
+  background: linear-gradient(0deg, $grey -4.4%, rgba($grey, 0) 69.28%);
+}

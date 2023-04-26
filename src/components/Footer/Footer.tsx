@@ -4,35 +4,52 @@ import classNames from 'classnames';
 import css from './Footer.module.scss';
 
 import routes from '@/data/routes';
+import { SocialPlatform } from '@/data/variants';
 
 import BaseLink from '@/components/BaseLink/BaseLink';
-import Cta, { ButtonType } from '@/components/Cta/Cta';
 import Logo from '@/components/Logo/Logo';
 
 import sanitizer from '@/utils/sanitizer';
 
-import SvgFacebookLogo from '@/components/svgs/Facebook.svg';
-import SvgLinkedinLogo from '@/components/svgs/LinkedIn.svg';
+import { useAppSelector } from '@/redux';
+
 import SvgLogoTitle from '@/components/svgs/logo-title.svg';
 import SvgLogoCapital from '@/components/svgs/logo-woven-capital.svg';
 import SvgLogoCity from '@/components/svgs/logo-woven-city.svg';
-import SvgMediumLogo from '@/components/svgs/Medium.svg';
-import SvgTwitterLogo from '@/components/svgs/Twitter.svg';
-import SvgYoutubeLogo from '@/components/svgs/Youtube.svg';
 
+import SocialIcon from '../SocialIcon/SocialIcon';
 export interface FooterProps {
   className?: string;
 }
 
 const locations = ['Tokyo', 'San Francisco Bay Area, CA', 'Seattle, WA', 'Ann Arbor, MI', 'Brooklyn, Ny', 'London'];
 
-const contact = 'contact@woven-planet.global';
-const socialMedia = [
-  { linkedin: 'https://linkedin.com/' },
-  { facebook: 'https://facebook.com/' },
-  { twitter: 'https://twitter.com/' },
-  { youtube: 'https://youtube.com/' },
-  { medium: 'https://medium.com/' }
+const socials = [
+  {
+    platform: SocialPlatform.LINKEDIN,
+    href: 'https://linkedin.com/or-something',
+    label: 'Linkedin Icon'
+  },
+  {
+    platform: SocialPlatform.FACEBOOK,
+    href: 'https://facebook.com/or-something',
+    label: 'Facebook Icon'
+  },
+  {
+    platform: SocialPlatform.TWITTER,
+    href: 'https://twitter.com/or-something',
+    label: 'twitter Icon'
+  },
+  {
+    platform: SocialPlatform.YOUTUBE,
+    href: 'https://youtube.com/or-something',
+    label: 'Youtube Icon'
+  },
+  {
+    platform: SocialPlatform.MEDIUM,
+    href: 'https://medium.com/or-something',
+    label: 'Medium Icon'
+  }
 ];
 
 const externalLinks = [
@@ -44,6 +61,8 @@ const externalLinks = [
 const siteName = 'Woven Planet Holdings, Inc.';
 
 const Footer: FC<FooterProps> = ({ className }) => {
+  const { footerNavLinks } = useAppSelector((state) => state.activeGlobalData);
+
   return (
     <footer className={classNames('Footer', css.root, className)}>
       <div className={css.footerWrapper}>
@@ -52,27 +71,22 @@ const Footer: FC<FooterProps> = ({ className }) => {
             <Logo href={routes.Home.path} isWhite={true} />
           </div>
           <ul className={css.routes}>
-            {Object.values(routes).map(
-              ({ path, title }, i) =>
-                title !== 'Home' && (
+            {footerNavLinks.map(
+              ({ linkUrl, linkText, ariaLabel }, i) =>
+                linkText !== 'Home' && (
                   <li
-                    key={path}
+                    key={linkText}
                     className={classNames({
                       // TODO: set active based on the page
                       [css.active]: i === 2
                     })}
                   >
-                    <BaseLink href={path} title={title}>
-                      {title}
+                    <BaseLink href={linkUrl} title={linkText} aria-label={ariaLabel}>
+                      {linkText}
                     </BaseLink>
                   </li>
                 )
             )}
-            <li>
-              <BaseLink href={'mail:' + contact} title={'email contact'} key={'email'}>
-                {contact}
-              </BaseLink>
-            </li>
           </ul>
           <div className={css.locations}>
             {locations.map((location) => (
@@ -85,27 +99,15 @@ const Footer: FC<FooterProps> = ({ className }) => {
         <div className={css.bottomWrapper}>
           <div className={css.linksWrapper}>
             <div className={css.socialMedia}>
-              {socialMedia.map((link) => (
-                <Cta
-                  isWhite={true}
-                  theme={ButtonType.Icon}
-                  href={Object.values(link)[0]}
-                  aria-label={Object.keys(link)[0]}
+              {socials.map(({ platform, href, label }) => (
+                <SocialIcon
+                  key={platform}
                   className={css.socialMediaButton}
-                  key={Object.keys(link)[0]}
-                >
-                  {Object.keys(link)[0] === 'linkedin' ? (
-                    <SvgLinkedinLogo />
-                  ) : Object.keys(link)[0] === 'youtube' ? (
-                    <SvgYoutubeLogo />
-                  ) : Object.keys(link)[0] === 'facebook' ? (
-                    <SvgFacebookLogo />
-                  ) : Object.keys(link)[0] === 'twitter' ? (
-                    <SvgTwitterLogo />
-                  ) : (
-                    <SvgMediumLogo />
-                  )}
-                </Cta>
+                  platform={platform}
+                  href={href}
+                  label={label}
+                  isWhite={true}
+                />
               ))}
             </div>
             <ul className={css.externalLinks}>
@@ -125,13 +127,13 @@ const Footer: FC<FooterProps> = ({ className }) => {
           </div>
           <div className={css.logosWrapper}>
             <BaseLink href="#" className={css.logoTitle} title={'Toyota footer link'}>
-              <SvgLogoTitle />
+              <SvgLogoTitle className={css.footerLogos} />
             </BaseLink>
             <BaseLink href="#" className={css.logoCity} title={'Woven City footer link'}>
-              <SvgLogoCity />
+              <SvgLogoCity className={css.footerLogos} />
             </BaseLink>
             <BaseLink href="#" className={css.logoCapital} title={'Woven Capital footer link'}>
-              <SvgLogoCapital />
+              <SvgLogoCapital className={css.footerLogos} />
             </BaseLink>
           </div>
         </div>

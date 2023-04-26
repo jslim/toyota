@@ -9,18 +9,18 @@ import { variants } from '@/data/variants';
 import BaseButton from '@/components/BaseButton/BaseButton';
 import IconCircle from '@/components/IconCircle/IconCircle';
 
-import ArrowSvg from '@/components/svgs/svg-arrow-down.svg';
+import ChevronDown from '@/components/svgs/svg-chevron-down.svg';
 
 interface AccordionProps {
   className?: string;
   children?: ReactNode;
-  variant?: string;
+  variant?: variants;
 }
 
 export interface AccordionItemProps {
   title?: string;
   children?: ReactNode;
-  variant?: string;
+  variant?: variants;
   secondaryText?: string;
   tertiaryText?: string;
 }
@@ -35,7 +35,13 @@ export const Accordion: FC<AccordionProps> = ({ className, children, variant = v
   );
 };
 
-export const AccordionItem = ({ title, children, variant, secondaryText, tertiaryText }: AccordionItemProps) => {
+export const AccordionItem: FC<AccordionItemProps> = ({
+  title,
+  children,
+  variant,
+  secondaryText,
+  tertiaryText
+}: AccordionItemProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -94,7 +100,7 @@ export const AccordionItem = ({ title, children, variant, secondaryText, tertiar
             </div>
 
             <IconCircle className={css.icon} isWhite={variant === variants.LIGHT}>
-              <ArrowSvg />
+              <ChevronDown />
             </IconCircle>
           </div>
         </BaseButton>

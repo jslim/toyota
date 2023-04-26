@@ -1,6 +1,7 @@
 @import 'shared';
 
 .root {
+  color: $mid-grey;
   &.dark {
     .text {
       color: $grey;
@@ -13,20 +14,28 @@
   @include typography-eyebrow;
   text-transform: uppercase;
   position: relative;
-  padding-left: px($grid-relative-gap-mobile);
 
   @include media-desktopMd {
     margin-left: px(-$grid-relative-side-padding-desktop-external);
-    padding-left: px($grid-relative-side-padding-desktop-external);
   }
 
-  &::before {
-    content: '';
-    display: inline-block;
-    @include box(px(4));
-    left: 0;
-    background-color: $red;
-    border-radius: 50%;
-    position: absolute;
+  .circle {
+    position: relative;
+    width: px($grid-relative-gap-mobile);
+
+    @include media-desktopMd {
+      width: px($grid-relative-side-padding-desktop-external);
+    }
+
+    &::before {
+      content: '';
+      display: inline-block;
+      @include box(px(4));
+      top: px(-2);
+      left: 0;
+      background-color: $red;
+      border-radius: 50%;
+      position: absolute;
+    }
   }
 }

@@ -1,0 +1,14 @@
+@import 'shared';
+
+.root {
+  width: 100%;
+  height: px(48);
+
+  &.medium {
+    height: px(80);
+  }
+
+  &.large {
+    height: px(120);
+  }
+}

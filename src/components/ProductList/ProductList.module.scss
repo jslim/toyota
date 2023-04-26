@@ -1,0 +1,153 @@
+@import 'shared';
+
+.root {
+  width: 100%;
+
+  .list {
+    margin-top: px(28);
+
+    @include breakpoint(desktopSm) {
+      margin-top: px(66);
+    }
+
+    .item {
+      display: flex;
+      flex-wrap: wrap;
+      position: relative;
+      padding: px(26) 0;
+
+      @include breakpoint(tablet) {
+        padding: px(26);
+      }
+
+      @include breakpoint(desktopSm) {
+        padding: px(26) 0;
+      }
+
+      &::before {
+        content: '';
+        width: 150%;
+        left: -25%;
+        height: px(1);
+        background-color: $mid-grey;
+        top: 0;
+        position: absolute;
+
+        @include breakpoint(tablet) {
+          width: 100%;
+          left: 0;
+        }
+      }
+
+      .title {
+        @include typography-label;
+        width: 100%;
+        margin-bottom: px(14);
+
+        @include breakpoint(tablet) {
+          @include use-tablet-columns(width, 2);
+          order: 1;
+          margin-bottom: 0;
+        }
+
+        @include breakpoint(desktopSm) {
+          @include use-desktop-columns(width, 3);
+        }
+
+        @include breakpoint(desktopMd) {
+          @include font-size(24, 32);
+        }
+      }
+
+      .imageCon {
+        @include use-mobile-columns(width, 3);
+        margin-bottom: px(14);
+        position: relative;
+        pointer-events: none;
+
+        .imageWrapper {
+          width: 100%;
+          position: relative;
+        }
+
+        .imageWrapperInner {
+          width: 100%;
+          @include aspect-ratio(3, 2);
+          border-radius: px(4);
+          overflow: hidden;
+        }
+
+        .image {
+          @include box(100%);
+          object-fit: cover;
+        }
+
+        @include breakpoint(tablet) {
+          @include use-tablet-columns(width, 3);
+          @include use-tablet-columns(margin-left, 1, 1);
+          order: 2;
+          margin-bottom: px(33);
+        }
+
+        @include breakpoint(desktopSm) {
+          @include use-desktop-columns(width, 4);
+          @include use-desktop-columns(margin-left, 0, 1);
+          margin-bottom: 0;
+          flex: 1;
+
+          .imageWrapperInner {
+            border-radius: px(6.6);
+          }
+        }
+      }
+
+      .text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        @include breakpoint(tablet) {
+          @include use-tablet-columns(width, 5);
+          @include use-tablet-columns(margin-left, 3);
+          order: 3;
+        }
+
+        @include breakpoint(desktopSm) {
+          @include use-desktop-columns(width, 5);
+          @include use-desktop-columns(margin-left, 0, 1);
+        }
+
+        @include breakpoint(desktopMd) {
+          @include font-size(20, 30);
+          margin-bottom: px(26);
+        }
+      }
+
+      .cta {
+        margin-top: px(30);
+      }
+
+      &.hoverable {
+        opacity: 0.4;
+        transition: linear 0.3s opacity;
+
+        &:hover,
+        &.active {
+          opacity: 1;
+        }
+
+        .imageCon {
+          @include flex-center-vert;
+          .imageWrapper {
+            position: absolute;
+            z-index: 1;
+            .imageWrapperInner {
+              opacity: 0;
+              height: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -26,9 +26,9 @@ const Gallery: FC<GalleryProps> = ({ className, slides }) => {
         speed={SLIDE_DURATION}
         onSlideChange={(swiper) => console.log(swiper)}
         pagination={{
-          el: `.${css.pagination}`,
           type: 'bullets',
-          clickable: true
+          clickable: true,
+          horizontalClass: css.pagination
         }}
         preventClicks={true}
         preventClicksPropagation={false}
@@ -41,8 +41,6 @@ const Gallery: FC<GalleryProps> = ({ className, slides }) => {
           );
         })}
       </Swiper>
-
-      <span className={css.pagination}>{/* pagination number rendered by swiper */}</span>
     </div>
   );
 };

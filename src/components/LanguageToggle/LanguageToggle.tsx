@@ -7,16 +7,17 @@ import { Lang } from '@/data/types';
 
 import BaseButton from '@/components/BaseButton/BaseButton';
 
+import { useAppSelector } from '@/redux';
+
 export type LanguageToggleProps = {
   className?: string;
 };
 
 const LanguageToggle: FC<LanguageToggleProps> = ({ className }) => {
   // TODO set language on CMS level
-  const [activeLang, setActiveLang] = useState(Lang.EN);
+  const activeLang = useAppSelector((state) => state.activeLang);
   const [open, setOpen] = useState(false);
-  const handleLangChange = (lang: Lang) => {
-    setActiveLang(lang);
+  const handleLangChange = () => {
     setOpen(false);
   };
   return (
@@ -31,7 +32,7 @@ const LanguageToggle: FC<LanguageToggleProps> = ({ className }) => {
         <div className={css.bg} />
         {Object.values(Lang).map((lang) => (
           <div className={classNames(css.lang, { [css.active]: activeLang === lang })} key={lang}>
-            <BaseButton aria-label={lang} className={css.langButton} onClick={() => handleLangChange(lang)}>
+            <BaseButton aria-label={lang} className={css.langButton} onClick={() => handleLangChange()}>
               {lang}
             </BaseButton>
           </div>

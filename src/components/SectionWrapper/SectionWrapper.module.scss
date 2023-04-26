@@ -1,52 +1,49 @@
 @import 'shared';
 
 .root {
-  @include rounded(px(43), false);
   width: 100%;
   @include outer-container(true);
   text-align: left;
   overflow: hidden;
-  padding: px(20) 0;
+  position: relative;
+  @include rounded(px(43), false);
+
+  .wrapper {
+    @include box(100%);
+    @include container;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    padding: px(20) 0;
+    @include media-tablet {
+      padding: px(20) 0 px(34);
+    }
+
+    @include media-desktopMd {
+      padding: px(43) 0 px(100);
+    }
+  }
 
   &.dark {
-    background-color: $dark-grey;
-
-    .title {
-      color: $white;
-    }
+    color: $white;
   }
 
   &.light {
-    background-color: $light-grey;
-
-    .title {
-      color: $dark-grey;
-    }
+    color: $dark-grey;
   }
 
-  @include media-tablet {
-    padding: px(20) 0 px(34);
-  }
-
-  @include media-desktopMd {
-    padding: px(43) 0 px(100);
-  }
-
-  .title {
-    @include typography-h2;
-    max-width: px(400);
-    margin-top: px(24);
-
-    @include media-desktopSm {
-      max-width: px(550);
-    }
-  }
+  @include eyebrowTitle;
 
   .wrapperInfo {
+    width: 100%;
     @include outer-container;
   }
 
   .content {
+    height: 100%;
+    z-index: 2;
+    position: relative;
     @include container;
+    @include flex-center-horiz;
   }
 }

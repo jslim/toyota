@@ -3,26 +3,27 @@ import classNames from 'classnames';
 
 import css from './MobileNav.module.scss';
 
-import routes, { Route } from '@/data/routes';
-
 import BaseButton from '@/components/BaseButton/BaseButton';
 import BaseLink from '@/components/BaseLink/BaseLink';
 import LanguageToggle from '@/components/LanguageToggle/LanguageToggle';
 import Logo from '@/components/Logo/Logo';
 
+import { useAppSelector } from '@/redux';
+
 export type MobileNavProps = {
   className?: string;
-  links: Route[];
 };
 
-const MobileNav: FC<MobileNavProps> = ({ className, links }) => {
+const MobileNav: FC<MobileNavProps> = ({ className }) => {
+  const { mainNavLinks } = useAppSelector((state) => state.activeGlobalData);
   const [menuOpen, setMenuOpen] = useState(false);
   const hamburgerRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLDivElement>(null);
+
   return (
     <div className={classNames('MobileNav', css.root, className)}>
       <div className={css.mobileNavBar}>
-        <Logo className={css.logo} href={routes.Home.path} />
+        <Logo className={css.logo} href="/" />
 
         <BaseButton
           className={css.hamburgerWrapper}
@@ -48,18 +49,18 @@ const MobileNav: FC<MobileNavProps> = ({ className, links }) => {
         <div className={css.mobileMenuCon}>
           <div className={css.mobileMenuWrapper}>
             <ul className={css.routes}>
-              {links.map(
-                ({ path, title }, i) =>
-                  title !== 'Home' && (
+              {mainNavLinks.map(
+                ({ linkUrl, linkText, ariaLabel }, i) =>
+                  linkText !== 'Home' && (
                     <li
-                      key={path}
+                      key={linkText}
                       className={classNames({
                         // TODO: set active based on the page
                         [css.active]: i === 2
                       })}
                     >
-                      <BaseLink href={path} title={title}>
-                        {title}
+                      <BaseLink href={linkUrl} title={linkText} aria-label={ariaLabel}>
+                        {linkText}
                       </BaseLink>
                     </li>
                   )

@@ -3,11 +3,14 @@ import classNames from 'classnames';
 
 import css from './VideoPlayerContainer.module.scss';
 
-import BaseImage from '@/components/BaseImage/BaseImage';
+import { ContentfulImageAsset } from '@/data/types';
+
 import Cta, { ButtonType } from '@/components/Cta/Cta';
 import PlayIcon from '@/components/VideoPlayer/VideoControls/svgs/play.svg';
 import { Props as VideoProps } from '@/components/VideoPlayer/VideoPlayer';
 import VideoPlayer from '@/components/VideoPlayer/VideoPlayer';
+
+import ContentfulImage from '../ContentfulImage/ContentfulImage';
 
 export enum VideoType {
   Gallery = 'gallery',
@@ -16,7 +19,7 @@ export enum VideoType {
 
 export type VideoPlayerContainerProps = {
   className?: string;
-  poster: { src: string; alt: string };
+  poster: ContentfulImageAsset;
   video: VideoProps;
   title?: string;
   theme?: VideoType;
@@ -41,7 +44,7 @@ const VideoPlayerContainer: FC<VideoPlayerContainerProps> = ({
             <PlayIcon />
           </Cta>
 
-          <BaseImage {...poster} className={css.poster} />
+          <ContentfulImage asset={poster} className={css.poster} />
           {title && <div className={css.title}>{title}</div>}
         </div>
       )}

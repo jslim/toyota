@@ -1,155 +1,228 @@
 @import 'shared';
 
-.root {
-  .Card {
+.Card {
+  overflow: hidden;
+  perspective: 1px;
+  display: block;
+
+  .image {
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .textWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .title {
+      @include typography-eyebrow;
+    }
+
+    .text {
+      text-align: left;
+    }
+
+    .cta {
+      display: flex;
+      margin-top: px(16);
+
+      @include media-desktopSm {
+        margin-top: px(36);
+      }
+    }
+  }
+
+  &.product {
+    width: px(298);
+    border-radius: px(8);
     background-color: $white;
-    overflow: hidden;
-    perspective: 1px;
+
+    @include media-desktopSm {
+      width: px(456);
+    }
 
     .image {
-      width: 100%;
-      object-fit: cover;
+      @include aspect-ratio(288, 264);
+
+      @include media-desktopSm {
+        @include aspect-ratio(16, 9);
+      }
     }
 
     .textWrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+      padding: px(20) px(60) px(27) px(24);
 
-      .eyebrow {
-        @include typography-eyebrow;
+      .titleWrapper {
+        margin-bottom: px(10);
+      }
+
+      .title {
+        color: rgba($black, 0.5);
         text-transform: uppercase;
       }
 
       .text {
-        text-align: left;
-      }
-
-      .cta {
-        display: flex;
+        @include typography-paragraph;
       }
     }
+  }
 
-    &.product {
-      width: px(298);
+  &.news {
+    @include use-mobile-columns(width, 4);
+
+    @include media-desktopSm {
+      @include use-desktop-columns(width, 4);
+    }
+
+    .image {
+      @include aspect-ratio(360, 206);
       border-radius: px(8);
+    }
+
+    .textWrapper {
+      padding-top: px(20);
+      padding-bottom: px(21);
+
+      @include media-tablet {
+        padding-bottom: 0;
+      }
 
       @include media-desktopSm {
-        width: px(456);
+        padding-bottom: px(33);
       }
 
-      .image {
-        @include aspect-ratio(288, 264);
+      .titleWrapper {
+        margin-bottom: px(10);
 
         @include media-desktopSm {
-          @include aspect-ratio(16, 9);
-        }
-      }
-
-      .textWrapper {
-        padding: px(20) px(60) px(27) px(24);
-
-        .eyebrowWrapper {
-          margin-bottom: px(10);
+          margin-bottom: px(5);
         }
 
-        .eyebrow {
+        .date {
+          @include typography-eyebrow;
+          color: $red;
+        }
+
+        .title {
+          margin-left: px(16);
           color: rgba($black, 0.5);
+          text-transform: uppercase;
         }
+      }
 
-        .text {
-          @include typography-paragraph;
-        }
+      .text {
+        @include typography-label;
+      }
+    }
+  }
 
-        .cta {
-          margin-top: px(16);
+  &.default,
+  &.default-tall,
+  &.quote {
+    width: px(334);
 
-          @include media-desktopSm {
-            margin-top: px(36);
-          }
-        }
+    @include media-desktopSm {
+      width: px(536);
+    }
+
+    .image {
+      @include aspect-ratio(312, 216);
+      border-radius: px(6);
+
+      @include media-desktopSm {
+        @include aspect-ratio(552, 396);
+        border-radius: px(12);
       }
     }
 
-    &.news {
-      @include use-mobile-columns(width, 4);
+    .textWrapper {
+      padding-top: px(11);
 
       @include media-desktopSm {
-        @include use-desktop-columns(width, 4);
+        padding-top: px(21);
       }
 
-      .image {
-        @include aspect-ratio(360, 206);
+      .titleWrapper {
+        margin-bottom: px(15);
+
+        .title {
+          @include typography-h4;
+          text-transform: capitalize;
+          display: inline-block;
+          text-align: left;
+          color: $dark-grey;
+        }
+      }
+    }
+  }
+
+  &.default-tall {
+    .image {
+      @include aspect-ratio(52, 59);
+      border-radius: px(6);
+
+      @include media-desktopSm {
         border-radius: px(8);
       }
+    }
+  }
 
-      .textWrapper {
-        padding-top: px(20);
-        padding-bottom: px(21);
+  &.milestone {
+    @include use-mobile-columns(width, 4);
+    background-color: $black;
+    border-radius: px(7);
+    overflow: hidden;
+    color: $white;
+    padding: px(35);
 
-        @include media-desktopSm {
-          padding-bottom: px(33);
-        }
+    @include breakpoint(tablet) {
+      width: calc((100% - px(24) * 2) / 3);
+      @include use-tablet-gutter(padding, 0.8);
+      max-width: unset;
+    }
 
-        .eyebrowWrapper {
-          margin-bottom: px(10);
-
-          @include media-desktopSm {
-            margin-bottom: px(5);
-          }
-
-          .date {
-            @include typography-eyebrow;
-            color: $red;
-          }
-
-          .eyebrow {
-            margin-left: px(16);
-            color: rgba($black, 0.5);
-          }
-        }
-
-        .text {
+    .image {
+      height: auto;
+      margin-bottom: px(25);
+    }
+    .textWrapper {
+      .titleWrapper {
+        margin-bottom: px(10);
+        .title {
           @include typography-label;
-        }
-      }
-    }
+          text-transform: initial;
 
-    &.office {
-      width: px(334);
-
-      @include media-desktopSm {
-        width: px(536);
-      }
-
-      .image {
-        @include aspect-ratio(312, 216);
-        border-radius: px(8);
-
-        @include media-desktopSm {
-          @include aspect-ratio(552, 396);
-        }
-      }
-
-      .textWrapper {
-        padding-top: px(11);
-
-        @include media-desktopSm {
-          max-width: px(336);
-          padding-top: px(21);
-        }
-
-        .eyebrowWrapper {
-          margin-bottom: px(15);
-
-          .eyebrow {
-            @include typography-h4;
-            text-transform: capitalize;
+          @include breakpoint(desktopMd) {
+            @include typography-h3;
           }
         }
+      }
+      .text {
+        @include typography-paragraph;
+      }
+    }
+  }
 
-        .text {
-          color: $mid-grey;
+  &.quote {
+    text-align: left;
+    .textWrapper {
+      .titleWrapper {
+        margin-top: px(18);
+        color: $mid-grey;
+
+        @include breakpoint(tablet) {
+          margin-top: px(20);
+        }
+
+        .title {
+          @include typography-label;
+          display: block;
+        }
+
+        .subTitle {
+          margin-top: px(5);
+          @include font-size(14, 16);
         }
       }
     }

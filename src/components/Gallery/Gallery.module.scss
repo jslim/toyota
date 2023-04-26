@@ -26,42 +26,10 @@
 
   .pagination {
     margin: px(48) 0 px(20);
-    @include flex-center;
 
     @include breakpoint(desktopSm) {
       margin: px(83) 0 0;
     }
-
-    > span {
-      position: relative;
-      @include box(px(25));
-      @include flex-center;
-      margin: 0 px(13);
-      cursor: pointer;
-
-      &:global(.swiper-pagination-bullet-active) {
-        &::after {
-          transform: scale(1);
-        }
-      }
-
-      &::before {
-        content: '';
-        @include box(px(3));
-        border-radius: 50%;
-        background-color: $white;
-        display: block;
-      }
-
-      &::after {
-        content: '';
-        @include position-100(absolute);
-        border: 1px solid $white;
-        border-radius: 50%;
-        display: block;
-        transform: scale(0);
-        transition: $ease1 0.66s transform;
-      }
-    }
+    @include pagination;
   }
 }
