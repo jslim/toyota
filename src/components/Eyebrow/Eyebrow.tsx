@@ -17,22 +17,18 @@ export type EyebrowProps = {
 
 const Eyebrow = ({ className, text, variant = variants.LIGHT }: EyebrowProps) => {
   const circleRef = useRef<HTMLDivElement>(null);
-  const eyebrowRef = useRef<HTMLDivElement>(null);
   const animTL = useRef<GSAPTimeline>();
 
   useEffect(() => {
     animTL.current = gsap
-      .timeline({ scrollTrigger: { start: 'top bottom', trigger: eyebrowRef.current } })
+      .timeline({ scrollTrigger: { start: 'top bottom', trigger: circleRef.current } })
       .from(circleRef.current, {
         xPercent: 80
       });
   });
 
   return (
-    <div
-      className={classNames('Eyebrow', css.root, className, { [css.dark]: variant === variants.DARK })}
-      ref={eyebrowRef}
-    >
+    <div className={classNames('Eyebrow', css.root, className, { [css.dark]: variant === variants.DARK })}>
       <p className={css.text}>
         <span className={classNames('circle', css.circle)} ref={circleRef} />
         {text}
