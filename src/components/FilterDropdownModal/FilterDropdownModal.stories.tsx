@@ -7,12 +7,12 @@ export default { title: 'components/FilterDropdownModal' };
 
 const categoriesType = {
   header: 'Type',
-  categories: [
+  category: 'type',
+  content: [
     {
       options: [
         {
-          label: 'All',
-          value: 'all'
+          label: 'All'
         }
       ]
     },
@@ -20,16 +20,13 @@ const categoriesType = {
       title: 'Global Operations',
       options: [
         {
-          label: 'On-site',
-          value: 'on-site'
+          label: 'On-site'
         },
         {
-          label: 'Hybrid',
-          value: 'hybrid'
+          label: 'Hybrid'
         },
         {
-          label: 'Remote',
-          value: 'remote'
+          label: 'Remote'
         }
       ]
     },
@@ -37,36 +34,28 @@ const categoriesType = {
       title: 'Investment & Acquisitions',
       options: [
         {
-          label: 'Item1',
-          value: 'item1'
+          label: 'Item1'
         },
         {
-          label: 'Item2',
-          value: 'item2'
+          label: 'Item2'
         },
         {
-          label: 'Item3',
-          value: 'item3'
+          label: 'Item3'
         },
         {
-          label: 'Item4',
-          value: 'item4'
+          label: 'Item4'
         },
         {
-          label: 'Item5',
-          value: 'item5'
+          label: 'Item5'
         },
         {
-          label: 'Item6',
-          value: 'item6'
+          label: 'Item6'
         },
         {
-          label: 'Item7',
-          value: 'item7'
+          label: 'Item7'
         },
         {
-          label: 'Item8',
-          value: 'item8'
+          label: 'Item8'
         }
       ]
     }

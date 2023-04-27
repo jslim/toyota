@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import { APIContentful } from '@/data/API';
 import { LocalizedPageParams, PageType } from '@/data/types';
 
+import CareersList from '@/components/CareersList/CareersList';
 import PageExample from '@/components/PageExample/PageExample';
 
 import usePreviewData from '@/hooks/use-preview-data';
@@ -19,6 +20,15 @@ const Example: FC<PageType> = ({ data }) => {
 
   return (
     <main className={classNames('Example')}>
+      <CareersList
+        title={'Lorempwhatever'}
+        eyebrow={'Eyebrow'}
+        filtersLabel={'Filters'}
+        searchLabel={'search'}
+        cleanLabel={'clean'}
+        noResultsLabel={'No Results Found'}
+        noResultsDescription={'We couldnt find what you are looking for'}
+      ></CareersList>
       {!!pageData?.fields ? getPageBlocks(pageData) : null}
       <PageExample />
     </main>

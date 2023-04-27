@@ -1,0 +1,33 @@
+@import 'shared';
+
+.root {
+  @include container;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+
+  @include media-desktopSm {
+    @include use-desktop-columns(width, 5);
+    margin: 0;
+  }
+}
+
+.search {
+  margin-bottom: px(14);
+}
+
+.container {
+  display: flex;
+}
+
+.filtersButton {
+  @include reset-button;
+  @include typography-eyebrow;
+  color: $grey;
+  text-align: left;
+  text-transform: uppercase;
+
+  @include media-desktopSm {
+    cursor: default;
+  }
+}

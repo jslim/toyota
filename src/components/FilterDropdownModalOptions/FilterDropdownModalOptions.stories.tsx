@@ -8,12 +8,11 @@ export const Default: Story<FilterDropdownModalOptionsProps> = (args) => <Filter
 
 Default.args = {
   header: 'Team',
-  categories: [
+  content: [
     {
       options: [
         {
-          label: 'All',
-          value: 'all'
+          label: 'All'
         }
       ]
     },
@@ -21,16 +20,13 @@ Default.args = {
       title: 'Global Operations',
       options: [
         {
-          label: 'On-site',
-          value: 'on-site'
+          label: 'On-site'
         },
         {
-          label: 'Hybrid',
-          value: 'hybrid'
+          label: 'Hybrid'
         },
         {
-          label: 'Remote',
-          value: 'remote'
+          label: 'Remote'
         }
       ]
     },
@@ -38,20 +34,16 @@ Default.args = {
       title: 'Investment & Acquisitions',
       options: [
         {
-          label: 'Tokyo',
-          value: 'tokyo'
+          label: 'Tokyo'
         },
         {
-          label: 'London',
-          value: 'london'
+          label: 'London'
         },
         {
-          label: 'Montevideo',
-          value: 'montevideo'
+          label: 'Montevideo'
         },
         {
-          label: 'Toronto',
-          value: 'toronto'
+          label: 'Toronto'
         }
       ]
     }

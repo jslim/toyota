@@ -10,7 +10,6 @@ import CaretSvg from '@/components/svgs/caret.svg';
 
 interface Option {
   label: string;
-  value: string;
 }
 
 export type FilterDropdownProps = {
@@ -68,7 +67,7 @@ const FilterDropdown: FC<FilterDropdownProps> = ({ className, title, alt, catego
       </div>
 
       <FilterDropdownModal isOpen={isOpen}>
-        <FilterDropdownModalOptions categories={categories} />
+        <FilterDropdownModalOptions category={title} content={categories} />;
       </FilterDropdownModal>
     </div>
   );

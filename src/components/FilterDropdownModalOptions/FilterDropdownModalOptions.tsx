@@ -1,28 +1,46 @@
-import { FC, memo, useState } from 'react';
+import { FC, memo, useEffect, useState } from 'react';
 import classNames from 'classnames';
 
 import css from './FilterDropdownModalOptions.module.scss';
 
 import IconCircle from '@/components/IconCircle/IconCircle';
 
+import useQueryParams, { useClearParams } from '@/hooks/use-query-params';
+
 import CheckmarkSvg from '@/components/svgs/white-checkmark.svg';
 
 interface Option {
   label: string;
-  value: string;
+}
+
+interface Content {
+  title?: string;
+  options: Option[];
 }
 
 export type FilterDropdownModalOptionsProps = {
   className?: string;
   header?: string;
-  categories: { title?: string; options: Option[] }[];
+  content: Content[];
+  category: string;
   onSelectOption?: (option: string) => void;
 };
 
-const FilterDropdownModalOptions: FC<FilterDropdownModalOptionsProps> = ({ className, header, categories }) => {
-  const [selectedOption, setSelectedOption] = useState<Option>(categories[0].options[0]);
+const FilterDropdownModalOptions: FC<FilterDropdownModalOptionsProps> = ({ className, header, content, category }) => {
+  const [selectedOption, setSelectedOption] = useState<Option>(content[0].options[0]);
+
+  const filtersState = {};
+  const useQueryParamsArray = useQueryParams(category, { shallow: true });
+  // @ts-ignore
+  filtersState[category] = {
+    param: useQueryParamsArray[0],
+    setParam: useQueryParamsArray[1]
+  };
+  // @ts-ignore
+  const clearParams = useClearParams(Object.keys(filtersState), true);
 
   const handleSelectOption = (option: Option) => {
+    option.label.toLowerCase() === 'all' && clearParams();
     setSelectedOption(option);
   };
 
@@ -32,18 +50,28 @@ const FilterDropdownModalOptions: FC<FilterDropdownModalOptionsProps> = ({ class
     }
   };
 
+  useEffect(() => {
+    if (selectedOption.label.toLocaleLowerCase() !== 'all') {
+      // @ts-ignore
+      filtersState[category].setParam(selectedOption.label);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedOption]);
+
   const options = (option: Option, index: number) => {
     return (
       <li
-        className={classNames(css.option, { [css.selected]: selectedOption?.value === option.value })}
+        className={classNames(css.option, {
+          [css.selected]: selectedOption?.label === option.label
+        })}
         role="option"
-        aria-selected={selectedOption?.value === option.value}
+        aria-selected={selectedOption?.label === option.label}
         onClick={() => handleSelectOption(option)}
         onKeyDown={(event) => handleKeyPress(event, option)}
         tabIndex={0}
         key={index}
       >
-        <IconCircle className={css.circle} isActive={selectedOption?.value === option.value}>
+        <IconCircle className={css.circle} isActive={selectedOption?.label === option.label}>
           <CheckmarkSvg className={css.checkmark} />
         </IconCircle>
         <span className={css.label}>{option.label}</span>
@@ -54,7 +82,7 @@ const FilterDropdownModalOptions: FC<FilterDropdownModalOptionsProps> = ({ class
   return (
     <div className={classNames('FilterDropdownModalOptions', css.root, className)}>
       <div className={css.header}>{header}</div>
-      {categories.map((category, index) => (
+      {Object.values(content)?.map((category, index) => (
         <div className={css.wrapper} key={index}>
           {category.title && <div className={css.title}>{category.title}</div>}
           <ul className={css.options} role="listbox" aria-labelledby="dropdown-toggle" id={'dropdown-options-' + index}>
