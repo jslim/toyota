@@ -5,14 +5,33 @@ import css from './PageNotFound.module.scss';
 
 import { PageProps } from '@/data/types';
 
+import { Props as LinkProps } from '@/components/BaseLink/BaseLink';
+import TextIntro, { TextIntroLayout } from '@/components/TextIntro/TextIntro';
+
 export interface PageNotFoundProps extends PageProps {
   className?: string;
+  eyebrow?: string;
+  header?: string;
+  description?: string;
+  ctaProps?: LinkProps;
 }
 
-const PageNotFound: FC<PageNotFoundProps> = ({ className }) => {
+const PageNotFound: FC<PageNotFoundProps> = ({
+  className,
+  eyebrow = '404',
+  header = 'Page Not Found',
+  description,
+  ctaProps
+}) => {
   return (
     <main className={classNames('PageNotFound', css.root, className)}>
-      <h1 className={css.title}>Page Not Found</h1>
+      <TextIntro
+        layout={TextIntroLayout.DEFAULT_BACKGROUND_IMAGE}
+        eyebrow={eyebrow}
+        header={header}
+        description={description}
+        ctaProps={ctaProps}
+      />
     </main>
   );
 };

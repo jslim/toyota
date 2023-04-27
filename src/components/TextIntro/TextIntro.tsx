@@ -8,10 +8,9 @@ import { ColumnType } from '@/data/variants';
 
 import { Props as LinkProps } from '@/components/BaseLink/BaseLink';
 import Cta from '@/components/Cta/Cta';
+import Eyebrow from '@/components/Eyebrow/Eyebrow';
 
 import ToyotaBackground from '@/components/svgs/svg-toyota-background.svg';
-
-import Eyebrow from '../Eyebrow/Eyebrow';
 
 enum DefaultLayoutType {
   DEFAULT = 'default',
