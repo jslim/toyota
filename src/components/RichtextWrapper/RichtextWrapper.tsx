@@ -11,7 +11,6 @@ export type RichtextWrapperProps = {
 };
 
 const RichtextWrapper: FC<RichtextWrapperProps> = ({ className, children }) => {
-  console.log(children);
   const richtextWrapperRef = useCallback((node: HTMLDivElement) => {
     const childNodes = Array.from(node.childNodes);
     let hasTable;

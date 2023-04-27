@@ -70,7 +70,6 @@ const isEntity = (field: any) => field.id && field.contentType && field.fields;
 export const getPageBlocks = (entry: FilteredEntity): JSX.Element | null => {
   if (entry == null) return null;
   const { contentType, fields } = entry;
-
   if (!contentType || !componentFactories[contentType]) return null;
 
   const { props, component: Component, childrenFields } = componentFactories[contentType](entry.fields);

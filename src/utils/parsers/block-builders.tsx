@@ -351,7 +351,7 @@ export const buildHero = (fields: HeroContentType, extraProps?: GenericObject): 
 
 // component builder for rich text content
 export const buildRichTextComponent = (fields: richTextContentType, extraProps?: GenericObject): ComponentBuilder => {
-  const richText = fields.richtext ?? fields.listText;
+  const richText = fields.richtext;
   const elements = parseContentfulRichText(richText);
 
   return {
