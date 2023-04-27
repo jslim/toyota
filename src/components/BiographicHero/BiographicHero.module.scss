@@ -1,7 +1,7 @@
 @import 'shared';
 
 .root {
-  @include container;
+  width: 100%;
   position: relative;
   max-height: 100vh;
   min-height: 55vh;
@@ -35,13 +35,17 @@
   }
 
   .backgroundImage {
-    width: 150%;
+    @include use-mobile-columns(width, 4);
     height: auto;
     padding-top: px(50);
 
+    @include media-tablet {
+      @include use-tablet-columns(width, 8);
+    }
+
     @include media-desktopSm {
       height: auto;
-      width: 80%;
+      @include use-desktop-columns(width, 12);
     }
   }
 
