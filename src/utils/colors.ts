@@ -1,3 +1,5 @@
+import { variants } from '@/data/variants';
+
 export enum Color {
   RED = 'red',
   BLACK = 'black',
@@ -8,6 +10,11 @@ export enum Color {
   WHITE = 'white',
   LINEAR = 'linear'
 }
+export const isDarkMode = (color: Color): string => {
+  return color === 'red' || color === 'midGrey' || color === 'black' || color === 'darkGrey'
+    ? variants.DARK
+    : variants.LIGHT;
+};
 
 export function getColorClass(color: Color) {
   switch (color) {
