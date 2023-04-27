@@ -6,6 +6,7 @@ $lang-button-offset: px(7);
 
 .root {
   .langWrapper {
+    @include reset-button;
     display: flex;
     border-radius: px(24);
     position: relative;
@@ -25,8 +26,10 @@ $lang-button-offset: px(7);
       }
 
       &.open {
-        .lang:last-child {
-          transform: translateY(calc(#{$lang-button-width} - #{$lang-button-offset}));
+        .lang {
+          &:last-child {
+            transform: translateY(calc(#{$lang-button-width} - #{$lang-button-offset}));
+          }
         }
         .bg {
           transform: scaleY(1);
