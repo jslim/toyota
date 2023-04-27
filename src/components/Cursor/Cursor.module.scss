@@ -1,0 +1,25 @@
+@import 'shared';
+
+.root {
+  @include box(px(84));
+  @include flex-center;
+  @include transform-center;
+  position: absolute;
+  text-transform: uppercase;
+  border: 1px solid $red;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.circle {
+  @include box(px(84));
+  position: absolute;
+  background-color: $red;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.text {
+  @include typography-eyebrow;
+  z-index: 1;
+}
