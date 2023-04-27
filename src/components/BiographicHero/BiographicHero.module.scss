@@ -45,7 +45,7 @@
 
     @include media-desktopSm {
       height: auto;
-      @include use-desktop-columns(width, 12);
+      @include use-desktop-columns(width, 10);
     }
   }
 
