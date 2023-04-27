@@ -5,32 +5,27 @@ import css from './PageNotFound.module.scss';
 
 import { PageProps } from '@/data/types';
 
-import { Props as LinkProps } from '@/components/BaseLink/BaseLink';
 import TextIntro, { TextIntroLayout } from '@/components/TextIntro/TextIntro';
+
+import { useAppSelector } from '@/redux';
 
 export interface PageNotFoundProps extends PageProps {
   className?: string;
-  eyebrow?: string;
-  header?: string;
-  description?: string;
-  ctaProps?: LinkProps;
 }
 
-const PageNotFound: FC<PageNotFoundProps> = ({
-  className,
-  eyebrow = '404',
-  header = 'Page Not Found',
-  description,
-  ctaProps
-}) => {
+const PageNotFound: FC<PageNotFoundProps> = ({ className }) => {
+  const { notFoundPageHeader, notFoundPageDescription, notFoundPageButton } = useAppSelector(
+    (state) => state.activeGlobalData
+  );
+
   return (
     <main className={classNames('PageNotFound', css.root, className)}>
       <TextIntro
         layout={TextIntroLayout.DEFAULT_BACKGROUND_IMAGE}
-        eyebrow={eyebrow}
-        header={header}
-        description={description}
-        ctaProps={ctaProps}
+        eyebrow={'404'}
+        header={notFoundPageHeader}
+        description={notFoundPageDescription}
+        ctaProps={{ title: notFoundPageButton, href: '/' }}
       />
     </main>
   );

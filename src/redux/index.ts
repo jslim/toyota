@@ -8,7 +8,10 @@ export const defaultGlobalData: GlobalDataFields = {
   footerNavLinks: [] as Array<NavLinks>,
   homepageBannerText: '',
   showHomepageBanner: false,
-  skipToContentText: ''
+  skipToContentText: '',
+  notFoundPageHeader: '',
+  notFoundPageDescription: '',
+  notFoundPageButton: ''
 };
 
 const { actions, reducer } = createSlice({

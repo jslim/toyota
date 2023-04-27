@@ -19,12 +19,18 @@ export const globalDataParserUtil = (entity: GlobalDataContentType): GlobalDataF
   const skipToContentText = entity?.skipToContentText ?? 'Skip to content';
   const homepageBannerText = entity?.homepageBannerText ?? '';
   const showHomepageBanner = entity?.showHomepageBanner ?? false;
+  const notFoundPageHeader = entity?.notFoundPageHeader;
+  const notFoundPageDescription = entity?.notFoundPageDescription;
+  const notFoundPageButton = entity.notFoundPageButton;
 
   return {
     mainNavLinks,
     footerNavLinks,
     skipToContentText,
     homepageBannerText,
-    showHomepageBanner
+    showHomepageBanner,
+    notFoundPageHeader,
+    notFoundPageDescription,
+    notFoundPageButton
   };
 };

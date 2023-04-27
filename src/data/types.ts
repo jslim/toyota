@@ -39,6 +39,9 @@ export type GlobalDataFields = {
   homepageBannerText: string;
   showHomepageBanner: boolean;
   skipToContentText: string;
+  notFoundPageHeader: string;
+  notFoundPageDescription: string;
+  notFoundPageButton: string;
 };
 
 export type GlobalData = {
@@ -220,6 +223,9 @@ export type GlobalDataContentType = {
   homepageBannerText: string;
   showHomepageBanner: boolean;
   skipToContentText: string;
+  notFoundPageHeader: string;
+  notFoundPageDescription: string;
+  notFoundPageButton: string;
 };
 
 export type CTAContentType = {
