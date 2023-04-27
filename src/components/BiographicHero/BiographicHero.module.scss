@@ -35,7 +35,7 @@
   }
 
   .backgroundImage {
-    @include use-mobile-columns(width, 4);
+    width: 100%;
     height: auto;
     padding-top: px(50);
 
