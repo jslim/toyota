@@ -61,8 +61,8 @@ const DownloadAgreementModal: FC<DownloadAgreementModalProps> = ({
       onKeyDown={(event) => handleKeyPress(event)}
     >
       <div className={css.container} ref={containerRef}>
-        <BaseButton title={closeLabel} onClick={onClose}>
-          <CloseSvg className={css.close} />
+        <BaseButton className={css.close} title={closeLabel} onClick={onClose}>
+          <CloseSvg />
         </BaseButton>
         <div className={css.title}>{title}</div>
         <p className={css.terms}>{terms}</p>

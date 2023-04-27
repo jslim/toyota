@@ -56,7 +56,7 @@
   }
 
   .close {
-    @include box(px(8));
+    @include reset-button;
     position: absolute;
     top: px(36);
     right: px(37);
@@ -64,6 +64,10 @@
 
     @include media-tablet {
       right: px(40);
+    }
+
+    svg {
+      @include box(px(8));
     }
   }
 }
