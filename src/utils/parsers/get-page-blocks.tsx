@@ -16,7 +16,7 @@ import {
   buildMediaGalleryGroup,
   buildNextChapter,
   buildProductList,
-  buildRichTextTestComponent,
+  buildRichTextComponent,
   buildRoadmapGroup,
   buildSectionWrapper,
   buildSpacer,
@@ -50,7 +50,7 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
   productList: buildProductList,
   mediaGalleryGroup: buildMediaGalleryGroup,
   hero: buildHero,
-  richTextTest: buildRichTextTestComponent,
+  richTextTest: buildRichTextComponent,
   videoPlayerSection: buildVideoPlayerSection,
   columnsText: buildColumnsText,
   spacer: buildSpacer,
@@ -70,7 +70,8 @@ const isEntity = (field: any) => field.id && field.contentType && field.fields;
 export const getPageBlocks = (entry: FilteredEntity): JSX.Element | null => {
   if (entry == null) return null;
   const { contentType, fields } = entry;
-  if (!contentType || (!componentFactories[contentType] && contentType !== 'listText')) return null;
+
+  if (!contentType || !componentFactories[contentType]) return null;
 
   const { props, component: Component, childrenFields } = componentFactories[contentType](entry.fields);
   let Children: Array<JSX.Element | null | string | ReactNode> = [];

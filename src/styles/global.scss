@@ -170,6 +170,7 @@ p {
 // default tables styling
 table {
   text-align: left;
+  border-collapse: collapse;
 
   tr {
     th {
@@ -188,6 +189,8 @@ table {
       padding: px(20);
       background-color: $white;
       color: $mid-grey;
+      border: 1px solid $light-grey;
+      vertical-align: top;
 
       @include media-tablet {
         padding: px(28) px(20) px(20) px(24);
@@ -202,7 +205,7 @@ table {
             color: $dark-grey;
             display: inline-block;
             width: 1px;
-            margin-right: px(10);
+            margin-right: px(15);
           }
 
           a {
