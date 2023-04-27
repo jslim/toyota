@@ -41,7 +41,7 @@ import Roadmap from '@/components/Roadmap/Roadmap';
 import SectionWrapper from '@/components/SectionWrapper/SectionWrapper';
 import Spacer from '@/components/Spacer/Spacer';
 import Tabs from '@/components/Tabs/Tabs';
-import TextIntro, { TextIntroLayout } from '@/components/TextIntro/TextIntro';
+import TextIntro from '@/components/TextIntro/TextIntro';
 import VideoPlayerSection from '@/components/VideoPlayerSection/VideoPlayerSection';
 
 import { parseContentfulRichText } from './rich-text-parser';
@@ -201,24 +201,20 @@ export const buildTextBlock = (fields: TextBlockContentType, extraProps?: Generi
   component: ({ textContent }) => <p>{textContent}</p>
 });
 
-export const buildTextIntro = (fields: TextIntroContentType, extraProps?: GenericObject): ComponentBuilder => {
-  const hasCta = fields.ctaLabel && fields.ctaLink && fields.layout === TextIntroLayout.HEADER_LEFT;
-
-  return {
-    props: {
-      layout: fields.layout,
-      eyebrow: fields.eyebrow,
-      header: fields.header,
-      description: fields.description,
-      ctaProps: hasCta && {
-        href: fields.ctaLink,
-        title: fields.ctaLabel
-      },
-      ...extraProps
+export const buildTextIntro = (fields: TextIntroContentType, extraProps?: GenericObject): ComponentBuilder => ({
+  props: {
+    layout: fields.layout,
+    eyebrow: fields.eyebrow,
+    header: fields.header,
+    description: fields.description,
+    ctaProps: {
+      href: fields.ctaLink,
+      title: fields.ctaLabel
     },
-    component: TextIntro
-  };
-};
+    ...extraProps
+  },
+  component: TextIntro
+});
 
 export const buildRoadmapGroup = (fields: RoadmapGroupContentType, extraProps?: GenericObject): ComponentBuilder => {
   const items = fields.items.map((item) => ({
