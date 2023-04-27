@@ -1,8 +1,9 @@
-import { FC, memo, useEffect, useState, ReactNode } from 'react';
+import { FC, memo, useEffect, useState, ReactNode, useMemo } from 'react';
 import { GetStaticProps } from 'next';
 import classNames from 'classnames';
 
-import { Job, PageProps } from '@/data/types';
+import { useRouter } from 'next/router';
+import { Job } from '@/data/types';
 import { getAllLangSlugs } from '@/utils/locales';
 import { ColumnType } from '@/data/variants';
 
@@ -12,28 +13,37 @@ import TextIntro from '@/components/TextIntro/TextIntro';
 
 import sanitizer from '@/utils/sanitizer';
 import useLayout from '@/hooks/use-layout';
+import PageNotFound from '@/components/PageNotFound/PageNotFound';
 
 // set as global var for local translation
 const eyebrowText = 'Careers';
 const applyText = 'apply for this job';
 
-export interface CareerDetailPageProps extends PageProps {
-  id: string;
-}
-
-const CareerDetail: FC<CareerDetailPageProps> = ({ id }) => {
+const CareerDetail: FC = () => {
+  const router = useRouter();
   const { layout } = useLayout();
   const [career, setCareer] = useState<Job>();
   const [leftSideContent, setLeftSideContent] = useState<ReactNode>();
+  const [notFound, setNotFound] = useState<boolean>();
+
+  const id = useMemo(() => {
+    return router.query.jobID;
+  }, [router]);
 
   useEffect(() => {
+    if (!id) return;
     try {
       fetch('https://api.lever.co/v0/postings/woven-planet-2/' + id + '?mode=json')
         .then((res) => res.json())
         .then((data) => {
-          setCareer(data);
+          if (data.categories) {
+            setCareer(data);
+          } else {
+            setNotFound(true);
+          }
         });
     } catch (e) {
+      setNotFound(true);
       console.error('Unable to fetch Job postings: ', e);
     }
   }, [setCareer, id]);
@@ -57,9 +67,9 @@ const CareerDetail: FC<CareerDetailPageProps> = ({ id }) => {
   }, [layout, career]);
 
   return (
-    <main className={classNames('CareerDetail')}>
+    <>
       {career && (
-        <>
+        <main className={classNames('CareerDetail')}>
           <TextIntro
             layout={ColumnType.COLUMNS_30_70}
             eyebrow={eyebrowText}
@@ -71,9 +81,10 @@ const CareerDetail: FC<CareerDetailPageProps> = ({ id }) => {
             <div dangerouslySetInnerHTML={{ __html: sanitizer(career.description || '') }} />
             {layout.mobile && <Cta href={career.applyUrl} title={applyText} />}
           </ColumnsText>
-        </>
+        </main>
       )}
-    </main>
+      {notFound ? <PageNotFound head={{ title: 'Career Detail' }} /> : <main />}
+    </>
   );
 };
 
@@ -88,8 +99,7 @@ export async function getStaticPaths() {
 export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
-      head: { title: 'Careers' },
-      id: '1cc17d69-071a-4b5a-8b73-3b7b859913b2'
+      head: { title: 'Careers' }
     }
   };
 };
