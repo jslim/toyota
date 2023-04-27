@@ -287,10 +287,19 @@ export type CardContentType = {
   date: string;
 };
 
+export type CardGalleryContentType = {
+  cards: Array<FilteredEntity<CardContentType>>;
+};
+
 export type CardGridContentType = {
   title: string;
   cardType: CardTypes;
   cards: Array<FilteredEntity<CardContentType>>;
+};
+
+export type CareersListContentType = {
+  title: string;
+  eyebrowText: string;
 };
 
 export type FeatureListItemContentType = {

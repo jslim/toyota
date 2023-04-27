@@ -3,7 +3,9 @@ import { FC, ReactNode } from 'react';
 import {
   AccordionGroupContentType,
   AccordionItemContentType,
+  CardGalleryContentType,
   CardGridContentType,
+  CareersListContentType,
   ColumnsTextContentType,
   ContentfulImageAsset,
   DefaultPageContentType,
@@ -28,11 +30,14 @@ import {
 import { variants } from '@/data/variants';
 
 import Accordion, { AccordionItem } from '@/components/Accordion/Accordion';
+import { CardTypes } from '@/components/Card/Card';
 import CardGrid from '@/components/CardGrid/CardGrid';
+import CareersList from '@/components/CareersList/CareersList';
 import ColumnsText from '@/components/ColumnsText/ColumnsText';
 import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
 import FeaturedArticles from '@/components/FeaturedArticles/FeaturedArticles';
 import FeaturesList from '@/components/FeaturesList/FeaturesList';
+import Gallery from '@/components/Gallery/Gallery';
 import GalleryVideo from '@/components/GalleryVideo/GalleryVideo';
 import Hero from '@/components/Hero/Hero';
 import NextChapter from '@/components/NextChapter/NextChapter';
@@ -240,17 +245,40 @@ export const buildRoadmapGroup = (fields: RoadmapGroupContentType, extraProps?: 
   };
 };
 
+export const buildCardGallery = (fields: CardGalleryContentType, extraProps?: GenericObject): ComponentBuilder => {
+  const slides = fields?.cards.map((card) => {
+    const cta = card?.fields?.cta?.fields?.linkUrl && {
+      title: card?.fields?.cta?.fields?.linkText,
+      href: card?.fields?.cta?.fields?.linkUrl,
+      'aria-label': card?.fields?.cta?.fields?.ariaLabel
+    };
+    return {
+      cardType: CardTypes.PRODUCT,
+      ...card.fields,
+      cta
+    };
+  });
+  return {
+    props: {
+      slides,
+      ...extraProps
+    },
+    component: Gallery
+  };
+};
+
 export const buildCardGrid = (fields: CardGridContentType, extraProps?: GenericObject): ComponentBuilder => {
   const cardType = fields?.cardType[0] || null;
   const cards = fields?.cards.map((card) => {
+    const cta = card?.fields?.cta?.fields?.linkUrl && {
+      title: card?.fields?.cta?.fields?.linkText,
+      href: card?.fields?.cta?.fields?.linkUrl,
+      'aria-label': card?.fields?.cta?.fields?.ariaLabel
+    };
     return {
       cardType,
       ...card.fields,
-      cta: {
-        title: card?.fields?.cta?.fields?.linkText,
-        href: card?.fields?.cta?.fields?.linkUrl,
-        'aria-label': card?.fields?.cta?.fields?.ariaLabel
-      }
+      cta
     };
   });
   return {
@@ -260,6 +288,17 @@ export const buildCardGrid = (fields: CardGridContentType, extraProps?: GenericO
       ...extraProps
     },
     component: CardGrid
+  };
+};
+
+export const buildCareersList = (fields: CareersListContentType, extraProps?: GenericObject): ComponentBuilder => {
+  return {
+    props: {
+      title: fields?.title,
+      eyebrow: fields?.eyebrowText,
+      ...extraProps
+    },
+    component: CareersList
   };
 };
 
