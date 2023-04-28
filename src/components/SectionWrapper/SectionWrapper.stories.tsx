@@ -1,31 +1,31 @@
 import { Story } from '@storybook/react';
 
-import { variants } from '@/data/variants';
-
 import Accordion, { AccordionItem } from '@/components/Accordion/Accordion';
 
 import SectionWrapper, { SectionWrapperProps } from './SectionWrapper';
 
+import { Color, isDarkMode } from '@/utils/colors';
 export default { title: 'components/SectionWrapper' };
 
 export const Default: Story<SectionWrapperProps> = (args) => <SectionWrapper {...args} />;
 
 Default.argTypes = {
-  theme: {
-    options: variants,
+  backgroundColor: {
+    options: [Color.LIGHT_GREY, Color.DARK_GREY],
     control: { type: 'select' }
   }
 };
 
 Default.args = {
   eyebrow: 'What we build',
-  title: 'Developing the tools to build a more mobile future.'
+  title: 'Developing the tools to build a more mobile future.',
+  backgroundColor: Color.DARK_GREY
 };
 
 export const WithContent: Story<SectionWrapperProps> = (args) => (
   <SectionWrapper {...args}>
     <div style={{ marginTop: '30px' }}>
-      <Accordion variant={args.theme}>
+      <Accordion variant={isDarkMode(args.backgroundColor || Color.DARK_GREY)}>
         <AccordionItem key={1} title="Section 1">
           <p>Section 1 content...</p>
         </AccordionItem>

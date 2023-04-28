@@ -1,14 +1,13 @@
-import { FC, SetStateAction, memo, useCallback, useEffect, useRef, useState } from 'react';
+import { FC, memo, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import SwiperCore, { A11y, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-
 import css from './HistoryTimeline.module.scss';
-import Eyebrow from '../Eyebrow/Eyebrow';
 
+import Eyebrow from '../Eyebrow/Eyebrow';
 import HistoryTimelineSlide, { SlideProps } from './HistoryTimelineSlide';
 
 SwiperCore.use([Pagination, A11y]);
@@ -33,7 +32,6 @@ const HistoryTimeline: FC<HistoryTimelineProps> = ({ className, eyebrow, title, 
   const [isDraggable, setDraggable] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
   const [slideProgress, setSlideProgress] = useState(0);
-  const [playAnimIn, setPlayAnimIn] = useState(false);
 
   const handleOnProgress = useCallback((swiper: SwiperCore, progress: SetStateAction<number>) => {
     setSwiper(swiper);
@@ -45,8 +43,7 @@ const HistoryTimeline: FC<HistoryTimelineProps> = ({ className, eyebrow, title, 
       .timeline({
         scrollTrigger: {
           start: 'top 75%',
-          trigger: ref.current,
-          onEnter: () => setPlayAnimIn(true)
+          trigger: ref.current
         }
       })
       .fadeIn(titleRef.current?.children, { stagger: 0.05 });
@@ -59,7 +56,7 @@ const HistoryTimeline: FC<HistoryTimelineProps> = ({ className, eyebrow, title, 
   return (
     <div className={classNames('HistoryTimeline', css.root, className)} ref={ref}>
       <div className={css.wrapper}>
-        <Eyebrow text={eyebrow} playAnimIn={playAnimIn} />
+        <Eyebrow text={eyebrow} />
         <div className={css.titleWrapper} ref={titleRef}>
           <h3 className={css.title}>{title}</h3>
           <div className={css.year}>{slides[swiper?.activeIndex || 0].year}</div>

@@ -14,13 +14,13 @@ import ChevronDown from '@/components/svgs/svg-chevron-down.svg';
 interface AccordionProps {
   className?: string;
   children?: ReactNode;
-  variant?: variants;
+  variant?: variants | string;
 }
 
 export interface AccordionItemProps {
   title?: string;
   children?: ReactNode;
-  variant?: variants;
+  variant?: variants | string;
   secondaryText?: string;
   tertiaryText?: string;
 }

@@ -5,7 +5,6 @@ import { gsap } from 'gsap';
 import css from './Roadmap.module.scss';
 
 import { ContentfulImageAsset } from '@/data/types';
-import { variants } from '@/data/variants';
 
 import SectionWrapper from '@/components/SectionWrapper/SectionWrapper';
 
@@ -14,6 +13,7 @@ import useLayout from '@/hooks/use-layout';
 
 import ContentfulImage from '../ContentfulImage/ContentfulImage';
 import { RoadmapTypes } from './Roadmap';
+import { Color } from '@/utils/colors';
 
 export type RoadmapItemSingleProps = {
   title: string;
@@ -168,7 +168,7 @@ const RoadmapItem: FC<RoadmapItemProps> = ({ item, index, theme, numOfSlides, se
 
   return (
     <div ref={itemRef} className={css.item}>
-      <SectionWrapper className={css.sectionWrapper} theme={variants.LIGHT}>
+      <SectionWrapper className={css.sectionWrapper} backgroundColor={Color.LIGHT_GREY}>
         {theme === RoadmapTypes.HOME && item.image && (
           <ContentfulImage
             className={classNames(css.image, 'scaleDown')}

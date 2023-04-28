@@ -1,14 +1,17 @@
 import { Story } from '@storybook/react';
 
+import { Color } from '@/utils/colors';
+
 import { contentfulTestAsset } from '../ContentfulImage/ContentfulImage.stories';
+import SectionWrapper from '../SectionWrapper/SectionWrapper';
 import Gallery, { GalleryProps } from './Gallery';
 
 export default { title: 'components/Gallery' };
 
 export const Default: Story<GalleryProps> = (args) => (
-  <div style={{ background: '#2F2F2F', width: '100%' }}>
+  <SectionWrapper backgroundColor={Color.DARK_GREY} eyebrow="Careers" title="Lorem Ipsum">
     <Gallery {...args} />
-  </div>
+  </SectionWrapper>
 );
 
 const button = 'Learn more';

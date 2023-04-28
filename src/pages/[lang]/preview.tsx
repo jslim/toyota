@@ -1,10 +1,10 @@
 import { FC, memo } from 'react';
 import { GetStaticProps } from 'next';
-import classNames from 'classnames';
 
 import { PageType } from '@/data/types';
 
 import Head from '@/components/Head/Head';
+import PageDefault from '@/components/PageDefault/PageDefault';
 
 import usePreviewData from '@/hooks/use-preview-data';
 import { getAllLangSlugs } from '@/utils/locales';
@@ -17,10 +17,11 @@ const Preview: FC<PageType> = ({ data: staticData }) => {
   });
 
   return (
-    <>
+    <PageDefault>
       <Head {...{ title: pageData?.fields?.pageTitle ?? 'Preview' }} />
-      <main className={classNames('Preview')}>{getPageBlocks(pageData) ?? null}</main>
-    </>
+      {/* always render nodes conditionally unless it's set as required field in CMS */}
+      {!!pageData?.fields ? getPageBlocks(pageData) : null}
+    </PageDefault>
   );
 };
 

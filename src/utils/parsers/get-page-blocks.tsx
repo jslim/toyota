@@ -5,7 +5,9 @@ import { FilteredEntity } from '@/data/types';
 import {
   buildAccordionGroup,
   buildAccordionItem,
+  buildCardGallery,
   buildCardGrid,
+  buildCareersList,
   buildColumnsText,
   buildContentfulImage,
   buildDefaultPage,
@@ -40,7 +42,9 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
   textContent: buildTextBlock,
   testPage: buildTestPage,
   defaultPage: buildDefaultPage,
+  cardGallery: buildCardGallery,
   cardGrid: buildCardGrid,
+  careersList: buildCareersList,
   // We can build an image from either a reference ImageBlock or a direct linked Asset
   contentfulAssetEntity: buildContentfulImage,
   imageBlock: buildImageBlock,

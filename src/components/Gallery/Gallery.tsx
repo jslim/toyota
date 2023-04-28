@@ -24,7 +24,6 @@ const Gallery: FC<GalleryProps> = ({ className, slides }) => {
         autoHeight={true}
         slidesPerView={'auto'}
         speed={SLIDE_DURATION}
-        onSlideChange={(swiper) => console.log(swiper)}
         pagination={{
           type: 'bullets',
           clickable: true,
