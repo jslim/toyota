@@ -1,7 +1,15 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { GlobalData, Lang, NavLinks } from '@/data/types';
+import { GlobalData, GlobalDataFields, Lang, NavLinks } from '@/data/types';
+
+export const defaultGlobalData: GlobalDataFields = {
+  mainNavLinks: [] as Array<NavLinks>,
+  footerNavLinks: [] as Array<NavLinks>,
+  homepageBannerText: '',
+  showHomepageBanner: false,
+  skipToContentText: ''
+};
 
 const { actions, reducer } = createSlice({
   name: 'app',
@@ -10,23 +18,12 @@ const { actions, reducer } = createSlice({
     activeRoute: '',
     isWebpSupported: true,
     globalData: {
-      [Lang.EN]: {
-        mainNavLinks: [] as Array<NavLinks>,
-        footerNavLinks: [] as Array<NavLinks>,
-        skipToContentText: ''
-      },
-      [Lang.JP]: {
-        mainNavLinks: [] as Array<NavLinks>,
-        footerNavLinks: [] as Array<NavLinks>,
-        skipToContentText: ''
-      }
+      [Lang.EN]: { ...defaultGlobalData },
+      [Lang.JP]: { ...defaultGlobalData }
     },
-    activeGlobalData: {
-      mainNavLinks: [] as Array<NavLinks>,
-      footerNavLinks: [] as Array<NavLinks>,
-      skipToContentText: ''
-    },
-    activeLang: Lang.EN
+    activeGlobalData: { ...defaultGlobalData },
+    activeLang: Lang.EN,
+    homepageBannerHeight: 0
   },
   reducers: {
     setActiveRoute(state, action: PayloadAction<string>) {
@@ -45,11 +42,26 @@ const { actions, reducer } = createSlice({
       // Set any necessary state to the localized version based on Lang
       state.activeGlobalData = state.globalData[action.payload];
       state.activeLang = action.payload;
+    },
+    setHomepageBannerVisibility(state, action: PayloadAction<boolean>) {
+      state.activeGlobalData = { ...state.activeGlobalData, showHomepageBanner: action.payload };
+      state.homepageBannerHeight = !action.payload ? 0 : state.homepageBannerHeight;
+    },
+    setHomepageBannerHeight(state, action: PayloadAction<number>) {
+      state.homepageBannerHeight = action.payload;
     }
   }
 });
 
-export const { setActiveRoute, setPrevRoute, setIsWebpSupported, setGlobalData, setActiveLang } = actions;
+export const {
+  setActiveRoute,
+  setPrevRoute,
+  setIsWebpSupported,
+  setGlobalData,
+  setActiveLang,
+  setHomepageBannerVisibility,
+  setHomepageBannerHeight
+} = actions;
 
 export const store = configureStore({ reducer, devTools: process.env.NEXT_PUBLIC_ENVIRONMENT !== 'production' });
 

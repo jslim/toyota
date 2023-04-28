@@ -17,10 +17,14 @@ export const globalDataParserUtil = (entity: GlobalDataContentType): GlobalDataF
   const mainNavLinks: Array<NavLinks> = entity?.mainNavLinks?.map((link) => convertCtaToNavLink(link));
   const footerNavLinks: Array<NavLinks> = entity?.footerNavLinks?.map((link) => convertCtaToNavLink(link));
   const skipToContentText = entity?.skipToContentText ?? 'Skip to content';
+  const homepageBannerText = entity?.homepageBannerText ?? '';
+  const showHomepageBanner = entity?.showHomepageBanner ?? false;
 
   return {
     mainNavLinks,
     footerNavLinks,
-    skipToContentText
+    skipToContentText,
+    homepageBannerText,
+    showHomepageBanner
   };
 };

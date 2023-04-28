@@ -1,7 +1,8 @@
 @import 'shared';
 
 .root {
-  @include position-100(absolute);
+  @include position-0;
+  @include box(100%);
   flex-direction: column;
   display: flex;
   @include typography-h3;
