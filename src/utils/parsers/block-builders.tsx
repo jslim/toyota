@@ -201,20 +201,24 @@ export const buildTextBlock = (fields: TextBlockContentType, extraProps?: Generi
   component: ({ textContent }) => <p>{textContent}</p>
 });
 
-export const buildTextIntro = (fields: TextIntroContentType, extraProps?: GenericObject): ComponentBuilder => ({
-  props: {
-    layout: fields.layout,
-    eyebrow: fields.eyebrow,
-    header: fields.header,
-    description: fields.description,
-    ctaProps: {
-      href: fields.ctaLink,
-      title: fields.ctaLabel
+export const buildTextIntro = (fields: TextIntroContentType, extraProps?: GenericObject): ComponentBuilder => {
+  const hasCta = fields.ctaLabel && fields.ctaLink;
+
+  return {
+    props: {
+      layout: fields.layout,
+      eyebrow: fields.eyebrow,
+      header: fields.header,
+      description: fields.description,
+      ctaProps: hasCta && {
+        href: fields.ctaLink,
+        title: fields.ctaLabel
+      },
+      ...extraProps
     },
-    ...extraProps
-  },
-  component: TextIntro
-});
+    component: TextIntro
+  };
+};
 
 export const buildRoadmapGroup = (fields: RoadmapGroupContentType, extraProps?: GenericObject): ComponentBuilder => {
   const items = fields.items.map((item) => ({
