@@ -41,7 +41,7 @@ import Roadmap from '@/components/Roadmap/Roadmap';
 import SectionWrapper from '@/components/SectionWrapper/SectionWrapper';
 import Spacer from '@/components/Spacer/Spacer';
 import Tabs from '@/components/Tabs/Tabs';
-import TextIntro, { TextIntroLayout } from '@/components/TextIntro/TextIntro';
+import TextIntro from '@/components/TextIntro/TextIntro';
 import VideoPlayerSection from '@/components/VideoPlayerSection/VideoPlayerSection';
 
 import { parseContentfulRichText } from './rich-text-parser';
@@ -202,7 +202,7 @@ export const buildTextBlock = (fields: TextBlockContentType, extraProps?: Generi
 });
 
 export const buildTextIntro = (fields: TextIntroContentType, extraProps?: GenericObject): ComponentBuilder => {
-  const hasCta = fields.ctaLabel && fields.ctaLink && fields.layout === TextIntroLayout.HEADER_LEFT;
+  const hasCta = fields.ctaLabel && fields.ctaLink;
 
   return {
     props: {
