@@ -13,7 +13,6 @@ Default.args = {
   title: 'Cras mattis purus sit amet quam est',
   description:
     'Representing a complementary array of expertise across multiple disciplines, our leaders come together from diverse backgrounds to conceive, build, test and deliver the safest and smartest mobility on the planet.',
-  dragLabel: 'Drag',
   directors: {
     label: 'Board of directors',
     list: [

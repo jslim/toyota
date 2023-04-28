@@ -6,8 +6,6 @@ export default { title: 'components/Cursor' };
 
 export const Default: Story<CursorProps> = (args) => <Cursor {...args} />;
 
-Default.args = {
-  text: 'Drag'
-};
+Default.args = {};
 
 Default.argTypes = {};

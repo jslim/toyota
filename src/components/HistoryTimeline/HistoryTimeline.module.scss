@@ -4,6 +4,7 @@
   overflow: hidden;
   text-align: left;
   width: 100%;
+  display: flex;
 
   .wrapper {
     @include container;
@@ -94,6 +95,7 @@
         margin-bottom: px(40);
         overflow: hidden;
         background-color: $white;
+        pointer-events: none;
 
         @include breakpoint(tablet) {
           border-radius: px(8);
@@ -226,5 +228,9 @@
     }
 
     @include pagination($black);
+  }
+
+  .cursor {
+    transform: translateX(desktop-columns(9));
   }
 }
