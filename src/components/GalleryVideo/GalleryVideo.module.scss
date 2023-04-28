@@ -2,6 +2,8 @@
 
 .root {
   .carouselContainer {
+    overflow: unset;
+
     :global(.swiper-wrapper) {
       width: 100%;
       display: flex;

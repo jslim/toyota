@@ -5,6 +5,7 @@
 
   .carouselContainer {
     margin-top: px(67);
+    overflow: unset;
 
     :global(.swiper-wrapper) {
       width: 100%;
