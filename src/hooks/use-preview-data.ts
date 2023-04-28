@@ -26,11 +26,11 @@ export default function usePreviewData({ staticData }: Args) {
     return { isPreviewRoute, langSegment, ...urlParams };
   }, [router]);
 
+  const [data, setData] = useState<FilteredEntity | null>(null);
+
   const validPreviewParams = useMemo(() => {
     return Boolean(spaceId && envId && entryId && accessToken);
   }, [accessToken, entryId, envId, spaceId]);
-
-  const [data, setData] = useState(staticData);
 
   const fetchData = useCallback(
     async function () {
@@ -60,5 +60,5 @@ export default function usePreviewData({ staticData }: Args) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [entryId, validPreviewParams]);
 
-  return data;
+  return data || staticData;
 }
