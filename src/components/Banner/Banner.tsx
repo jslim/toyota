@@ -1,4 +1,4 @@
-import { FC, memo, useCallback, useMemo } from 'react';
+import { FC, memo, useCallback, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import classnames from 'classnames';
 
@@ -20,6 +20,15 @@ const Banner: FC<BannerProps> = () => {
   const dispatch = useAppDispatch();
   const { showHomepageBanner, homepageBannerText } = useAppSelector((state) => state.activeGlobalData);
 
+  const isHomepage = useMemo(() => {
+    const strippedPath = router.asPath.replaceAll('/', '');
+    return strippedPath === Lang.EN || strippedPath === Lang.JP;
+  }, [router]);
+
+  useEffect(() => {
+    if (!isHomepage) dispatch(setHomepageBannerVisibility(false));
+  }, [dispatch, isHomepage]);
+
   // Using ref callback so we can be certain banner in DOM before applying margin
   const bannerRef = useCallback(
     (node: HTMLDivElement | null) => {
@@ -37,11 +46,6 @@ const Banner: FC<BannerProps> = () => {
     },
     [dispatch]
   );
-
-  const isHomepage = useMemo(() => {
-    const strippedPath = router.asPath.replaceAll('/', '');
-    return strippedPath === Lang.EN || strippedPath === Lang.JP;
-  }, [router]);
 
   // Router query slug includes both search params AND slug in dynamic path. This should only match /en/ and /jp/
   if (!showHomepageBanner || !isHomepage) return null;
