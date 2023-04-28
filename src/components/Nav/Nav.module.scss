@@ -1,12 +1,14 @@
 @import 'shared';
 
-.root {
+.navWrapper {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   @include z-index(main-nav);
-  height: $navbar-height;
+}
+
+.root {
   display: flex;
 
   .skipToContent {
@@ -28,6 +30,7 @@
   > .wrapper {
     width: 100%;
     @include flex-center-vert;
+    height: $navbar-height;
 
     .logo {
       z-index: 2;

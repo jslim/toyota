@@ -1,6 +1,5 @@
 import { memo, useEffect, useRef } from 'react';
 import classNames from 'classnames';
-
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
@@ -14,23 +13,19 @@ export type EyebrowProps = {
   className?: string;
   text: string;
   variant?: string;
-  playAnimIn?: boolean;
 };
 
-const Eyebrow = ({ className, text, variant = variants.LIGHT, playAnimIn = false }: EyebrowProps) => {
+const Eyebrow = ({ className, text, variant = variants.LIGHT }: EyebrowProps) => {
   const circleRef = useRef<HTMLDivElement>(null);
   const animTL = useRef<GSAPTimeline>();
-  useEffect(() => {
-    {
-      animTL.current = gsap.timeline({ paused: true }).from(circleRef.current, {
-        xPercent: 80
-      });
-    }
-  }, [animTL]);
 
   useEffect(() => {
-    playAnimIn && animTL.current?.play();
-  }, [playAnimIn]);
+    animTL.current = gsap
+      .timeline({ scrollTrigger: { start: 'top bottom', trigger: circleRef.current } })
+      .from(circleRef.current, {
+        xPercent: 80
+      });
+  });
 
   return (
     <div className={classNames('Eyebrow', css.root, className, { [css.dark]: variant === variants.DARK })}>

@@ -1,0 +1,120 @@
+@import 'shared';
+
+.root {
+  position: relative;
+  @include breakpoint(desktopSm) {
+    @include container;
+  }
+
+  .sectionWrapper {
+    width: 100%;
+
+    > div {
+      flex-direction: column;
+      @include breakpoint(tablet) {
+        width: 100%;
+        padding: px(24) 0;
+      }
+    }
+
+    .eyebrow {
+      @include breakpoint(desktopSm) {
+        position: absolute;
+        left: 0;
+      }
+    }
+
+    @include breakpoint(tablet) {
+      @include use-tablet-columns(width, 8);
+      @include use-tablet-gutter(padding-left, 1);
+      @include use-tablet-gutter(padding-right, 1);
+    }
+
+    @include breakpoint(desktopSm) {
+      position: unset;
+      box-sizing: border-box;
+      @include use-desktop-columns(width, 7);
+      @include use-desktop-columns(margin-left, 5, 1);
+      @include use-desktop-gutter(padding-left, 1);
+      @include use-desktop-gutter(padding-right, 1);
+      border-radius: px(12);
+    }
+  }
+
+  .cta {
+    margin-top: px(24);
+  }
+
+  .assetsWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: px(18);
+    border-bottom: 1px solid rgba($grey, 0.2);
+    padding-bottom: px(10);
+
+    @include breakpoint(tablet) {
+      padding-bottom: 0;
+    }
+
+    @include breakpoint(desktopSm) {
+      margin-top: 0;
+      padding-bottom: px(7);
+    }
+
+    .imageWrapper {
+      @include use-mobile-columns(width, 2);
+      margin-bottom: px(24);
+      border-radius: px(5);
+      overflow: hidden;
+      position: relative;
+
+      img {
+        @include aspect-ratio(9, 5);
+      }
+
+      &:hover {
+        .overlay {
+          pointer-events: all;
+        }
+      }
+
+      &:nth-child(odd) {
+        @include use-mobile-gutter(margin-right, 1);
+      }
+
+      @include breakpoint(tablet) {
+        border-radius: px(6);
+        width: calc((100% - px(30) * 2) / 3);
+        margin-right: px(30);
+        margin-bottom: px(30);
+
+        &:nth-child(odd) {
+          margin-right: px(30);
+        }
+
+        &:nth-child(3n) {
+          margin-right: 0;
+        }
+      }
+
+      .overlay {
+        @include position-100(absolute);
+        background-color: rgba($black, 0.5);
+        @include flex-center;
+        opacity: 0;
+        transition: opacity 0.3s;
+        @include ease(custom);
+        pointer-events: none;
+
+        &:hover {
+          opacity: 1;
+        }
+
+        .iconCircle {
+          border: $white 1px solid;
+        }
+      }
+    }
+  }
+}

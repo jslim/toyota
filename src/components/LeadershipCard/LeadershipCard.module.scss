@@ -1,0 +1,62 @@
+@import 'shared';
+
+.root {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  margin-bottom: px(21);
+
+  @include media-tablet {
+    margin-bottom: px(25);
+  }
+
+  @include media-desktopSm {
+    margin-bottom: 0;
+  }
+
+  .title,
+  .description {
+    text-align: left;
+  }
+
+  .title {
+    @include font-size(8.6, 13);
+
+    @include media-tablet {
+      @include font-size(18, 26);
+    }
+
+    @include media-desktopSm {
+      @include font-size(20, 30);
+    }
+  }
+
+  .description {
+    @include font-size(7, 10);
+
+    @include media-tablet {
+      @include font-size(13, 22);
+    }
+
+    @include media-desktopSm {
+      @include font-size(16, 24);
+    }
+  }
+
+  .image {
+    @include aspect-ratio(264, 324);
+    object-fit: cover;
+    margin-bottom: px(6);
+    border-radius: px(8);
+
+    @include media-tablet {
+      margin-bottom: px(10);
+    }
+
+    @include media-desktopSm {
+      height: px(324);
+      margin-bottom: px(12);
+    }
+  }
+}

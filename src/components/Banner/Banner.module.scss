@@ -1,0 +1,43 @@
+@import 'shared';
+
+.root {
+  position: relative;
+  padding: px(22) 0;
+}
+
+.bannerText {
+  @include typography-body-small();
+  margin: 0 auto;
+  text-align: left;
+  @include use-mobile-columns(width, 4);
+
+  @include media-tablet {
+    @include use-tablet-columns(width, 8);
+  }
+
+  @include media-desktopSm {
+    @include use-desktop-columns(width, 12);
+  }
+}
+
+.close {
+  @include box(px(20));
+  transform: translateY(-50%);
+  position: absolute;
+  right: px(20);
+  top: px(20);
+  cursor: pointer;
+
+  @include media-tablet {
+    right: px(26);
+    top: px(26);
+  }
+
+  @include media-desktopMd {
+    right: px(96);
+    top: 50%;
+  }
+  path {
+    stroke: white;
+  }
+}

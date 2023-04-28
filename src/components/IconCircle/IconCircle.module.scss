@@ -36,6 +36,10 @@
     filter: invert(1);
   }
 
+  @include breakpoint(tablet) {
+    @include box(px(40));
+  }
+
   @include breakpoint(desktopSm) {
     @include box(px(45));
 

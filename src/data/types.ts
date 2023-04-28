@@ -22,6 +22,8 @@ export type NavLinks = CTAContentType & {
 export type GlobalDataFields = {
   mainNavLinks: Array<NavLinks>;
   footerNavLinks: Array<NavLinks>;
+  homepageBannerText: string;
+  showHomepageBanner: boolean;
   skipToContentText: string;
 };
 
@@ -195,6 +197,8 @@ export type OurLatestPostPageContentType = {
 export type GlobalDataContentType = {
   mainNavLinks: Array<FilteredEntity<CTAContentType>>;
   footerNavLinks: Array<FilteredEntity<CTAContentType>>;
+  homepageBannerText: string;
+  showHomepageBanner: boolean;
   skipToContentText: string;
 };
 
@@ -287,10 +291,19 @@ export type CardContentType = {
   date: string;
 };
 
+export type CardGalleryContentType = {
+  cards: Array<FilteredEntity<CardContentType>>;
+};
+
 export type CardGridContentType = {
   title: string;
   cardType: CardTypes;
   cards: Array<FilteredEntity<CardContentType>>;
+};
+
+export type CareersListContentType = {
+  title: string;
+  eyebrowText: string;
 };
 
 export type FeatureListItemContentType = {

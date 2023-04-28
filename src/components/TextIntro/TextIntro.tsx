@@ -4,13 +4,14 @@ import gsap from 'gsap';
 
 import css from './TextIntro.module.scss';
 
+import { ColumnType } from '@/data/variants';
+
 import { Props as LinkProps } from '@/components/BaseLink/BaseLink';
 import Cta from '@/components/Cta/Cta';
 
 import ToyotaBackground from '@/components/svgs/svg-toyota-background.svg';
 
 import Eyebrow from '../Eyebrow/Eyebrow';
-import { ColumnType } from '@/data/variants';
 
 enum DefaultLayoutType {
   DEFAULT = 'default',

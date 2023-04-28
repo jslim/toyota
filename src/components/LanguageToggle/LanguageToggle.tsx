@@ -1,6 +1,9 @@
 import { FC, memo, useState } from 'react';
 import classNames from 'classnames';
 
+import { device } from '@jam3/detect';
+import { useRouter } from 'next/router';
+
 import css from './LanguageToggle.module.scss';
 
 import { Lang } from '@/data/types';
@@ -14,25 +17,39 @@ export type LanguageToggleProps = {
 };
 
 const LanguageToggle: FC<LanguageToggleProps> = ({ className }) => {
-  // TODO set language on CMS level
-  const activeLang = useAppSelector((state) => state.activeLang);
+  const router = useRouter();
+  const [activeLang, setActiveLang] = useState(useAppSelector((state) => state.activeLang));
   const [open, setOpen] = useState(false);
-  const handleLangChange = () => {
+  const handleLangChange = (lang: Lang) => {
     setOpen(false);
+    setActiveLang(lang);
+    router.push({
+      query: {
+        lang: lang,
+        slug: router.asPath
+          .split('/')
+          .filter((item) => item !== '' && Object.values(Lang).every((lang) => item !== lang) && item)
+          .join('/')
+      }
+    });
   };
   return (
     <div className={classNames('LanguageToggle', css.root, className)}>
       <div
         className={classNames(css.langWrapper, { [css.open]: open })}
-        onMouseEnter={() => setOpen(true)}
-        onMouseLeave={() => setOpen(false)}
+        onMouseEnter={() => !device.touch && setOpen(true)}
+        onMouseLeave={() => !device.touch && setOpen(false)}
         onFocus={() => setOpen(true)}
         onBlur={() => setOpen(false)}
       >
         <div className={css.bg} />
         {Object.values(Lang).map((lang) => (
           <div className={classNames(css.lang, { [css.active]: activeLang === lang })} key={lang}>
-            <BaseButton aria-label={lang} className={css.langButton} onClick={() => handleLangChange()}>
+            <BaseButton
+              aria-label={lang}
+              className={css.langButton}
+              onClick={() => activeLang !== lang && handleLangChange(lang)}
+            >
               {lang}
             </BaseButton>
           </div>

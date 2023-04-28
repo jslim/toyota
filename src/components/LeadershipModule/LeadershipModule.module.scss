@@ -1,0 +1,228 @@
+@import 'shared';
+
+.root {
+  @include outer-container;
+  width: 100%;
+  overflow-x: hidden;
+
+  @include media-desktopSm {
+    position: relative;
+    min-height: px(720);
+    overflow-y: hidden;
+  }
+
+  .container {
+    .carouselContainer > div {
+      align-items: center;
+    }
+  }
+
+  .pagination {
+    margin: px(48) 0 px(40);
+    @include flex-center;
+
+    @include breakpoint(desktopSm) {
+      margin: px(83) 0 0;
+    }
+
+    > span {
+      position: relative;
+      @include box(px(25));
+      @include flex-center;
+      margin: 0 px(13);
+      cursor: pointer;
+
+      &:global(.swiper-pagination-bullet-active) {
+        &::after {
+          transform: scale(1);
+        }
+      }
+
+      &::before {
+        content: '';
+        @include box(px(3));
+        border-radius: 50%;
+        background-color: $black;
+        display: block;
+      }
+
+      &::after {
+        content: '';
+        @include position-100(absolute);
+        border: 1px solid $black;
+        border-radius: 50%;
+        display: block;
+        transform: scale(0);
+        transition: $ease1 0.66s transform;
+      }
+    }
+  }
+}
+
+.wrapper {
+  margin: 0 auto;
+
+  .eyebrow {
+    @include outer-container;
+    @include container;
+  }
+
+  .textWrapper {
+    @include container;
+    display: flex;
+    flex-direction: column;
+    margin-top: px(18);
+    margin-bottom: px(62);
+    text-align: left;
+
+    @include media-tablet {
+      margin-top: px(24);
+    }
+
+    @include media-desktopSm {
+      margin-top: px(22);
+      margin-bottom: 0;
+    }
+
+    .title {
+      @include typography-h2;
+      margin-bottom: px(15);
+
+      @include media-tablet {
+        margin-bottom: px(24);
+      }
+
+      @include media-desktopSm {
+        margin-bottom: px(32);
+      }
+    }
+
+    .description {
+      @include typography-paragraph;
+      color: $mid-grey;
+    }
+
+    .title,
+    .description {
+      @include media-tablet {
+        @include use-tablet-columns(max-width, 5);
+      }
+
+      @include media-desktopSm {
+        @include use-desktop-columns(max-width, 4, 1);
+      }
+    }
+
+    .board {
+      display: none;
+
+      @include media-desktopSm {
+        @include use-desktop-columns(width, 5);
+        display: block;
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+.board {
+  @include container;
+
+  .label {
+    @include typography-eyebrow;
+    text-transform: uppercase;
+    text-align: left;
+    color: $mid-grey;
+    margin-bottom: px(17);
+
+    @include media-tablet {
+      margin-bottom: px(30);
+    }
+
+    @include media-desktopSm {
+      margin-top: px(66);
+      margin-bottom: px(18);
+    }
+
+    &::before {
+      content: '';
+      display: inline-block;
+      @include box(px(4));
+      background-color: $red;
+      border-radius: 50%;
+      margin-right: px(20);
+
+      @include media-desktopSm {
+        display: none;
+      }
+    }
+  }
+
+  .list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: px(18);
+
+    @include media-tablet {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include media-desktopSm {
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: px(12);
+    }
+
+    .listItem {
+      @include use-mobile-columns(width, 2);
+      text-align: left;
+
+      @include media-tablet {
+        width: auto;
+      }
+
+      .name {
+        @include typography-label;
+      }
+      .role {
+        @include typography-paragraph;
+        color: $mid-grey;
+      }
+    }
+  }
+}
+
+.carouselContainer {
+  padding-top: px(26);
+  overflow: visible;
+  padding-left: px(40);
+
+  @include media-tablet {
+    padding-top: px(62);
+    padding-left: px(94);
+  }
+
+  .slide {
+    width: px(114);
+    transform: scale(1);
+    transition: transform 0.3s linear;
+
+    @include media-tablet {
+      width: px(231);
+    }
+
+    &:global(.swiper-slide-active) {
+      transform: scale(1.25);
+
+      @include media-tablet {
+        transform: scale(1.15);
+      }
+    }
+  }
+}
+
+.columns {
+  @include use-desktop-columns(width, 7);
+  position: absolute;
+  top: 0;
+  right: 0;
+}
