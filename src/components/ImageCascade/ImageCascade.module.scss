@@ -10,7 +10,7 @@
 
 .container {
   @include position-100;
-  clip-path: url(#path);
+  overflow: hidden;
 }
 
 .svg {

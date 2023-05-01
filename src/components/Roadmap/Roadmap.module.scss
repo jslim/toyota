@@ -141,8 +141,6 @@
     .list {
       .item {
         min-height: vh(100);
-        // TODO: remove next line for actual mobile devices to calculate window height with above line
-        min-height: 100vh;
         height: 1px;
 
         @include breakpoint(tablet) {
