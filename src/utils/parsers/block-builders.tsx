@@ -94,7 +94,7 @@ export const buildTestPage = (fields: TestsPageContentType, extraProps?: Generic
     ...extraProps
   },
   childrenFields: {
-    pageTitle: <h1>{fields.pageTitle}</h1>
+    pageTitle: <h1 style={{ height: 0, position: 'relative', zIndex: '1' }}>{fields.pageTitle}</h1>
   },
   component: EmptyComponent
 });
