@@ -19,6 +19,20 @@ export type NavLinks = CTAContentType & {
   isActive: boolean;
 };
 
+export type Job = {
+  categories: {
+    department: string;
+    location: string;
+    team: string;
+    commitment?: string;
+  };
+  text: string;
+  applyUrl: string;
+  id: string;
+  workplaceType?: string;
+  description?: string;
+};
+
 export type GlobalDataFields = {
   mainNavLinks: Array<NavLinks>;
   footerNavLinks: Array<NavLinks>;
