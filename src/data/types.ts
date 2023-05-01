@@ -174,8 +174,14 @@ export type DefaultPageContentType = {
 };
 
 export type LeaderPageContentType = {
-  pageTitle: string;
+  leaderName: string;
   slug: string;
+  role: string;
+  shortRole: string;
+  headshot: ContentfulImageAsset;
+  leftSideBio: Document;
+  rightSideBio: Document;
+  featuredArticles: FilteredEntity<FeaturedArticlesContentyType>;
 };
 
 export type LegalPageContentType = {
@@ -386,10 +392,4 @@ export type FeaturedArticlesContentyType = {
   heading: string;
   cta: FilteredEntity<CTAContentType>;
   newsPosts: FilteredEntity<NewsPostContentType>[];
-};
-
-export type BiographicHeroContentType = {
-  title: string;
-  description: string;
-  asset: ContentfulImageAsset;
 };

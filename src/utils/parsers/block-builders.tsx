@@ -3,7 +3,6 @@ import { FC, ReactNode } from 'react';
 import {
   AccordionGroupContentType,
   AccordionItemContentType,
-  BiographicHeroContentType,
   CardGalleryContentType,
   CardGridContentType,
   CareersListContentType,
@@ -14,6 +13,7 @@ import {
   FeatureListContentType,
   GenericObject,
   HeroContentType,
+  LeaderPageContentType,
   MediaGalleryGroupContentType,
   NextChapterContentType,
   ProductListContentType,
@@ -46,11 +46,12 @@ import NextChapter from '@/components/NextChapter/NextChapter';
 import ProductList from '@/components/ProductList/ProductList';
 import Roadmap from '@/components/Roadmap/Roadmap';
 import SectionWrapper from '@/components/SectionWrapper/SectionWrapper';
-import Spacer from '@/components/Spacer/Spacer';
+import Spacer, { Sizes } from '@/components/Spacer/Spacer';
 import Tabs from '@/components/Tabs/Tabs';
 import TextIntro from '@/components/TextIntro/TextIntro';
 import VideoPlayerSection from '@/components/VideoPlayerSection/VideoPlayerSection';
 
+import { Color } from '../colors';
 import { parseContentfulRichText } from './rich-text-parser';
 
 export type ComponentBuilder = {
@@ -130,14 +131,6 @@ export const buildAccordionGroup = (
     component: Accordion
   };
 };
-
-export const buildContentfulImage = (fields: ContentfulImageAsset, extraProps?: GenericObject): ComponentBuilder => ({
-  props: {
-    asset: fields,
-    ...extraProps
-  },
-  component: ContentfulImage
-});
 
 export const buildImageBlock = (
   fields: { image: ContentfulImageAsset },
@@ -493,13 +486,23 @@ export const buildFeaturedArticles = (
   };
 };
 
-export const buildBiographicHero = (
-  fields: BiographicHeroContentType,
-  extraProps?: GenericObject
-): ComponentBuilder => ({
-  props: {
-    ...fields,
-    ...extraProps
-  },
-  component: BiographicHero
-});
+export const buildLeaderPage = (fields: LeaderPageContentType, extraProps?: GenericObject): ComponentBuilder => {
+  const rightSide = parseContentfulRichText(fields?.rightSideBio);
+  const leftSide = parseContentfulRichText(fields?.leftSideBio);
+  return {
+    props: {
+      ...extraProps
+    },
+    component: ({ children }) => (
+      <>
+        <BiographicHero title={fields?.leaderName} description={fields?.role} asset={fields?.headshot} />
+        <SectionWrapper backgroundColor={Color.WHITE}>
+          <Spacer size={Sizes.SMALL} />
+          <ColumnsText leftSide={leftSide}>{rightSide}</ColumnsText>
+          <Spacer size={Sizes.SMALL} />
+          {children}
+        </SectionWrapper>
+      </>
+    )
+  };
+};

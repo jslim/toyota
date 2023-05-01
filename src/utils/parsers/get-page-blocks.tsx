@@ -5,17 +5,16 @@ import { FilteredEntity } from '@/data/types';
 import {
   buildAccordionGroup,
   buildAccordionItem,
-  buildBiographicHero,
   buildCardGallery,
   buildCardGrid,
   buildCareersList,
   buildColumnsText,
-  buildContentfulImage,
   buildDefaultPage,
   buildFeaturedArticles,
   buildFeatureList,
   buildHero,
   buildImageBlock,
+  buildLeaderPage,
   buildMediaGalleryGroup,
   buildNextChapter,
   buildProductList,
@@ -46,8 +45,6 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
   cardGallery: buildCardGallery,
   cardGrid: buildCardGrid,
   careersList: buildCareersList,
-  // We can build an image from either a reference ImageBlock or a direct linked Asset
-  contentfulAssetEntity: buildContentfulImage,
   imageBlock: buildImageBlock,
   textIntro: buildTextIntro,
   roadmapGroup: buildRoadmapGroup,
@@ -61,7 +58,7 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
   spacer: buildSpacer,
   newsBottom: buildFeaturedArticles,
   featuredArticles: buildFeaturedArticles,
-  biographicHero: buildBiographicHero
+  leaderPage: buildLeaderPage
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
