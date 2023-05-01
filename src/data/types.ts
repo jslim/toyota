@@ -174,8 +174,14 @@ export type DefaultPageContentType = {
 };
 
 export type LeaderPageContentType = {
-  pageTitle: string;
+  leaderName: string;
   slug: string;
+  role: string;
+  shortRole: string;
+  headshot: ContentfulImageAsset;
+  leftSideBio: Document;
+  rightSideBio: Document;
+  featuredArticles: FilteredEntity<FeaturedArticlesContentyType>;
 };
 
 export type LegalPageContentType = {
