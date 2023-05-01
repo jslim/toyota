@@ -33,7 +33,7 @@ const CareerDetail: FC = () => {
   useEffect(() => {
     if (!id) return;
     try {
-      fetch('https://api.lever.co/v0/postings/woven-planet-2/' + id + '?mode=json')
+      fetch('https://api.lever.co/v0/postings/woven-by-toyota/' + id + '?mode=json')
         .then((res) => res.json())
         .then((data) => {
           if (data.categories) {
@@ -83,7 +83,7 @@ const CareerDetail: FC = () => {
           </ColumnsText>
         </main>
       )}
-      {notFound ? <PageNotFound head={{ title: 'Career Detail' }} /> : <main />}
+      {notFound ? <PageNotFound head={{ title: 'Career Detail' }} /> : !career ? <main /> : null}
     </>
   );
 };
