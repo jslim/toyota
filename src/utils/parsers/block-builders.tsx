@@ -13,7 +13,9 @@ import {
   FeatureListContentType,
   GenericObject,
   HeroContentType,
+  HistoryTimelineContentType,
   LeaderPageContentType,
+  LeadershipModuleContentType,
   MediaGalleryGroupContentType,
   NextChapterContentType,
   ProductListContentType,
@@ -42,6 +44,10 @@ import FeaturesList from '@/components/FeaturesList/FeaturesList';
 import Gallery from '@/components/Gallery/Gallery';
 import GalleryVideo from '@/components/GalleryVideo/GalleryVideo';
 import Hero from '@/components/Hero/Hero';
+import HistoryTimeline from '@/components/HistoryTimeline/HistoryTimeline';
+import { SlideProps } from '@/components/HistoryTimeline/HistoryTimelineSlide';
+import { LeadershipCardProps } from '@/components/LeadershipCard/LeadershipCard';
+import LeadershipModule, { directorsProps } from '@/components/LeadershipModule/LeadershipModule';
 import NextChapter from '@/components/NextChapter/NextChapter';
 import ProductList from '@/components/ProductList/ProductList';
 import Roadmap from '@/components/Roadmap/Roadmap';
@@ -504,5 +510,74 @@ export const buildLeaderPage = (fields: LeaderPageContentType, extraProps?: Gene
         </SectionWrapper>
       </>
     )
+  };
+};
+
+export const buildLeadershipModule = (
+  fields: LeadershipModuleContentType,
+  extraProps?: GenericObject
+): ComponentBuilder => {
+  const directors: directorsProps = {
+    label: fields?.boardOfDirectorsSectionTitle || '',
+    list: fields?.boardMembers.map((el) => {
+      const { name, roletitle } = el.fields;
+      return {
+        name,
+        role: roletitle
+      };
+    })
+  };
+
+  const slides: Array<LeadershipCardProps> = fields.leaders.map((leaderPage) => {
+    const { leaderName, shortRole, headshot, slug } = leaderPage?.fields;
+    return {
+      title: leaderName,
+      image: headshot,
+      description: shortRole,
+      cta: {
+        href: `/leader/${slug}`
+      }
+    };
+  });
+  return {
+    props: {
+      eyebrow: fields?.eyebrowText || '',
+      title: fields?.title || '',
+      description: fields?.description || '',
+      slides,
+      directors,
+      ...extraProps
+    },
+    component: LeadershipModule
+  };
+};
+
+export const buildHistoryTimeline = (
+  fields: HistoryTimelineContentType,
+  extraProps?: GenericObject
+): ComponentBuilder => {
+  const slides: Array<SlideProps> = fields?.slides.map(({ fields }) => {
+    const { year, title, text, image, cta } = fields;
+    const slideCta =
+      cta?.fields.linkText && cta?.fields.linkUrl
+        ? { href: cta.fields.linkUrl, title: cta.fields.linkText }
+        : undefined;
+
+    return {
+      year,
+      title,
+      text,
+      image,
+      cta: slideCta
+    };
+  });
+  return {
+    props: {
+      eyebrow: fields?.eyebrowText,
+      title: fields?.title,
+      slides,
+      ...extraProps
+    },
+    component: HistoryTimeline
   };
 };

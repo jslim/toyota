@@ -1,12 +1,13 @@
 import { FC, memo, MutableRefObject, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
+import { device } from '@jam3/detect';
 import classNames from 'classnames';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import SwiperCore, { A11y, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { device } from '@jam3/detect';
 
 import css from './HistoryTimeline.module.scss';
+
 import { useLayout } from '@/hooks';
 
 import Cursor from '../Cursor/Cursor';
