@@ -407,3 +407,31 @@ export type FeaturedArticlesContentyType = {
   cta: FilteredEntity<CTAContentType>;
   newsPosts: FilteredEntity<NewsPostContentType>[];
 };
+
+export type BoardMembersContentType = {
+  name: string;
+  roletitle: string;
+};
+
+export type LeadershipModuleContentType = {
+  title: string;
+  eyebrowText: string;
+  description: string;
+  boardOfDirectorsSectionTitle?: string;
+  boardMembers: Array<FilteredEntity<BoardMembersContentType>>;
+  leaders: Array<FilteredEntity<LeaderPageContentType>>;
+};
+
+export type HistoryTimelineSlideContentType = {
+  title: string;
+  text: string;
+  cta: FilteredEntity<CTAContentType>;
+  image: ContentfulImageAsset;
+  year: string;
+};
+
+export type HistoryTimelineContentType = {
+  eyebrowText: string;
+  title: string;
+  slides: Array<FilteredEntity<HistoryTimelineSlideContentType>>;
+};

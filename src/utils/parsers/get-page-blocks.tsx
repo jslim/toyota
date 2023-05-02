@@ -13,8 +13,10 @@ import {
   buildFeaturedArticles,
   buildFeatureList,
   buildHero,
+  buildHistoryTimeline,
   buildImageBlock,
   buildLeaderPage,
+  buildLeadershipModule,
   buildMediaGalleryGroup,
   buildNextChapter,
   buildProductList,
@@ -58,7 +60,9 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
   spacer: buildSpacer,
   newsBottom: buildFeaturedArticles,
   featuredArticles: buildFeaturedArticles,
-  leaderPage: buildLeaderPage
+  leaderPage: buildLeaderPage,
+  leadershipModule: buildLeadershipModule,
+  historyTimeline: buildHistoryTimeline
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

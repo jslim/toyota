@@ -12,7 +12,7 @@ import LeadershipCard, { LeadershipCardProps } from '@/components/LeadershipCard
 
 import { useLayout } from '@/hooks';
 
-type directorsProps = {
+export type directorsProps = {
   list: {
     name: string;
     role: string;
