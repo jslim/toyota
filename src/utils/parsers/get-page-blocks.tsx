@@ -19,6 +19,7 @@ import {
   buildLeadershipModule,
   buildMediaGalleryGroup,
   buildNextChapter,
+  buildOurLatestPostPage,
   buildProductList,
   buildRichTextComponent,
   buildRoadmapGroup,
@@ -62,7 +63,8 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
   featuredArticles: buildFeaturedArticles,
   leaderPage: buildLeaderPage,
   leadershipModule: buildLeadershipModule,
-  historyTimeline: buildHistoryTimeline
+  historyTimeline: buildHistoryTimeline,
+  ourLatestPagePost: buildOurLatestPostPage
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

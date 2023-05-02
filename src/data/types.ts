@@ -69,6 +69,7 @@ export type Sys = {
   id?: string;
   linkType?: string;
   contentType?: { ['sys']: Sys };
+  locale?: Locale | string;
 };
 
 export type Metadata = {
@@ -86,6 +87,7 @@ export type FilteredEntity<T = any> = {
   id: string;
   contentType: string;
   fields: T;
+  locale: Locale | string;
 };
 
 export type EntityMap = Map<string, FilteredEntity>;

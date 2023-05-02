@@ -52,7 +52,7 @@
           ["^@/pages", "^@/components"], // components
           ["^@/services", "^@/hooks", "^@/utils"], // utils
           ["^@/redux"], // redux
-          ["^@/components/svgs", "^@/data", "^@/assets"], // data
+          ["^@/components/svgs", "^@/data", "^@/assets", "^@/json"], // data
           ["^@/"], // other basePaths
           ["^"] // rest
         ]
