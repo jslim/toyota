@@ -174,6 +174,23 @@ export type ContentfulVideoAsset = {
   };
 };
 
+export type ContentfulMediaAsset = {
+  metadata: Metadata;
+  sys: Sys;
+  fields: {
+    title: string;
+    description: string;
+    file: {
+      fileName: string;
+      url: string;
+      contentType: string;
+      details: {
+        size: number;
+      };
+    };
+  };
+};
+
 export type PageType = {
   data: FilteredEntity;
 };
@@ -274,6 +291,18 @@ export type AccordionGroupContentType = {
   colorBackground: Array<string>;
   title: string;
   innerBlocks: Array<FilteredEntity<AccordionItemContentType>>;
+};
+
+export type MediaKitItemContentType = {
+  title: string;
+  date: string;
+  filesSize: string;
+  asset: ContentfulMediaAsset;
+};
+
+export type MediaKitContentType = {
+  title: string;
+  innerBlocks: Array<FilteredEntity<MediaKitItemContentType>>;
 };
 
 export type MediaGalleryItemContentType = {

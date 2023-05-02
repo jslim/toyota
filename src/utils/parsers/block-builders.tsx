@@ -17,6 +17,7 @@ import {
   LeaderPageContentType,
   LeadershipModuleContentType,
   MediaGalleryGroupContentType,
+  MediaKitContentType,
   NextChapterContentType,
   OurLatestPostPageContentType,
   ProductListContentType,
@@ -49,6 +50,7 @@ import HistoryTimeline from '@/components/HistoryTimeline/HistoryTimeline';
 import { SlideProps } from '@/components/HistoryTimeline/HistoryTimelineSlide';
 import { LeadershipCardProps } from '@/components/LeadershipCard/LeadershipCard';
 import LeadershipModule, { directorsProps } from '@/components/LeadershipModule/LeadershipModule';
+import ListItem from '@/components/ListItem/ListItem';
 import NextChapter from '@/components/NextChapter/NextChapter';
 import ProductList from '@/components/ProductList/ProductList';
 import RichtextWrapper from '@/components/RichtextWrapper/RichtextWrapper';
@@ -595,5 +597,29 @@ export const buildOurLatestPostPage = (
       ...extraProps
     },
     component: () => <>{fields.pageTitle}</>
+  };
+};
+
+export const buildMediaKit = (fields: MediaKitContentType, extraProps?: GenericObject): ComponentBuilder => {
+  const items = fields.innerBlocks?.map(({ fields }) => {
+    const src = fields.asset.fields.file.url;
+    return {
+      title: fields?.title,
+      secondaryText: fields.date,
+      tertiaryText: fields.filesSize,
+      link: src
+    };
+  });
+  return {
+    props: {
+      ...extraProps
+    },
+    component: () => (
+      <Accordion variant={variants.DARK} isMediaKit>
+        {items.map((item, key) => (
+          <ListItem {...item} key={key}></ListItem>
+        ))}
+      </Accordion>
+    )
   };
 };
