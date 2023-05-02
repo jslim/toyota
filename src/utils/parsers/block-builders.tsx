@@ -221,6 +221,11 @@ export const buildTextIntro = (fields: TextIntroContentType, extraProps?: Generi
 };
 
 export const buildRoadmapGroup = (fields: RoadmapGroupContentType, extraProps?: GenericObject): ComponentBuilder => {
+  const cta = fields?.cta?.fields?.linkUrl && {
+    title: fields?.cta?.fields?.linkText,
+    href: fields?.cta?.fields?.linkUrl,
+    'aria-label': fields?.cta?.fields?.ariaLabel
+  };
   const items = fields.items.map((item) => ({
     title: item.fields?.title,
     text: item.fields?.text,
@@ -234,6 +239,7 @@ export const buildRoadmapGroup = (fields: RoadmapGroupContentType, extraProps?: 
       eyebrow: fields.eyebrow,
       items,
       theme: fields.theme,
+      cta,
       ...extraProps
     },
     component: Roadmap

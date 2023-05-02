@@ -285,6 +285,7 @@ export type RoadmapGroupContentType = {
   title: string;
   eyebrow: string;
   theme: string;
+  cta: FilteredEntity<CTAContentType>;
   items: Array<FilteredEntity<RoadmapItemContentType>>;
 };
 
