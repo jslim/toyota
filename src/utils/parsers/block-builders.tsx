@@ -50,6 +50,7 @@ import { LeadershipCardProps } from '@/components/LeadershipCard/LeadershipCard'
 import LeadershipModule, { directorsProps } from '@/components/LeadershipModule/LeadershipModule';
 import NextChapter from '@/components/NextChapter/NextChapter';
 import ProductList from '@/components/ProductList/ProductList';
+import RichtextWrapper from '@/components/RichtextWrapper/RichtextWrapper';
 import Roadmap from '@/components/Roadmap/Roadmap';
 import SectionWrapper from '@/components/SectionWrapper/SectionWrapper';
 import Spacer, { Sizes } from '@/components/Spacer/Spacer';
@@ -389,20 +390,16 @@ export const buildHero = (fields: HeroContentType, extraProps?: GenericObject): 
 };
 
 // component builder for rich text content
-export const buildRichTextTestComponent = (
-  fields: richTextContentType,
-  extraProps?: GenericObject
-): ComponentBuilder => {
-  const elements = parseContentfulRichText(fields.richtext);
+export const buildRichTextComponent = (fields: richTextContentType, extraProps?: GenericObject): ComponentBuilder => {
+  const richText = fields.richtext;
+  const elements = parseContentfulRichText(richText);
 
   return {
     props: {
       ...extraProps
     },
 
-    component: () => {
-      return <>{elements}</>;
-    }
+    component: () => <RichtextWrapper>{elements}</RichtextWrapper>
   };
 };
 

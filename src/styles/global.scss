@@ -169,3 +169,54 @@ p {
 .linearBackgroundColorClass {
   background: linear-gradient(0deg, $grey -4.4%, rgba($grey, 0) 69.28%);
 }
+
+// default tables styling
+table {
+  text-align: left;
+  border-collapse: collapse;
+
+  tr {
+    th {
+      @include typography-label;
+      padding: px(17) px(20) px(20);
+      background-color: $light-grey;
+      color: $dark-grey;
+      white-space: nowrap;
+
+      @include media-tablet {
+        padding: px(30) px(20);
+      }
+    }
+
+    td {
+      padding: px(20);
+      background-color: $white;
+      color: $mid-grey;
+      border: 1px solid $light-grey;
+      vertical-align: top;
+
+      @include media-tablet {
+        padding: px(28) px(20) px(20) px(24);
+      }
+
+      ul {
+        li {
+          @include flex-center-vert;
+          align-items: baseline;
+
+          &::before {
+            content: '\2022';
+            color: $dark-grey;
+            display: inline-block;
+            width: 1px;
+            margin-right: px(15);
+          }
+
+          a {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}
