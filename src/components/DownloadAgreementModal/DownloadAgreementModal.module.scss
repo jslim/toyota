@@ -53,6 +53,7 @@
 
   .checkboxWrapper {
     margin-bottom: px(45);
+    text-align: left;
   }
 
   .close {
@@ -67,7 +68,7 @@
     }
 
     svg {
-      @include box(px(8));
+      @include box(px(11));
     }
   }
 }

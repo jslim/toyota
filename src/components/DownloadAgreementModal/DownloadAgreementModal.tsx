@@ -72,7 +72,7 @@ const DownloadAgreementModal: FC<DownloadAgreementModalProps> = ({
             {label}
           </label>
         </div>
-        {isChecked ? <Cta {...cta} /> : <Cta title={cta.title} />}
+        <Cta {...cta} isDisabled={!isChecked} />
       </div>
     </div>
   );
