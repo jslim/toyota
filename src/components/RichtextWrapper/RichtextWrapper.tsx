@@ -1,4 +1,4 @@
-import { FC, memo, ReactNode, useCallback } from 'react';
+import { FC, memo, ReactNode, useCallback, useState } from 'react';
 import classNames from 'classnames';
 
 import css from './RichtextWrapper.module.scss';
@@ -11,23 +11,21 @@ export type RichtextWrapperProps = {
 };
 
 const RichtextWrapper: FC<RichtextWrapperProps> = ({ className, children }) => {
-  const richtextWrapperRef = useCallback((node: HTMLDivElement) => {
-    const childNodes = Array.from(node.childNodes);
-    let hasTable;
-    for (let i = 0; i < childNodes.length; ++i) {
-      if (childNodes[i].nodeName === 'TABLE') {
-        hasTable = true;
-        break;
+  const [hasFormatted, setHasFormatted] = useState(false);
+  const richtextWrapperRef = useCallback(
+    (node: HTMLDivElement) => {
+      if (children != null && node != null && !hasFormatted) {
+        formatTables(node);
+        setHasFormatted(true);
       }
-    }
-    if (hasTable) {
-      formatTables();
-    }
-  }, []);
+    },
+    [children, hasFormatted]
+  );
+
   return (
-    <div className={classNames('RichtextWrapper', css.root, className)} ref={richtextWrapperRef}>
+    <span className={classNames('RichtextWrapper', css.root, className)} ref={richtextWrapperRef}>
       {children}
-    </div>
+    </span>
   );
 };
 

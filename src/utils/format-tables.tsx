@@ -1,5 +1,5 @@
-export default function formatTables() {
-  const tables = document.querySelectorAll('table');
+export default function formatTables(parentNode: HTMLElement) {
+  const tables = parentNode.querySelectorAll('table');
 
   tables.forEach((table) => {
     const rows = table.rows;

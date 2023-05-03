@@ -199,6 +199,7 @@ table {
       ul {
         li {
           @include flex-center-vert;
+          align-items: baseline;
 
           &::before {
             content: '\2022';
