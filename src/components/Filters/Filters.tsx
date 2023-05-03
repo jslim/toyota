@@ -41,7 +41,8 @@ const Filters: FC<FiltersProps> = ({
 
       <div className={css.container}>
         <BaseButton className={css.filtersButton} onClick={onFilterModalClick} disabled={isDesktop}>
-          {filtersLabel} {filtersAmount > 0 && <>( {filtersAmount} ) </>}
+          {filtersLabel}
+          {filtersAmount > 0 && <span className={css.amount}>{filtersAmount}</span>}
         </BaseButton>
         {isDesktop &&
           Object.values(dropdowns).map((category, index) => {

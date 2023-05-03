@@ -31,3 +31,20 @@
     cursor: default;
   }
 }
+
+.amount {
+  white-space: nowrap;
+  margin-left: px(5);
+
+  &::before,
+  &::after {
+    display: inline-block;
+  }
+
+  &::before {
+    content: '(';
+  }
+  &::after {
+    content: ')';
+  }
+}

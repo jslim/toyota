@@ -5,7 +5,8 @@ import css from './FilterDropdownModalOptions.module.scss';
 
 import IconCircle from '@/components/IconCircle/IconCircle';
 
-import useQueryParams, { useClearParams } from '@/hooks/use-query-params';
+import useQueryParams, { useClearParams, TUseQueryParams } from '@/hooks/use-query-params';
+import noop from 'no-op';
 
 import CheckmarkSvg from '@/components/svgs/white-checkmark.svg';
 
@@ -28,15 +29,11 @@ export type FilterDropdownModalOptionsProps = {
 
 const FilterDropdownModalOptions: FC<FilterDropdownModalOptionsProps> = ({ className, header, content, category }) => {
   const [selectedOption, setSelectedOption] = useState<Option>(content[0].options[0]);
+  const [filtersState, setFiltersState] = useState<{
+    [key: string]: { param: string; setParam: (value: string) => void };
+  }>({});
 
-  const filtersState = {};
   const useQueryParamsArray = useQueryParams(category, { shallow: true });
-  // @ts-ignore
-  filtersState[category] = {
-    param: useQueryParamsArray[0],
-    setParam: useQueryParamsArray[1]
-  };
-  // @ts-ignore
   const clearParams = useClearParams(Object.keys(filtersState), true);
 
   const handleSelectOption = (option: Option) => {
@@ -51,12 +48,27 @@ const FilterDropdownModalOptions: FC<FilterDropdownModalOptionsProps> = ({ class
   };
 
   useEffect(() => {
+    if (!filtersState[category] || filtersState[category].param !== useQueryParamsArray[0]) {
+      setFiltersState((state) => {
+        return {
+          ...state,
+          [category]: {
+            param: useQueryParamsArray[0],
+            setParam: useQueryParamsArray[1]
+          }
+        };
+      });
+    }
+  }, [category, filtersState, useQueryParamsArray]);
+
+  useEffect(() => {
     if (selectedOption.label.toLocaleLowerCase() !== 'all') {
-      // @ts-ignore
       filtersState[category].setParam(selectedOption.label);
     }
+
+    //possibly causing extra re-renders
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedOption]);
+  }, [filtersState, selectedOption]);
 
   const options = (option: Option, index: number) => {
     return (

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { FC, memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import classNames from 'classnames';
@@ -33,6 +32,14 @@ interface JobsListByDepartment {
   [department: string]: Job[];
 }
 
+type FilterCategories = {
+  [key: string]:
+    | string[]
+    | {
+        [key: string]: string[];
+      };
+};
+
 const CareersList: FC<CareersListProps> = ({
   className,
   title,
@@ -59,7 +66,6 @@ const CareersList: FC<CareersListProps> = ({
       .map(([category, value]) => ({ category, value: value }));
   }, [router.query]);
 
-  // eslint-disable-next-line sonarjs/cognitive-complexity
   const getCategoriesArray = useCallback(() => {
     const categories = Object.values(jobMap) // Get all the arrays
       .map((array) => {
@@ -201,6 +207,8 @@ const CareersList: FC<CareersListProps> = ({
   const categories = getCategoriesArray();
 
   const sortJobDepartments = useCallback((data: Job[]) => {
+    //here
+
     const jobDepartmentMap: JobsListByDepartment = {};
 
     data.forEach((job: Job) => {
@@ -218,7 +226,7 @@ const CareersList: FC<CareersListProps> = ({
 
   useEffect(() => {
     try {
-      fetch('https://api.lever.co/v0/postings/woven-planet-2?mode=json')
+      fetch('https://api.lever.co/v0/postings/woven-by-toyota?mode=json')
         .then((res) => res.json())
         .then((data) => {
           const sortedData: JobsListByDepartment = sortJobDepartments(data);
@@ -292,9 +300,9 @@ const CareersList: FC<CareersListProps> = ({
         <Accordion className={css.accordion} variant={variants.DARK}>
           {Object.keys(filteredJobs).map((department, key) => (
             <AccordionItem key={key} title={department} secondaryText={`${filteredJobs[department]?.length} openings`}>
-              {Object.values(filteredJobs)[key].map((item, index) => (
+              {Object.values(filteredJobs)[key].map((item) => (
                 <AccordionContentCard
-                  key={index}
+                  key={item.id}
                   title={item.text}
                   text={`${item.categories.location} ${item.categories.department} - ${item.categories.team}`}
                   cta={{ title: 'apply', href: item.applyUrl }}
@@ -306,9 +314,9 @@ const CareersList: FC<CareersListProps> = ({
       ) : (
         <div className={css.notFound}>
           <IconCircle className={css.circle}>
-            <span></span>
-            <span></span>
-            <span></span>
+            <span className={css.dot}></span>
+            <span className={css.dot}></span>
+            <span className={css.dot}></span>
           </IconCircle>
           <div className={css.label}>{noResultsLabel}</div>
           <div className={css.description}> {noResultsDescription}</div>

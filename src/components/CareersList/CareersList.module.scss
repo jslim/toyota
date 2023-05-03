@@ -9,10 +9,6 @@
 
   min-height: px(825);
 
-  @include media-tablet {
-    min-height: px(873);
-  }
-
   &::after {
     content: '';
     @include position-100(absolute);
@@ -24,6 +20,7 @@
   }
 
   @include media-tablet {
+    min-height: px(873);
     @include outer-container(true);
   }
 
@@ -68,6 +65,12 @@
   &.modalOpen {
     &::after {
       display: block;
+    }
+
+    @include media-desktopSm {
+      &::after {
+        display: none;
+      }
     }
 
     .filtersModal {
