@@ -2,7 +2,6 @@ import { FC, memo, PropsWithChildren, useCallback, useEffect, useState } from 'r
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import { device } from '@jam3/detect';
 
 import { Lang, PageProps } from '@/data/types';
 
@@ -24,7 +23,6 @@ import {
 } from '@/redux';
 
 const DebugGrid = dynamic(() => import('@/components/DebugGrid/DebugGrid'), { ssr: false });
-const RotateScreen = dynamic(() => import('@/components/RotateScreen/RotateScreen'), { ssr: false });
 const AppAdmin = dynamic(() => import('@/components/AppAdmin/AppAdmin'), { ssr: false });
 
 export type Props = PropsWithChildren<{}>;
@@ -87,8 +85,6 @@ const Layout: FC<ExtendedAppProps<PageProps>> = ({ Component, pageProps, globalD
       <Component {...pageProps} />
 
       <Footer />
-
-      {!device.desktop && <RotateScreen />}
 
       <Script
         id="Cookiebot"
