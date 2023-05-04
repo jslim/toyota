@@ -1,12 +1,12 @@
-import { FC, memo, useEffect, useState } from 'react';
+import { FC, memo, useEffect, useMemo, useState } from 'react';
+import { useRouter } from 'next/router';
 import classNames from 'classnames';
 
 import css from './FilterDropdownModalOptions.module.scss';
 
 import IconCircle from '@/components/IconCircle/IconCircle';
 
-import useQueryParams, { useClearParams, TUseQueryParams } from '@/hooks/use-query-params';
-import noop from 'no-op';
+import useQueryParams, { useClearParams } from '@/hooks/use-query-params';
 
 import CheckmarkSvg from '@/components/svgs/white-checkmark.svg';
 
@@ -32,6 +32,21 @@ const FilterDropdownModalOptions: FC<FilterDropdownModalOptionsProps> = ({ class
   const [filtersState, setFiltersState] = useState<{
     [key: string]: { param: string; setParam: (value: string) => void };
   }>({});
+  const router = useRouter();
+
+  const filterParams = useMemo(() => {
+    return Object.entries(router.query)
+      .filter(([key]) => key !== 'lang') // filter out the 'lang' property
+      .map(([category, value]) => ({ category, value: value }));
+  }, [router.query]);
+
+  const checkedParam = (value: string) => {
+    const found = filterParams.some((obj) => obj.value === value);
+    if (!found && value.toLowerCase() === 'all' && selectedOption.label.toLowerCase() === 'all') {
+      return true;
+    }
+    return !!found;
+  };
 
   const useQueryParamsArray = useQueryParams(category, { shallow: true });
   const clearParams = useClearParams(Object.keys(filtersState), true);
@@ -65,16 +80,15 @@ const FilterDropdownModalOptions: FC<FilterDropdownModalOptionsProps> = ({ class
     if (selectedOption.label.toLocaleLowerCase() !== 'all') {
       filtersState[category].setParam(selectedOption.label);
     }
-
-    //possibly causing extra re-renders
+    // To avoid extra changes of urls
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filtersState, selectedOption]);
+  }, [selectedOption]);
 
   const options = (option: Option, index: number) => {
     return (
       <li
         className={classNames(css.option, {
-          [css.selected]: selectedOption?.label === option.label
+          [css.selected]: checkedParam(option.label)
         })}
         role="option"
         aria-selected={selectedOption?.label === option.label}
@@ -83,7 +97,7 @@ const FilterDropdownModalOptions: FC<FilterDropdownModalOptionsProps> = ({ class
         tabIndex={0}
         key={index}
       >
-        <IconCircle className={css.circle} isActive={selectedOption?.label === option.label}>
+        <IconCircle className={css.circle} isActive={checkedParam(option.label)}>
           <CheckmarkSvg className={css.checkmark} />
         </IconCircle>
         <span className={css.label}>{option.label}</span>

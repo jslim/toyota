@@ -1,4 +1,4 @@
-import { FC, memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { FC, memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import classNames from 'classnames';
 
@@ -32,13 +32,41 @@ interface JobsListByDepartment {
   [department: string]: Job[];
 }
 
-type FilterCategories = {
-  [key: string]:
-    | string[]
-    | {
-        [key: string]: string[];
-      };
-};
+interface Categories {
+  types: {
+    header: string;
+    content: {
+      options: {
+        label: string;
+      }[];
+    }[];
+  };
+  location: {
+    header: string;
+    content: {
+      options: {
+        label: string;
+      }[];
+    }[];
+  };
+  work: {
+    header: string;
+    content: {
+      options: {
+        label: string;
+      }[];
+    }[];
+  };
+  teams: {
+    header: string;
+    content: {
+      options?: {
+        label: string;
+      }[];
+      title?: string;
+    }[];
+  };
+}
 
 const CareersList: FC<CareersListProps> = ({
   className,
@@ -66,71 +94,12 @@ const CareersList: FC<CareersListProps> = ({
       .map(([category, value]) => ({ category, value: value }));
   }, [router.query]);
 
+  const locations = useRef<string[]>([]);
+  const workplaceTypes = useRef<string[]>([]);
+  const teams = useRef<{ title: string; options: string[] }[]>([]);
+  const works = useRef<string[]>([]);
+
   const getCategoriesArray = useCallback(() => {
-    const categories = Object.values(jobMap) // Get all the arrays
-      .map((array) => {
-        const types = array
-          .flatMap((subArray) => subArray?.workplaceType)
-          .filter((value, index, self) => self.indexOf(value) === index);
-        const location = array
-          .flatMap((subArray) => subArray.categories.location)
-          .filter((value, index, self) => self.indexOf(value) === index);
-        const work = array
-          .flatMap((subArray) => subArray.categories?.commitment)
-          .filter((value, index, self) => self.indexOf(value) === index);
-
-        const departments = array
-          .flatMap((subArray) => {
-            return { department: subArray.categories.department, team: subArray.categories.team };
-          })
-          .filter(
-            (current, index, self) =>
-              index === self.findIndex((item) => item.department === current.department && item.team === current.team)
-          );
-
-        const teams = departments.reduce(
-          (accumulator: { [department: string]: string[] }, current: { department: string; team: string }) => {
-            const { department, team } = current;
-            if (!accumulator[department]) {
-              accumulator[department] = [];
-            }
-            accumulator[department].push(team);
-            return accumulator;
-          },
-          {}
-        );
-
-        return { types, location, work, teams };
-      });
-
-    const result = categories.reduce(
-      (acc, curr) => {
-        for (const key in curr) {
-          if (curr.hasOwnProperty(key) && !acc.hasOwnProperty(key)) {
-            acc[key] = curr[key];
-          } else if (curr.hasOwnProperty(key) && key === 'teams') {
-            for (const teamKey in curr[key]) {
-              if (curr[key].hasOwnProperty(teamKey) && !acc[key].hasOwnProperty(teamKey)) {
-                acc[key][teamKey] = curr[key][teamKey];
-              } else if (curr[key].hasOwnProperty(teamKey)) {
-                acc[key][teamKey] = [...acc[key][teamKey], ...curr[key][teamKey]];
-              }
-            }
-          } else if (curr.hasOwnProperty(key)) {
-            acc[key] = [...new Set([...acc[key], ...curr[key]])];
-          }
-        }
-        return acc;
-      },
-      {
-        types: [],
-        location: [],
-        work: [],
-        teams: {}
-      }
-    );
-
-    // getting data ready to pass to other components:
     // Modify types, location, and work properties
     const modifiedTypes = {
       header: 'Type',
@@ -143,7 +112,7 @@ const CareersList: FC<CareersListProps> = ({
           ]
         },
         {
-          options: result.types.map((type) => ({ label: type }))
+          options: workplaceTypes.current.map((type) => ({ label: type }))
         }
       ]
     };
@@ -158,7 +127,7 @@ const CareersList: FC<CareersListProps> = ({
           ]
         },
         {
-          options: result.location.map((location) => ({ label: location }))
+          options: locations.current.map((location) => ({ label: location }))
         }
       ]
     };
@@ -173,7 +142,7 @@ const CareersList: FC<CareersListProps> = ({
           ]
         },
         {
-          options: result.work.map((work) => ({ label: work }))
+          options: works.current.map((work) => ({ label: work }))
         }
       ]
     };
@@ -189,12 +158,13 @@ const CareersList: FC<CareersListProps> = ({
           ]
         }
       ].concat(
-        Object.entries(result.teams).map(([teamName, team]) => ({
-          title: teamName,
-          options: team.map((subcat) => ({ label: subcat }))
+        teams.current.map((team) => ({
+          title: team.title,
+          options: team.options.map((work) => ({ label: work }))
         }))
       )
     };
+
     // Create a new object with modified properties
     return {
       types: modifiedTypes,
@@ -202,13 +172,54 @@ const CareersList: FC<CareersListProps> = ({
       work: modifiedWork,
       teams: modifiedTeams
     };
-  }, [jobMap]);
+  }, []);
 
   const categories = getCategoriesArray();
 
-  const sortJobDepartments = useCallback((data: Job[]) => {
-    //here
+  const getLocations = (job: Job) => {
+    const location = job.categories.location ?? '';
+    if (!locations.current.includes(location)) {
+      locations.current.push(location);
+    }
+  };
 
+  const getWorkplaceType = (job: Job) => {
+    const workplaceType = job.workplaceType ?? '';
+    if (!workplaceTypes.current.includes(workplaceType)) {
+      workplaceTypes.current.push(workplaceType);
+    }
+  };
+
+  const getCommitment = (job: Job) => {
+    const work = job.categories.commitment ?? '';
+    if (!works.current.includes(work)) {
+      works.current.push(work);
+    }
+  };
+
+  const getTeams = (job: Job) => {
+    const department = job.categories.department ?? '';
+    const team = job.categories.team ?? '';
+    const updatedTeams = [...teams.current];
+
+    const existingItem = updatedTeams.find((item) => item.title === department && item.options.includes(team));
+    if (existingItem) {
+      return;
+    }
+
+    const foundDepartment = updatedTeams.find((item) => item.title === department);
+    if (foundDepartment) {
+      if (!foundDepartment.options.includes(team)) {
+        foundDepartment.options.push(team);
+      }
+    } else {
+      updatedTeams.push({ title: department, options: [team] });
+    }
+
+    teams.current = updatedTeams;
+  };
+
+  const sortJobDepartments = useCallback((data: Job[]) => {
     const jobDepartmentMap: JobsListByDepartment = {};
 
     data.forEach((job: Job) => {
@@ -219,6 +230,12 @@ const CareersList: FC<CareersListProps> = ({
         // Otherwise create array with the job in the department
         jobDepartmentMap[job.categories.department] = [job];
       }
+
+      // Pull out categories
+      getLocations(job);
+      getWorkplaceType(job);
+      getCommitment(job);
+      getTeams(job);
     });
 
     return jobDepartmentMap;
@@ -276,8 +293,8 @@ const CareersList: FC<CareersListProps> = ({
               return (
                 <FilterDropdownModalOptions
                   key={index}
-                  {...categories[category]}
-                  category={categories[category].header}
+                  {...categories[category as keyof Categories]}
+                  category={categories[category as keyof Categories].header}
                 />
               );
             })}
