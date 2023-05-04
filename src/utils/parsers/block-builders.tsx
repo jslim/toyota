@@ -18,6 +18,7 @@ import {
   LeadershipModuleContentType,
   MediaGalleryGroupContentType,
   NextChapterContentType,
+  OurLatestPostPageContentType,
   ProductListContentType,
   richTextContentType,
   RoadmapGroupContentType,
@@ -582,5 +583,17 @@ export const buildHistoryTimeline = (
       ...extraProps
     },
     component: HistoryTimeline
+  };
+};
+
+export const buildOurLatestPostPage = (
+  fields: OurLatestPostPageContentType,
+  extraProps?: GenericObject
+): ComponentBuilder => {
+  return {
+    props: {
+      ...extraProps
+    },
+    component: () => <>{fields.pageTitle}</>
   };
 };

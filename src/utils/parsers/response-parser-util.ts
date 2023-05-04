@@ -6,6 +6,7 @@ import {
   FilteredEntity,
   GenericEntity,
   GenericObject,
+  Locale,
   Response,
   Sys
 } from '@/data/types';
@@ -17,7 +18,8 @@ export const makeFilteredEntity = (entity: GenericEntity): FilteredEntity => {
     return {
       fields: {},
       contentType: 'null',
-      id: ''
+      id: '',
+      locale: Locale.EN
     };
   }
   const isEntry = entity?.sys?.type === 'Entry';
@@ -26,7 +28,8 @@ export const makeFilteredEntity = (entity: GenericEntity): FilteredEntity => {
     fields: entity.fields!,
     // Creating a "content type" for any assets so component/page builder has consistent structure
     contentType: isEntry ? entity?.sys?.contentType?.sys?.id! : 'contentfulAssetEntity',
-    id: entity.sys.id!
+    id: entity?.sys?.id!,
+    locale: entity?.sys?.locale || Locale.EN
   };
 };
 

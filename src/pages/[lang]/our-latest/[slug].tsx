@@ -2,18 +2,27 @@ import { FC, memo } from 'react';
 import { GetStaticProps } from 'next';
 import classNames from 'classnames';
 
-import { APIContentful } from '@/data/API';
 import {
   FilteredEntity,
   GenericEntity,
+  Lang,
   NestedLocalizedPageParams,
   OurLatestPostPageContentType,
   PageProps
 } from '@/data/types';
 
 import usePreviewData from '@/hooks/use-preview-data';
-import { getAllLangSlugs, getLocaleByLang } from '@/utils/locales';
+import { getAllLangSlugs } from '@/utils/locales';
 import { getPageBlocks } from '@/utils/parsers/get-page-blocks';
+import resolveResponse from '@/utils/parsers/response-parser-util';
+import { makeFilteredEntity } from '@/utils/parsers/response-parser-util';
+
+/* eslint-disable */
+// @ts-ignore: populated during prebuild
+import postDataEn from '@/json/our-latest-posts-en.json';
+// @ts-ignore: populated during prebuild
+import postDataJp from '@/json/our-latest-posts-jp.json';
+/* eslint-enable */
 
 type OurLatestPostData = FilteredEntity<OurLatestPostPageContentType>;
 
@@ -36,12 +45,10 @@ const OurLatestPost: FC<OurLatestPostPageProps> = ({ data }) => {
 };
 
 export async function getStaticPaths() {
-  const accessToken = process.env.CONTENTFUL_DELIVERY_API_ACCESS_TOKEN; // IMPORTANT: keep content token within 'getStaticProps' of each page
-  const spaceId = process.env.CONTENTFUL_SPACE_ID; // IMPORTANT: keep space ID within 'getStaticProps' of each page
-
-  const apiContentful = new APIContentful({ spaceId, accessToken });
-  const data = await apiContentful.getEntriesByContentType('ourLatestPagePost', {});
-  const pageSlugs = data.items.map((entry: GenericEntity) => entry.fields!.slug);
+  const resolvedData = postDataEn;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (resolvedData as any).items = resolveResponse(postDataEn);
+  const pageSlugs = resolvedData.items.map((entry: GenericEntity) => entry.fields!.slug);
   const langPaths = getAllLangSlugs();
 
   const paths: Array<{ [key: string]: NestedLocalizedPageParams }> = [];
@@ -65,13 +72,14 @@ export async function getStaticPaths() {
 
 export const getStaticProps: GetStaticProps<OurLatestPostPageProps> = async ({ params }) => {
   const { lang, slug } = params as NestedLocalizedPageParams;
-  const locale = getLocaleByLang(lang);
 
-  const accessToken = process.env.CONTENTFUL_DELIVERY_API_ACCESS_TOKEN; // IMPORTANT: keep content token within 'getStaticProps' of each page
-  const spaceId = process.env.CONTENTFUL_SPACE_ID; // IMPORTANT: keep space ID within 'getStaticProps' of each page
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const resolvedData: any = lang === Lang.EN ? postDataEn : postDataJp;
 
-  const apiContentful = new APIContentful({ spaceId, accessToken });
-  const data = await apiContentful.getEntryBySlug(slug as string, 'ourLatestPagePost', { locale, include: 10 });
+  resolvedData.items = resolveResponse(postDataEn);
+  const data = makeFilteredEntity(
+    resolvedData.items.filter((entry: GenericEntity) => entry.fields!.slug === slug)[0]
+  ) as FilteredEntity;
 
   return {
     props: {
