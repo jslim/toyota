@@ -64,7 +64,6 @@ const Nav: FC<NavProps> = ({ className }) => {
         </div>
 
         <section aria-hidden="true" id="start-of-content"></section>
-        {/* </div> */}
       </nav>
     </div>
   );

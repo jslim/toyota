@@ -3,6 +3,8 @@ import classNames from 'classnames';
 
 import css from './FilterDropdown.module.scss';
 
+import { variants } from '@/data/variants';
+
 import FilterDropdownModal from '@/components/FilterDropdownModal/FilterDropdownModal';
 import FilterDropdownModalOptions from '@/components/FilterDropdownModalOptions/FilterDropdownModalOptions';
 
@@ -15,12 +17,22 @@ interface Option {
 export type FilterDropdownProps = {
   className?: string;
   title: string;
+  categoryOverride?: string;
   alt?: string;
   categories: { title?: string; options: Option[] }[];
+  variant?: variants;
   index: number;
 };
 
-const FilterDropdown: FC<FilterDropdownProps> = ({ className, title, alt, categories, index }) => {
+const FilterDropdown: FC<FilterDropdownProps> = ({
+  className,
+  title,
+  categoryOverride,
+  alt,
+  categories,
+  index,
+  variant = variants.LIGHT
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -51,7 +63,10 @@ const FilterDropdown: FC<FilterDropdownProps> = ({ className, title, alt, catego
 
   return (
     <div
-      className={classNames('FilterDropdown', css.root, className, { [css.open]: isOpen })}
+      className={classNames('FilterDropdown', css.root, className, {
+        [css.open]: isOpen,
+        [css.dark]: variant === variants.DARK
+      })}
       ref={dropdownRef}
       tabIndex={0}
       aria-haspopup="listbox"
@@ -68,7 +83,7 @@ const FilterDropdown: FC<FilterDropdownProps> = ({ className, title, alt, catego
       </div>
 
       <FilterDropdownModal isOpen={isOpen}>
-        <FilterDropdownModalOptions category={title} content={categories} />;
+        <FilterDropdownModalOptions category={categoryOverride || title} content={categories} />
       </FilterDropdownModal>
     </div>
   );

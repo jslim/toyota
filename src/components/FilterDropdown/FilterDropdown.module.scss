@@ -36,6 +36,10 @@
       transform: rotate(0deg);
     }
   }
+
+  &.dark {
+    color: $black;
+  }
 }
 
 @at-root body:global(.desktop) {
