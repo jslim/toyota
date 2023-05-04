@@ -1,4 +1,4 @@
-import { FC, memo, useRef, useState } from 'react';
+import { FC, MutableRefObject, memo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -11,11 +11,11 @@ import LeadershipCard, { LeadershipCardProps } from '../LeadershipCard/Leadershi
 export type DraggableColumnsProps = {
   className?: string;
   cards: LeadershipCardProps[];
-  dragLabel: string;
+  isDesktop?: boolean;
 };
 
-const DraggableColumns: FC<DraggableColumnsProps> = ({ cards, className, dragLabel }) => {
-  const containerRef = useRef<HTMLDivElement | null>(null);
+const DraggableColumns: FC<DraggableColumnsProps> = ({ cards, className, isDesktop }) => {
+  const containerRef = useRef() as MutableRefObject<HTMLDivElement>;
   const [isGrabbing, setIsGrabbing] = useState(false);
 
   const handleTouchStart = () => {
@@ -56,7 +56,7 @@ const DraggableColumns: FC<DraggableColumnsProps> = ({ cards, className, dragLab
           </SwiperSlide>
         ))}
       </Swiper>
-      <Cursor text={dragLabel} isDragging={isGrabbing} containerRef={containerRef} />
+      {isDesktop && <Cursor isDragging={isGrabbing} containerRef={containerRef} />}
     </div>
   );
 };

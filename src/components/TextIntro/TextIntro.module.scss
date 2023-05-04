@@ -11,8 +11,7 @@
     position: relative;
     align-items: center;
     text-align: left;
-    padding-top: px(250);
-    padding-bottom: px(50);
+    padding: px(68) 0;
     height: 100%;
 
     @include media-tablet {
@@ -21,7 +20,11 @@
       justify-content: flex-start;
       align-items: flex-start;
       height: auto;
-      padding-top: px(100);
+      padding: px(48) 0;
+    }
+
+    @include media-desktopSm {
+      padding: px(90) 0;
     }
 
     &.tabletColumnLayout {
@@ -57,10 +60,19 @@
     }
   }
 
+  &.defaultBackgroundImage {
+    .layoutWrapper {
+      @include media-mobile {
+        padding-top: px(250);
+      }
+    }
+  }
+
   .backgroundImageContainer {
     position: absolute;
     @include use-mobile-columns(width, 4);
     margin-top: px(50);
+    top: 0;
 
     @include media-tablet {
       @include use-tablet-columns(width, 4);
@@ -117,6 +129,17 @@
 
     @include media-tablet {
       margin: 0;
+    }
+  }
+
+  .subtitle {
+    @include typography-eyebrow;
+    text-transform: uppercase;
+    color: $dark-grey;
+    margin-top: px(20);
+
+    @include media-desktopSm {
+      margin-top: px(25);
     }
   }
 

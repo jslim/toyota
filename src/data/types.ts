@@ -19,12 +19,29 @@ export type NavLinks = CTAContentType & {
   isActive: boolean;
 };
 
+export type Job = {
+  categories: {
+    department: string;
+    location: string;
+    team: string;
+    commitment?: string;
+  };
+  text: string;
+  applyUrl: string;
+  id: string;
+  workplaceType?: string;
+  description?: string;
+};
+
 export type GlobalDataFields = {
   mainNavLinks: Array<NavLinks>;
   footerNavLinks: Array<NavLinks>;
   homepageBannerText: string;
   showHomepageBanner: boolean;
   skipToContentText: string;
+  notFoundPageHeader: string;
+  notFoundPageDescription: string;
+  notFoundPageButton: string;
 };
 
 export type GlobalData = {
@@ -174,8 +191,14 @@ export type DefaultPageContentType = {
 };
 
 export type LeaderPageContentType = {
-  pageTitle: string;
+  leaderName: string;
   slug: string;
+  role: string;
+  shortRole: string;
+  headshot: ContentfulImageAsset;
+  leftSideBio: Document;
+  rightSideBio: Document;
+  featuredArticles: FilteredEntity<FeaturedArticlesContentyType>;
 };
 
 export type LegalPageContentType = {
@@ -200,6 +223,9 @@ export type GlobalDataContentType = {
   homepageBannerText: string;
   showHomepageBanner: boolean;
   skipToContentText: string;
+  notFoundPageHeader: string;
+  notFoundPageDescription: string;
+  notFoundPageButton: string;
 };
 
 export type CTAContentType = {
@@ -279,6 +305,7 @@ export type RoadmapGroupContentType = {
   title: string;
   eyebrow: string;
   theme: string;
+  cta: FilteredEntity<CTAContentType>;
   items: Array<FilteredEntity<RoadmapItemContentType>>;
 };
 
@@ -386,4 +413,32 @@ export type FeaturedArticlesContentyType = {
   heading: string;
   cta: FilteredEntity<CTAContentType>;
   newsPosts: FilteredEntity<NewsPostContentType>[];
+};
+
+export type BoardMembersContentType = {
+  name: string;
+  roletitle: string;
+};
+
+export type LeadershipModuleContentType = {
+  title: string;
+  eyebrowText: string;
+  description: string;
+  boardOfDirectorsSectionTitle?: string;
+  boardMembers: Array<FilteredEntity<BoardMembersContentType>>;
+  leaders: Array<FilteredEntity<LeaderPageContentType>>;
+};
+
+export type HistoryTimelineSlideContentType = {
+  title: string;
+  text: string;
+  cta: FilteredEntity<CTAContentType>;
+  image: ContentfulImageAsset;
+  year: string;
+};
+
+export type HistoryTimelineContentType = {
+  eyebrowText: string;
+  title: string;
+  slides: Array<FilteredEntity<HistoryTimelineSlideContentType>>;
 };

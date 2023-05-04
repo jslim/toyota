@@ -13,6 +13,9 @@ import {
   FeatureListContentType,
   GenericObject,
   HeroContentType,
+  HistoryTimelineContentType,
+  LeaderPageContentType,
+  LeadershipModuleContentType,
   MediaGalleryGroupContentType,
   NextChapterContentType,
   ProductListContentType,
@@ -30,6 +33,7 @@ import {
 import { variants } from '@/data/variants';
 
 import Accordion, { AccordionItem } from '@/components/Accordion/Accordion';
+import BiographicHero from '@/components/BiographicHero/BiographicHero';
 import { CardTypes } from '@/components/Card/Card';
 import CardGrid from '@/components/CardGrid/CardGrid';
 import CareersList from '@/components/CareersList/CareersList';
@@ -40,15 +44,21 @@ import FeaturesList from '@/components/FeaturesList/FeaturesList';
 import Gallery from '@/components/Gallery/Gallery';
 import GalleryVideo from '@/components/GalleryVideo/GalleryVideo';
 import Hero from '@/components/Hero/Hero';
+import HistoryTimeline from '@/components/HistoryTimeline/HistoryTimeline';
+import { SlideProps } from '@/components/HistoryTimeline/HistoryTimelineSlide';
+import { LeadershipCardProps } from '@/components/LeadershipCard/LeadershipCard';
+import LeadershipModule, { directorsProps } from '@/components/LeadershipModule/LeadershipModule';
 import NextChapter from '@/components/NextChapter/NextChapter';
 import ProductList from '@/components/ProductList/ProductList';
+import RichtextWrapper from '@/components/RichtextWrapper/RichtextWrapper';
 import Roadmap from '@/components/Roadmap/Roadmap';
 import SectionWrapper from '@/components/SectionWrapper/SectionWrapper';
-import Spacer from '@/components/Spacer/Spacer';
+import Spacer, { Sizes } from '@/components/Spacer/Spacer';
 import Tabs from '@/components/Tabs/Tabs';
 import TextIntro from '@/components/TextIntro/TextIntro';
 import VideoPlayerSection from '@/components/VideoPlayerSection/VideoPlayerSection';
 
+import { Color } from '../colors';
 import { parseContentfulRichText } from './rich-text-parser';
 
 export type ComponentBuilder = {
@@ -91,7 +101,7 @@ export const buildTestPage = (fields: TestsPageContentType, extraProps?: Generic
     ...extraProps
   },
   childrenFields: {
-    pageTitle: <h1>{fields.pageTitle}</h1>
+    pageTitle: <h1 style={{ height: 0, position: 'relative', zIndex: '1' }}>{fields.pageTitle}</h1>
   },
   component: EmptyComponent
 });
@@ -128,14 +138,6 @@ export const buildAccordionGroup = (
     component: Accordion
   };
 };
-
-export const buildContentfulImage = (fields: ContentfulImageAsset, extraProps?: GenericObject): ComponentBuilder => ({
-  props: {
-    asset: fields,
-    ...extraProps
-  },
-  component: ContentfulImage
-});
 
 export const buildImageBlock = (
   fields: { image: ContentfulImageAsset },
@@ -226,6 +228,11 @@ export const buildTextIntro = (fields: TextIntroContentType, extraProps?: Generi
 };
 
 export const buildRoadmapGroup = (fields: RoadmapGroupContentType, extraProps?: GenericObject): ComponentBuilder => {
+  const cta = fields?.cta?.fields?.linkUrl && {
+    title: fields?.cta?.fields?.linkText,
+    href: fields?.cta?.fields?.linkUrl,
+    'aria-label': fields?.cta?.fields?.ariaLabel
+  };
   const items = fields.items.map((item) => ({
     title: item.fields?.title,
     text: item.fields?.text,
@@ -239,6 +246,7 @@ export const buildRoadmapGroup = (fields: RoadmapGroupContentType, extraProps?: 
       eyebrow: fields.eyebrow,
       items,
       theme: fields.theme,
+      cta,
       ...extraProps
     },
     component: Roadmap
@@ -388,20 +396,16 @@ export const buildHero = (fields: HeroContentType, extraProps?: GenericObject): 
 };
 
 // component builder for rich text content
-export const buildRichTextTestComponent = (
-  fields: richTextContentType,
-  extraProps?: GenericObject
-): ComponentBuilder => {
-  const elements = parseContentfulRichText(fields.richtext);
+export const buildRichTextComponent = (fields: richTextContentType, extraProps?: GenericObject): ComponentBuilder => {
+  const richText = fields.richtext;
+  const elements = parseContentfulRichText(richText);
 
   return {
     props: {
       ...extraProps
     },
 
-    component: () => {
-      return <>{elements}</>;
-    }
+    component: () => <RichtextWrapper>{elements}</RichtextWrapper>
   };
 };
 
@@ -488,5 +492,95 @@ export const buildFeaturedArticles = (
       ...extraProps
     },
     component: FeaturedArticles
+  };
+};
+
+export const buildLeaderPage = (fields: LeaderPageContentType, extraProps?: GenericObject): ComponentBuilder => {
+  const rightSide = parseContentfulRichText(fields?.rightSideBio);
+  const leftSide = parseContentfulRichText(fields?.leftSideBio);
+  return {
+    props: {
+      ...extraProps
+    },
+    component: ({ children }) => (
+      <>
+        <BiographicHero title={fields?.leaderName} description={fields?.role} asset={fields?.headshot} />
+        <SectionWrapper backgroundColor={Color.WHITE}>
+          <Spacer size={Sizes.SMALL} />
+          <ColumnsText leftSide={leftSide}>{rightSide}</ColumnsText>
+          <Spacer size={Sizes.SMALL} />
+          {children}
+        </SectionWrapper>
+      </>
+    )
+  };
+};
+
+export const buildLeadershipModule = (
+  fields: LeadershipModuleContentType,
+  extraProps?: GenericObject
+): ComponentBuilder => {
+  const directors: directorsProps = {
+    label: fields?.boardOfDirectorsSectionTitle || '',
+    list: fields?.boardMembers.map((el) => {
+      const { name, roletitle } = el.fields;
+      return {
+        name,
+        role: roletitle
+      };
+    })
+  };
+
+  const slides: Array<LeadershipCardProps> = fields.leaders.map((leaderPage) => {
+    const { leaderName, shortRole, headshot, slug } = leaderPage?.fields;
+    return {
+      title: leaderName,
+      image: headshot,
+      description: shortRole,
+      cta: {
+        href: `/leader/${slug}`
+      }
+    };
+  });
+  return {
+    props: {
+      eyebrow: fields?.eyebrowText || '',
+      title: fields?.title || '',
+      description: fields?.description || '',
+      slides,
+      directors,
+      ...extraProps
+    },
+    component: LeadershipModule
+  };
+};
+
+export const buildHistoryTimeline = (
+  fields: HistoryTimelineContentType,
+  extraProps?: GenericObject
+): ComponentBuilder => {
+  const slides: Array<SlideProps> = fields?.slides.map(({ fields }) => {
+    const { year, title, text, image, cta } = fields;
+    const slideCta =
+      cta?.fields.linkText && cta?.fields.linkUrl
+        ? { href: cta.fields.linkUrl, title: cta.fields.linkText }
+        : undefined;
+
+    return {
+      year,
+      title,
+      text,
+      image,
+      cta: slideCta
+    };
+  });
+  return {
+    props: {
+      eyebrow: fields?.eyebrowText,
+      title: fields?.title,
+      slides,
+      ...extraProps
+    },
+    component: HistoryTimeline
   };
 };

@@ -12,7 +12,7 @@ import LeadershipCard, { LeadershipCardProps } from '@/components/LeadershipCard
 
 import { useLayout } from '@/hooks';
 
-type directorsProps = {
+export type directorsProps = {
   list: {
     name: string;
     role: string;
@@ -27,21 +27,12 @@ export type LeadershipModuleProps = {
   description: string;
   slides: LeadershipCardProps[];
   directors: directorsProps;
-  dragLabel: string;
 };
 
 SwiperCore.use([Pagination, A11y]);
 const SLIDE_DURATION = 450;
 
-const LeadershipModule: FC<LeadershipModuleProps> = ({
-  className,
-  eyebrow,
-  title,
-  description,
-  slides,
-  dragLabel,
-  directors
-}) => {
+const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title, description, slides, directors }) => {
   const textWrapperRef = useRef<HTMLDivElement | null>(null);
   const { layout } = useLayout();
   const isDesktop = useMemo(() => {
@@ -129,7 +120,7 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({
           {board}
         </div>
       ) : (
-        <DraggableColumns cards={slides} dragLabel={dragLabel} className={css.columns} />
+        <DraggableColumns cards={slides} className={css.columns} isDesktop={isDesktop} />
       )}
     </div>
   );

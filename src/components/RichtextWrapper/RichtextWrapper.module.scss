@@ -1,0 +1,8 @@
+@import 'shared';
+
+.root {
+  p {
+    @include typography-paragraph();
+    margin-bottom: 2em;
+  }
+}

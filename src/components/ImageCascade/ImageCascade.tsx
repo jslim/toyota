@@ -168,6 +168,7 @@ const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isHorizontal
   const containerRef = useRef<HTMLDivElement | null>(null);
   const panelsRef = useRef<(SVGPathElement | null)[]>([]);
   const assetRef = useRef<HTMLDivElement | null>(null);
+  const uniqueId = parseInt(Date.now() * Math.random()).toString();
 
   // eslint-disable-next-line sonarjs/cognitive-complexity
   useEffect(() => {
@@ -198,8 +199,7 @@ const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isHorizontal
       .timeline({
         scrollTrigger: {
           trigger: containerRef.current,
-          start: 'top 30%',
-          end: 'bottom 30%'
+          start: 'top 60%'
         }
       })
       .to(
@@ -207,7 +207,7 @@ const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isHorizontal
         {
           morphSVG: { shape: targets[0], type: 'linear' },
           ease: isHorizontal ? 'ease01' : 'ease02',
-          duration: 1.6
+          duration: 1.57
         },
         isHorizontal ? 0 : 0.067
       )
@@ -216,29 +216,38 @@ const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isHorizontal
         {
           morphSVG: { shape: targets[1], type: 'linear' },
           ease: isHorizontal ? 'ease01' : 'ease02',
-          duration: 1.6
+          duration: 1.57
         },
-        0.4
+        0.5
       )
       .to(
         panelsRef.current[3],
         {
           morphSVG: { shape: targets[2], type: 'linear' },
           ease: isHorizontal ? 'ease01' : 'ease02',
-          duration: 1.6
+          duration: 1.35
         },
-        isHorizontal ? 0.6 : 0.73
+        isHorizontal ? 0.6 : 0.8
+      )
+      .from(
+        assetRef.current.getElementsByTagName('img'),
+        {
+          ease: 'ease01',
+          duration: 3,
+          scale: 1.28
+        },
+        0
       );
 
     const resizePath = () => {
       getPathSizes();
-      gsap.to([panelsRef.current[0], panelsRef.current[1]], {
+      gsap.set([panelsRef.current[0], panelsRef.current[1]], {
         morphSVG: { shape: targets[0], type: 'linear' }
       });
-      gsap.to(panelsRef.current[2], {
+      gsap.set(panelsRef.current[2], {
         morphSVG: { shape: targets[1], type: 'linear' }
       });
-      gsap.to(panelsRef.current[3], {
+      gsap.set(panelsRef.current[3], {
         morphSVG: { shape: targets[2], type: 'linear' }
       });
     };
@@ -251,7 +260,7 @@ const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isHorizontal
       <div className={css.wrapper}>
         <svg x="0px" y="0px" className={css.svg}>
           <g>
-            <clipPath id="path">
+            <clipPath id={`path-${uniqueId}`}>
               <path
                 id="start"
                 ref={(el) => {
@@ -259,7 +268,7 @@ const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isHorizontal
                 }}
               />
             </clipPath>
-            <mask id="mask">
+            <mask id={uniqueId}>
               <rect x="0" y="0" width="100%" height="100%" fill="white"></rect>
               {Array.from({ length: 3 }).map((_, index) => (
                 <path
@@ -273,10 +282,10 @@ const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isHorizontal
                 ></path>
               ))}
             </mask>
-            <rect x="0" y="0" width="100%" height="100%" fill={fill} mask="url(#mask)"></rect>
+            <rect x="0" y="0" width="100%" height="100%" fill={fill} mask={`url(#${uniqueId})`}></rect>
           </g>
         </svg>
-        <div className={css.container} ref={assetRef}>
+        <div className={css.container} ref={assetRef} style={{ clipPath: `url(#path-${uniqueId})` }}>
           {children}
         </div>
       </div>

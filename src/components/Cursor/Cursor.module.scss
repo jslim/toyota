@@ -2,17 +2,21 @@
 
 .root {
   @include box(px(84));
+  margin-left: px(-42);
+  margin-top: px(-42);
   @include flex-center;
-  @include transform-center;
   position: absolute;
   text-transform: uppercase;
   border: 1px solid $red;
   border-radius: 50%;
-  z-index: 1;
+  @include z-index(cursor);
+  pointer-events: none;
+  transform: translateX(desktop-columns(3, 2));
+  opacity: 0;
 }
 
 .circle {
-  @include box(px(84));
+  @include box(100%);
   position: absolute;
   background-color: $red;
   border-radius: 50%;

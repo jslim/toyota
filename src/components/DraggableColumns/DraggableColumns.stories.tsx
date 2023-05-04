@@ -9,7 +9,6 @@ export default { title: 'components/DraggableColumns' };
 export const Default: Story<DraggableColumnsProps> = (args) => <DraggableColumns {...args} />;
 
 Default.args = {
-  dragLabel: 'Drag',
   cards: [
     {
       title: 'Name Person',

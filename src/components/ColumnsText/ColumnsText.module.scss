@@ -24,6 +24,9 @@
         margin-bottom: px(24);
       }
     }
+    :global(.cta) {
+      margin-top: px(24);
+    }
   }
   .textContainer {
     @include typography-paragraph;
@@ -37,15 +40,13 @@
       @include typography-h4;
       font-weight: 300;
     }
-    a {
+    a:not(:global(.cta)) {
       color: $red;
       text-decoration: underline;
     }
   }
 
   &.columns-50-50 {
-    @include media-desktopSm {
-    }
     .titleContainer {
       @include media-tablet {
         @include use-tablet-columns(width, 7);
@@ -81,7 +82,19 @@
     }
   }
   &.isSticky {
+    margin-bottom: px(45);
+    @include media-tablet {
+      margin-bottom: px(140);
+    }
+    @include media-desktopSm {
+      margin-bottom: px(192);
+    }
+
     .titleContainer {
+      > div {
+        position: sticky;
+        top: calc(#{$navbar-height} + #{px(30)});
+      }
       @include media-tablet {
         @include use-tablet-columns(width, 3);
       }
@@ -89,10 +102,17 @@
         margin-left: px(-$grid-relative-side-padding-desktop-external);
         width: calc(#{desktop-columns(3, 0)} + #{px($grid-relative-side-padding-desktop-external)});
       }
+      @include breakpoint(desktopLock) {
+        margin-left: 0;
+        width: desktop-lock-columns(3, 0);
+      }
     }
     .textContainer {
       @include media-tablet {
         @include use-tablet-columns(width, 5);
+      }
+      @include media-desktopSm {
+        @include use-desktop-columns(width, 9);
       }
     }
   }

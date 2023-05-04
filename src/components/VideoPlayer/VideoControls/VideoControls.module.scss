@@ -46,10 +46,10 @@ $video-player-controls-timer-font-size: px(15);
   &.hasPlayOnly {
     @include pagePadding(padding-left);
     @include pagePadding(padding-right);
-    padding-bottom: px(50);
+    padding-bottom: px(100);
 
     @include breakpoint(desktopSm) {
-      padding-bottom: px(60);
+      padding-bottom: px(108);
     }
     .playPauseButton {
       margin-left: auto;

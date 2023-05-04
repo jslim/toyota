@@ -9,16 +9,18 @@ import {
   buildCardGrid,
   buildCareersList,
   buildColumnsText,
-  buildContentfulImage,
   buildDefaultPage,
   buildFeaturedArticles,
   buildFeatureList,
   buildHero,
+  buildHistoryTimeline,
   buildImageBlock,
+  buildLeaderPage,
+  buildLeadershipModule,
   buildMediaGalleryGroup,
   buildNextChapter,
   buildProductList,
-  buildRichTextTestComponent,
+  buildRichTextComponent,
   buildRoadmapGroup,
   buildSectionWrapper,
   buildSpacer,
@@ -45,8 +47,6 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
   cardGallery: buildCardGallery,
   cardGrid: buildCardGrid,
   careersList: buildCareersList,
-  // We can build an image from either a reference ImageBlock or a direct linked Asset
-  contentfulAssetEntity: buildContentfulImage,
   imageBlock: buildImageBlock,
   textIntro: buildTextIntro,
   roadmapGroup: buildRoadmapGroup,
@@ -54,12 +54,15 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
   productList: buildProductList,
   mediaGalleryGroup: buildMediaGalleryGroup,
   hero: buildHero,
-  richTextTest: buildRichTextTestComponent,
+  richTextTest: buildRichTextComponent,
   videoPlayerSection: buildVideoPlayerSection,
   columnsText: buildColumnsText,
   spacer: buildSpacer,
   newsBottom: buildFeaturedArticles,
-  featuredArticles: buildFeaturedArticles
+  featuredArticles: buildFeaturedArticles,
+  leaderPage: buildLeaderPage,
+  leadershipModule: buildLeadershipModule,
+  historyTimeline: buildHistoryTimeline
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

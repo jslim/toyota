@@ -3,7 +3,6 @@
 .root {
   display: flex;
   height: 100%;
-  overflow: hidden;
   cursor: none;
 }
 
@@ -15,21 +14,18 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 100%;
+    @include use-desktop-columns(width, 3);
 
     .leader {
-      @include use-desktop-columns(width, 3);
+      height: auto;
     }
 
-    a,
-    img {
-      cursor: none !important;
+    a > * {
+      pointer-events: none;
     }
 
     &.shift {
-      .leader {
-        align-self: flex-end;
-      }
+      margin-left: auto;
     }
   }
 }

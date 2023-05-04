@@ -5,28 +5,22 @@
   .wrapperInfo {
     @include eyebrowTitle(true);
     position: sticky;
-    top: 0;
+    top: $navbar-height;
     @include container;
     z-index: 3;
-    padding-top: px(20 * 2);
+    padding-top: px(22);
     pointer-events: none;
 
     .cta {
       pointer-events: all;
     }
 
-    @include media-desktopMd {
-      padding-top: px(43 * 2);
+    @include media-tablet {
+      padding-top: px(43);
     }
   }
 
   .list {
-    padding-top: px(20);
-
-    @include media-desktopMd {
-      padding-top: px(40);
-    }
-
     > li {
       display: flex;
     }
@@ -141,8 +135,6 @@
     .list {
       .item {
         min-height: vh(100);
-        // TODO: remove next line for actual mobile devices to calculate window height with above line
-        min-height: 100vh;
         height: 1px;
 
         @include breakpoint(tablet) {
@@ -177,13 +169,13 @@
 
           @include breakpoint(tablet) {
             @include use-tablet-columns(width, 5);
-            @include use-tablet-gutter(margin-right, 1);
+            @include use-tablet-gutter(margin-right, -1);
             min-height: px(210);
           }
 
           @include breakpoint(desktopSm) {
-            @include use-desktop-columns(width, 4.5, 2.5);
-            margin-right: 0;
+            width: calc(#{desktop-columns(5)} + #{px($grid-relative-side-padding-desktop-external)});
+            margin-right: px(-$grid-relative-side-padding-desktop-external);
             min-height: px(228);
           }
 
@@ -197,6 +189,7 @@
 
             @include breakpoint(tablet) {
               @include typography-label;
+              max-width: px(425);
             }
           }
         }

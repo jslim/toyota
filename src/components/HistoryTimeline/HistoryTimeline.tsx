@@ -1,4 +1,5 @@
-import { FC, memo, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
+import { FC, memo, MutableRefObject, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
+import { device } from '@jam3/detect';
 import classNames from 'classnames';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
@@ -7,6 +8,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import css from './HistoryTimeline.module.scss';
 
+import { useLayout } from '@/hooks';
+
+import Cursor from '../Cursor/Cursor';
 import Eyebrow from '../Eyebrow/Eyebrow';
 import HistoryTimelineSlide, { SlideProps } from './HistoryTimelineSlide';
 
@@ -25,13 +29,17 @@ export type HistoryTimelineProps = {
 };
 
 const HistoryTimeline: FC<HistoryTimelineProps> = ({ className, eyebrow, title, slides }) => {
-  const ref = useRef<HTMLDivElement>(null);
+  const { layout } = useLayout();
+  const ref = useRef() as MutableRefObject<HTMLDivElement>;
+  const swiperRef = useRef() as MutableRefObject<HTMLDivElement>;
   const titleRef = useRef<HTMLDivElement>(null);
   const [imageHeight, setImageHeight] = useState(0);
   const [swiper, setSwiper] = useState<SwiperCore>();
   const [isDraggable, setDraggable] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
   const [slideProgress, setSlideProgress] = useState(0);
+
+  const hasHoverEffect = typeof window !== 'undefined' && !layout.mobile && !layout.tablet && !device.touch;
 
   const handleOnProgress = useCallback((swiper: SwiperCore, progress: SetStateAction<number>) => {
     setSwiper(swiper);
@@ -61,51 +69,55 @@ const HistoryTimeline: FC<HistoryTimelineProps> = ({ className, eyebrow, title, 
           <h3 className={css.title}>{title}</h3>
           <div className={css.year}>{slides[swiper?.activeIndex || 0].year}</div>
         </div>
-        <Swiper
-          className={css.slides}
-          slidesPerView={'auto'}
-          speed={SLIDE_DURATION}
-          watchSlidesProgress={true}
-          longSwipesRatio={SWIPE_RATIO}
-          onSlideChange={(swiper) => setActiveSlide(swiper.activeIndex)}
-          onTouchStart={() => setDraggable(true)}
-          onTouchEnd={() => setDraggable(false)}
-          onProgress={(swiper, progress) => handleOnProgress(swiper, progress)}
-          pagination={{
-            el: `.${css.pagination}`,
-            type: 'bullets',
-            clickable: true
-          }}
-          preventClicks={true}
-          preventClicksPropagation={false}
-        >
-          {slides.map((item, i) => {
-            return (
-              <SwiperSlide
-                className={css.slide}
-                key={`slide-${i}`}
-                onFocus={() => {
-                  if (!swiper) {
-                    return;
-                  }
-                  // on tab, slide to next/prev slide
-                  swiper?.slideTo(i);
-                }}
-              >
-                <HistoryTimelineSlide
-                  {...item}
-                  inProgress={slideProgress}
-                  active={activeSlide === i}
-                  isDraggable={isDraggable}
-                  slide={swiper?.slides[i]}
-                  index={i}
-                  setImageHeight={setImageHeight}
-                  imageHeight={imageHeight}
-                />
-              </SwiperSlide>
-            );
-          })}
-        </Swiper>
+        <div ref={swiperRef}>
+          {hasHoverEffect && <Cursor className={css.cursor} containerRef={swiperRef} isDragging={isDraggable} />}
+          <Swiper
+            className={css.slides}
+            slidesPerView={'auto'}
+            speed={SLIDE_DURATION}
+            watchSlidesProgress={true}
+            longSwipesRatio={SWIPE_RATIO}
+            onSlideChange={(swiper) => setActiveSlide(swiper.activeIndex)}
+            onTouchStart={() => setDraggable(true)}
+            onTouchEnd={() => setDraggable(false)}
+            onProgress={(swiper, progress) => handleOnProgress(swiper, progress)}
+            pagination={{
+              el: `.${css.pagination}`,
+              type: 'bullets',
+              clickable: true
+            }}
+            preventClicks={true}
+            touchStartPreventDefault={false}
+            preventClicksPropagation={true}
+          >
+            {slides.map((item, i) => {
+              return (
+                <SwiperSlide
+                  className={css.slide}
+                  key={`slide-${i}`}
+                  onFocus={() => {
+                    if (!swiper) {
+                      return;
+                    }
+                    // on tab, slide to next/prev slide
+                    swiper?.slideTo(i);
+                  }}
+                >
+                  <HistoryTimelineSlide
+                    {...item}
+                    inProgress={slideProgress}
+                    active={activeSlide === i}
+                    isDraggable={isDraggable}
+                    slide={swiper?.slides[i]}
+                    index={i}
+                    setImageHeight={setImageHeight}
+                    imageHeight={imageHeight}
+                  />
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+        </div>
         <span className={css.pagination}>{/* pagination number rendered by swiper */}</span>
       </div>
     </div>
