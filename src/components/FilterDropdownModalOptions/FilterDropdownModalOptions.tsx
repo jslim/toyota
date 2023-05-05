@@ -1,5 +1,5 @@
-import { FC, memo, useEffect, useMemo, useState } from 'react';
-import { useRouter } from 'next/router';
+import { FC, memo, useEffect, useState } from 'react';
+// import { useRouter } from 'next/router';
 import classNames from 'classnames';
 
 import css from './FilterDropdownModalOptions.module.scss';
@@ -32,27 +32,15 @@ const FilterDropdownModalOptions: FC<FilterDropdownModalOptionsProps> = ({ class
   const [filtersState, setFiltersState] = useState<{
     [key: string]: { param: string; setParam: (value: string) => void };
   }>({});
-  const router = useRouter();
+  // const router = useRouter();
 
+  /*
   const filterParams = useMemo(() => {
     return Object.entries(router.query)
       .filter(([key]) => key === 'Type' || key === 'Work' || key === 'Team' || key === 'Location')
       .map(([category, value]) => ({ category, value: value }));
-  }, [router.query]);
-
-  const checkSelected = (value: string) => {
-    let found = false;
-    for (const item of filterParams) {
-      if (item.value === value) {
-        found = true;
-        return true;
-      }
-    }
-
-    if (!found && value.toLowerCase() === 'all') return true;
-
-    return false;
-  };
+  }, [router.query]); // to compare against
+  */
 
   const useQueryParamsArray = useQueryParams(category, { shallow: true });
   const clearParams = useClearParams(Object.keys(filtersState), true);
@@ -94,8 +82,7 @@ const FilterDropdownModalOptions: FC<FilterDropdownModalOptionsProps> = ({ class
     return (
       <li
         className={classNames(css.option, {
-          [css.selected]: checkSelected(option.label)
-          // selectedOption?.label === option.label
+          [css.selected]: selectedOption?.label === option.label
         })}
         role="option"
         aria-selected={selectedOption?.label === option.label}
@@ -104,7 +91,7 @@ const FilterDropdownModalOptions: FC<FilterDropdownModalOptionsProps> = ({ class
         tabIndex={0}
         key={index}
       >
-        <IconCircle className={css.circle} isActive={checkSelected(option.label)}>
+        <IconCircle className={css.circle} isActive={selectedOption?.label === option.label}>
           <CheckmarkSvg className={css.checkmark} />
         </IconCircle>
         <span className={css.label}>{option.label}</span>
