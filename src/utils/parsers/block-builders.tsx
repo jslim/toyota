@@ -8,6 +8,7 @@ import {
   CareersListContentType,
   ColumnsTextContentType,
   ContentfulImageAsset,
+  CTAContentType,
   DefaultPageContentType,
   FeaturedArticlesContentyType,
   FeatureListContentType,
@@ -41,6 +42,7 @@ import CardGrid from '@/components/CardGrid/CardGrid';
 import CareersList from '@/components/CareersList/CareersList';
 import ColumnsText from '@/components/ColumnsText/ColumnsText';
 import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
+import Cta, { ButtonType } from '@/components/Cta/Cta';
 import FeaturedArticles from '@/components/FeaturedArticles/FeaturedArticles';
 import FeaturesList from '@/components/FeaturesList/FeaturesList';
 import Gallery from '@/components/Gallery/Gallery';
@@ -60,6 +62,8 @@ import Spacer, { Sizes } from '@/components/Spacer/Spacer';
 import Tabs from '@/components/Tabs/Tabs';
 import TextIntro from '@/components/TextIntro/TextIntro';
 import VideoPlayerSection from '@/components/VideoPlayerSection/VideoPlayerSection';
+
+import ChevronDownSvg from '@/components/svgs/svg-chevron-down.svg';
 
 import { Color } from '../colors';
 import { parseContentfulRichText } from './rich-text-parser';
@@ -181,6 +185,7 @@ export const buildSectionWrapper = (fields: SectionContentType, extraProps?: Gen
       title: fields.displayTitle,
       backgroundColor: fields?.colorBackground ? fields.colorBackground[0] : null,
       theme,
+      targetId: fields?.targetId,
       ...extraProps
     },
     component: SectionWrapper
@@ -437,10 +442,11 @@ export const buildVideoPlayerSection = (
 export const buildColumnsText = (fields: ColumnsTextContentType, extraProps?: GenericObject): ComponentBuilder => {
   const rightSide = parseContentfulRichText(fields?.rightSide);
   const leftSide = parseContentfulRichText(fields?.leftSide);
+  const eyebrow = fields.eyebrow ? { text: fields?.eyebrow } : null;
 
   return {
     props: {
-      eyebrow: { text: fields?.eyebrow },
+      eyebrow,
       theme: fields?.theme,
       leftSide,
       ...extraProps
@@ -623,5 +629,32 @@ export const buildMediaKit = (fields: MediaKitContentType, extraProps?: GenericO
       ...extraProps
     },
     component: () => <MediaKit modal={modal} items={items} />
+  };
+};
+
+export const buildCallToAction = (fields: CTAContentType, extraProps?: GenericObject): ComponentBuilder => {
+  const isJumpTo = fields.jumpToLink;
+  const theme = isJumpTo ? ButtonType.Icon : ButtonType.Primary;
+  const title = isJumpTo ? undefined : fields.linkText;
+  let href = fields.linkUrl;
+
+  if (fields.linkToPage != null) {
+    const entity = fields.linkToPage;
+    if (entity.fields?.slug && typeof entity.fields?.slug === 'string') {
+      let subPath = '';
+      if (entity.contentType === 'ourLatestPagePost') subPath = '/our-latest';
+      if (entity.contentType === 'leaderPage') subPath = '/leader';
+      href = `/${extraProps?.lang || 'en'}${subPath}/${entity.fields.slug}`;
+    }
+  }
+  const props = {
+    theme,
+    href,
+    title,
+    ...extraProps
+  };
+  return {
+    props,
+    component: () => <Cta {...props}>{isJumpTo && <ChevronDownSvg />}</Cta>
   };
 };
