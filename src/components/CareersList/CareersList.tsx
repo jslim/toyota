@@ -90,7 +90,7 @@ const CareersList: FC<CareersListProps> = ({
 
   const filterParams = useMemo(() => {
     return Object.entries(router.query)
-      .filter(([key]) => key !== 'lang') // filter out the 'lang' property
+      .filter(([key]) => key === 'Type' || key === 'Work' || key === 'Team' || key === 'Location')
       .map(([category, value]) => ({ category, value: value }));
   }, [router.query]);
 

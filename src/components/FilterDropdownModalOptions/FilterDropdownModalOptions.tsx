@@ -36,16 +36,22 @@ const FilterDropdownModalOptions: FC<FilterDropdownModalOptionsProps> = ({ class
 
   const filterParams = useMemo(() => {
     return Object.entries(router.query)
-      .filter(([key]) => key !== 'lang') // filter out the 'lang' property
+      .filter(([key]) => key === 'Type' || key === 'Work' || key === 'Team' || key === 'Location')
       .map(([category, value]) => ({ category, value: value }));
   }, [router.query]);
 
-  const checkedParam = (value: string) => {
-    const found = filterParams.some((obj) => obj.value === value);
-    if (!found && value.toLowerCase() === 'all' && selectedOption.label.toLowerCase() === 'all') {
-      return true;
+  const checkSelected = (value: string) => {
+    let found = false;
+    for (const item of filterParams) {
+      if (item.value === value) {
+        found = true;
+        return true;
+      }
     }
-    return !!found;
+
+    if (!found && value.toLowerCase() === 'all') return true;
+
+    return false;
   };
 
   const useQueryParamsArray = useQueryParams(category, { shallow: true });
@@ -88,7 +94,8 @@ const FilterDropdownModalOptions: FC<FilterDropdownModalOptionsProps> = ({ class
     return (
       <li
         className={classNames(css.option, {
-          [css.selected]: checkedParam(option.label)
+          [css.selected]: checkSelected(option.label)
+          // selectedOption?.label === option.label
         })}
         role="option"
         aria-selected={selectedOption?.label === option.label}
@@ -97,7 +104,7 @@ const FilterDropdownModalOptions: FC<FilterDropdownModalOptionsProps> = ({ class
         tabIndex={0}
         key={index}
       >
-        <IconCircle className={css.circle} isActive={checkedParam(option.label)}>
+        <IconCircle className={css.circle} isActive={checkSelected(option.label)}>
           <CheckmarkSvg className={css.checkmark} />
         </IconCircle>
         <span className={css.label}>{option.label}</span>
