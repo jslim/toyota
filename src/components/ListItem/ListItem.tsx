@@ -6,6 +6,7 @@ import css from './ListItem.module.scss';
 import { variants } from '@/data/variants';
 
 import BaseButton from '@/components/BaseButton/BaseButton';
+import BaseLink, { Props as LinkProps } from '@/components/BaseLink/BaseLink';
 import IconCircle from '@/components/IconCircle/IconCircle';
 
 import ArrowDown from '@/components/svgs/svg-arrow-down.svg';
@@ -20,6 +21,8 @@ export type ListItemProps = {
   onClick?: () => void;
   isMediaKit?: boolean;
   isAccordionOpen?: boolean;
+  assetsLink?: string;
+  link?: LinkProps;
 };
 
 const innerItem = (title: string, secondaryText?: string, tertiaryText?: string) => {
@@ -44,8 +47,11 @@ const ListItem: FC<ListItemProps> = ({
   tertiaryText,
   onClick,
   isMediaKit,
-  isAccordionOpen
+  isAccordionOpen,
+  assetsLink,
+  link
 }) => {
+  console.log(variant);
   return (
     <div className={classNames('ListItem', css.root, className)}>
       {!isMediaKit ? (
@@ -65,8 +71,11 @@ const ListItem: FC<ListItemProps> = ({
             </IconCircle>
           </div>
         </BaseButton>
-      ) : (
-        <BaseButton className={classNames(css.button, css.mediaKit, { [css.isDark]: variant === variants.DARK })}>
+      ) : assetsLink ? (
+        <BaseButton
+          className={classNames(css.button, css.mediaKit, { [css.isDark]: variant === variants.DARK })}
+          onClick={onClick}
+        >
           <div className={css.buttonWrapper}>
             <div className={css.titleWrapper}>{innerItem(title, secondaryText, tertiaryText)}</div>
             <IconCircle className={css.icon} isWhite>
@@ -74,6 +83,21 @@ const ListItem: FC<ListItemProps> = ({
             </IconCircle>
           </div>
         </BaseButton>
+      ) : (
+        <BaseLink
+          className={classNames(css.button, css.mediaKit, {
+            [css.isDark]: variant === variants.DARK,
+            [css.isLink]: link
+          })}
+          {...link}
+        >
+          <div className={css.buttonWrapper}>
+            <div className={css.titleWrapper}>{innerItem(title, secondaryText, tertiaryText)}</div>
+            <IconCircle className={css.icon} isWhite>
+              <ArrowDown />
+            </IconCircle>
+          </div>
+        </BaseLink>
       )}
     </div>
   );

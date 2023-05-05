@@ -4,6 +4,7 @@
   @include position-100(fixed);
   @include flex-center;
   background-color: rgba($dark-grey, 0.75);
+  @include z-index(modal);
 }
 
 .container {
@@ -70,5 +71,9 @@
     svg {
       @include box(px(11));
     }
+  }
+
+  .cta {
+    display: flex;
   }
 }

@@ -1,4 +1,4 @@
-import { Children, cloneElement, FC, memo, ReactNode, useCallback, useRef, useState } from 'react';
+import { FC, memo, ReactNode, useCallback, useRef, useState } from 'react';
 import classNames from 'classnames';
 import gsap from 'gsap';
 
@@ -12,7 +12,6 @@ interface AccordionProps {
   className?: string;
   children?: ReactNode;
   variant?: variants | string;
-  isMediaKit?: boolean;
 }
 
 export interface AccordionItemProps {
@@ -25,17 +24,14 @@ export interface AccordionItemProps {
 
 const EASE = 'power1.inOut';
 
-export const Accordion: FC<AccordionProps> = ({ className, children, variant = variants.LIGHT, isMediaKit }) => {
+export const Accordion: FC<AccordionProps> = ({ className, children, variant = variants.LIGHT }) => {
   return (
     <div
       className={classNames('Accordion', css.root, className, {
-        [css.isDark]: variant === variants.DARK,
-        [css.media]: isMediaKit
+        [css.isDark]: variant === variants.DARK
       })}
     >
-      {Children.map(children, (child) => {
-        return cloneElement(child as React.ReactElement, { isMediaKit, variant });
-      })}
+      {children}
     </div>
   );
 };

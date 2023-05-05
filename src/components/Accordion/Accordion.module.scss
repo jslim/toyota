@@ -72,15 +72,6 @@
     }
   }
 
-  &.media {
-    margin-top: px(32);
-    background-color: $black;
-
-    @include media-tablet {
-      margin-top: px(41);
-    }
-  }
-
   @at-root body:global(.desktop) {
     .button:hover {
       .title {

@@ -297,12 +297,18 @@ export type MediaKitItemContentType = {
   title: string;
   date: string;
   filesSize: string;
-  asset: ContentfulMediaAsset;
+  asset?: ContentfulMediaAsset;
+  link?: string;
 };
 
 export type MediaKitContentType = {
   title: string;
   innerBlocks: Array<FilteredEntity<MediaKitItemContentType>>;
+  modalTitle: string;
+  modalTerms: string;
+  modalLabel: string;
+  callToActionTitle: string;
+  modalCloseLabel: string;
 };
 
 export type MediaGalleryItemContentType = {

@@ -50,7 +50,7 @@ import HistoryTimeline from '@/components/HistoryTimeline/HistoryTimeline';
 import { SlideProps } from '@/components/HistoryTimeline/HistoryTimelineSlide';
 import { LeadershipCardProps } from '@/components/LeadershipCard/LeadershipCard';
 import LeadershipModule, { directorsProps } from '@/components/LeadershipModule/LeadershipModule';
-import ListItem from '@/components/ListItem/ListItem';
+import MediaKit from '@/components/MediaKit/MediaKit';
 import NextChapter from '@/components/NextChapter/NextChapter';
 import ProductList from '@/components/ProductList/ProductList';
 import RichtextWrapper from '@/components/RichtextWrapper/RichtextWrapper';
@@ -601,25 +601,27 @@ export const buildOurLatestPostPage = (
 };
 
 export const buildMediaKit = (fields: MediaKitContentType, extraProps?: GenericObject): ComponentBuilder => {
+  const modal = {
+    title: fields.modalTitle,
+    terms: fields.modalTerms,
+    label: fields.modalLabel,
+    closeLabel: fields.modalCloseLabel,
+    cta: fields.callToActionTitle
+  };
   const items = fields.innerBlocks?.map(({ fields }) => {
-    const src = fields.asset.fields.file.url;
+    const assetSrc = fields?.asset?.fields?.file.url;
     return {
       title: fields?.title,
       secondaryText: fields.date,
       tertiaryText: fields.filesSize,
-      link: src
+      assetsLink: assetSrc,
+      link: fields?.link
     };
   });
   return {
     props: {
       ...extraProps
     },
-    component: () => (
-      <Accordion variant={variants.DARK} isMediaKit>
-        {items.map((item, key) => (
-          <ListItem {...item} key={key}></ListItem>
-        ))}
-      </Accordion>
-    )
+    component: () => <MediaKit modal={modal} items={items} />
   };
 };

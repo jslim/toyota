@@ -60,15 +60,15 @@ export const MultipleAccordionDark = Template.bind({});
 MultipleAccordionDark.args = {
   variant: variants.DARK,
   children: [
-    <AccordionItem key={1} title="Section 1" secondaryText="Feb 8, 2023" tertiaryText="30Mb">
+    <AccordionItem key={1} title="Section 1" secondaryText="Feb 8, 2023" tertiaryText="30Mb" variant={variants.DARK}>
       {items.map((items, key) => {
         return <AccordionContentCard key={key} {...items} />;
       })}
     </AccordionItem>,
-    <AccordionItem key={2} title="Section 2">
+    <AccordionItem key={2} title="Section 2" variant={variants.DARK}>
       <p>Section 2 content...</p>
     </AccordionItem>,
-    <AccordionItem key={3} title="Section 3">
+    <AccordionItem key={3} title="Section 3" variant={variants.DARK}>
       <p>Section 3 content...</p>
     </AccordionItem>
   ]
