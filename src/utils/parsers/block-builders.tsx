@@ -17,6 +17,7 @@ import {
   LeaderPageContentType,
   LeadershipModuleContentType,
   MediaGalleryGroupContentType,
+  MediaKitContentType,
   NextChapterContentType,
   OurLatestPostPageContentType,
   ProductListContentType,
@@ -49,6 +50,7 @@ import HistoryTimeline from '@/components/HistoryTimeline/HistoryTimeline';
 import { SlideProps } from '@/components/HistoryTimeline/HistoryTimelineSlide';
 import { LeadershipCardProps } from '@/components/LeadershipCard/LeadershipCard';
 import LeadershipModule, { directorsProps } from '@/components/LeadershipModule/LeadershipModule';
+import MediaKit from '@/components/MediaKit/MediaKit';
 import NextChapter from '@/components/NextChapter/NextChapter';
 import ProductList from '@/components/ProductList/ProductList';
 import RichtextWrapper from '@/components/RichtextWrapper/RichtextWrapper';
@@ -595,5 +597,31 @@ export const buildOurLatestPostPage = (
       ...extraProps
     },
     component: () => <>{fields.pageTitle}</>
+  };
+};
+
+export const buildMediaKit = (fields: MediaKitContentType, extraProps?: GenericObject): ComponentBuilder => {
+  const modal = {
+    title: fields.modalTitle,
+    terms: fields.modalTerms,
+    label: fields.modalLabel,
+    closeLabel: fields.modalCloseLabel,
+    cta: fields.callToActionTitle
+  };
+  const items = fields.innerBlocks?.map(({ fields }) => {
+    const assetSrc = fields?.asset?.fields?.file.url;
+    return {
+      title: fields?.title,
+      secondaryText: fields.date,
+      tertiaryText: fields.filesSize,
+      assetsLink: assetSrc,
+      link: fields?.link
+    };
+  });
+  return {
+    props: {
+      ...extraProps
+    },
+    component: () => <MediaKit modal={modal} items={items} />
   };
 };

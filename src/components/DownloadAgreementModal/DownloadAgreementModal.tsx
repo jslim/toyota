@@ -11,9 +11,9 @@ import CloseSvg from '@/components/svgs/close.svg';
 
 export type DownloadAgreementModalProps = {
   className?: string;
-  title: string;
-  terms: string;
-  label: string;
+  title?: string;
+  terms?: string;
+  label?: string;
   cta: LinkProps;
   closeLabel?: string;
   onClose: () => void;
@@ -72,7 +72,7 @@ const DownloadAgreementModal: FC<DownloadAgreementModalProps> = ({
             {label}
           </label>
         </div>
-        <Cta {...cta} isDisabled={!isChecked} />
+        <Cta className={css.cta} {...cta} isDisabled={!isChecked} />
       </div>
     </div>
   );
