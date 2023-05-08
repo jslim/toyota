@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import css from './Footer.module.scss';
 
 import routes from '@/data/routes';
-import { SocialPlatform } from '@/data/variants';
 
 import BaseLink from '@/components/BaseLink/BaseLink';
 import Logo from '@/components/Logo/Logo';
@@ -24,44 +23,10 @@ export interface FooterProps {
 
 const locations = ['Tokyo', 'San Francisco Bay Area, CA', 'Seattle, WA', 'Ann Arbor, MI', 'Brooklyn, Ny', 'London'];
 
-const socials = [
-  {
-    platform: SocialPlatform.LINKEDIN,
-    href: 'https://linkedin.com/or-something',
-    label: 'Linkedin Icon'
-  },
-  {
-    platform: SocialPlatform.FACEBOOK,
-    href: 'https://facebook.com/or-something',
-    label: 'Facebook Icon'
-  },
-  {
-    platform: SocialPlatform.TWITTER,
-    href: 'https://twitter.com/or-something',
-    label: 'twitter Icon'
-  },
-  {
-    platform: SocialPlatform.YOUTUBE,
-    href: 'https://youtube.com/or-something',
-    label: 'Youtube Icon'
-  },
-  {
-    platform: SocialPlatform.MEDIUM,
-    href: 'https://medium.com/or-something',
-    label: 'Medium Icon'
-  }
-];
-
-const externalLinks = [
-  { title: 'Privacy Policy', link: '/' },
-  { title: 'Terms Of Use', link: '/' },
-  { title: 'Cookie Policy', link: '/' }
-];
-
 const siteName = 'Woven Planet Holdings, Inc.';
 
 const Footer: FC<FooterProps> = ({ className }) => {
-  const { footerNavLinks } = useAppSelector((state) => state.activeGlobalData);
+  const { footerNavLinks, footerLegalLinks, footerSocialLinks } = useAppSelector((state) => state.activeGlobalData);
   const activeRoute = useAppSelector((state) => state.activeRoute);
 
   return (
@@ -99,22 +64,22 @@ const Footer: FC<FooterProps> = ({ className }) => {
         <div className={css.bottomWrapper}>
           <div className={css.linksWrapper}>
             <div className={css.socialMedia}>
-              {socials.map(({ platform, href, label }) => (
+              {footerSocialLinks?.map(({ platform, linkUrl, linkText, ariaLabel }) => (
                 <SocialIcon
                   key={platform}
                   className={css.socialMediaButton}
                   platform={platform}
-                  href={href}
-                  label={label}
+                  href={linkUrl}
+                  label={linkText || ariaLabel}
                   isWhite={true}
                 />
               ))}
             </div>
             <ul className={css.externalLinks}>
-              {externalLinks.map((item) => (
-                <li key={item.title}>
-                  <BaseLink href={item.link} title={item.title}>
-                    {item.title}
+              {footerLegalLinks?.map((item) => (
+                <li key={item.linkText}>
+                  <BaseLink href={item.linkUrl} title={item.linkText}>
+                    {item.linkText}
                   </BaseLink>
                 </li>
               ))}

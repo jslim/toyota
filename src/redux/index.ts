@@ -1,11 +1,13 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { GlobalData, GlobalDataFields, Lang, NavLinks } from '@/data/types';
+import { GlobalData, GlobalDataFields, Lang, NavLinks, SocialLinks } from '@/data/types';
 
 export const defaultGlobalData: GlobalDataFields = {
   mainNavLinks: [] as Array<NavLinks>,
   footerNavLinks: [] as Array<NavLinks>,
+  footerLegalLinks: [] as Array<NavLinks>,
+  footerSocialLinks: [] as Array<SocialLinks>,
   homepageBannerText: '',
   showHomepageBanner: false,
   skipToContentText: '',
