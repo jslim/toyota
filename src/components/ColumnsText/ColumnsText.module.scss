@@ -15,6 +15,12 @@
       margin-bottom: px(24);
     }
   }
+  .spacer {
+    @include media-desktopSm {
+      height: px(62);
+      display: block;
+    }
+  }
   .titleContainer {
     width: 100%;
     @include typography-h4;
@@ -77,6 +83,7 @@
     }
 
     .socialMediaButton {
+      position: relative;
       margin-right: px(6);
       margin-top: px(17);
     }

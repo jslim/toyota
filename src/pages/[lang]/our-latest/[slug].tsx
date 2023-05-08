@@ -1,4 +1,4 @@
-import { FC, memo, useEffect, useState } from 'react';
+import { FC, memo, useEffect, useMemo, useState } from 'react';
 import { GetStaticProps } from 'next';
 import classNames from 'classnames';
 
@@ -87,6 +87,8 @@ const OurLatestPost: FC<OurLatestPostPageProps> = ({ data }) => {
     }
   };
 
+  const content = useMemo(() => parseContentfulRichText(pageData.fields.body), [pageData]);
+
   useEffect(() => {
     setUrl(window.location.href);
   }, []);
@@ -156,9 +158,8 @@ const OurLatestPost: FC<OurLatestPostPageProps> = ({ data }) => {
         <main className={classNames('OurLatestPost')}>
           <Hero theme={HeroType.Detail} image={pageData?.fields.thumbnail} />
           <ColumnsText leftSide={leftSideContent} isSticky={true} theme={ColumnType.COLUMNS_40_60}>
-            <br></br>
-            <br></br>
-            {parseContentfulRichText(pageData.fields.body)}
+            <span className={css.spacer} />
+            {content}
           </ColumnsText>
           {assetsData.assets.length && <AssetsDownload title={assetsData.eyebrowText} assets={assetsData.assets} />}
           {relatedData.fields.newsPosts.length && getPageBlocks(relatedData)}
