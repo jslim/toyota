@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import css from './SectionWrapper.module.scss';
 
 import Eyebrow from '@/components/Eyebrow/Eyebrow';
+
 import { Color, getBackgroundColorClass, isDarkMode } from '@/utils/colors';
 
 export type SectionWrapperProps = {
