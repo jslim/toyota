@@ -10,27 +10,27 @@ import Eyebrow from '@/components/Eyebrow/Eyebrow';
 
 export type FeaturedArticlesProps = {
   className?: string;
-  eyebrow: string;
-  title: string;
-  cta: LinkProps;
+  eyebrow?: string;
+  title?: string;
+  cta?: LinkProps;
   cards: CardProps[];
 };
 
 const FeaturedArticles: FC<FeaturedArticlesProps> = ({ className, eyebrow, title, cta, cards }) => {
   return (
-    <section className={classNames('FeaturedArticles', css.root, className)}>
-      <Eyebrow className={css.eyebrow} text={eyebrow} />
+    <section className={classNames('FeaturedArticles', css.root, className, { [css.related]: !eyebrow })}>
+      {eyebrow && <Eyebrow className={css.eyebrow} text={eyebrow} />}
       <div className={css.container}>
         <div className={css.wrapper}>
           <h2 className={css.title}>{title}</h2>
-          <Cta className={css.cta} theme={ButtonType.Primary} {...cta} />
+          {cta?.href && <Cta className={css.cta} theme={ButtonType.Primary} {...cta} />}
         </div>
 
         <ul className={css.cardList}>
           {cards.map((cardItem, index) => {
             return (
-              <li className={css.card} key={index}>
-                <Card {...cardItem} />
+              <li key={index}>
+                <Card {...cardItem} className={css.card} />
               </li>
             );
           })}

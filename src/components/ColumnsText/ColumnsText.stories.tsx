@@ -1,11 +1,14 @@
 import { Story } from '@storybook/react';
 
-import ColumnsText, { ColumnsTextProps } from './ColumnsText';
-import { ColumnType } from '@/data/variants';
-import sanitizer from '@/utils/sanitizer';
-import { useLayout } from '@/hooks';
-import Cta from '../Cta/Cta';
 import css from './ColumnsText.module.scss';
+
+import { ColumnType } from '@/data/variants';
+
+import { useLayout } from '@/hooks';
+import sanitizer from '@/utils/sanitizer';
+
+import Cta from '../Cta/Cta';
+import ColumnsText, { ColumnsTextProps } from './ColumnsText';
 
 export default { title: 'components/ColumnsText' };
 

@@ -173,22 +173,7 @@
       margin-top: px(20);
 
       .featuredTopBar {
-        color: $dark-grey;
-        margin-bottom: px(11);
-
-        @include breakpoint(desktopSm) {
-          margin-bottom: px(16);
-        }
-
-        .cat,
-        .date {
-          @include typography-eyebrow;
-          text-transform: uppercase;
-        }
-        .date {
-          color: $red;
-          margin-right: px(16);
-        }
+        @include dateCat;
       }
 
       .featuredTitle {
@@ -202,6 +187,16 @@
 
   &.detail {
     height: auto;
+    aspect-ratio: unset;
+    margin-bottom: px(20);
+
+    @include breakpoint(tablet) {
+      margin-bottom: px(35);
+    }
+
+    @include breakpoint(desktopMd) {
+      margin-bottom: px(55);
+    }
 
     .overlay {
       @include aspect-ratio(30, 19);

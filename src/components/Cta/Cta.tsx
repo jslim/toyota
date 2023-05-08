@@ -23,6 +23,7 @@ export type CtaProps = (BaseButtonProps | BaseLinkProps) & {
   setActiveOutside?: boolean;
   theme?: ButtonType;
   isDisabled?: boolean;
+  tooltip?: string | null;
 };
 
 const isLink = (props: CtaProps): props is BaseLinkProps => {
@@ -38,6 +39,7 @@ const Cta: FC<CtaProps> = ({
   setActiveOutside = false,
   theme = ButtonType.Primary,
   isDisabled = false,
+  tooltip,
   ...props
 }: CtaProps) => {
   const [hover, setHover] = useState(false);
@@ -91,6 +93,7 @@ const Cta: FC<CtaProps> = ({
       ) : (
         <BaseButton {...props} {...buttonProps}>
           {internalContent}
+          <span className={css.tooltip}>{tooltip}</span>
         </BaseButton>
       )}
     </>

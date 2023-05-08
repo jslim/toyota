@@ -10,8 +10,7 @@ import SvgMediumLogo from '@/components/svgs/Medium.svg';
 import SvgTwitterLogo from '@/components/svgs/Twitter.svg';
 import SvgYoutubeLogo from '@/components/svgs/Youtube.svg';
 
-import BaseLink from '../BaseLink/BaseLink';
-import IconCircle from '../IconCircle/IconCircle';
+import Cta, { ButtonType } from '../Cta/Cta';
 
 export type SocialIconProps = {
   className?: string;
@@ -34,17 +33,18 @@ const SocialIcon: FC<SocialIconProps> = ({ className, platform, href, label, isW
   const [hover, setHover] = useState(false);
 
   return (
-    <div
+    <Cta
       className={classNames('SocialIcon', className)}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
+      href={href}
+      aria-label={label}
+      isWhite={isWhite}
+      isActive={hover}
+      theme={ButtonType.Icon}
     >
-      <BaseLink href={href} aria-label={label}>
-        <IconCircle isWhite={isWhite} isActive={hover}>
-          {platformIconMap[platform]}
-        </IconCircle>
-      </BaseLink>
-    </div>
+      {platformIconMap[platform]}
+    </Cta>
   );
 };
 

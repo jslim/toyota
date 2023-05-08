@@ -2,7 +2,14 @@
 
 .root {
   position: relative;
+  padding-top: px(48);
+
+  @include breakpoint(tablet) {
+    padding: px(24) 0;
+  }
+
   @include breakpoint(desktopSm) {
+    padding: px(60) 0;
     @include container;
   }
 
