@@ -5,15 +5,17 @@ import JSZip from 'jszip';
 import css from './AssetsDownload.module.scss';
 
 import { ContentfulImageAsset } from '@/data/types';
-import { Color } from '@/utils/colors';
 
 import BaseLink from '@/components/BaseLink/BaseLink';
 import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
 import Cta from '@/components/Cta/Cta';
-import DownloadSvg from '@/components/svgs/svg-arrow-down.svg';
-import IconCircle from '@/components/IconCircle/IconCircle';
 import Eyebrow from '@/components/Eyebrow/Eyebrow';
+import IconCircle from '@/components/IconCircle/IconCircle';
 import SectionWrapper from '@/components/SectionWrapper/SectionWrapper';
+
+import { Color } from '@/utils/colors';
+
+import DownloadSvg from '@/components/svgs/svg-arrow-down.svg';
 
 export type AssetsProps = {
   className?: string;

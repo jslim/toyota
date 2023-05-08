@@ -1,8 +1,7 @@
 import { FC, memo, useState } from 'react';
-import classNames from 'classnames';
-
-import { device } from '@jam3/detect';
 import { useRouter } from 'next/router';
+import { device } from '@jam3/detect';
+import classNames from 'classnames';
 
 import css from './LanguageToggle.module.scss';
 

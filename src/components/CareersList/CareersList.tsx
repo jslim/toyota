@@ -3,8 +3,8 @@ import classNames from 'classnames';
 
 import css from './CareersList.module.scss';
 
-import { variants } from '@/data/variants';
 import { Job } from '@/data/types';
+import { variants } from '@/data/variants';
 
 import { Accordion, AccordionItem } from '@/components/Accordion/Accordion';
 import AccordionContentCard from '@/components/AccordionContent/AccordionContentCard';

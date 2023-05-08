@@ -1,12 +1,12 @@
-import { FC, MutableRefObject, memo, useRef, useState } from 'react';
+import { FC, memo, MutableRefObject, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import css from './DraggableColumns.module.scss';
 
-import Cursor from '../Cursor/Cursor';
-import LeadershipCard, { LeadershipCardProps } from '../LeadershipCard/LeadershipCard';
+import Cursor from '@/components/Cursor/Cursor';
+import LeadershipCard, { LeadershipCardProps } from '@/components/LeadershipCard/LeadershipCard';
 
 export type DraggableColumnsProps = {
   className?: string;
