@@ -1,5 +1,5 @@
 import { FC, memo, useEffect, useState } from 'react';
-// import { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import classNames from 'classnames';
 
 import css from './FilterDropdownModalOptions.module.scss';
@@ -32,15 +32,13 @@ const FilterDropdownModalOptions: FC<FilterDropdownModalOptionsProps> = ({ class
   const [filtersState, setFiltersState] = useState<{
     [key: string]: { param: string; setParam: (value: string) => void };
   }>({});
-  // const router = useRouter();
+  const router = useRouter();
 
-  /*
-  const filterParams = useMemo(() => {
-    return Object.entries(router.query)
-      .filter(([key]) => key === 'Type' || key === 'Work' || key === 'Team' || key === 'Location')
-      .map(([category, value]) => ({ category, value: value }));
-  }, [router.query]); // to compare against
-  */
+  useEffect(() => {
+    if (filtersState[category] && filtersState[category]?.param === '' && router.query[category]) {
+      setSelectedOption({ label: router.query[category] as string });
+    }
+  }, [category, filtersState, router]);
 
   const useQueryParamsArray = useQueryParams(category, { shallow: true });
   const clearParams = useClearParams(Object.keys(filtersState), true);
@@ -56,9 +54,12 @@ const FilterDropdownModalOptions: FC<FilterDropdownModalOptionsProps> = ({ class
     }
   };
 
+  console.log(filtersState, 'filtersState');
+
   useEffect(() => {
     if (!filtersState[category] || filtersState[category].param !== useQueryParamsArray[0]) {
       setFiltersState((state) => {
+        // console.log('updating state', state);
         return {
           ...state,
           [category]: {
@@ -68,7 +69,7 @@ const FilterDropdownModalOptions: FC<FilterDropdownModalOptionsProps> = ({ class
         };
       });
     }
-  }, [category, filtersState, useQueryParamsArray]);
+  }, [category, filtersState, useQueryParamsArray]); // old
 
   useEffect(() => {
     if (selectedOption.label.toLocaleLowerCase() !== 'all') {

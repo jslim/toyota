@@ -176,28 +176,28 @@ const CareersList: FC<CareersListProps> = ({
 
   const categories = getCategoriesArray();
 
-  const getLocations = (job: Job) => {
+  const getLocations = useCallback((job: Job) => {
     const location = job.categories.location ?? '';
     if (!locations.current.includes(location)) {
       locations.current.push(location);
     }
-  };
+  }, []);
 
-  const getWorkplaceType = (job: Job) => {
+  const getWorkplaceType = useCallback((job: Job) => {
     const workplaceType = job.workplaceType ?? '';
     if (!workplaceTypes.current.includes(workplaceType)) {
       workplaceTypes.current.push(workplaceType);
     }
-  };
+  }, []);
 
-  const getCommitment = (job: Job) => {
+  const getCommitment = useCallback((job: Job) => {
     const work = job.categories.commitment ?? '';
     if (!works.current.includes(work)) {
       works.current.push(work);
     }
-  };
+  }, []);
 
-  const getTeams = (job: Job) => {
+  const getTeams = useCallback((job: Job) => {
     const department = job.categories.department ?? '';
     const team = job.categories.team ?? '';
     const updatedTeams = [...teams.current];
@@ -217,29 +217,32 @@ const CareersList: FC<CareersListProps> = ({
     }
 
     teams.current = updatedTeams;
-  };
-
-  const sortJobDepartments = useCallback((data: Job[]) => {
-    const jobDepartmentMap: JobsListByDepartment = {};
-
-    data.forEach((job: Job) => {
-      if (jobDepartmentMap[job.categories.department]) {
-        // If department already exists, add to end of department array
-        jobDepartmentMap[job.categories.department].push(job);
-      } else {
-        // Otherwise create array with the job in the department
-        jobDepartmentMap[job.categories.department] = [job];
-      }
-
-      // Pull out categories
-      getLocations(job);
-      getWorkplaceType(job);
-      getCommitment(job);
-      getTeams(job);
-    });
-
-    return jobDepartmentMap;
   }, []);
+
+  const sortJobDepartments = useCallback(
+    (data: Job[]) => {
+      const jobDepartmentMap: JobsListByDepartment = {};
+
+      data.forEach((job: Job) => {
+        if (jobDepartmentMap[job.categories.department]) {
+          // If department already exists, add to end of department array
+          jobDepartmentMap[job.categories.department].push(job);
+        } else {
+          // Otherwise create array with the job in the department
+          jobDepartmentMap[job.categories.department] = [job];
+        }
+
+        // Pull out categories
+        getLocations(job);
+        getWorkplaceType(job);
+        getCommitment(job);
+        getTeams(job);
+      });
+
+      return jobDepartmentMap;
+    },
+    [getCommitment, getLocations, getTeams, getWorkplaceType]
+  );
 
   useEffect(() => {
     try {
