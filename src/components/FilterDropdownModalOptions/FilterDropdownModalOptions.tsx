@@ -30,7 +30,7 @@ export type FilterDropdownModalOptionsProps = {
 const FilterDropdownModalOptions: FC<FilterDropdownModalOptionsProps> = ({ className, header, content, category }) => {
   const router = useRouter();
   const [selectedOption, setSelectedOption] = useState<string>(content[0].options[0].label);
-  const [paramValue, setParamValue] = useQueryParams(category, []);
+  const [paramValue, setParamValue] = useQueryParams(category, { shallow: true });
   const clearParams = useClearParams([category], true);
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement | HTMLLIElement>, option?: Option) => {
