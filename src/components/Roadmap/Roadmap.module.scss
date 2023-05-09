@@ -7,7 +7,7 @@
     position: sticky;
     top: $navbar-height;
     @include container;
-    z-index: 3;
+    @include z-index(roadmap);
     padding-top: px(22);
     pointer-events: none;
 

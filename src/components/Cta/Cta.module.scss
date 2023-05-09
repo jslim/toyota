@@ -48,4 +48,9 @@
       }
     }
   }
+
+  &.isDisabled {
+    color: $mid-grey;
+    pointer-events: none;
+  }
 }

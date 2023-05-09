@@ -147,4 +147,18 @@
   &.iconOnly {
     border-color: $mid-grey;
   }
+
+  &.disabled {
+    border: none;
+
+    &.active {
+      .overlay {
+        transform: none;
+      }
+    }
+
+    .dot {
+      background-color: $mid-grey;
+    }
+  }
 }

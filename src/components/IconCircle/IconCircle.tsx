@@ -11,14 +11,16 @@ export type IconCircleProps = {
   isWhite?: Boolean;
   isActive?: Boolean;
   theme?: ButtonType;
+  isDisabled?: boolean;
 };
 
-const IconCircle: FC<IconCircleProps> = ({ className, children, isWhite, isActive, theme }) => {
+const IconCircle: FC<IconCircleProps> = ({ className, children, isWhite, isActive, isDisabled, theme }) => {
   return (
     <div
       className={classNames('IconCircle', css.IconCircle, css[theme || ''], className, {
         [css.isWhite]: isWhite,
-        [css.active]: isActive
+        [css.active]: isActive,
+        [css.disabled]: isDisabled
       })}
     >
       {(theme === ButtonType.Primary || theme === ButtonType.Secondary) && <span className={css.dot} />}

@@ -1,97 +1,11 @@
 @import 'shared';
 
 .root {
-  @include use-mobile-columns(width, 4);
+  @include container;
   background-color: $white;
 
   @include media-desktopSm {
     @include use-desktop-columns(width, 12);
-  }
-
-  .button {
-    @include reset-button;
-    @include flex-center-vert;
-    justify-content: space-between;
-    width: 100%;
-    padding: px(17) 0;
-    text-align: left;
-    cursor: pointer;
-
-    .buttonWrapper {
-      @include use-mobile-columns(width, 4);
-      display: flex;
-      justify-content: space-between;
-      margin: 0 auto;
-
-      @include media-desktopSm {
-        @include use-desktop-columns(width, 12);
-      }
-
-      .titleWrapper {
-        display: flex;
-        flex-direction: column;
-
-        @include media-desktopSm {
-          flex-direction: row;
-          align-items: center;
-          justify-content: space-between;
-          width: 100%;
-        }
-
-        .title {
-          @include typography-label;
-          transition: opacity 0.5s linear;
-        }
-
-        .secondaryWrapper {
-          display: flex;
-          flex-direction: row-reverse;
-          justify-content: flex-end;
-          margin-top: px(4);
-
-          @include media-desktopSm {
-            flex-direction: row;
-            margin-top: 0;
-            margin-right: px(24);
-          }
-
-          .text {
-            @include typography-paragraph;
-            color: $white;
-
-            &:first-of-type {
-              @include media-desktopSm {
-                margin-left: 0;
-                margin-right: px(24);
-              }
-            }
-
-            &:last-of-type {
-              margin-right: px(14);
-              opacity: 0.5;
-
-              @include media-desktopSm {
-                margin-right: 0;
-              }
-            }
-          }
-        }
-      }
-
-      .icon {
-        transition: transform 0.5s linear;
-      }
-    }
-
-    &.open {
-      .title {
-        opacity: 0.5;
-      }
-
-      .icon {
-        transform: rotate(180deg);
-      }
-    }
   }
 
   .contentWrapper {

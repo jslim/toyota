@@ -7,12 +7,22 @@
 }
 
 .textWrapper {
-  @include use-mobile-columns(width, 3);
-  text-align: left;
+  @include container;
 
-  @include media-desktopMd {
-    @include use-desktop-columns(width, 6);
-    @include use-desktop-columns(padding-right, 1, 1);
+  .quote,
+  .author {
+    @include use-mobile-columns(width, 3);
+    margin-left: auto;
+    text-align: left;
+
+    @include media-tablet {
+      @include use-tablet-columns(width, 4);
+    }
+
+    @include media-desktopSm {
+      @include use-desktop-columns(width, 6);
+      @include use-desktop-columns(padding-right, 1, 1);
+    }
   }
 
   .quote {

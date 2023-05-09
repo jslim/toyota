@@ -1,10 +1,11 @@
 import { ReactNode } from 'react';
 
-import { FilteredEntity } from '@/data/types';
+import { FilteredEntity, Lang, Locale } from '@/data/types';
 
 import {
   buildAccordionGroup,
   buildAccordionItem,
+  buildCallToAction,
   buildCardGallery,
   buildCardGrid,
   buildCareersList,
@@ -18,7 +19,9 @@ import {
   buildLeaderPage,
   buildLeadershipModule,
   buildMediaGalleryGroup,
+  buildMediaKit,
   buildNextChapter,
+  buildOurLatestPostPage,
   buildProductList,
   buildRichTextComponent,
   buildRoadmapGroup,
@@ -38,6 +41,7 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
   nextChapter: buildNextChapter,
   accordionItem: buildAccordionItem,
   accordionGroup: buildAccordionGroup,
+  mediaKit: buildMediaKit,
   section: buildSectionWrapper,
   tabGroup: buildTabGroup,
   tabItem: buildTabItem,
@@ -62,7 +66,9 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
   featuredArticles: buildFeaturedArticles,
   leaderPage: buildLeaderPage,
   leadershipModule: buildLeadershipModule,
-  historyTimeline: buildHistoryTimeline
+  historyTimeline: buildHistoryTimeline,
+  ourLatestPagePost: buildOurLatestPostPage,
+  callToAction: buildCallToAction
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -76,10 +82,12 @@ const isEntity = (field: any) => field.id && field.contentType && field.fields;
  */
 export const getPageBlocks = (entry: FilteredEntity): JSX.Element | null => {
   if (entry == null) return null;
-  const { contentType, fields } = entry;
+  const { contentType, fields, locale } = entry;
   if (!contentType || !componentFactories[contentType]) return null;
 
-  const { props, component: Component, childrenFields } = componentFactories[contentType](entry.fields);
+  const lang = locale === Locale.EN ? Lang.EN : Lang.JP;
+
+  const { props, component: Component, childrenFields } = componentFactories[contentType](entry.fields, { lang });
   let Children: Array<JSX.Element | null | string | ReactNode> = [];
 
   /**

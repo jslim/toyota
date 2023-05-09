@@ -4,11 +4,15 @@
   display: none;
   position: absolute;
   left: 0;
-  width: 100%;
-  max-width: px(276);
+  width: px(276);
   background-color: $white;
   border-radius: px(8);
   overflow: hidden;
+  z-index: 1;
+
+  &.move {
+    transform: translateX(-50%);
+  }
 }
 
 .containerWrapper {

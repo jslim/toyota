@@ -75,7 +75,7 @@ export const parseContentfulRichText = (richText: Document, className?: string):
 
         if (contentType?.includes('image')) {
           const imageAsset = node.data.target;
-          return imageAsset && <ContentfulImage className={className} asset={imageAsset} />;
+          return imageAsset && <ContentfulImage className={className} asset={imageAsset} useSrcSet hasBorderRadius />;
         }
 
         if (contentType?.includes('video')) {

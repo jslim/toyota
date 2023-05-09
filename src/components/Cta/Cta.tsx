@@ -22,6 +22,7 @@ export type CtaProps = (BaseButtonProps | BaseLinkProps) & {
   isInteractable?: boolean;
   setActiveOutside?: boolean;
   theme?: ButtonType;
+  isDisabled?: boolean;
 };
 
 const isLink = (props: CtaProps): props is BaseLinkProps => {
@@ -36,15 +37,17 @@ const Cta: FC<CtaProps> = ({
   isInteractable = true,
   setActiveOutside = false,
   theme = ButtonType.Primary,
+  isDisabled = false,
   ...props
 }: CtaProps) => {
   const [hover, setHover] = useState(false);
   const classes = useMemo(
     () =>
       classNames(className, 'cta', css.root, {
-        [css.isWhite]: isWhite
+        [css.isWhite]: isWhite,
+        [css.isDisabled]: isDisabled
       }),
-    [isWhite, className]
+    [className, isWhite, isDisabled]
   );
 
   const buttonProps = useMemo(
@@ -62,13 +65,18 @@ const Cta: FC<CtaProps> = ({
         <div className={css[theme]}>{props.title && <div className={css.label}>{props.title}</div>}</div>
       ) : (
         <>
-          <IconCircle isWhite={isWhite} isActive={setActiveOutside ? isActive : hover} theme={theme}>
+          <IconCircle
+            isWhite={isWhite}
+            isActive={setActiveOutside ? isActive : hover}
+            theme={theme}
+            isDisabled={isDisabled}
+          >
             {theme === ButtonType.Primary ? <ArrowSvg /> : props.children}
           </IconCircle>
           {props.title && <div className={css.label}>{props.title}</div>}
         </>
       ),
-    [hover, isActive, isWhite, props.children, props.title, setActiveOutside, theme]
+    [hover, isActive, isWhite, props.children, props.title, setActiveOutside, theme, isDisabled]
   );
 
   // Early return if component should only be visual - used if parent includes a link.

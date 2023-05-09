@@ -1,0 +1,15 @@
+@import 'shared';
+
+.root {
+  @include use-mobile-columns(width, 4);
+  margin-top: px(32);
+  background-color: $black;
+
+  @include media-tablet {
+    margin-top: px(41);
+  }
+
+  @include media-desktopSm {
+    @include use-desktop-columns(width, 12);
+  }
+}

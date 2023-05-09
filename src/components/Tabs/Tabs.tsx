@@ -5,7 +5,6 @@ import {
   MouseEventHandler,
   ReactElement,
   ReactNode,
-  useEffect,
   useRef,
   useState
 } from 'react';
@@ -105,10 +104,6 @@ export default memo(Tabs);
 
 export const Tab = ({ isActive, label, index, onClick = noop, onKeyUp = noop }: TabProps) => {
   const el = useRef<HTMLLIElement | null>(null);
-
-  useEffect(() => {
-    if (isActive) el.current?.focus();
-  }, [isActive]);
 
   return (
     <li

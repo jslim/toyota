@@ -1,19 +1,19 @@
-import { FC, memo, useEffect, useState, ReactNode, useMemo } from 'react';
+import { FC, memo, ReactNode, useEffect, useMemo, useState } from 'react';
 import { GetStaticProps } from 'next';
+import { useRouter } from 'next/router';
 import classNames from 'classnames';
 
-import { useRouter } from 'next/router';
 import { Job } from '@/data/types';
-import { getAllLangSlugs } from '@/utils/locales';
 import { ColumnType } from '@/data/variants';
 
 import ColumnsText from '@/components/ColumnsText/ColumnsText';
 import Cta from '@/components/Cta/Cta';
+import PageNotFound from '@/components/PageNotFound/PageNotFound';
 import TextIntro from '@/components/TextIntro/TextIntro';
 
-import sanitizer from '@/utils/sanitizer';
 import useLayout from '@/hooks/use-layout';
-import PageNotFound from '@/components/PageNotFound/PageNotFound';
+import { getAllLangSlugs } from '@/utils/locales';
+import sanitizer from '@/utils/sanitizer';
 
 // set as global var for local translation
 const eyebrowText = 'Careers';
