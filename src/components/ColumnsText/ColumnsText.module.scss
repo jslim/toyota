@@ -21,6 +21,13 @@
       display: block;
     }
   }
+  .titleContainer,
+  .textContainer {
+    p,
+    b {
+      margin-bottom: px(24);
+    }
+  }
   .titleContainer {
     width: 100%;
     @include typography-h4;
@@ -30,18 +37,10 @@
         margin-bottom: px(24);
       }
     }
-    :global(.cta) {
-      margin-top: px(24);
-    }
   }
   .textContainer {
     overflow: hidden;
     @include typography-paragraph;
-    p,
-    b {
-      margin-bottom: px(24);
-      display: block;
-    }
 
     b {
       @include typography-h4;

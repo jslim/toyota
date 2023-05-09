@@ -13,6 +13,7 @@ export type SectionWrapperProps = {
   title?: string;
   children?: ReactNode;
   backgroundColor?: Color;
+  targetId?: string;
 };
 
 const SectionWrapper: FC<SectionWrapperProps> = ({
@@ -20,10 +21,12 @@ const SectionWrapper: FC<SectionWrapperProps> = ({
   eyebrow,
   title,
   children,
-  backgroundColor = Color.DARK_GREY
+  backgroundColor = Color.DARK_GREY,
+  targetId
 }) => {
   return (
     <div
+      id={targetId}
       className={classNames(
         'SectionWrapper',
         css.root,
