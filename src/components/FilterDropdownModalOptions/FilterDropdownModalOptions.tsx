@@ -28,71 +28,56 @@ export type FilterDropdownModalOptionsProps = {
 };
 
 const FilterDropdownModalOptions: FC<FilterDropdownModalOptionsProps> = ({ className, header, content, category }) => {
-  const [selectedOption, setSelectedOption] = useState<Option>(content[0].options[0]);
-  const [filtersState, setFiltersState] = useState<{
-    [key: string]: { param: string; setParam: (value: string) => void };
-  }>({});
   const router = useRouter();
-
-  useEffect(() => {
-    if (filtersState[category] && filtersState[category]?.param === '' && router.query[category]) {
-      setSelectedOption({ label: router.query[category] as string });
-    }
-  }, [category, filtersState, router]);
-
-  const useQueryParamsArray = useQueryParams(category, { shallow: true });
-  const clearParams = useClearParams(Object.keys(filtersState), true);
-
-  const handleSelectOption = (option: Option) => {
-    option.label.toLowerCase() === 'all' && clearParams();
-    setSelectedOption(option);
-  };
+  const [selectedOption, setSelectedOption] = useState<string>(content[0].options[0].label);
+  const [paramValue, setParamValue] = useQueryParams(category, []);
+  const clearParams = useClearParams([category], true);
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement | HTMLLIElement>, option?: Option) => {
     if (event.key === 'Enter' || event.key === ' ') {
-      option && handleSelectOption(option);
+      option && handleOptionClick(option.label);
     }
   };
 
-  console.log(filtersState, 'filtersState');
+  useEffect(() => {
+    if (!paramValue && router.query[category]) {
+      setSelectedOption(router.query[category] as string);
+    }
+  }, [category, paramValue, router]);
 
   useEffect(() => {
-    if (!filtersState[category] || filtersState[category].param !== useQueryParamsArray[0]) {
-      setFiltersState((state) => {
-        // console.log('updating state', state);
-        return {
-          ...state,
-          [category]: {
-            param: useQueryParamsArray[0],
-            setParam: useQueryParamsArray[1]
-          }
-        };
-      });
-    }
-  }, [category, filtersState, useQueryParamsArray]); // old
+    if (paramValue) setSelectedOption(paramValue);
+  }, [paramValue]);
 
-  useEffect(() => {
-    if (selectedOption.label.toLocaleLowerCase() !== 'all') {
-      filtersState[category].setParam(selectedOption.label);
+  function handleOptionClick(option: string) {
+    let newSelectedOption: string;
+    if (selectedOption === option) {
+      return;
+    } else if (option.toLowerCase() === 'all') {
+      clearParams();
+      setSelectedOption(option);
+      return;
+    } else {
+      newSelectedOption = option;
     }
-    // To avoid extra changes of urls
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedOption]);
+    setSelectedOption(newSelectedOption);
+    setParamValue(newSelectedOption);
+  }
 
   const options = (option: Option, index: number) => {
     return (
       <li
         className={classNames(css.option, {
-          [css.selected]: selectedOption?.label === option.label
+          [css.selected]: selectedOption === option.label
         })}
         role="option"
-        aria-selected={selectedOption?.label === option.label}
-        onClick={() => handleSelectOption(option)}
+        aria-selected={selectedOption === option.label}
+        onClick={() => handleOptionClick(option.label)}
         onKeyDown={(event) => handleKeyPress(event, option)}
         tabIndex={0}
         key={index}
       >
-        <IconCircle className={css.circle} isActive={selectedOption?.label === option.label}>
+        <IconCircle className={css.circle} isActive={selectedOption === option.label}>
           <CheckmarkSvg className={css.checkmark} />
         </IconCircle>
         <span className={css.label}>{option.label}</span>
