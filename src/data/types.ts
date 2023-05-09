@@ -2,6 +2,8 @@ import { Document } from '@contentful/rich-text-types';
 
 import { CardTypes } from '@/components/Card/Card';
 
+import { SocialPlatform } from './variants';
+
 export type HeadProps = {
   title: string;
   image?: string;
@@ -17,6 +19,10 @@ export type GridSize = {
 
 export type NavLinks = CTAContentType & {
   isActive: boolean;
+};
+
+export type SocialLinks = CTAContentType & {
+  platform: SocialPlatform;
 };
 
 export type Job = {
@@ -36,6 +42,9 @@ export type Job = {
 export type GlobalDataFields = {
   mainNavLinks: Array<NavLinks>;
   footerNavLinks: Array<NavLinks>;
+  footerLegalLinks: Array<NavLinks>;
+  footerSocialLinks: Array<SocialLinks>;
+  footerOfficeLocations: Array<string>;
   homepageBannerText: string;
   showHomepageBanner: boolean;
   skipToContentText: string;
@@ -239,6 +248,9 @@ export type OurLatestPostPageContentType = {
 export type GlobalDataContentType = {
   mainNavLinks: Array<FilteredEntity<CTAContentType>>;
   footerNavLinks: Array<FilteredEntity<CTAContentType>>;
+  footerLegalLinks: Array<FilteredEntity<CTAContentType>>;
+  footerSocialLinks: Array<FilteredEntity<CTAContentType>>;
+  footerOfficeLocations: Array<string>;
   homepageBannerText: string;
   showHomepageBanner: boolean;
   skipToContentText: string;
