@@ -251,6 +251,8 @@ export type CTAContentType = {
   linkText?: string;
   linkUrl: string;
   ariaLabel?: string;
+  linkToPage?: FilteredEntity;
+  jumpToLink?: boolean;
 };
 
 export type NextChapterContentType = {
@@ -271,6 +273,7 @@ export type SectionContentType = {
   eyebrowText?: string;
   innerBlocks: Array<FilteredEntity>;
   colorBackground?: Array<string>;
+  targetId?: string;
 };
 
 export type TabItemContentType = {
