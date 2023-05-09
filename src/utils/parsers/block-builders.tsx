@@ -554,7 +554,7 @@ export const buildLeadershipModule = (
       image: headshot,
       description: shortRole,
       cta: {
-        href: `/leader/${slug}`
+        href: `/${extraProps?.lang || 'en'}/leader/${slug}`
       }
     };
   });
