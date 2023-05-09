@@ -319,7 +319,12 @@ const CareersList: FC<CareersListProps> = ({
       {Object.keys(filteredJobs).length > 0 ? (
         <Accordion className={css.accordion} variant={variants.DARK}>
           {Object.keys(filteredJobs).map((department, key) => (
-            <AccordionItem key={key} title={department} secondaryText={`${filteredJobs[department]?.length} openings`}>
+            <AccordionItem
+              key={key}
+              title={department}
+              secondaryText={`${filteredJobs[department]?.length} openings`}
+              variant={variants.DARK}
+            >
               {Object.values(filteredJobs)[key].map((item) => (
                 <AccordionContentCard
                   key={item.id}
