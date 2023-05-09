@@ -3,4 +3,14 @@
 .root {
   display: block;
   max-width: 100%;
+
+  &.hasBorderRadius {
+    border-radius: px(6);
+    @include breakpoint(tablet) {
+      border-radius: px(12);
+    }
+    @include breakpoint(desktopSm) {
+      border-radius: px(24);
+    }
+  }
 }
