@@ -19,7 +19,6 @@ const convertCtaToSocialLink = (link: FilteredEntity<CTAContentType>) => {
   let platform = SocialPlatform.FACEBOOK;
 
   const url = link?.fields?.linkUrl;
-  console.log(url);
   if (url.includes('twitter.com')) platform = SocialPlatform.TWITTER;
   if (url.includes('linkedin.com')) platform = SocialPlatform.LINKEDIN;
   if (url.includes('medium.com')) platform = SocialPlatform.MEDIUM;
@@ -44,6 +43,7 @@ export const globalDataParserUtil = (entity: GlobalDataContentType): GlobalDataF
   const footerNavLinks: Array<NavLinks> = entity?.footerNavLinks?.map((link) => convertCtaToNavLink(link));
   const footerLegalLinks: Array<NavLinks> = entity?.footerLegalLinks?.map((link) => convertCtaToNavLink(link));
   const footerSocialLinks: Array<SocialLinks> = entity?.footerSocialLinks?.map((link) => convertCtaToSocialLink(link));
+  const footerOfficeLocations = entity?.footerOfficeLocations || [];
   const skipToContentText = entity?.skipToContentText ?? 'Skip to content';
   const homepageBannerText = entity?.homepageBannerText ?? '';
   const showHomepageBanner = entity?.showHomepageBanner ?? false;
@@ -56,6 +56,7 @@ export const globalDataParserUtil = (entity: GlobalDataContentType): GlobalDataF
     footerNavLinks,
     footerLegalLinks,
     footerSocialLinks,
+    footerOfficeLocations,
     skipToContentText,
     homepageBannerText,
     showHomepageBanner,

@@ -8,6 +8,7 @@ export const defaultGlobalData: GlobalDataFields = {
   footerNavLinks: [] as Array<NavLinks>,
   footerLegalLinks: [] as Array<NavLinks>,
   footerSocialLinks: [] as Array<SocialLinks>,
+  footerOfficeLocations: [] as Array<string>,
   homepageBannerText: '',
   showHomepageBanner: false,
   skipToContentText: '',

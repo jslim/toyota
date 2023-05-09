@@ -21,12 +21,12 @@ export interface FooterProps {
   className?: string;
 }
 
-const locations = ['Tokyo', 'San Francisco Bay Area, CA', 'Seattle, WA', 'Ann Arbor, MI', 'Brooklyn, Ny', 'London'];
-
 const siteName = 'Woven Planet Holdings, Inc.';
 
 const Footer: FC<FooterProps> = ({ className }) => {
-  const { footerNavLinks, footerLegalLinks, footerSocialLinks } = useAppSelector((state) => state.activeGlobalData);
+  const { footerNavLinks, footerLegalLinks, footerSocialLinks, footerOfficeLocations } = useAppSelector(
+    (state) => state.activeGlobalData
+  );
   const activeRoute = useAppSelector((state) => state.activeRoute);
 
   return (
@@ -54,7 +54,7 @@ const Footer: FC<FooterProps> = ({ className }) => {
             )}
           </ul>
           <div className={css.locations}>
-            {locations.map((location) => (
+            {footerOfficeLocations?.map((location) => (
               <div className={css.location} key={location}>
                 {location}
               </div>
