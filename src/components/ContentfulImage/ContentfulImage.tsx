@@ -20,6 +20,7 @@ export interface ContentfulImageProps extends ImgHTMLAttributes<HTMLImageElement
   imageSizeDesktop?: string | GridSize;
   withLazyLoad?: boolean;
   withLowResSwap?: boolean;
+  hasBorderRadius?: boolean;
 }
 
 const ContentfulImage = forwardRef<HTMLImageElement, ContentfulImageProps>(
@@ -31,6 +32,7 @@ const ContentfulImage = forwardRef<HTMLImageElement, ContentfulImageProps>(
       imageQuality = 50,
       withLazyLoad = false,
       withLowResSwap = false,
+      hasBorderRadius,
       imageSizeDesktop = { numCols: 12, extraGutters: 0 },
       imageSizeTablet = { numCols: 12, extraGutters: 0 },
       imageSizeMobile = { numCols: 12, extraGutters: 0 },
@@ -94,7 +96,9 @@ const ContentfulImage = forwardRef<HTMLImageElement, ContentfulImageProps>(
 
     return (
       <img
-        className={classNames('ContentfulImage', css.root, className)}
+        className={classNames('ContentfulImage', css.root, className, {
+          [css.hasBorderRadius]: hasBorderRadius
+        })}
         data-src={imageUrl}
         src={
           loadImage ? imageUrl : withLazyLoad ? buildSrc(100, 75) : withLowResSwap ? buildSrc(imageWidth, 20) : imageUrl
