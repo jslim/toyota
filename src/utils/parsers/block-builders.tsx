@@ -314,6 +314,11 @@ export const buildCareersList = (fields: CareersListContentType, extraProps?: Ge
     props: {
       title: fields?.title,
       eyebrow: fields?.eyebrowText,
+      filtersLabel: fields?.filtersLabel,
+      searchLabel: fields?.searchLabel,
+      cleanLabel: fields?.cleanLabel,
+      noResultsLabel: fields?.noResultsLabel,
+      noResultsDescription: fields?.noResultsDescription,
       ...extraProps
     },
     component: CareersList

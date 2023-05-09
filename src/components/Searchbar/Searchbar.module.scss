@@ -1,0 +1,62 @@
+@import 'shared';
+
+.root {
+  @include use-mobile-columns(width, 4);
+  position: relative;
+
+  @include media-tablet {
+    @include use-tablet-columns(width, 8);
+  }
+
+  @include media-desktopSm {
+    @include use-desktop-columns(width, 5);
+  }
+}
+
+.input {
+  @include font-size(14, 22);
+  width: 100%;
+  padding: px(12) 0 px(13) px(23);
+  color: $white;
+  background-color: $dark-grey;
+  border: 1px solid $grey;
+  border-radius: px(11);
+
+  @include media-desktopSm {
+    @include font-size(16, 24);
+  }
+
+  &::placeholder {
+    @include font-size(14, 22);
+    @include font-family('Toyota Type');
+    color: $grey;
+  }
+
+  @include media-desktopSm {
+    @include font-size(16, 24);
+  }
+}
+
+.icon {
+  @include box(px(9));
+  position: absolute;
+  right: px(20);
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+
+  path {
+    stroke: $grey;
+  }
+}
+
+.srOnly {
+  @include box(1px);
+  position: absolute;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

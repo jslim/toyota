@@ -7,12 +7,12 @@ export default { title: 'components/FilterList' };
 
 const categoriesType = {
   header: 'Type',
-  categories: [
+  category: 'type',
+  content: [
     {
       options: [
         {
-          label: 'All',
-          value: 'all'
+          label: 'All'
         }
       ]
     },
@@ -20,16 +20,13 @@ const categoriesType = {
       title: 'Global Operations',
       options: [
         {
-          label: 'On-site',
-          value: 'on-site'
+          label: 'On-site'
         },
         {
-          label: 'Hybrid',
-          value: 'hybrid'
+          label: 'Hybrid'
         },
         {
-          label: 'Remote',
-          value: 'remote'
+          label: 'Remote'
         }
       ]
     },
@@ -51,12 +48,12 @@ const categoriesType = {
 
 const categoriesTeam = {
   header: 'Team',
-  categories: [
+  category: 'team',
+  content: [
     {
       options: [
         {
-          label: 'All',
-          value: 'all'
+          label: 'All'
         }
       ]
     },
@@ -64,16 +61,13 @@ const categoriesTeam = {
       title: 'Global Operations',
       options: [
         {
-          label: 'On-site',
-          value: 'on-site'
+          label: 'On-site'
         },
         {
-          label: 'Hybrid',
-          value: 'hybrid'
+          label: 'Hybrid'
         },
         {
-          label: 'Remote',
-          value: 'remote'
+          label: 'Remote'
         }
       ]
     },
@@ -81,20 +75,16 @@ const categoriesTeam = {
       title: 'Investment & Acquisitions',
       options: [
         {
-          label: 'Item1',
-          value: 'item1'
+          label: 'Item1'
         },
         {
-          label: 'Item2',
-          value: 'item2'
+          label: 'Item2'
         },
         {
-          label: 'Item3',
-          value: 'item3'
+          label: 'Item3'
         },
         {
-          label: 'Item4',
-          value: 'item4'
+          label: 'Item4'
         }
       ]
     }
@@ -103,24 +93,22 @@ const categoriesTeam = {
 
 const categoriesLocation = {
   header: 'Location',
-  categories: [
+  category: 'location',
+  content: [
     {
       options: [
         {
-          label: 'All',
-          value: 'all'
+          label: 'All'
         }
       ]
     },
     {
       options: [
         {
-          label: 'Tokyo',
-          value: 'tokyo'
+          label: 'Tokyo'
         },
         {
-          label: 'London',
-          value: 'london'
+          label: 'London'
         }
       ]
     }

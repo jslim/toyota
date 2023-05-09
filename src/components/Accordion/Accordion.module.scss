@@ -1,7 +1,7 @@
 @import 'shared';
 
 .root {
-  @include use-mobile-columns(width, 4);
+  @include container;
   background-color: $white;
 
   @include media-desktopSm {

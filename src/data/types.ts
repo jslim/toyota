@@ -383,6 +383,11 @@ export type CardGridContentType = {
 export type CareersListContentType = {
   title: string;
   eyebrowText: string;
+  filtersLabel: string;
+  searchLabel: string;
+  cleanLabel: string;
+  noResultsLabel: string;
+  noResultsDescription: string;
 };
 
 export type FeatureListItemContentType = {
