@@ -31,6 +31,7 @@ import {
   buildTestPage,
   buildTextBlock,
   buildTextIntro,
+  buildYoutubeIframe,
   buildVideoPlayerSection,
   ComponentBuilderFactory
 } from './block-builders';
@@ -56,6 +57,7 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
   featureList: buildFeatureList,
   productList: buildProductList,
   mediaGalleryGroup: buildMediaGalleryGroup,
+  youtubeEmbed: buildYoutubeIframe,
   hero: buildHero,
   richTextTest: buildRichTextComponent,
   videoPlayerSection: buildVideoPlayerSection,

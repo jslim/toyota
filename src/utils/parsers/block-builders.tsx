@@ -30,7 +30,8 @@ import {
   TestsPageContentType,
   TextBlockContentType,
   TextIntroContentType,
-  videoPlayerSectionContentType
+  videoPlayerSectionContentType,
+  YoutubeEmbedContentType
 } from '@/data/types';
 import { variants } from '@/data/variants';
 
@@ -60,6 +61,7 @@ import Spacer, { Sizes } from '@/components/Spacer/Spacer';
 import Tabs from '@/components/Tabs/Tabs';
 import TextIntro from '@/components/TextIntro/TextIntro';
 import VideoPlayerSection from '@/components/VideoPlayerSection/VideoPlayerSection';
+import YoutubeEmbed from '@/components/YoutubeEmbed/YoutubeEmbed';
 
 import { Color } from '../colors';
 import { parseContentfulRichText } from './rich-text-parser';
@@ -623,5 +625,15 @@ export const buildMediaKit = (fields: MediaKitContentType, extraProps?: GenericO
       ...extraProps
     },
     component: () => <MediaKit modal={modal} items={items} />
+  };
+};
+
+export const buildYoutubeIframe = (fields: YoutubeEmbedContentType, extraProps?: GenericObject): ComponentBuilder => {
+  return {
+    props: {
+      embedId: fields.embedId,
+      ...extraProps
+    },
+    component: YoutubeEmbed
   };
 };
