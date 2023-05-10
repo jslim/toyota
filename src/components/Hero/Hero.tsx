@@ -43,6 +43,7 @@ const Hero: FC<HeroProps> = ({ className, title, image, video, theme = HeroType.
           hasControls={false}
           togglePlayOnClick={false}
           hasPlayOnly={true}
+          loop={true}
           onLoad={() => setAssetLoaded(true)}
         />
       ) : (
