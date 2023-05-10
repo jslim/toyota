@@ -14,10 +14,10 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 100%;
+    @include use-desktop-columns(width, 3);
 
     .leader {
-      @include use-desktop-columns(width, 3);
+      height: auto;
     }
 
     a > * {
@@ -25,9 +25,7 @@
     }
 
     &.shift {
-      .leader {
-        margin-left: auto;
-      }
+      margin-left: auto;
     }
   }
 }
