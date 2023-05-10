@@ -9,13 +9,13 @@ import { HeadProps } from '@/data/types';
 const MockFeaturePolicy = dynamic(() => import('@/components/Head/MockFeaturePolicy'), { ssr: false });
 const MockContentSecurityPolicy = dynamic(() => import('@/components/Head/MockContentSecurityPolicy'), { ssr: false });
 
-const TITLE_SEPARATOR = '|';
+const TITLE_SEPARATOR = '-';
 
 const Head: FC<HeadProps> = ({ title, keywords, description, siteName, image }) => {
   const router = useRouter();
 
   const ogUrl = `${process.env.NEXT_PUBLIC_WEBSITE_SITE_URL}${router.asPath}`;
-  const ogDefaultImage = image || `${process.env.NEXT_PUBLIC_WEBSITE_SITE_URL}/common/assets/images/share-image.jpg`;
+  const ogDefaultImage = image || `${process.env.NEXT_PUBLIC_WEBSITE_SITE_URL}/common/assets/images/share-image.png`;
   const fullTitle = title
     ? `${title} ${TITLE_SEPARATOR} ${siteName || settings.siteName}`
     : `${siteName} ${TITLE_SEPARATOR} ${settings.siteSlogan}`;
@@ -33,7 +33,7 @@ const Head: FC<HeadProps> = ({ title, keywords, description, siteName, image }) 
       <link rel="icon" type="image/png" sizes="32x32" href="/common/favicons/favicon-32x32.png" />
       <link rel="icon" type="image/png" sizes="16x16" href="/common/favicons/favicon-16x16.png" />
       <link rel="manifest" href="/common/favicons/site.webmanifest" crossOrigin="use-credentials" />
-      <link rel="mask-icon" href="/common/favicons/safari-pinned-tab.svg" color="#000000" />
+      <link rel="mask-icon" href="/common/favicons/safari-pinned-tab.svg" color="#ffffff" />
       <link rel="shortcut icon" href="/common/favicons/favicon.ico" />
       <meta name="msapplication-config" content="/common/favicons/browserconfig.xml" />
       {/* Share meta tags */}
