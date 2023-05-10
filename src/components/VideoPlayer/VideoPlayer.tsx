@@ -45,6 +45,7 @@ export type Props = {
   controlsTimeout: number;
   togglePlaying: Function;
   onEnd: Function;
+  onLoad?: Function;
 };
 
 const VideoPlayer = ({
@@ -72,7 +73,8 @@ const VideoPlayer = ({
   disableBackgroundCover = true,
   controlsTimeout = 2.5,
   togglePlaying = noop,
-  onEnd = noop
+  onEnd = noop,
+  onLoad = noop
 }: Props) => {
   const container = useRef<HTMLDivElement | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -273,6 +275,8 @@ const VideoPlayer = ({
   }
 
   function onPlay() {
+    console.log('ey');
+    onLoad && onLoad();
     setIsPlaying(true);
   }
 
