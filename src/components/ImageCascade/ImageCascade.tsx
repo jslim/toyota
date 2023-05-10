@@ -13,6 +13,7 @@ export type ImageCascadeProps = {
   children: ReactNode;
   isHorizontal?: boolean;
   fill?: string;
+  assetLoaded?: boolean;
 };
 
 type pathProps = {
@@ -164,7 +165,7 @@ const buildTargets = (width: number, height: number, offset: number, isHorizonta
   ];
 };
 
-const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isHorizontal, fill = 'white' }) => {
+const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isHorizontal, fill = 'white', assetLoaded }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const panelsRef = useRef<(SVGPathElement | null)[]>([]);
   const assetRef = useRef<HTMLDivElement | null>(null);
@@ -172,6 +173,8 @@ const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isHorizontal
 
   // eslint-disable-next-line sonarjs/cognitive-complexity
   useEffect(() => {
+    if (!assetLoaded) return;
+
     let targets: string[] = [];
 
     const getPathSizes = () => {
@@ -253,7 +256,11 @@ const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isHorizontal
     };
 
     resize.listen(resizePath);
-  }, [isHorizontal]);
+
+    return () => {
+      resize.dismiss(resizePath);
+    };
+  }, [assetLoaded, isHorizontal]);
 
   return (
     <div className={classNames('ImageCascade', css.root, className)} ref={containerRef}>
@@ -272,7 +279,6 @@ const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isHorizontal
               <rect x="0" y="0" width="100%" height="100%" fill="white"></rect>
               {Array.from({ length: 3 }).map((_, index) => (
                 <path
-                  id={`panel-${index}`}
                   key={index}
                   fill="black"
                   fillOpacity={index === 2 ? '1' : '0.4'}

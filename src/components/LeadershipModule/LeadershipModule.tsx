@@ -110,6 +110,7 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title
               return (
                 <SwiperSlide className={css.slide} key={`slide-${i}`}>
                   {pair.map((item, i) => {
+                    if (item == null) return null;
                     return <LeadershipCard {...item} key={i} className={css.card} />;
                   })}
                 </SwiperSlide>

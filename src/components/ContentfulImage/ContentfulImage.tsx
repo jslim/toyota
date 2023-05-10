@@ -21,6 +21,7 @@ export interface ContentfulImageProps extends ImgHTMLAttributes<HTMLImageElement
   withLazyLoad?: boolean;
   withLowResSwap?: boolean;
   hasBorderRadius?: boolean;
+  onLoad?: () => void;
 }
 
 const ContentfulImage = forwardRef<HTMLImageElement, ContentfulImageProps>(
@@ -36,6 +37,7 @@ const ContentfulImage = forwardRef<HTMLImageElement, ContentfulImageProps>(
       imageSizeDesktop = { numCols: 12, extraGutters: 0 },
       imageSizeTablet = { numCols: 12, extraGutters: 0 },
       imageSizeMobile = { numCols: 12, extraGutters: 0 },
+      onLoad,
       ...props
     },
     ref
@@ -61,11 +63,14 @@ const ContentfulImage = forwardRef<HTMLImageElement, ContentfulImageProps>(
     );
 
     useEffect(() => {
-      if (loadImage) return;
+      if (loadImage) {
+        onLoad && onLoad();
+        return;
+      }
 
       if (!withLazyLoad) setLoadImage(true);
       if (isIntersection) setLoadImage(true);
-    }, [loadImage, withLazyLoad, isIntersection]);
+    }, [loadImage, withLazyLoad, isIntersection, onLoad]);
 
     const imageUrl = useMemo(() => asset.fields.file.url.replace('//downloads', '//images'), [asset.fields.file.url]);
     const imageWidth = useMemo(() => asset.fields.file.details.image.width, [asset.fields.file.details.image]);

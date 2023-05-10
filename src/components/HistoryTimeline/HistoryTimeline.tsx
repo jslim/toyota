@@ -39,7 +39,7 @@ const HistoryTimeline: FC<HistoryTimelineProps> = ({ className, eyebrow, title, 
   const [activeSlide, setActiveSlide] = useState(0);
   const [slideProgress, setSlideProgress] = useState(0);
 
-  const hasHoverEffect = typeof window !== 'undefined' && !layout.mobile && !layout.tablet && !device.touch;
+  const hasHoverEffect = !layout.mobile && !layout.tablet && !device.touch;
 
   const handleOnProgress = useCallback((swiper: SwiperCore, progress: SetStateAction<number>) => {
     setSwiper(swiper);

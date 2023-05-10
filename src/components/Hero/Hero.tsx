@@ -1,16 +1,15 @@
-import { FC, memo, useMemo } from 'react';
+import { FC, memo, useMemo, useState } from 'react';
 import classNames from 'classnames';
 
 import css from './Hero.module.scss';
 
 import { ContentfulImageAsset } from '@/data/types';
 
+import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
 import ImageCascade from '@/components/ImageCascade/ImageCascade';
 import VideoPlayer, { Props as VideoProps } from '@/components/VideoPlayer/VideoPlayer';
 
 import sanitizer from '@/utils/sanitizer';
-
-import ContentfulImage from '../ContentfulImage/ContentfulImage';
 
 export enum HeroType {
   Primary = 'primary',
@@ -30,23 +29,25 @@ export type HeroProps = {
 };
 
 const Hero: FC<HeroProps> = ({ className, title, image, video, theme = HeroType.Primary, featured }) => {
+  const [assetLoaded, setAssetLoaded] = useState(false);
+
   const background = useMemo(
     () =>
       video ? (
-        <>
-          <VideoPlayer
-            className={css.videoBg}
-            {...video}
-            muted={true}
-            autoPlay={true}
-            poster={image?.fields.file.url}
-            hasControls={false}
-            togglePlayOnClick={false}
-            hasPlayOnly={true}
-          />
-        </>
+        <VideoPlayer
+          className={css.videoBg}
+          {...video}
+          muted={true}
+          autoPlay={true}
+          poster={image?.fields.file.url}
+          hasControls={false}
+          togglePlayOnClick={false}
+          hasPlayOnly={true}
+          loop={true}
+          onLoad={() => setAssetLoaded(true)}
+        />
       ) : (
-        <ContentfulImage asset={image} />
+        <ContentfulImage asset={image} onLoad={() => setAssetLoaded(true)} />
       ),
     [image, video]
   );
@@ -72,7 +73,9 @@ const Hero: FC<HeroProps> = ({ className, title, image, video, theme = HeroType.
           )}
         </>
       ) : (
-        <ImageCascade className={css.cascade}>{background}</ImageCascade>
+        <ImageCascade className={css.cascade} assetLoaded={assetLoaded}>
+          {background}
+        </ImageCascade>
       )}
     </div>
   );

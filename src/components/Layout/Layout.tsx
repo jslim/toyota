@@ -15,10 +15,10 @@ import { checkWebpSupport } from '@/utils/basic-functions';
 
 import {
   setActiveLang,
+  setActiveRoute,
   setGlobalData,
   setIsWebpSupported,
   setPrevRoute,
-  setActiveRoute,
   useAppDispatch
 } from '@/redux';
 
