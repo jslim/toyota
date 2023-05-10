@@ -275,7 +275,6 @@ const VideoPlayer = ({
   }
 
   function onPlay() {
-    console.log('ey');
     onLoad && onLoad();
     setIsPlaying(true);
   }

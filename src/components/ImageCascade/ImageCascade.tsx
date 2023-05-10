@@ -171,13 +171,11 @@ const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isHorizontal
   const assetRef = useRef<HTMLDivElement | null>(null);
   const uniqueId = parseInt(Date.now() * Math.random()).toString();
 
-  console.log('assetLoaded', assetLoaded);
-
   // eslint-disable-next-line sonarjs/cognitive-complexity
   useEffect(() => {
     if (!assetLoaded) return;
 
-    console.log('enters');
+    console.log('asset loaded');
 
     let targets: string[] = [];
 
