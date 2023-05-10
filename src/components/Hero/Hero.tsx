@@ -52,32 +52,30 @@ const Hero: FC<HeroProps> = ({ className, title, image, video, theme = HeroType.
   );
   return (
     <div className={classNames('Hero', css.root, className, css[theme])}>
-      <>
-        {title && theme !== HeroType.Detail && (
-          <div className={css.title}>
-            <div dangerouslySetInnerHTML={{ __html: sanitizer(title) }} />
-          </div>
-        )}
-        {theme === HeroType.Overview || theme === HeroType.Detail ? (
-          <>
-            <div className={css.overlay} />
-            <div className={css.backgroundWrapper}>{background}</div>
-            {featured && (
-              <div className={css.featuredItem}>
-                <div className={css.featuredTopBar}>
-                  {featured.date && <span className={css.date}>{featured.date}</span>}
-                  {featured.cat && <span className={css.cat}>{featured.cat}</span>}
-                </div>
-                <h2 className={css.featuredTitle}>{featured.title}</h2>
+      {title && theme !== HeroType.Detail && (
+        <div className={css.title}>
+          <div dangerouslySetInnerHTML={{ __html: sanitizer(title) }} />
+        </div>
+      )}
+      {theme === HeroType.Overview || theme === HeroType.Detail ? (
+        <>
+          <div className={css.overlay} />
+          <div className={css.backgroundWrapper}>{background}</div>
+          {featured && (
+            <div className={css.featuredItem}>
+              <div className={css.featuredTopBar}>
+                {featured.date && <span className={css.date}>{featured.date}</span>}
+                {featured.cat && <span className={css.cat}>{featured.cat}</span>}
               </div>
-            )}
-          </>
-        ) : (
-          <ImageCascade className={css.cascade} assetLoaded={assetLoaded}>
-            {background}
-          </ImageCascade>
-        )}
-      </>
+              <h2 className={css.featuredTitle}>{featured.title}</h2>
+            </div>
+          )}
+        </>
+      ) : (
+        <ImageCascade className={css.cascade} assetLoaded={assetLoaded}>
+          {background}
+        </ImageCascade>
+      )}
     </div>
   );
 };
