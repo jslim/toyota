@@ -3,10 +3,11 @@ import classNames from 'classnames';
 
 import css from './ProductList.module.scss';
 
-import ProductListRow, { ProductListRowProps } from './ProductListRow';
-
 import SectionWrapper from '@/components/SectionWrapper/SectionWrapper';
+
 import { Color } from '@/utils/colors';
+
+import ProductListRow, { ProductListRowProps } from './ProductListRow';
 
 export type ProductListProps = {
   className?: string;

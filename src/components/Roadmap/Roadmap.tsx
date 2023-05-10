@@ -5,10 +5,10 @@ import css from './Roadmap.module.scss';
 
 import { variants } from '@/data/variants';
 
-import RoadmapItem, { RoadmapItemSingleProps } from './RoadmapItem';
-
 import Cta, { CtaProps } from '@/components/Cta/Cta';
 import Eyebrow from '@/components/Eyebrow/Eyebrow';
+
+import RoadmapItem, { RoadmapItemSingleProps } from './RoadmapItem';
 
 export enum RoadmapTypes {
   HOME = 'home',

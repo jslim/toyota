@@ -1,8 +1,7 @@
 import { Story } from '@storybook/react';
 
-import AssetsDownload, { AssetsProps } from './AssetsDownload';
-
 import { contentfulTestAsset } from '../ContentfulImage/ContentfulImage.stories';
+import AssetsDownload, { AssetsProps } from './AssetsDownload';
 
 export default { title: 'components/AssetsDownload' };
 
