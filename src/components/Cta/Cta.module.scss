@@ -8,6 +8,10 @@
   color: $dark-grey;
   text-transform: uppercase;
 
+  > * {
+    pointer-events: none;
+  }
+
   .label {
     margin-left: px(16);
 
@@ -43,5 +47,10 @@
         opacity: 0.7;
       }
     }
+  }
+
+  &.isDisabled {
+    color: $mid-grey;
+    pointer-events: none;
   }
 }

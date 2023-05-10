@@ -7,7 +7,9 @@ const DEFAULT_OPTIONS = {
   shallow: false
 };
 
-export default function useQueryParams(paramKey: string, setOptions = {}) {
+export type TUseQueryParams = [string, (value: string) => void];
+
+export default function useQueryParams(paramKey: string, setOptions = {}): TUseQueryParams {
   const router = useRouter();
   const options = { ...DEFAULT_OPTIONS, ...setOptions };
 
@@ -45,7 +47,7 @@ export default function useQueryParams(paramKey: string, setOptions = {}) {
   return [sanitizer(paramValue as string), setParamValue];
 }
 
-export function useClearParams(params: [], isShallow: boolean) {
+export function useClearParams(params: Array<string>, isShallow: boolean) {
   const router = useRouter();
 
   return function () {

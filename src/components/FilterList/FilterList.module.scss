@@ -7,7 +7,7 @@
   background-color: $white;
   padding: px(20) px(33) px(24) px(24);
   border-radius: px(8);
-  overflow: hidden;
+  overflow: scroll;
 
   @include media-tablet {
     height: px(824);
@@ -15,7 +15,7 @@
 }
 
 .close {
-  @include box(px(8));
+  @include box(px(11));
   position: absolute;
   top: px(36);
   right: px(24);

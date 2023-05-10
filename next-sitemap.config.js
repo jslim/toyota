@@ -11,7 +11,16 @@ module.exports = {
   changefreq: 'daily', // always hourly daily weekly monthly yearly never
   priority: 0.7, // between 0 and 1
   sitemapSize: 5000,
-  exclude: ['/404', '/unsupported', '/en/preview', '/jp/preview'],
+  exclude: [
+    '/404',
+    '/unsupported',
+    '/en/preview',
+    '/jp/preview',
+    '/en/careers/detail',
+    '/en/careers/detail/*',
+    '/jp/careers/detail',
+    '/jp/careers/detail/*'
+  ],
   alternateRefs: [
     // multi-language support
     // {
@@ -33,7 +42,18 @@ module.exports = {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/_next', '/common/favicons', '/404', '/unsupported', '/en/preview', '/jp/preview']
+        disallow: [
+          '/_next',
+          '/common/favicons',
+          '/404',
+          '/unsupported',
+          '/en/preview',
+          '/jp/preview',
+          '/en/careers/detail',
+          '/en/careers/detail/*',
+          '/jp/careers/detail',
+          '/jp/careers/detail/*'
+        ]
       }
     ]
   }

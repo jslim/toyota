@@ -2,6 +2,8 @@ import { Document } from '@contentful/rich-text-types';
 
 import { CardTypes } from '@/components/Card/Card';
 
+import { SocialPlatform } from './variants';
+
 export type HeadProps = {
   title: string;
   image?: string;
@@ -19,12 +21,36 @@ export type NavLinks = CTAContentType & {
   isActive: boolean;
 };
 
+export type SocialLinks = CTAContentType & {
+  platform: SocialPlatform;
+};
+
+export type Job = {
+  categories: {
+    department: string;
+    location: string;
+    team: string;
+    commitment?: string;
+  };
+  text: string;
+  applyUrl: string;
+  id: string;
+  workplaceType?: string;
+  description?: string;
+};
+
 export type GlobalDataFields = {
   mainNavLinks: Array<NavLinks>;
   footerNavLinks: Array<NavLinks>;
+  footerLegalLinks: Array<NavLinks>;
+  footerSocialLinks: Array<SocialLinks>;
+  footerOfficeLocations: Array<string>;
   homepageBannerText: string;
   showHomepageBanner: boolean;
   skipToContentText: string;
+  notFoundPageHeader: string;
+  notFoundPageDescription: string;
+  notFoundPageButton: string;
 };
 
 export type GlobalData = {
@@ -55,6 +81,7 @@ export type Sys = {
   id?: string;
   linkType?: string;
   contentType?: { ['sys']: Sys };
+  locale?: Locale | string;
 };
 
 export type Metadata = {
@@ -72,6 +99,7 @@ export type FilteredEntity<T = any> = {
   id: string;
   contentType: string;
   fields: T;
+  locale: Locale | string;
 };
 
 export type EntityMap = Map<string, FilteredEntity>;
@@ -155,6 +183,23 @@ export type ContentfulVideoAsset = {
   };
 };
 
+export type ContentfulMediaAsset = {
+  metadata: Metadata;
+  sys: Sys;
+  fields: {
+    title: string;
+    description: string;
+    file: {
+      fileName: string;
+      url: string;
+      contentType: string;
+      details: {
+        size: number;
+      };
+    };
+  };
+};
+
 export type PageType = {
   data: FilteredEntity;
 };
@@ -174,8 +219,14 @@ export type DefaultPageContentType = {
 };
 
 export type LeaderPageContentType = {
-  pageTitle: string;
+  leaderName: string;
   slug: string;
+  role: string;
+  shortRole: string;
+  headshot: ContentfulImageAsset;
+  leftSideBio: Document;
+  rightSideBio: Document;
+  featuredArticles: FilteredEntity<FeaturedArticlesContentyType>;
 };
 
 export type LegalPageContentType = {
@@ -197,15 +248,23 @@ export type OurLatestPostPageContentType = {
 export type GlobalDataContentType = {
   mainNavLinks: Array<FilteredEntity<CTAContentType>>;
   footerNavLinks: Array<FilteredEntity<CTAContentType>>;
+  footerLegalLinks: Array<FilteredEntity<CTAContentType>>;
+  footerSocialLinks: Array<FilteredEntity<CTAContentType>>;
+  footerOfficeLocations: Array<string>;
   homepageBannerText: string;
   showHomepageBanner: boolean;
   skipToContentText: string;
+  notFoundPageHeader: string;
+  notFoundPageDescription: string;
+  notFoundPageButton: string;
 };
 
 export type CTAContentType = {
   linkText?: string;
   linkUrl: string;
   ariaLabel?: string;
+  linkToPage?: FilteredEntity;
+  jumpToLink?: boolean;
 };
 
 export type NextChapterContentType = {
@@ -226,6 +285,7 @@ export type SectionContentType = {
   eyebrowText?: string;
   innerBlocks: Array<FilteredEntity>;
   colorBackground?: Array<string>;
+  targetId?: string;
 };
 
 export type TabItemContentType = {
@@ -246,6 +306,24 @@ export type AccordionGroupContentType = {
   colorBackground: Array<string>;
   title: string;
   innerBlocks: Array<FilteredEntity<AccordionItemContentType>>;
+};
+
+export type MediaKitItemContentType = {
+  title: string;
+  date: string;
+  filesSize: string;
+  asset?: ContentfulMediaAsset;
+  link?: string;
+};
+
+export type MediaKitContentType = {
+  title: string;
+  innerBlocks: Array<FilteredEntity<MediaKitItemContentType>>;
+  modalTitle: string;
+  modalTerms: string;
+  modalLabel: string;
+  callToActionTitle: string;
+  modalCloseLabel: string;
 };
 
 export type MediaGalleryItemContentType = {
@@ -279,6 +357,7 @@ export type RoadmapGroupContentType = {
   title: string;
   eyebrow: string;
   theme: string;
+  cta: FilteredEntity<CTAContentType>;
   items: Array<FilteredEntity<RoadmapItemContentType>>;
 };
 
@@ -304,6 +383,11 @@ export type CardGridContentType = {
 export type CareersListContentType = {
   title: string;
   eyebrowText: string;
+  filtersLabel: string;
+  searchLabel: string;
+  cleanLabel: string;
+  noResultsLabel: string;
+  noResultsDescription: string;
 };
 
 export type FeatureListItemContentType = {
@@ -386,4 +470,32 @@ export type FeaturedArticlesContentyType = {
   heading: string;
   cta: FilteredEntity<CTAContentType>;
   newsPosts: FilteredEntity<NewsPostContentType>[];
+};
+
+export type BoardMembersContentType = {
+  name: string;
+  roletitle: string;
+};
+
+export type LeadershipModuleContentType = {
+  title: string;
+  eyebrowText: string;
+  description: string;
+  boardOfDirectorsSectionTitle?: string;
+  boardMembers: Array<FilteredEntity<BoardMembersContentType>>;
+  leaders: Array<FilteredEntity<LeaderPageContentType>>;
+};
+
+export type HistoryTimelineSlideContentType = {
+  title: string;
+  text: string;
+  cta: FilteredEntity<CTAContentType>;
+  image: ContentfulImageAsset;
+  year: string;
+};
+
+export type HistoryTimelineContentType = {
+  eyebrowText: string;
+  title: string;
+  slides: Array<FilteredEntity<HistoryTimelineSlideContentType>>;
 };

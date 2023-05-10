@@ -6,6 +6,7 @@
   width: 100%;
   height: 100%;
   margin-bottom: px(21);
+  user-select: none;
 
   @include media-tablet {
     margin-bottom: px(25);
@@ -55,7 +56,6 @@
     }
 
     @include media-desktopSm {
-      height: px(324);
       margin-bottom: px(12);
     }
   }

@@ -45,7 +45,7 @@ const Card: FC<CardProps> = ({ className, cardType = CardTypes.NEWS, image, titl
 
           {cardType !== CardTypes.QUOTE && <p className={css.text}>{text}</p>}
 
-          {cardType !== CardTypes.NEWS && cta && (
+          {cardType !== CardTypes.NEWS && cta?.href && cta?.title && (
             <Cta {...cta} className={css.cta} theme={ButtonType.Secondary} isInteractable={false} />
           )}
         </div>
@@ -53,7 +53,7 @@ const Card: FC<CardProps> = ({ className, cardType = CardTypes.NEWS, image, titl
     );
   };
 
-  if (cta) {
+  if (cta?.href && cta.title) {
     return (
       <BaseLink className={classNames(css.Card, className, css[cardType])} {...cta}>
         <InnerContent />

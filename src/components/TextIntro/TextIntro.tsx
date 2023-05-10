@@ -8,10 +8,9 @@ import { ColumnType } from '@/data/variants';
 
 import { Props as LinkProps } from '@/components/BaseLink/BaseLink';
 import Cta from '@/components/Cta/Cta';
+import Eyebrow from '@/components/Eyebrow/Eyebrow';
 
 import ToyotaBackground from '@/components/svgs/svg-toyota-background.svg';
-
-import Eyebrow from '../Eyebrow/Eyebrow';
 
 enum DefaultLayoutType {
   DEFAULT = 'default',
@@ -26,11 +25,12 @@ export type TextIntroProps = {
   layout: DefaultLayoutType | ColumnType;
   eyebrow: string;
   header: string;
-  description: string;
+  subtitle?: string | String[];
+  description?: string;
   ctaProps?: LinkProps;
 };
 
-const TextIntro: FC<TextIntroProps> = ({ className, layout, eyebrow, header, description, ctaProps }) => {
+const TextIntro: FC<TextIntroProps> = ({ className, layout, eyebrow, header, description, ctaProps, subtitle }) => {
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -59,6 +59,7 @@ const TextIntro: FC<TextIntroProps> = ({ className, layout, eyebrow, header, des
         </div>
         <div className={css.rightColumn} ref={contentRef}>
           {layout !== TextIntroLayout.HEADER_LEFT && <h2 className={css.title}>{header}</h2>}
+          {subtitle && <p className={css.subtitle}>{subtitle}</p>}
           <p className={css.description}>{description}</p>
           {ctaProps && (
             <div className={css.cta}>

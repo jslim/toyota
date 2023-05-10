@@ -15,7 +15,7 @@ export type FilterListProps = {
 const FilterList: FC<FilterListProps> = ({ className, header, children, onClose }) => {
   return (
     <div className={classNames('FilterList', css.root, className)}>
-      <CloseSvg className={css.close} onClick={() => onClose} />
+      <CloseSvg className={css.close} onClick={onClose} />
       {header && <div className={css.header}>{header}</div>}
       <div className={css.container}>{children}</div>
     </div>

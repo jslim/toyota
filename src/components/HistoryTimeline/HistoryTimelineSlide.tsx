@@ -1,18 +1,17 @@
 import { Dispatch, FC, memo, MutableRefObject, SetStateAction, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
-
+import { gsap } from 'gsap';
+import { ExpoScaleEase } from 'gsap/dist/EasePack';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import SwiperCore from 'swiper';
 
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { ExpoScaleEase } from 'gsap/EasePack';
 import css from './HistoryTimeline.module.scss';
 
 import resize from '@/services/resize';
 
 import { CardProps } from '../Card/Card';
-import Cta, { ButtonType } from '../Cta/Cta';
 import ContentfulImage from '../ContentfulImage/ContentfulImage';
+import Cta, { ButtonType } from '../Cta/Cta';
 
 gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(ExpoScaleEase);
