@@ -175,8 +175,6 @@ const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isHorizontal
   useEffect(() => {
     if (!assetLoaded) return;
 
-    console.log('asset loaded');
-
     let targets: string[] = [];
 
     const getPathSizes = () => {
