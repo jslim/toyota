@@ -45,7 +45,7 @@ const NextChapter: FC<NextChapterProps> = ({ className, eyebrow, image, link }) 
 
       <div className={css.wrapper}>
         <div className={css.textWrapper}>
-          <Eyebrow className={css.eyebrow} text={eyebrow} variant={variants.DARK} />
+          <Eyebrow className={css.eyebrow} text={eyebrow} variant={variants.LIGHT} />
           <div className={css.title}>{link.title}</div>
         </div>
         <Cta className={css.circle} theme={ButtonType.Primary} isWhite isActive={active} setActiveOutside={true}>
