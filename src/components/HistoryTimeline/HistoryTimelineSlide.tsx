@@ -176,7 +176,11 @@ const HistorySlide: FC<SlideProps> = ({
       <div ref={imageRef} className={css.imageWrapper}>
         <ContentfulImage asset={item.image} className={css.image} />
       </div>
-      <div className={css.progress} style={{ top: imageHeight && imageHeight / 2 }} ref={progressRef}>
+      <div
+        className={css.progress}
+        style={{ top: imageHeight && imageHeight / 2 - progressRef!.current!.clientHeight / 2 }}
+        ref={progressRef}
+      >
         <span className={classNames(css.dot, css.left)} />
         <span className={classNames(css.dot, css.right)} />
         <span className={css.progressBar} />
