@@ -52,6 +52,7 @@ const Filters: FC<FiltersProps> = ({
                 key={index}
                 title={category.header}
                 categories={category.content}
+                index={index}
               />
             );
           })}

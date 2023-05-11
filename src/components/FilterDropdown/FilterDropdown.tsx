@@ -17,9 +17,10 @@ export type FilterDropdownProps = {
   title: string;
   alt?: string;
   categories: { title?: string; options: Option[] }[];
+  index: number;
 };
 
-const FilterDropdown: FC<FilterDropdownProps> = ({ className, title, alt, categories }) => {
+const FilterDropdown: FC<FilterDropdownProps> = ({ className, title, alt, categories, index }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -58,9 +59,9 @@ const FilterDropdown: FC<FilterDropdownProps> = ({ className, title, alt, catego
       aria-controls="dropdown-options"
       onKeyDown={(event) => handleKeyPress(event)}
       onClick={handleToggleDropdown}
-      id="dropdown-toggle"
+      id={'dropdown-toggle-' + index}
       role="combobox"
-      aria-label={alt}
+      aria-label={alt ? alt : title}
     >
       <div className={css.title}>
         {title} <CaretSvg className={css.caret} />
