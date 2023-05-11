@@ -40,6 +40,7 @@ const NextChapter: FC<NextChapterProps> = ({ className, eyebrow, image, link }) 
           imageSizeMobile={{ extraGutters: 0, numCols: 12 }}
           imageSizeTablet={{ extraGutters: 0, numCols: 12 }}
           imageSizeDesktop={{ extraGutters: 0, numCols: 12 }}
+          alt=""
         />
       </div>
 
@@ -48,7 +49,14 @@ const NextChapter: FC<NextChapterProps> = ({ className, eyebrow, image, link }) 
           <Eyebrow className={css.eyebrow} text={eyebrow} variant={variants.DARK} />
           <div className={css.title}>{link.title}</div>
         </div>
-        <Cta className={css.circle} theme={ButtonType.Primary} isWhite isActive={active} setActiveOutside={true}>
+        <Cta
+          className={css.circle}
+          theme={ButtonType.Primary}
+          isWhite
+          isActive={active}
+          setActiveOutside={true}
+          aria-hidden={true}
+        >
           <ArrowSvg />
         </Cta>
       </div>
