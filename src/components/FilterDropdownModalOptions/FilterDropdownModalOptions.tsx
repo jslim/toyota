@@ -91,7 +91,7 @@ const FilterDropdownModalOptions: FC<FilterDropdownModalOptionsProps> = ({ class
       {Object.values(content)?.map((category, index) => (
         <div className={css.wrapper} key={index}>
           {category.title && <div className={css.title}>{category.title}</div>}
-          <ul className={css.options} role="listbox" aria-labelledby="dropdown-toggle" id={'dropdown-options-' + index}>
+          <ul className={css.options} role="listbox" id={'dropdown-options-' + index}>
             {category.options.map((option, index) => options(option, index))}
           </ul>
         </div>
