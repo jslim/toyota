@@ -22,7 +22,7 @@ const Head: FC<HeadProps> = ({ title, keywords, description, siteName, image }) 
 
   return (
     <NextHead>
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1.0" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
       <title>{fullTitle}</title>
       <meta name="description" content={description || settings.siteDescription} />
       <meta name="keywords" content={(keywords || settings.siteKeywords).join(', ')} />
