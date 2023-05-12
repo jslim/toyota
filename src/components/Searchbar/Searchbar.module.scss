@@ -21,6 +21,7 @@
   background-color: $dark-grey;
   border: 1px solid $grey;
   border-radius: px(11);
+  touch-action: manipulation;
 
   @include media-desktopSm {
     @include font-size(16, 24);
