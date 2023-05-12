@@ -7,6 +7,7 @@ import MorphSVGPlugin from 'gsap/dist/MorphSVGPlugin';
 import css from './ImageCascade.module.scss';
 
 import resize from '@/services/resize';
+import { useLayout } from '@/hooks';
 
 export type ImageCascadeProps = {
   className?: string;
@@ -25,7 +26,15 @@ type pathProps = {
   horizontal?: boolean;
 };
 
-const buildPath = ({ width, height, offsetX = 0, offsetY = 0, initRound, horizontal = false }: pathProps) => {
+const buildPath = ({
+  width,
+  height,
+  offsetX = 0,
+  offsetY = 0,
+  initRound,
+  horizontal = false,
+  divider = 1
+}: pathProps) => {
   // Top edge starts at 0 so will default to offsetY
   const te = offsetY;
 
@@ -39,8 +48,8 @@ const buildPath = ({ width, height, offsetX = 0, offsetY = 0, initRound, horizon
   const be = height + offsetY;
 
   // Anchor Offsets
-  const aox = width ? 20 : 0;
-  const aoy = height ? 20 : 0;
+  const aox = width ? 20 / divider : 0;
+  const aoy = height ? 20 / divider : 0;
 
   // Corner Offsets
   let cox, coy;
@@ -48,8 +57,8 @@ const buildPath = ({ width, height, offsetX = 0, offsetY = 0, initRound, horizon
     cox = width ? initRound : 0;
     coy = height ? initRound : 0;
   } else {
-    cox = width ? 48 : 0;
-    coy = height ? 48 : 0;
+    cox = width ? 48 / divider : 0;
+    coy = height ? 48 / divider : 0;
   }
 
   // Midpoints for our straight "curve" anchors
@@ -143,29 +152,33 @@ const buildPath = ({ width, height, offsetX = 0, offsetY = 0, initRound, horizon
   ]);
 };
 
-const buildTargets = (width: number, height: number, offset: number, isHorizontal = false) => {
+const buildTargets = (width: number, height: number, offset: number, isHorizontal = false, divider = 1) => {
   return [
     buildPath({
       width: width, // Desired width of end shape
       height: height, // Full height of container
-      horizontal: isHorizontal
+      horizontal: isHorizontal,
+      divider: divider
     }),
     buildPath({
       width: isHorizontal ? width - offset : width,
       height: isHorizontal ? height : height - offset,
       offsetX: isHorizontal ? offset : 0, // Path coordinates start at top left so we have to translate the shape back to the right edge
-      horizontal: isHorizontal
+      horizontal: isHorizontal,
+      divider: divider
     }),
     buildPath({
       width: isHorizontal ? width - offset * 2 : width,
       height: isHorizontal ? height : height - offset * 2,
       offsetX: isHorizontal ? offset * 2 : 0,
-      horizontal: isHorizontal
+      horizontal: isHorizontal,
+      divider: divider
     })
   ];
 };
 
 const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isHorizontal, fill = 'white', assetLoaded }) => {
+  const { layout } = useLayout();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const panelsRef = useRef<(SVGPathElement | null)[]>([]);
   const assetRef = useRef<HTMLDivElement | null>(null);
@@ -179,8 +192,8 @@ const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isHorizontal
 
     const getPathSizes = () => {
       const { width, height } = assetRef.current?.getBoundingClientRect() as DOMRect;
-
-      targets = buildTargets(width, height, 24, isHorizontal);
+      const mobile = layout.mobile || (layout.tablet && isHorizontal);
+      targets = buildTargets(width, height, mobile ? 12 : 24, isHorizontal, mobile ? 2 : 1);
 
       const startPoint = buildPath({
         width: 0,
@@ -221,7 +234,7 @@ const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isHorizontal
           ease: isHorizontal ? 'ease01' : 'ease02',
           duration: 1.57
         },
-        0.5
+        0.4
       )
       .to(
         panelsRef.current[3],
@@ -263,7 +276,10 @@ const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isHorizontal
   }, [assetLoaded, isHorizontal]);
 
   return (
-    <div className={classNames('ImageCascade', css.root, className)} ref={containerRef}>
+    <div
+      className={classNames('ImageCascade', css.root, className, { [css.isHorizontal]: isHorizontal })}
+      ref={containerRef}
+    >
       <div className={css.wrapper}>
         <svg x="0px" y="0px" className={css.svg}>
           <g>

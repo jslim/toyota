@@ -10,6 +10,7 @@ import noop from 'no-op';
 import styles from './VideoPlayer.module.scss';
 
 import VideoControls from './VideoControls/VideoControls';
+import { VideoType } from '../VideoPlayerContainer/VideoPlayerContainer';
 
 export type Captions = {
   kind: string;
@@ -21,6 +22,7 @@ export type Captions = {
 
 export type Props = {
   className?: string;
+  theme?: VideoType;
   style?: object;
   src: string;
   preload?: string;
@@ -50,6 +52,7 @@ export type Props = {
 
 const VideoPlayer = ({
   className,
+  theme,
   style,
   src,
   preload = 'auto',
@@ -137,7 +140,7 @@ const VideoPlayer = ({
     if (isPlaying) {
       onPlay();
       hasControls && setHideControlsTimeout();
-      device.mobile && toggleFullscreen();
+      device.mobile && !autoPlay && toggleFullscreen();
     } else {
       onPause();
       if (hasControls && progress) {
@@ -378,6 +381,7 @@ const VideoPlayer = ({
       {(hasControls || hasPlayOnly) && (
         <VideoControls
           className={styles.controls}
+          theme={theme}
           captions={Boolean(captions)}
           currentTime={Number(currentTime)}
           isPlaying={isPlaying}
