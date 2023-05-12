@@ -17,6 +17,8 @@ import IconCircle from '@/components/IconCircle/IconCircle';
 
 import { useLayout } from '@/hooks';
 
+import { useAppSelector } from '@/redux';
+
 export type CareersListProps = {
   className?: string;
   title: string;
@@ -78,6 +80,7 @@ const CareersList: FC<CareersListProps> = ({
   noResultsLabel,
   noResultsDescription
 }) => {
+  const activeLang = useAppSelector((state) => state.activeLang);
   const [jobMap, setJobMap] = useState<JobsListByDepartment>({});
   const [filteredJobs, setFilteredJobs] = useState<JobsListByDepartment>({});
   const [modalOpen, setModalOpen] = useState(false);
@@ -286,6 +289,30 @@ const CareersList: FC<CareersListProps> = ({
     setFilteredJobs(sortJobDepartments(filteredSubgroups));
   }, [filterParams, jobMap, searchText, sortJobDepartments]);
 
+  const modifiedAccordionItem = (item: {
+    id: string;
+    text: string;
+    categories: {
+      location: string;
+      department: string;
+      team: string;
+    };
+    applyUrl: string;
+  }) => {
+    const url = new URL(item.applyUrl);
+    const id = url.pathname.split('/')[2];
+    const jobUrl = '/' + activeLang + '/careers/detail/?jobID=' + id;
+
+    return (
+      <AccordionContentCard
+        key={item.id}
+        title={item.text}
+        text={`${item.categories.location} ${item.categories.department} - ${item.categories.team}`}
+        cta={{ title: 'apply', href: jobUrl }}
+      />
+    );
+  };
+
   return (
     <div className={classNames('CareersList', css.root, css.darkMode, className, { [css.modalOpen]: modalOpen })}>
       <Eyebrow text={eyebrow} variant={variants.DARK} className={css.eyebrow} />
@@ -325,14 +352,9 @@ const CareersList: FC<CareersListProps> = ({
               secondaryText={`${filteredJobs[department]?.length} openings`}
               variant={variants.DARK}
             >
-              {Object.values(filteredJobs)[key].map((item) => (
-                <AccordionContentCard
-                  key={item.id}
-                  title={item.text}
-                  text={`${item.categories.location} ${item.categories.department} - ${item.categories.team}`}
-                  cta={{ title: 'apply', href: item.applyUrl }}
-                />
-              ))}
+              {Object.values(filteredJobs)[key].map((item) => {
+                return modifiedAccordionItem(item);
+              })}
             </AccordionItem>
           ))}
         </Accordion>
