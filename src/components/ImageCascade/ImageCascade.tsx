@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { FC, memo, ReactNode, useEffect, useRef } from 'react';
+import { FC, memo, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import gsap from 'gsap';
 import MorphSVGPlugin from 'gsap/dist/MorphSVGPlugin';
@@ -177,12 +177,22 @@ const buildTargets = (width: number, height: number, offset: number, isHorizonta
   ];
 };
 
-const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isHorizontal, fill = 'white', assetLoaded }) => {
+const ImageCascade: FC<ImageCascadeProps> = ({
+  className,
+  children,
+  isHorizontal = false,
+  fill = 'white',
+  assetLoaded
+}) => {
   const { layout } = useLayout();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const panelsRef = useRef<(SVGPathElement | null)[]>([]);
   const assetRef = useRef<HTMLDivElement | null>(null);
   const uniqueId = parseInt(Date.now() * Math.random()).toString();
+  const [firstRender, setFirstRender] = useState(true);
+  const isMobile = useMemo(() => {
+    return layout.mobile || (layout.tablet && isHorizontal);
+  }, [layout.mobile, layout.tablet, isHorizontal]);
 
   // eslint-disable-next-line sonarjs/cognitive-complexity
   useEffect(() => {
@@ -192,8 +202,7 @@ const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isHorizontal
 
     const getPathSizes = () => {
       const { width, height } = assetRef.current?.getBoundingClientRect() as DOMRect;
-      const mobile = layout.mobile || (layout.tablet && isHorizontal);
-      targets = buildTargets(width, height, mobile ? 12 : 24, isHorizontal, mobile ? 2 : 1);
+      targets = buildTargets(width, height, isMobile ? 12 : 24, isHorizontal, isMobile ? 2 : 1);
 
       const startPoint = buildPath({
         width: 0,
@@ -210,70 +219,76 @@ const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isHorizontal
     };
 
     getPathSizes();
-    // animating paths
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top 60%'
-        }
-      })
-      .to(
-        [panelsRef.current[0], panelsRef.current[1]],
-        {
-          morphSVG: { shape: targets[0], type: 'linear' },
-          ease: isHorizontal ? 'ease01' : 'ease02',
-          duration: 1.57
-        },
-        isHorizontal ? 0 : 0.067
-      )
-      .to(
-        panelsRef.current[2],
-        {
-          morphSVG: { shape: targets[1], type: 'linear' },
-          ease: isHorizontal ? 'ease01' : 'ease02',
-          duration: 1.57
-        },
-        0.4
-      )
-      .to(
-        panelsRef.current[3],
-        {
-          morphSVG: { shape: targets[2], type: 'linear' },
-          ease: isHorizontal ? 'ease01' : 'ease02',
-          duration: 1.35
-        },
-        isHorizontal ? 0.6 : 0.8
-      )
-      .from(
-        assetRef.current.getElementsByTagName('img'),
-        {
-          ease: 'ease01',
-          duration: 3,
-          scale: 1.28
-        },
-        0
-      );
 
     const resizePath = () => {
       getPathSizes();
-      gsap.set([panelsRef.current[0], panelsRef.current[1]], {
-        morphSVG: { shape: targets[0], type: 'linear' }
-      });
-      gsap.set(panelsRef.current[2], {
-        morphSVG: { shape: targets[1], type: 'linear' }
-      });
-      gsap.set(panelsRef.current[3], {
-        morphSVG: { shape: targets[2], type: 'linear' }
-      });
+      if (targets.length) {
+        gsap.set([panelsRef.current[0], panelsRef.current[1]], {
+          morphSVG: { shape: targets[0], type: 'linear' }
+        });
+        gsap.set(panelsRef.current[2], {
+          morphSVG: { shape: targets[1], type: 'linear' }
+        });
+        gsap.set(panelsRef.current[3], {
+          morphSVG: { shape: targets[2], type: 'linear' }
+        });
+      }
     };
 
+    // animating paths
+    if (firstRender && targets.length) {
+      gsap
+        .timeline({
+          onComplete: () => setFirstRender(false),
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top 60%'
+          }
+        })
+        .to(
+          [panelsRef.current[0], panelsRef.current[1]],
+          {
+            morphSVG: { shape: targets[0], type: 'linear' },
+            ease: isHorizontal ? 'ease01' : 'ease02',
+            duration: 1.57
+          },
+          isHorizontal ? 0 : 0.067
+        )
+        .to(
+          panelsRef.current[2],
+          {
+            morphSVG: { shape: targets[1], type: 'linear' },
+            ease: isHorizontal ? 'ease01' : 'ease02',
+            duration: 1.57
+          },
+          0.4
+        )
+        .to(
+          panelsRef.current[3],
+          {
+            morphSVG: { shape: targets[2], type: 'linear' },
+            ease: isHorizontal ? 'ease01' : 'ease02',
+            duration: 1.35
+          },
+          isHorizontal ? 0.6 : 0.8
+        )
+        .from(
+          assetRef.current.getElementsByTagName('img'),
+          {
+            ease: 'ease01',
+            duration: 3,
+            scale: 1.28
+          },
+          0
+        );
+    } else {
+      resizePath();
+    }
     resize.listen(resizePath);
-
     return () => {
       resize.dismiss(resizePath);
     };
-  }, [assetLoaded, isHorizontal]);
+  }, [assetLoaded, isHorizontal, firstRender, isMobile]);
 
   return (
     <div
