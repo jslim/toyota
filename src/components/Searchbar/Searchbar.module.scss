@@ -14,7 +14,7 @@
 }
 
 .input {
-  @include font-size(14, 22);
+  @include font-size(16, 24);
   width: 100%;
   padding: px(12) 0 px(13) px(23);
   color: $white;
@@ -28,13 +28,9 @@
   }
 
   &::placeholder {
-    @include font-size(14, 22);
+    @include font-size(16, 24);
     @include font-family('Toyota Type');
     color: $grey;
-  }
-
-  @include media-desktopSm {
-    @include font-size(16, 24);
   }
 }
 
