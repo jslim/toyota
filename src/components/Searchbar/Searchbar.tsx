@@ -27,7 +27,7 @@ const Searchbar: FC<SearchbarProps> = ({ className, label, cleanLabel, onSearch 
   };
 
   return (
-    <form className={classNames('Searchbar', css.root, className)}>
+    <div className={classNames('Searchbar', css.root, className)}>
       <label htmlFor="search-input" className={css.srOnly}>
         {label}
       </label>
@@ -40,7 +40,7 @@ const Searchbar: FC<SearchbarProps> = ({ className, label, cleanLabel, onSearch 
         onChange={handleInputChange}
       />
       {searchText && <CloseSVG className={css.icon} alt={cleanLabel} onClick={() => setSearchText('')} />}
-    </form>
+    </div>
   );
 };
 
