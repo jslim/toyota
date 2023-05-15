@@ -299,10 +299,7 @@ const CareersList: FC<CareersListProps> = ({
     };
     applyUrl: string;
   }) => {
-    const url = new URL(item.applyUrl);
-    const id = url.pathname.split('/')[2];
-    const jobUrl = '/' + activeLang + '/careers/detail/?jobID=' + id;
-
+    const jobUrl = '/' + activeLang + '/careers/detail/?jobID=' + item.id;
     return (
       <AccordionContentCard
         key={item.id}
