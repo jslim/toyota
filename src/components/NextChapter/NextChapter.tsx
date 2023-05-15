@@ -55,7 +55,7 @@ const NextChapter: FC<NextChapterProps> = ({ className, eyebrow, image, link }) 
           isWhite
           isActive={active}
           setActiveOutside={true}
-          aria-hidden={true}
+          isInteractable={false}
         >
           <ArrowSvg />
         </Cta>
