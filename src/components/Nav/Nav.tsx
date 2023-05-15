@@ -19,8 +19,7 @@ export interface NavProps {
 
 const Nav: FC<NavProps> = ({ className }) => {
   const { mainNavLinks, skipToContentText } = useAppSelector((state) => state.activeGlobalData);
-  const activeRoute = useAppSelector((state) => state.activeRoute);
-  const url = activeRoute.split('?')[0];
+  const activeRoute = useAppSelector((state) => state.activeRoute.split('?')[0]);
   const [isMobile, setIsMobile] = useState(false);
   const { layout } = useLayout();
   useEffect(() => {
@@ -46,7 +45,7 @@ const Nav: FC<NavProps> = ({ className }) => {
                         <li
                           key={linkText}
                           className={classNames({
-                            [css.active]: linkUrl + '/' === url
+                            [css.active]: linkUrl + '/' === activeRoute
                           })}
                         >
                           <BaseLink href={linkUrl} title={linkText} aria-label={ariaLabel}>
