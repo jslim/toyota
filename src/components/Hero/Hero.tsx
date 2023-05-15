@@ -54,9 +54,9 @@ const Hero: FC<HeroProps> = ({ className, title, image, video, theme = HeroType.
   return (
     <div className={classNames('Hero', css.root, className, css[theme])}>
       {title && theme !== HeroType.Detail && (
-        <div className={css.title}>
+        <h1 className={css.title}>
           <div dangerouslySetInnerHTML={{ __html: sanitizer(title) }} />
-        </div>
+        </h1>
       )}
       {theme === HeroType.Overview || theme === HeroType.Detail ? (
         <>

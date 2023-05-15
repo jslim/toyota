@@ -29,7 +29,7 @@
 
       @include breakpoint(desktopSm) {
         margin-bottom: 0;
-        max-width: px(650);
+        max-width: px(550);
       }
     }
 
@@ -232,5 +232,11 @@
 
   .cursor {
     transform: translateX(desktop-columns(9));
+  }
+
+  .textWrapper {
+    @include media-desktopSm {
+      max-width: px(550);
+    }
   }
 }
