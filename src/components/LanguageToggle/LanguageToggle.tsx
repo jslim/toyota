@@ -1,4 +1,4 @@
-import { FC, memo, useState } from 'react';
+import { FC, memo, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { device } from '@jam3/detect';
 import classNames from 'classnames';
@@ -17,8 +17,14 @@ export type LanguageToggleProps = {
 
 const LanguageToggle: FC<LanguageToggleProps> = ({ className }) => {
   const router = useRouter();
-  const [activeLang, setActiveLang] = useState(useAppSelector((state) => state.activeLang));
+  const initLang = useAppSelector((state) => state.activeLang);
+  const [activeLang, setActiveLang] = useState(initLang);
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    setActiveLang(initLang);
+  }, [initLang]);
+
   const handleLangChange = (lang: Lang) => {
     setOpen(false);
     setActiveLang(lang);
@@ -37,7 +43,7 @@ const LanguageToggle: FC<LanguageToggleProps> = ({ className }) => {
       <div
         className={classNames(css.langWrapper, { [css.open]: open })}
         onMouseEnter={() => !device.touch && setOpen(true)}
-        onMouseLeave={() => !device.touch && setOpen(false)}
+        onMouseLeave={() => setOpen(false)}
         onFocus={() => setOpen(true)}
         onBlur={() => setOpen(false)}
       >
@@ -47,7 +53,10 @@ const LanguageToggle: FC<LanguageToggleProps> = ({ className }) => {
             <BaseButton
               aria-label={lang}
               className={css.langButton}
-              onClick={() => activeLang !== lang && handleLangChange(lang)}
+              onClick={() => {
+                setOpen(true);
+                activeLang !== lang && open && handleLangChange(lang);
+              }}
             >
               {lang}
             </BaseButton>
