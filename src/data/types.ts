@@ -337,6 +337,10 @@ export type MediaGalleryGroupContentType = {
   mediaItems: Array<FilteredEntity<MediaGalleryItemContentType>>;
 };
 
+export type YoutubeEmbedContentType = {
+  embedId: string;
+};
+
 export type TextIntroContentType = {
   eyebrow: string;
   header: string;

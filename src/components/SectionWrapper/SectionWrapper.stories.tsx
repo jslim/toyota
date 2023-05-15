@@ -2,9 +2,9 @@ import { Story } from '@storybook/react';
 
 import Accordion, { AccordionItem } from '@/components/Accordion/Accordion';
 
-import SectionWrapper, { SectionWrapperProps } from './SectionWrapper';
-
 import { Color, isDarkMode } from '@/utils/colors';
+
+import SectionWrapper, { SectionWrapperProps } from './SectionWrapper';
 export default { title: 'components/SectionWrapper' };
 
 export const Default: Story<SectionWrapperProps> = (args) => <SectionWrapper {...args} />;

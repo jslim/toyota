@@ -1,7 +1,7 @@
 import { Story } from '@storybook/react';
 
-import HistoryTimeline, { HistoryTimelineProps } from './HistoryTimeline';
 import { contentfulTestAsset } from '../ContentfulImage/ContentfulImage.stories';
+import HistoryTimeline, { HistoryTimelineProps } from './HistoryTimeline';
 
 export default { title: 'components/HistoryTimeline' };
 

@@ -58,6 +58,7 @@ const MobileNav: FC<MobileNavProps> = ({ className }) => {
                       className={classNames({
                         [css.active]: activeRoute === linkUrl
                       })}
+                      onClick={() => setMenuOpen(false)}
                     >
                       <BaseLink href={linkUrl} title={linkText} aria-label={ariaLabel}>
                         {linkText}

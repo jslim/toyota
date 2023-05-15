@@ -5,10 +5,10 @@ import css from './Roadmap.module.scss';
 
 import { variants } from '@/data/variants';
 
-import RoadmapItem, { RoadmapItemSingleProps } from './RoadmapItem';
-
 import Cta, { CtaProps } from '@/components/Cta/Cta';
 import Eyebrow from '@/components/Eyebrow/Eyebrow';
+
+import RoadmapItem, { RoadmapItemSingleProps } from './RoadmapItem';
 
 export enum RoadmapTypes {
   HOME = 'home',
@@ -39,7 +39,7 @@ const Roadmap: FC<RoadmapProps> = ({ className, items, title, eyebrow, cta, them
           <Eyebrow
             className={css.eyebrow}
             text={eyebrow}
-            variant={theme === RoadmapTypes.DEFAULT ? variants.LIGHT : variants.DARK}
+            variant={theme === RoadmapTypes.HOME ? variants.LIGHT : variants.DARK}
           />
         )}
         {title && <h2 className={css.title}>{title}</h2>}

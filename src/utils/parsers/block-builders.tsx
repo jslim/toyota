@@ -31,7 +31,8 @@ import {
   TestsPageContentType,
   TextBlockContentType,
   TextIntroContentType,
-  videoPlayerSectionContentType
+  videoPlayerSectionContentType,
+  YoutubeEmbedContentType
 } from '@/data/types';
 import { variants } from '@/data/variants';
 
@@ -62,6 +63,7 @@ import Spacer, { Sizes } from '@/components/Spacer/Spacer';
 import Tabs from '@/components/Tabs/Tabs';
 import TextIntro from '@/components/TextIntro/TextIntro';
 import VideoPlayerSection from '@/components/VideoPlayerSection/VideoPlayerSection';
+import YoutubeEmbed from '@/components/YoutubeEmbed/YoutubeEmbed';
 
 import ChevronDownSvg from '@/components/svgs/svg-chevron-down.svg';
 
@@ -639,6 +641,15 @@ export const buildMediaKit = (fields: MediaKitContentType, extraProps?: GenericO
   };
 };
 
+export const buildYoutubeIframe = (fields: YoutubeEmbedContentType, extraProps?: GenericObject): ComponentBuilder => {
+  return {
+    props: {
+      embedId: fields.embedId,
+      ...extraProps
+    },
+    component: YoutubeEmbed
+  }
+}
 export const buildCallToAction = (fields: CTAContentType, extraProps?: GenericObject): ComponentBuilder => {
   const isJumpTo = fields.jumpToLink;
   const theme = isJumpTo ? ButtonType.Icon : ButtonType.Primary;

@@ -15,9 +15,9 @@
 }
 
 .close {
-  @include box(px(11));
+  @include box(px(14));
   position: absolute;
-  top: px(36);
+  top: px(30);
   right: px(24);
   cursor: pointer;
 

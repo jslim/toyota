@@ -1,7 +1,8 @@
 import { Story } from '@storybook/react';
 
-import Roadmap, { RoadmapProps, RoadmapTypes } from './Roadmap';
 import { getImageUrl } from '@/utils/basic-functions';
+
+import Roadmap, { RoadmapProps, RoadmapTypes } from './Roadmap';
 
 export default { title: 'components/Roadmap' };
 
