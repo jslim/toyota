@@ -2,6 +2,7 @@ import { FC, memo, useCallback, useState } from 'react';
 import classNames from 'classnames';
 
 import css from './MediaKit.module.scss';
+
 import DownloadAgreementModal from '@/components/DownloadAgreementModal/DownloadAgreementModal';
 import ListItem from '@/components/ListItem/ListItem';
 
