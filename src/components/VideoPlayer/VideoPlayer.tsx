@@ -365,7 +365,7 @@ const VideoPlayer = ({
         onEnd={onVideoEnd}
         onClick={togglePlayOnClick ? togglePlay : () => {}}
         onKeyPress={onKeyPress}
-        tabIndex={allowKeyboardControl ? 0 : null}
+        tabIndex={null}
         extraVideoElementProps={{ crossOrigin }}
       />
 
