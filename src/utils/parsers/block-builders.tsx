@@ -407,7 +407,8 @@ export const buildHero = (fields: HeroContentType, extraProps?: GenericObject): 
       featured: {
         date: `${month} ${day}, ${year}`,
         cat: fields?.featured?.fields?.category,
-        title: fields?.featured?.fields?.pageTitle
+        title: fields?.featured?.fields?.pageTitle,
+        href: `/${extraProps?.lang || ''}/our-latest/${fields?.featured?.fields.slug}`
       },
       ...extraProps
     },
@@ -630,13 +631,16 @@ export const buildOurLatestOverview = (
   extraProps?: GenericObject
 ): ComponentBuilder => {
   const featuredPost = fields.featuredArticle;
-  const { props: heroProps, component: HeroComponent } = buildHero({
-    video: undefined,
-    title: fields.pageTitle,
-    theme: HeroType.Overview,
-    image: featuredPost.fields.thumbnail,
-    featured: featuredPost
-  });
+  const { props: heroProps, component: HeroComponent } = buildHero(
+    {
+      video: undefined,
+      title: fields.pageTitle,
+      theme: HeroType.Overview,
+      image: featuredPost.fields.thumbnail,
+      featured: featuredPost
+    },
+    extraProps
+  );
 
   const mediaKit = fields?.mediaKit?.fields ? buildMediaKit(fields.mediaKit.fields) : null;
   return {
@@ -652,6 +656,9 @@ export const buildOurLatestOverview = (
           sectionTitle={fields.sectionTitle}
           filtersLabel={fields.filtersLabel}
           allLabel={fields.allLabel}
+          newsLabel={fields.newsLabel}
+          blogLabel={fields.blogLabel}
+          researchLabel={fields.researchLabel}
         />
         {mediaKit ? (
           <SectionWrapper eyebrow="downloads" title="Media Kit">

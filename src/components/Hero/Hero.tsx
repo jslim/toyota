@@ -11,6 +11,8 @@ import VideoPlayer, { Props as VideoProps } from '@/components/VideoPlayer/Video
 
 import sanitizer from '@/utils/sanitizer';
 
+import BaseLink from '../BaseLink/BaseLink';
+
 export enum HeroType {
   Primary = 'primary',
   Secondary = 'secondary',
@@ -25,7 +27,7 @@ export type HeroProps = {
   image: ContentfulImageAsset;
   video?: VideoProps;
   theme?: HeroType;
-  featured?: { date?: string; cat?: string; title?: string };
+  featured?: { date?: string; cat?: string; title?: string; href?: string };
 };
 
 const Hero: FC<HeroProps> = ({ className, title, image, video, theme = HeroType.Primary, featured }) => {
@@ -63,13 +65,15 @@ const Hero: FC<HeroProps> = ({ className, title, image, video, theme = HeroType.
           <div className={css.overlay} />
           <div className={css.backgroundWrapper}>{background}</div>
           {featured && (
-            <div className={css.featuredItem}>
-              <div className={css.featuredTopBar}>
-                {featured.date && <span className={css.date}>{featured.date}</span>}
-                {featured.cat && <span className={css.cat}>{featured.cat}</span>}
+            <BaseLink href={featured.href}>
+              <div className={css.featuredItem}>
+                <div className={css.featuredTopBar}>
+                  {featured.date && <span className={css.date}>{featured.date}</span>}
+                  {featured.cat && <span className={css.cat}>{featured.cat}</span>}
+                </div>
+                <h2 className={css.featuredTitle}>{featured.title}</h2>
               </div>
-              <h2 className={css.featuredTitle}>{featured.title}</h2>
-            </div>
+            </BaseLink>
           )}
         </>
       ) : (

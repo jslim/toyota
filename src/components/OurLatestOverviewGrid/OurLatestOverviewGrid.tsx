@@ -16,8 +16,12 @@ import resolveResponse, { makeFilteredEntity } from '@/utils/parsers/response-pa
 
 import { useAppSelector } from '@/redux';
 
+/* eslint-disable */
+// @ts-ignore: populated during prebuild
 import postDataEn from '@/json/our-latest-posts-en.json';
+// @ts-ignore: populated during prebuild
 import postDataJP from '@/json/our-latest-posts-jp.json';
+/* eslint-enable */
 
 export type TopicFilters = {
   [key: string]: {
@@ -31,6 +35,9 @@ export type OurLatestOverviewGridProps = {
   sectionTitle: string;
   filtersLabel: string;
   allLabel: string;
+  newsLabel: string;
+  blogLabel: string;
+  researchLabel: string;
 };
 
 const postsEn = resolveResponse(postDataEn);
@@ -41,7 +48,10 @@ const OurLatestOverviewGrid: FC<OurLatestOverviewGridProps> = ({
   categoriesLabel,
   sectionTitle,
   filtersLabel,
-  allLabel
+  allLabel,
+  newsLabel,
+  blogLabel,
+  researchLabel
 }) => {
   const router = useRouter();
   const activeLang = useAppSelector((state) => state.activeLang);
@@ -93,9 +103,9 @@ const OurLatestOverviewGrid: FC<OurLatestOverviewGridProps> = ({
   }, [allCards, activeLang, router]);
 
   const categories = [
-    { title: 'News', category: 'category' }, // LOCALIZE
-    { title: 'Blog', category: 'category' }, // LOCALIZE
-    { title: 'Research', category: 'category' } // LOCALIZE
+    { title: newsLabel, category: 'category' },
+    { title: blogLabel, category: 'category' },
+    { title: researchLabel, category: 'category' }
   ];
 
   return (

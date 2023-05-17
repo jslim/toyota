@@ -33,8 +33,8 @@ import {
   buildTestPage,
   buildTextBlock,
   buildTextIntro,
-  buildYoutubeIframe,
   buildVideoPlayerSection,
+  buildYoutubeIframe,
   ComponentBuilderFactory
 } from './block-builders';
 

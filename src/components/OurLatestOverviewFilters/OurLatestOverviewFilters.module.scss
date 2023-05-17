@@ -42,9 +42,10 @@
   .filtersButton {
     @include reset-button;
     @include typography-eyebrow;
-    color: $grey;
+    color: $black;
     text-align: left;
     text-transform: uppercase;
+    margin-top: px(15);
 
     @include media-desktopSm {
       cursor: default;

@@ -244,6 +244,9 @@ export type OurLatestPageContentType = {
   sectionTitle: string;
   filtersLabel: string;
   allLabel: string;
+  newsLabel: string;
+  blogLabel: string;
+  researchLabel: string;
 };
 
 export type OurLatestPostPageContentType = {
