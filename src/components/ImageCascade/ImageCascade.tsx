@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { FC, memo, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import gsap from 'gsap';
@@ -24,6 +23,7 @@ type pathProps = {
   offsetY?: number;
   initRound?: number;
   horizontal?: boolean;
+  divider?: number;
 };
 
 const buildPath = ({
@@ -69,20 +69,53 @@ const buildPath = ({
 
   if (horizontal) {
     return MorphSVGPlugin.rawPathToString([
-      re,
-      te,
-      midX,
-      te,
-      midX,
-      te,
-      le + cox,
-      te,
-      le + aox,
-      te,
+      [
+        re,
+        te,
+        midX,
+        te,
+        midX,
+        te,
+        le + cox,
+        te,
+        le + aox,
+        te,
+        le,
+        te + aoy,
+        le,
+        te + coy,
+        le,
+        midY,
+        le,
+        midY,
+        le,
+        be - coy,
+        le,
+        be - aoy,
+        le + aox,
+        be,
+        le + cox,
+        be,
+        midX,
+        be,
+        midX,
+        be,
+        re,
+        be,
+        re,
+        midY,
+        re,
+        midY,
+        re,
+        te
+      ]
+    ]);
+  }
+
+  return MorphSVGPlugin.rawPathToString([
+    [
       le,
-      te + aoy,
-      le,
-      te + coy,
+      te,
       le,
       midY,
       le,
@@ -99,56 +132,27 @@ const buildPath = ({
       be,
       midX,
       be,
-      re,
+      re - cox,
+      be,
+      re - aox,
       be,
       re,
-      midY,
+      be - aoy,
+      re,
+      be - coy,
       re,
       midY,
       re,
+      midY,
+      re,
+      te,
+      midX,
+      te,
+      midX,
+      te,
+      le,
       te
-    ]);
-  }
-
-  return MorphSVGPlugin.rawPathToString([
-    le,
-    te,
-    le,
-    midY,
-    le,
-    midY,
-    le,
-    be - coy,
-    le,
-    be - aoy,
-    le + aox,
-    be,
-    le + cox,
-    be,
-    midX,
-    be,
-    midX,
-    be,
-    re - cox,
-    be,
-    re - aox,
-    be,
-    re,
-    be - aoy,
-    re,
-    be - coy,
-    re,
-    midY,
-    re,
-    midY,
-    re,
-    te,
-    midX,
-    te,
-    midX,
-    te,
-    le,
-    te
+    ]
   ]);
 };
 
@@ -158,21 +162,21 @@ const buildTargets = (width: number, height: number, offset: number, isHorizonta
       width: width, // Desired width of end shape
       height: height, // Full height of container
       horizontal: isHorizontal,
-      divider: divider
+      divider
     }),
     buildPath({
       width: isHorizontal ? width - offset : width,
       height: isHorizontal ? height : height - offset,
       offsetX: isHorizontal ? offset : 0, // Path coordinates start at top left so we have to translate the shape back to the right edge
       horizontal: isHorizontal,
-      divider: divider
+      divider
     }),
     buildPath({
       width: isHorizontal ? width - offset * 2 : width,
       height: isHorizontal ? height : height - offset * 2,
       offsetX: isHorizontal ? offset * 2 : 0,
       horizontal: isHorizontal,
-      divider: divider
+      divider
     })
   ];
 };
@@ -187,13 +191,12 @@ const ImageCascade: FC<ImageCascadeProps> = ({
   const { layout } = useLayout();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const panelsRef = useRef<(SVGPathElement | null)[]>([]);
-  const assetRef = useRef<HTMLDivElement | null>(null);
-  const uniqueId = parseInt(Date.now() * Math.random()).toString();
+  const assetRef = useRef<HTMLDivElement>(null);
+  const uniqueId = Math.round(Date.now() * Math.random()).toString();
   const [firstRender, setFirstRender] = useState(true);
   const isMobile = useMemo(() => {
     return layout.mobile || (layout.tablet && isHorizontal);
   }, [layout.mobile, layout.tablet, isHorizontal]);
-
   // eslint-disable-next-line sonarjs/cognitive-complexity
   useEffect(() => {
     if (!assetLoaded) return;
@@ -273,7 +276,7 @@ const ImageCascade: FC<ImageCascadeProps> = ({
           isHorizontal ? 0.6 : 0.8
         )
         .from(
-          assetRef.current.getElementsByTagName('img'),
+          assetRef.current?.getElementsByTagName('img') || null,
           {
             ease: 'ease01',
             duration: 3,
