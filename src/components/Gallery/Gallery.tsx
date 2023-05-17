@@ -21,7 +21,6 @@ const Gallery: FC<GalleryProps> = ({ className, slides }) => {
     <div className={classNames('Gallery', css.root, className)}>
       <Swiper
         className={css.carouselContainer}
-        autoHeight={true}
         slidesPerView={'auto'}
         speed={SLIDE_DURATION}
         pagination={{
@@ -31,6 +30,7 @@ const Gallery: FC<GalleryProps> = ({ className, slides }) => {
         }}
         preventClicks={true}
         preventClicksPropagation={false}
+        watchSlidesProgress
       >
         {slides.map((item, i) => {
           return (
