@@ -11,17 +11,25 @@
 
   > .tabsList {
     display: flex;
-    flex-direction: row;
-    padding-left: 0;
-    overflow-x: scroll;
-    justify-content: center;
+    flex-wrap: nowrap;
+    overflow: auto;
+    margin-left: mobile-side-padding(-0.5);
+    padding: 0 mobile-side-padding();
+    width: 100vw;
+
+    @include media-tablet {
+      margin-left: tablet-side-padding(-0.5);
+      padding: 0 tablet-side-padding();
+    }
 
     @include media-desktopSm {
-      @include use-desktop-columns(min-width, 3);
-      @include use-desktop-columns(margin-right, 0, 2);
+      @include use-desktop-columns(width, 3);
+      @include use-desktop-gutter(margin-right, 1);
+      margin-left: 0;
+      padding: 0;
       flex-direction: column;
       align-items: flex-start;
-      overflow-x: visible;
+      overflow: unset;
     }
 
     > .tab {
@@ -38,58 +46,77 @@
       white-space: nowrap;
       /* stylelint-disable */
       border-bottom: 1px solid transparent;
-      transition: border 0.125s ease-out;
+      transition: padding 0.5s $ease1;
+      cursor: pointer;
+
+      &::before {
+        content: '';
+        @include box(px(4));
+        position: absolute;
+        display: block;
+        margin-top: px(-48);
+        background-color: $red;
+        border-radius: 50%;
+        transform: scale(0);
+        transition: transform 0.5s $ease1;
+
+        @include media-desktopSm {
+          left: 0;
+          margin-top: 0;
+        }
+      }
 
       &:last-of-type {
         margin-right: 0;
       }
 
       &:hover {
-        cursor: pointer;
+        color: $red;
       }
 
       &.active {
         color: $red;
         &::before {
-          content: '';
-          @include box(px(4));
-          position: absolute;
-          display: block;
-          margin-top: px(-48);
-          background-color: $red;
-          border-radius: 50%;
+          transform: scale(1);
         }
       }
 
       @include media-desktopSm {
         height: auto;
         margin-right: 0;
+        white-space: initial;
+        flex-direction: row;
+        justify-content: left;
+        padding-right: px(15);
+        width: calc(100% + px(4));
 
         &.active {
-          flex-direction: row;
+          padding-left: px(15);
+          padding-right: 0;
+        }
+      }
 
-          &::before {
-            position: relative;
-            margin-top: 0;
-            margin-right: px(10);
-          }
+      @include media-desktopMd {
+        padding-right: px(20);
+        width: auto;
+        &.active {
+          padding-left: px(20);
         }
       }
     }
   }
 
   .tabsContent {
-    padding: px(24) px(24) 0;
+    margin-top: px(28);
+    position: relative;
 
     @include media-desktopSm {
       @include use-desktop-columns(width, 9);
-      padding: 0;
+      margin: 0;
     }
 
     p {
-      @include media-mobile {
-        @include use-mobile-columns(width, 4);
-      }
+      @include use-mobile-columns(width, 4);
 
       @include media-tablet {
         @include use-tablet-columns(width, 7);
@@ -101,6 +128,41 @@
   }
 
   .tabWrapper {
-    display: contents;
+    visibility: hidden;
+    height: 0;
+    width: 100%;
+    z-index: 1;
+    position: relative;
+
+    &.animatingOut,
+    &.active,
+    &.animatingIn {
+      visibility: visible;
+    }
+
+    &.animatingIn.active {
+      // position: relative;
+    }
+    &.animatingIn:not(.active),
+    &.animatingOut:not(.active) {
+      position: absolute;
+      top: 0;
+    }
+    &.active,
+    &.animatingOut {
+      height: auto;
+    }
+
+    &.active,
+    &.animatingIn {
+      z-index: 2;
+    }
+    > span,
+    > div {
+      width: 100%;
+      img {
+        width: 100%;
+      }
+    }
   }
 }

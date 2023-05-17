@@ -76,15 +76,15 @@ $grid-column-width-desktop: (
 }
 
 @function mobile-side-padding($multiplier: 0.5) {
-  @return calc((100vw - var(--scrollbar-width) - #{mobile-columns($grid-num-of-cols-mobile)}) * #{$multiplier});
+  @return calc((100vw - #{mobile-columns($grid-num-of-cols-mobile)}) * $multiplier);
 }
 
 @function tablet-side-padding($multiplier: 0.5) {
-  @return calc((100vw - var(--scrollbar-width) - #{tablet-columns($grid-num-of-cols-tablet)}) * #{$multiplier});
+  @return calc((100vw - #{tablet-columns($grid-num-of-cols-tablet)}) * $multiplier);
 }
 
 @function desktop-lock-side-padding($multiplier: 0.5) {
-  @return calc((100vw - var(--scrollbar-width) - #{desktop-lock-columns($grid-num-of-cols-desktop)}) * #{$multiplier});
+  @return calc((100vw - #{desktop-lock-columns($grid-num-of-cols-desktop)}) * $multiplier);
 }
 
 // ====================================================================

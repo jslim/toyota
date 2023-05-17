@@ -30,6 +30,10 @@
 
   &.light {
     color: $dark-grey;
+
+    @include media-tablet {
+      width: 100%;
+    }
   }
 
   @include eyebrowTitle;
