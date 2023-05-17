@@ -23,7 +23,6 @@ import PageNotFound from '@/components/PageNotFound/PageNotFound';
 import SocialIcon from '@/components/SocialIcon/SocialIcon';
 
 import usePreviewData from '@/hooks/use-preview-data';
-/* eslint-enable */
 import { formatDate } from '@/utils/basic-functions';
 import { getMailTo } from '@/utils/basic-functions';
 import { getAllLangSlugs } from '@/utils/locales';
@@ -40,6 +39,7 @@ import ShareSvg from '@/components/svgs/share.svg';
 import postDataEn from '@/json/our-latest-posts-en.json';
 // @ts-ignore: populated during prebuild
 import postDataJp from '@/json/our-latest-posts-jp.json';
+/* eslint-enable */
 
 type OurLatestPostData = FilteredEntity<OurLatestPostPageContentType>;
 
