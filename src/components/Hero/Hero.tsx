@@ -65,7 +65,7 @@ const Hero: FC<HeroProps> = ({ className, title, image, video, theme = HeroType.
             <div className={css.featuredItem}>
               <div className={css.featuredTopBar}>
                 {featured.date && <span className={css.date}>{featured.date}</span>}
-                {featured.cat && <span className={css.cat}>{featured.cat}</span>}
+                {featured.cat && <span className={css.category}>{featured.cat}</span>}
               </div>
               <h2 className={css.featuredTitle}>{featured.title}</h2>
             </div>

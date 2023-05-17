@@ -23,24 +23,23 @@ import PageNotFound from '@/components/PageNotFound/PageNotFound';
 import SocialIcon from '@/components/SocialIcon/SocialIcon';
 
 import usePreviewData from '@/hooks/use-preview-data';
+/* eslint-enable */
+import { formatDate } from '@/utils/basic-functions';
+import { getMailTo } from '@/utils/basic-functions';
 import { getAllLangSlugs } from '@/utils/locales';
 import { getPageBlocks } from '@/utils/parsers/get-page-blocks';
 import resolveResponse from '@/utils/parsers/response-parser-util';
 import { makeFilteredEntity } from '@/utils/parsers/response-parser-util';
-
-/* eslint-disable */
-// @ts-ignore: populated during prebuild
-import postDataEn from '@/json/our-latest-posts-en.json';
-// @ts-ignore: populated during prebuild
-import postDataJp from '@/json/our-latest-posts-jp.json';
-/* eslint-enable */
-import { formatDate } from '@/utils/basic-functions';
-import { getMailTo } from '@/utils/basic-functions';
 import { parseContentfulRichText } from '@/utils/parsers/rich-text-parser';
 import share from '@/utils/share';
 
 import MailSvg from '@/components/svgs/mail.svg';
 import ShareSvg from '@/components/svgs/share.svg';
+/* eslint-disable */
+// @ts-ignore: populated during prebuild
+import postDataEn from '@/json/our-latest-posts-en.json';
+// @ts-ignore: populated during prebuild
+import postDataJp from '@/json/our-latest-posts-jp.json';
 
 type OurLatestPostData = FilteredEntity<OurLatestPostPageContentType>;
 
@@ -48,6 +47,7 @@ export interface OurLatestPostPageProps extends PageProps {
   data: OurLatestPostData;
 }
 
+// TODO replace with GlobalStrings
 const shareText = 'Share this article';
 const copyText = 'Copy link';
 const copySuccessText = 'Link copied';
@@ -75,7 +75,7 @@ const OurLatestPost: FC<OurLatestPostPageProps> = ({ data }) => {
     // this is a mandatory hook to be called on every page
     staticData: data
   });
-  const assetsData = pageData.fields.articleAssets.fields;
+  const assetsData = pageData.fields.articleAssets?.fields;
   const relatedData = {
     id: 'id',
     contentType: 'featuredArticles',
@@ -83,7 +83,7 @@ const OurLatestPost: FC<OurLatestPostPageProps> = ({ data }) => {
     fields: {
       heading: relatedText,
       eyebrow: '',
-      newsPosts: pageData.fields.pinnedPosts.map((item: CardContentType) => ({ ...item, contentType: 'card' }))
+      newsPosts: pageData.fields.pinnedPosts?.map((item: CardContentType) => ({ ...item, contentType: 'card' }))
     }
   };
 
@@ -94,18 +94,21 @@ const OurLatestPost: FC<OurLatestPostPageProps> = ({ data }) => {
   }, []);
 
   useEffect(() => {
+    let timeout: NodeJS.Timeout;
     // hide copied tooltip
-    copyTooltip === copySuccessText &&
-      setTimeout(() => {
+    if (copyTooltip === copySuccessText) {
+      timeout = setTimeout(() => {
         setCopyTooltip(null);
       }, 4000);
+    }
+    return () => clearTimeout(timeout);
   }, [copyTooltip]);
 
   const leftSideContent = (
     <div>
       <div className={css.leftSideTopBar}>
         {data.fields.publishDate && <span className={css.date}>{formatDate(data.fields.publishDate)}</span>}
-        {data.fields.category && <span className={css.cat}>{data.fields.category}</span>}
+        {data.fields.category && <span className={css.category}>{data.fields.category}</span>}
       </div>
 
       <h2 className={css.title}>{data.fields.pageTitle}</h2>
@@ -116,7 +119,7 @@ const OurLatestPost: FC<OurLatestPostPageProps> = ({ data }) => {
             key={platform}
             className={css.socialMediaButton}
             platform={platform}
-            href={share(platform, url, label) || ''}
+            href={share(platform, url, label)}
             label={label}
             isWhite={false}
           />
@@ -126,6 +129,7 @@ const OurLatestPost: FC<OurLatestPostPageProps> = ({ data }) => {
           className={css.socialMediaButton}
           href={getMailTo({
             email: '',
+            // TODO replace with emailSubject and emailBody from GlobalData
             subject: `Woven by Toyota - ${typeof document !== 'undefined' ? window.document.title : ''}`,
             body: `Check this website ${typeof document !== 'undefined' ? window.location.href : ''}`
           })}
@@ -161,8 +165,8 @@ const OurLatestPost: FC<OurLatestPostPageProps> = ({ data }) => {
             <span className={css.spacer} />
             {content}
           </ColumnsText>
-          {assetsData.assets.length && <AssetsDownload title={assetsData.eyebrowText} assets={assetsData.assets} />}
-          {relatedData.fields.newsPosts.length && getPageBlocks(relatedData)}
+          {assetsData?.assets.length && <AssetsDownload title={assetsData.eyebrowText} assets={assetsData.assets} />}
+          {relatedData.fields.newsPosts?.length && getPageBlocks(relatedData)}
         </main>
       ) : (
         <PageNotFound head={{ title: 'Our Latest Detail' }} />

@@ -156,6 +156,7 @@
         top: calc(#{$navbar-height} + #{px(30)});
         @include media-desktopSm {
           position: sticky;
+          margin-bottom: px(60);
         }
       }
     }
