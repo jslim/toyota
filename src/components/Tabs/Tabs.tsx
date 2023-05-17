@@ -39,10 +39,12 @@ export type Props = {
 export const Tabs = ({ className, tabListLabel = '', children }: Props) => {
   const containerRef = useRef(null);
   const listRef = useRef(null);
+  const contentRef = useRef<(HTMLDivElement | null)[]>([]);
   const childrenArray = Children.toArray(children);
   const [active, setActive] = useState(0);
   const [animatingIn, setAnimatingIn] = useState(-1);
   const [animatingOut, setAnimatingOut] = useState(-1);
+  const [tabContentArray, setTabContentArray] = useState<CarouselContentType[]>([]);
 
   function previousTab() {
     active - 1 < 0 ? handleTabChange(childrenArray.length - 1) : handleTabChange(active - 1);
@@ -52,32 +54,34 @@ export const Tabs = ({ className, tabListLabel = '', children }: Props) => {
     handleTabChange((active + 1) % childrenArray.length);
   }
 
-  const handleTabChange = (index: number) => {
-    const prevSlide = document.getElementById(`panel-${active}`);
-    const activeSlide = document.getElementById(`panel-${index}`);
-    let dataPrev: CarouselContentType = { content: [], img: null };
-    let dataActive: CarouselContentType = { content: [], img: null };
-
+  useEffect(() => {
     // get copy elements and img separetely for animation
-    const getContentElements = (data: CarouselContentType, slide: HTMLElement | null) => {
+    const getContentElements = (slide: HTMLElement | null) => {
+      let contentData: CarouselContentType = { content: [], img: null };
       if (slide?.children?.length) {
         for (let i = 0; i < slide?.children?.length; i++) {
           for (let z = 0; z < slide?.children[i].children.length; z++) {
             slide?.children[i].children[z].tagName.toLowerCase() !== 'img'
-              ? data.content.push(slide?.children[i].children[z])
-              : (data.img = slide?.children[i].children[z]);
+              ? contentData.content.push(slide?.children[i].children[z])
+              : (contentData.img = slide?.children[i].children[z]);
           }
         }
       }
+      return contentData;
     };
-    getContentElements(dataPrev, prevSlide);
-    getContentElements(dataActive, activeSlide);
+    contentRef.current?.map((item) => setTabContentArray((arr) => [...arr, getContentElements(item)]));
+  }, []);
+
+  const handleTabChange = (index: number) => {
+    if (!tabContentArray.length) return;
+    let dataPrev = tabContentArray[active];
+    let dataActive = tabContentArray[index];
 
     // set new active slide elements to fade out
     gsap.set(dataActive.content, { opacity: 0, y: 50 });
     gsap.set(dataActive.img, { clipPath: 'inset(100% 0% 100% 0%)' });
 
-    function animateOut(index: number, data: CarouselContentType, callback: Function) {
+    const animateOut = (index: number, data: CarouselContentType, callback: Function) => {
       setAnimatingOut(active);
       setAnimatingIn(index);
       gsap.to(data.content, {
@@ -86,9 +90,9 @@ export const Tabs = ({ className, tabListLabel = '', children }: Props) => {
         ease: 'ease01',
         onComplete: () => callback()
       });
-    }
+    };
 
-    function animateIn(data: CarouselContentType, delay = 0) {
+    const animateIn = (data: CarouselContentType, delay = 0) => {
       gsap.to(data.img, {
         clipPath: 'inset(0% 0% 0% 0%)',
         duration: 1,
@@ -107,7 +111,7 @@ export const Tabs = ({ className, tabListLabel = '', children }: Props) => {
           setAnimatingOut(-1);
         }
       });
-    }
+    };
 
     animateOut(index, dataPrev, () => {
       setActive(index);
@@ -168,6 +172,7 @@ export const Tabs = ({ className, tabListLabel = '', children }: Props) => {
       <div className={styles.tabsContent}>
         {childrenArray.map((child, index) => (
           <div
+            ref={(ref) => (contentRef.current[index] = ref)}
             className={classnames(styles.tabWrapper, {
               [styles.active]: index === active,
               [styles.animatingIn]: index === animatingIn,
