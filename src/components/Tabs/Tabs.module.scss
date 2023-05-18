@@ -140,9 +140,6 @@
       visibility: visible;
     }
 
-    &.animatingIn.active {
-      // position: relative;
-    }
     &.animatingIn:not(.active),
     &.animatingOut:not(.active) {
       position: absolute;
