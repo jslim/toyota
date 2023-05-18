@@ -237,11 +237,25 @@ export type LegalPageContentType = {
 export type OurLatestPageContentType = {
   pageTitle: string;
   slug: string;
+  featuredArticle: FilteredEntity<OurLatestPostPageContentType>;
+  mediaKit: FilteredEntity<MediaKitContentType>;
+  topicsLabel: string;
+  categoriesLabel: string;
+  sectionTitle: string;
+  filtersLabel: string;
+  allLabel: string;
+  newsLabel: string;
+  blogLabel: string;
+  researchLabel: string;
 };
 
 export type OurLatestPostPageContentType = {
   pageTitle: string;
   slug: string;
+  category: string;
+  topic: Array<string>;
+  thumbnail: ContentfulImageAsset;
+  publishDate: string;
 };
 
 // Contentful Component Content Types
@@ -427,11 +441,9 @@ export type HeroFeaturedContentType = {
 export type HeroContentType = {
   title: string;
   image: ContentfulImageAsset;
-  video: ContentfulVideoAsset;
+  video?: ContentfulVideoAsset;
   theme: string;
-  featured: {
-    fields: HeroFeaturedContentType;
-  };
+  featured: FilteredEntity<OurLatestPostPageContentType>;
 };
 
 export type richTextContentType = {
@@ -461,19 +473,11 @@ export type spacerContentType = {
   size: string;
 };
 
-export type NewsPostContentType = {
-  pageTitle: string;
-  slug: string;
-  category: string;
-  thumbnail: ContentfulImageAsset;
-  publishDate: string;
-};
-
 export type FeaturedArticlesContentyType = {
   eyebrow: string;
   heading: string;
   cta: FilteredEntity<CTAContentType>;
-  newsPosts: FilteredEntity<NewsPostContentType>[];
+  newsPosts: FilteredEntity<OurLatestPostPageContentType>[];
 };
 
 export type BoardMembersContentType = {

@@ -110,7 +110,8 @@ const CareersList: FC<CareersListProps> = ({
         {
           options: [
             {
-              label: 'All'
+              label: 'All',
+              clearsCategory: true
             }
           ]
         },
@@ -125,7 +126,8 @@ const CareersList: FC<CareersListProps> = ({
         {
           options: [
             {
-              label: 'All'
+              label: 'All',
+              clearsCategory: true
             }
           ]
         },
@@ -140,7 +142,8 @@ const CareersList: FC<CareersListProps> = ({
         {
           options: [
             {
-              label: 'All'
+              label: 'All',
+              clearsCategory: true
             }
           ]
         },
@@ -156,16 +159,16 @@ const CareersList: FC<CareersListProps> = ({
         {
           options: [
             {
-              label: 'All'
+              label: 'All',
+              clearsCategory: true
             }
           ]
-        }
-      ].concat(
-        teams.current.map((team) => ({
+        },
+        ...teams.current.map((team) => ({
           title: team.title,
           options: team.options.map((work) => ({ label: work }))
         }))
-      )
+      ]
     };
 
     // Create a new object with modified properties

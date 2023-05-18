@@ -15,11 +15,13 @@ import {
   GenericObject,
   HeroContentType,
   HistoryTimelineContentType,
+  Lang,
   LeaderPageContentType,
   LeadershipModuleContentType,
   MediaGalleryGroupContentType,
   MediaKitContentType,
   NextChapterContentType,
+  OurLatestPageContentType,
   OurLatestPostPageContentType,
   ProductListContentType,
   richTextContentType,
@@ -38,7 +40,7 @@ import { variants } from '@/data/variants';
 
 import Accordion, { AccordionItem } from '@/components/Accordion/Accordion';
 import BiographicHero from '@/components/BiographicHero/BiographicHero';
-import { CardTypes } from '@/components/Card/Card';
+import Card, { CardTypes } from '@/components/Card/Card';
 import CardGrid from '@/components/CardGrid/CardGrid';
 import CareersList from '@/components/CareersList/CareersList';
 import ColumnsText from '@/components/ColumnsText/ColumnsText';
@@ -48,13 +50,14 @@ import FeaturedArticles from '@/components/FeaturedArticles/FeaturedArticles';
 import FeaturesList from '@/components/FeaturesList/FeaturesList';
 import Gallery from '@/components/Gallery/Gallery';
 import GalleryVideo from '@/components/GalleryVideo/GalleryVideo';
-import Hero from '@/components/Hero/Hero';
+import Hero, { HeroType } from '@/components/Hero/Hero';
 import HistoryTimeline from '@/components/HistoryTimeline/HistoryTimeline';
 import { SlideProps } from '@/components/HistoryTimeline/HistoryTimelineSlide';
 import { LeadershipCardProps } from '@/components/LeadershipCard/LeadershipCard';
 import LeadershipModule, { directorsProps } from '@/components/LeadershipModule/LeadershipModule';
 import MediaKit from '@/components/MediaKit/MediaKit';
 import NextChapter from '@/components/NextChapter/NextChapter';
+import OurLatestOverviewGrid from '@/components/OurLatestOverviewGrid/OurLatestOverviewGrid';
 import ProductList from '@/components/ProductList/ProductList';
 import RichtextWrapper from '@/components/RichtextWrapper/RichtextWrapper';
 import Roadmap from '@/components/Roadmap/Roadmap';
@@ -386,7 +389,7 @@ export const buildMediaGalleryGroup = (
 
 export const buildHero = (fields: HeroContentType, extraProps?: GenericObject): ComponentBuilder => {
   const videoSrc = fields?.video?.fields?.file.url;
-  const postDate = new Date(fields?.featured?.fields?.date);
+  const postDate = new Date(fields?.featured?.fields?.publishDate);
   const month = postDate.toLocaleString('default', { month: 'short', timeZone: 'UTC' }).toUpperCase();
   const day = postDate.getUTCDate();
   const year = postDate.getUTCFullYear();
@@ -403,8 +406,9 @@ export const buildHero = (fields: HeroContentType, extraProps?: GenericObject): 
       theme: fields?.theme,
       featured: {
         date: `${month} ${day}, ${year}`,
-        cat: fields?.featured?.fields?.cat,
-        title: fields?.featured?.fields?.title
+        cat: fields?.featured?.fields?.category,
+        title: fields?.featured?.fields?.pageTitle,
+        href: `/${extraProps?.lang || ''}/our-latest/${fields?.featured?.fields.slug}`
       },
       ...extraProps
     },
@@ -477,25 +481,32 @@ export const buildSpacer = (fields: spacerContentType, extraProps?: GenericObjec
   };
 };
 
+export const buildNewsCard = (fields: OurLatestPostPageContentType, extraProps?: GenericObject): ComponentBuilder => {
+  const postDate = new Date(fields?.publishDate);
+  const month = postDate.toLocaleString('default', { month: 'short', timeZone: 'UTC' }).toUpperCase();
+  const day = postDate.getUTCDate();
+  const year = postDate.getUTCFullYear();
+
+  return {
+    props: {
+      image: fields?.thumbnail,
+      title: fields?.category,
+      date: `${month} ${day}, ${year}`,
+      text: fields?.pageTitle,
+      cta: {
+        href: `/${extraProps?.lang || ''}/our-latest/${fields?.slug}`
+      }
+    },
+    component: Card
+  };
+};
+
 export const buildFeaturedArticles = (
   fields: FeaturedArticlesContentyType,
   extraProps?: GenericObject
 ): ComponentBuilder => {
   const cards = fields?.newsPosts.map((post) => {
-    const postDate = new Date(post?.fields?.publishDate);
-    const month = postDate.toLocaleString('default', { month: 'short', timeZone: 'UTC' }).toUpperCase();
-    const day = postDate.getUTCDate();
-    const year = postDate.getUTCFullYear();
-
-    return {
-      image: post?.fields?.thumbnail,
-      title: post?.fields?.category,
-      date: `${month} ${day}, ${year}`,
-      text: post?.fields?.pageTitle,
-      cta: {
-        href: `/${post?.fields?.slug}`
-      }
-    };
+    return buildNewsCard(post?.fields, { lang: extraProps?.lang || Lang.EN }).props;
   });
   return {
     props: {
@@ -615,6 +626,51 @@ export const buildOurLatestPostPage = (
   };
 };
 
+export const buildOurLatestOverview = (
+  fields: OurLatestPageContentType,
+  extraProps?: GenericObject
+): ComponentBuilder => {
+  const featuredPost = fields.featuredArticle;
+  const { props: heroProps, component: HeroComponent } = buildHero(
+    {
+      video: undefined,
+      title: fields.pageTitle,
+      theme: HeroType.Overview,
+      image: featuredPost.fields.thumbnail,
+      featured: featuredPost
+    },
+    extraProps
+  );
+
+  const mediaKit = fields?.mediaKit?.fields ? buildMediaKit(fields.mediaKit.fields) : null;
+  return {
+    props: {
+      ...extraProps
+    },
+    component: () => (
+      <>
+        <HeroComponent {...heroProps}></HeroComponent>
+        <OurLatestOverviewGrid
+          topicsLabel={fields.topicsLabel}
+          categoriesLabel={fields.categoriesLabel}
+          sectionTitle={fields.sectionTitle}
+          filtersLabel={fields.filtersLabel}
+          allLabel={fields.allLabel}
+          newsLabel={fields.newsLabel}
+          blogLabel={fields.blogLabel}
+          researchLabel={fields.researchLabel}
+        />
+        {mediaKit ? (
+          <SectionWrapper eyebrow="downloads" title="Media Kit">
+            <mediaKit.component {...mediaKit.props} />
+          </SectionWrapper>
+        ) : null}
+        <Spacer size={Sizes.LARGE} />
+      </>
+    )
+  };
+};
+
 export const buildMediaKit = (fields: MediaKitContentType, extraProps?: GenericObject): ComponentBuilder => {
   const modal = {
     title: fields.modalTitle,
@@ -648,8 +704,8 @@ export const buildYoutubeIframe = (fields: YoutubeEmbedContentType, extraProps?:
       ...extraProps
     },
     component: YoutubeEmbed
-  }
-}
+  };
+};
 export const buildCallToAction = (fields: CTAContentType, extraProps?: GenericObject): ComponentBuilder => {
   const isJumpTo = fields.jumpToLink;
   const theme = isJumpTo ? ButtonType.Icon : ButtonType.Primary;

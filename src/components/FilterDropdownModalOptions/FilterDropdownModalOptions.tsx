@@ -10,8 +10,9 @@ import useQueryParams, { useClearParams } from '@/hooks/use-query-params';
 
 import CheckmarkSvg from '@/components/svgs/white-checkmark.svg';
 
-interface Option {
+export interface Option {
   label: string;
+  clearsCategory?: boolean;
 }
 
 interface Content {
@@ -24,18 +25,25 @@ export type FilterDropdownModalOptionsProps = {
   header?: string;
   content: Content[];
   category: string;
+  allLabel?: string;
   onSelectOption?: (option: string) => void;
 };
 
-const FilterDropdownModalOptions: FC<FilterDropdownModalOptionsProps> = ({ className, header, content, category }) => {
+const FilterDropdownModalOptions: FC<FilterDropdownModalOptionsProps> = ({
+  className,
+  header,
+  content,
+  category,
+  allLabel = 'All'
+}) => {
   const router = useRouter();
-  const [selectedOption, setSelectedOption] = useState<string>(content[0].options[0].label);
+  const [selectedOption, setSelectedOption] = useState<string>();
   const [paramValue, setParamValue] = useQueryParams(category, { shallow: true });
   const clearParams = useClearParams([category], true);
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement | HTMLLIElement>, option?: Option) => {
     if (event.key === 'Enter' || event.key === ' ') {
-      option && handleOptionClick(option.label);
+      option && handleOptionClick(option);
     }
   };
 
@@ -46,19 +54,23 @@ const FilterDropdownModalOptions: FC<FilterDropdownModalOptionsProps> = ({ class
   }, [category, paramValue, router]);
 
   useEffect(() => {
-    if (paramValue) setSelectedOption(paramValue);
-  }, [paramValue]);
+    if (paramValue) {
+      setSelectedOption(paramValue);
+    } else {
+      setSelectedOption(allLabel);
+    }
+  }, [paramValue, allLabel]);
 
-  function handleOptionClick(option: string) {
+  function handleOptionClick(option: Option) {
     let newSelectedOption: string;
-    if (selectedOption === option) {
+    if (selectedOption === option.label) {
       return;
-    } else if (option.toLowerCase() === 'all') {
+    } else if (option.clearsCategory) {
       clearParams();
-      setSelectedOption(option);
+      setSelectedOption(option.label);
       return;
     } else {
-      newSelectedOption = option;
+      newSelectedOption = option.label;
     }
     setSelectedOption(newSelectedOption);
     setParamValue(newSelectedOption);
@@ -72,7 +84,7 @@ const FilterDropdownModalOptions: FC<FilterDropdownModalOptionsProps> = ({ class
         })}
         role="option"
         aria-selected={selectedOption === option.label}
-        onClick={() => handleOptionClick(option.label)}
+        onClick={() => handleOptionClick(option)}
         onKeyDown={(event) => handleKeyPress(event, option)}
         tabIndex={0}
         key={index}
