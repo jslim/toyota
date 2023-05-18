@@ -253,9 +253,6 @@ export type OurLatestPostPageContentType = {
   articleAssets: { fields: FeaturedArticlesContentyType };
   pinnedPosts: CardContentType[];
   body: Document;
-  publishDate: string;
-  category: string;
-  thumbnail: ContentfulImageAsset;
   pageTitle: string;
   slug: string;
   category: string;
