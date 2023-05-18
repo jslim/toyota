@@ -169,7 +169,8 @@ $grid-column-width-desktop: (
 
   @include breakpoint(desktopSm) {
     #{$prop}: calc(
-      (100vw - desktop-columns($grid-num-of-cols-desktop, 0)) / 2 - px($grid-relative-side-padding-desktop-external)
+      (100vw - desktop-columns($grid-num-of-cols-desktop, 0)) / 2 - $grid-relative-side-padding-desktop-external/
+        $grid-base-design-desktop * $grid-column-multiplier
     );
   }
 }

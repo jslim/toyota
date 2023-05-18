@@ -3,7 +3,6 @@
 .root {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
 }
 
 .textWrapper {
@@ -16,11 +15,11 @@
     text-align: left;
 
     @include media-tablet {
-      @include use-tablet-columns(width, 4);
+      @include use-tablet-columns(width, 5);
     }
 
     @include media-desktopSm {
-      @include use-desktop-columns(width, 6);
+      @include use-desktop-columns(width, 7);
       @include use-desktop-columns(padding-right, 1, 1);
     }
   }
@@ -31,17 +30,16 @@
 
     @include media-desktopMd {
       @include font-size(32, 40);
-      margin-top: px(37);
+      margin-top: px(40);
     }
   }
 
   .author {
-    @include font-size(11, 24);
+    @include typography-paragraph;
     margin-top: px(10);
     color: $mid-grey;
 
     @include media-desktopMd {
-      @include font-size(14, 22);
       margin-top: px(26);
     }
   }
