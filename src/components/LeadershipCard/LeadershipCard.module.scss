@@ -56,7 +56,8 @@
     }
 
     @include media-desktopSm {
-      margin-bottom: px(12);
+      @include aspect-ratio(192, 236);
+      margin-bottom: px(8);
     }
   }
 }

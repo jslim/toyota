@@ -1,4 +1,4 @@
-import { FC, memo, useEffect, useMemo, useRef } from 'react';
+import { FC, memo, MutableRefObject, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import gsap from 'gsap';
 import SwiperCore, { A11y, Pagination } from 'swiper';
@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import css from './LeadershipModule.module.scss';
 
-import DraggableColumns from '@/components/DraggableColumns/DraggableColumns';
+import Cursor from '@/components/Cursor/Cursor';
 import Eyebrow from '@/components/Eyebrow/Eyebrow';
 import LeadershipCard, { LeadershipCardProps } from '@/components/LeadershipCard/LeadershipCard';
 
@@ -24,7 +24,6 @@ export type LeadershipModuleProps = {
   className?: string;
   eyebrow: string;
   title: string;
-  description: string;
   slides: LeadershipCardProps[];
   directors: directorsProps;
 };
@@ -32,9 +31,13 @@ export type LeadershipModuleProps = {
 SwiperCore.use([Pagination, A11y]);
 const SLIDE_DURATION = 450;
 
-const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title, description, slides, directors }) => {
+const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title, slides, directors }) => {
   const textWrapperRef = useRef<HTMLDivElement | null>(null);
   const { layout } = useLayout();
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = useRef() as MutableRefObject<HTMLDivElement>;
+  const [isCarouselLocked, setIsCarouselLocked] = useState(false);
+
   const isDesktop = useMemo(() => {
     return !(layout.mobile || layout.tablet);
   }, [layout.mobile, layout.tablet]);
@@ -76,18 +79,18 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title
   }, []);
 
   return (
-    <div className={classNames('LeadershipModule', css.root, className)}>
+    <div className={classNames('LeadershipModule', css.root, className)} ref={sectionRef}>
       <div className={css.wrapper}>
         <Eyebrow className={css.eyebrow} text={eyebrow} />
         <div className={css.textWrapper} ref={textWrapperRef}>
           <h2 className={css.title}>{title}</h2>
-          <p className={css.description}>{description}</p>
           {board}
         </div>
       </div>
 
-      {!isDesktop ? (
-        <div className={css.container}>
+      <div className={css.container}>
+        <div className={css.swiperWrapper} ref={containerRef}>
+          {isDesktop && !isCarouselLocked && <Cursor containerRef={containerRef} />}
           <Swiper
             className={css.carouselContainer}
             autoHeight={true}
@@ -99,16 +102,29 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title
             }}
             slidesPerView={'auto'}
             spaceBetween={30}
-            slidesOffsetAfter={600}
+            slidesOffsetAfter={180}
             breakpoints={{
               768: {
-                spaceBetween: 46
+                spaceBetween: 46,
+                slidesOffsetAfter: 500
+              },
+              1024: {
+                spaceBetween: 22,
+                autoHeight: false
               }
             }}
+            freeMode={true}
+            onLock={(_swiper) => {
+              setIsCarouselLocked(true);
+            }}
+            onUnlock={(_swiper) => {
+              setIsCarouselLocked(false);
+            }}
+            watchSlidesProgress={true}
           >
             {pairsArray.map((pair, i) => {
               return (
-                <SwiperSlide className={css.slide} key={`slide-${i}`}>
+                <SwiperSlide className={classNames(css.slide, { [css.isLocked]: isCarouselLocked })} key={`slide-${i}`}>
                   {pair.map((item, i) => {
                     if (item == null) return null;
                     return <LeadershipCard {...item} key={i} className={css.card} />;
@@ -117,12 +133,10 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title
               );
             })}
           </Swiper>
-          <span className={css.pagination}></span>
-          {board}
         </div>
-      ) : (
-        <DraggableColumns cards={slides} className={css.columns} isDesktop={isDesktop} />
-      )}
+        <span className={classNames(css.pagination, { [css.isDisabled]: isCarouselLocked })} />
+        {!isDesktop && board}
+      </div>
     </div>
   );
 };
