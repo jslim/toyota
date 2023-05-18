@@ -9,6 +9,7 @@ import { ColumnType } from '@/data/variants';
 import ColumnsText from '@/components/ColumnsText/ColumnsText';
 import Cta from '@/components/Cta/Cta';
 import PageNotFound from '@/components/PageNotFound/PageNotFound';
+import Spacer, { Sizes } from '@/components/Spacer/Spacer';
 import TextIntro from '@/components/TextIntro/TextIntro';
 
 import useLayout from '@/hooks/use-layout';
@@ -81,6 +82,7 @@ const CareerDetail: FC = () => {
             <div dangerouslySetInnerHTML={{ __html: sanitizer(career.description || '') }} />
             {layout.mobile && <Cta href={career.applyUrl} title={applyText} />}
           </ColumnsText>
+          <Spacer size={Sizes.SMALL} />
         </main>
       )}
       {notFound ? <PageNotFound head={{ title: 'Career Detail' }} /> : !career ? <main /> : null}

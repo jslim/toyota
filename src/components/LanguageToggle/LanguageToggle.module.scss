@@ -62,6 +62,7 @@ $lang-button-offset: px(7);
 
       .langButton {
         @include typography-eyebrow;
+        @include flex-center;
         @include box(100%);
         border-radius: 50%;
         background-color: $white;

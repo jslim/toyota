@@ -250,6 +250,9 @@ export type OurLatestPageContentType = {
 };
 
 export type OurLatestPostPageContentType = {
+  articleAssets: { fields: FeaturedArticlesContentyType };
+  pinnedPosts: CardContentType[];
+  body: Document;
   pageTitle: string;
   slug: string;
   category: string;
@@ -476,7 +479,7 @@ export type spacerContentType = {
 export type FeaturedArticlesContentyType = {
   eyebrow: string;
   heading: string;
-  cta: FilteredEntity<CTAContentType>;
+  cta?: FilteredEntity<CTAContentType>;
   newsPosts: FilteredEntity<OurLatestPostPageContentType>[];
 };
 
