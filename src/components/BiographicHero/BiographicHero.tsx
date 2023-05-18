@@ -30,7 +30,7 @@ const BiographicHero: FC<BiographicHeroProps> = ({ className, title, description
           </div>
         </div>
         <div className={css.description}>
-          <div className={css.title}>{title}</div>
+          <h1 className={css.title}>{title}</h1>
           <div className={css.eyebrow}>{description}</div>
         </div>
       </div>

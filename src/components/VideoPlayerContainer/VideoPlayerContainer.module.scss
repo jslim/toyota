@@ -2,7 +2,7 @@
 
 .root {
   &.default {
-    @include use-mobile-columns(width, 4, 1);
+    width: 100%;
 
     .video,
     .imageWrapper {
@@ -18,7 +18,11 @@
     }
 
     .playButton {
-      @include use-mobile-columns(left, 1);
+      @include use-mobile-columns(left, 1, 1);
+
+      @include media-tablet {
+        @include use-tablet-columns(left, 2, 1);
+      }
 
       @include media-desktopMd {
         @include use-desktop-columns(left, 3, 1);

@@ -2,6 +2,8 @@ import { Document } from '@contentful/rich-text-types';
 
 import { CardTypes } from '@/components/Card/Card';
 
+import { SocialPlatform } from './variants';
+
 export type HeadProps = {
   title: string;
   image?: string;
@@ -17,6 +19,10 @@ export type GridSize = {
 
 export type NavLinks = CTAContentType & {
   isActive: boolean;
+};
+
+export type SocialLinks = CTAContentType & {
+  platform: SocialPlatform;
 };
 
 export type Job = {
@@ -36,6 +42,9 @@ export type Job = {
 export type GlobalDataFields = {
   mainNavLinks: Array<NavLinks>;
   footerNavLinks: Array<NavLinks>;
+  footerLegalLinks: Array<NavLinks>;
+  footerSocialLinks: Array<SocialLinks>;
+  footerOfficeLocations: Array<string>;
   homepageBannerText: string;
   showHomepageBanner: boolean;
   skipToContentText: string;
@@ -228,6 +237,16 @@ export type LegalPageContentType = {
 export type OurLatestPageContentType = {
   pageTitle: string;
   slug: string;
+  featuredArticle: FilteredEntity<OurLatestPostPageContentType>;
+  mediaKit: FilteredEntity<MediaKitContentType>;
+  topicsLabel: string;
+  categoriesLabel: string;
+  sectionTitle: string;
+  filtersLabel: string;
+  allLabel: string;
+  newsLabel: string;
+  blogLabel: string;
+  researchLabel: string;
 };
 
 export type OurLatestPostPageContentType = {
@@ -239,12 +258,19 @@ export type OurLatestPostPageContentType = {
   thumbnail: ContentfulImageAsset;
   pageTitle: string;
   slug: string;
+  category: string;
+  topic: Array<string>;
+  thumbnail: ContentfulImageAsset;
+  publishDate: string;
 };
 
 // Contentful Component Content Types
 export type GlobalDataContentType = {
   mainNavLinks: Array<FilteredEntity<CTAContentType>>;
   footerNavLinks: Array<FilteredEntity<CTAContentType>>;
+  footerLegalLinks: Array<FilteredEntity<CTAContentType>>;
+  footerSocialLinks: Array<FilteredEntity<CTAContentType>>;
+  footerOfficeLocations: Array<string>;
   homepageBannerText: string;
   showHomepageBanner: boolean;
   skipToContentText: string;
@@ -331,6 +357,10 @@ export type MediaGalleryGroupContentType = {
   mediaItems: Array<FilteredEntity<MediaGalleryItemContentType>>;
 };
 
+export type YoutubeEmbedContentType = {
+  embedId: string;
+};
+
 export type TextIntroContentType = {
   eyebrow: string;
   header: string;
@@ -377,6 +407,11 @@ export type CardGridContentType = {
 export type CareersListContentType = {
   title: string;
   eyebrowText: string;
+  filtersLabel: string;
+  searchLabel: string;
+  cleanLabel: string;
+  noResultsLabel: string;
+  noResultsDescription: string;
 };
 
 export type FeatureListItemContentType = {
@@ -412,11 +447,9 @@ export type HeroFeaturedContentType = {
 export type HeroContentType = {
   title: string;
   image: ContentfulImageAsset;
-  video: ContentfulVideoAsset;
+  video?: ContentfulVideoAsset;
   theme: string;
-  featured: {
-    fields: HeroFeaturedContentType;
-  };
+  featured: FilteredEntity<OurLatestPostPageContentType>;
 };
 
 export type richTextContentType = {
@@ -446,19 +479,11 @@ export type spacerContentType = {
   size: string;
 };
 
-export type NewsPostContentType = {
-  pageTitle: string;
-  slug: string;
-  category: string;
-  thumbnail: ContentfulImageAsset;
-  publishDate: string;
-};
-
 export type FeaturedArticlesContentyType = {
   eyebrow: string;
   heading: string;
   cta?: FilteredEntity<CTAContentType>;
-  newsPosts: FilteredEntity<NewsPostContentType>[];
+  newsPosts: FilteredEntity<OurLatestPostPageContentType>[];
 };
 
 export type BoardMembersContentType = {

@@ -10,10 +10,10 @@ import SectionWrapper from '@/components/SectionWrapper/SectionWrapper';
 
 import resize from '@/services/resize';
 import useLayout from '@/hooks/use-layout';
+import { Color } from '@/utils/colors';
 
 import ContentfulImage from '../ContentfulImage/ContentfulImage';
 import { RoadmapTypes } from './Roadmap';
-import { Color } from '@/utils/colors';
 
 export type RoadmapItemSingleProps = {
   title: string;
@@ -45,7 +45,7 @@ const RoadmapItem: FC<RoadmapItemProps> = ({ item, index, theme, numOfSlides, se
 
     return () => {
       resize.dismiss(handleResize);
-      tl.current.kill();
+      tl.current && tl.current.kill();
     };
   }, [itemRef, setStickyInfoHeight, index]);
 

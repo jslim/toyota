@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import { FC, memo, useState } from 'react';
 import classNames from 'classnames';
 
 import css from './VideoPlayerSection.module.scss';
@@ -15,10 +15,11 @@ export type VideoPlayerSectionProps = {
 };
 
 const VideoPlayerSection: FC<VideoPlayerSectionProps> = ({ className, videoPlayerSection, quote, author }) => {
+  const [assetLoaded, setAssetLoaded] = useState(false);
   return (
     <div className={classNames('VideoPlayerSection', css.root, className)}>
-      <ImageCascade isHorizontal>
-        <VideoPlayerContainer {...videoPlayerSection} />
+      <ImageCascade isHorizontal assetLoaded={assetLoaded}>
+        <VideoPlayerContainer {...videoPlayerSection} onLoad={() => setAssetLoaded(true)} />
       </ImageCascade>
       <div className={css.textWrapper}>
         <p className={css.quote}>{quote}</p>

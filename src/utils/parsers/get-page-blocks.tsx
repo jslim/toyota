@@ -21,6 +21,7 @@ import {
   buildMediaGalleryGroup,
   buildMediaKit,
   buildNextChapter,
+  buildOurLatestOverview,
   buildOurLatestPostPage,
   buildProductList,
   buildRichTextComponent,
@@ -33,6 +34,7 @@ import {
   buildTextBlock,
   buildTextIntro,
   buildVideoPlayerSection,
+  buildYoutubeIframe,
   ComponentBuilderFactory
 } from './block-builders';
 
@@ -57,6 +59,7 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
   featureList: buildFeatureList,
   productList: buildProductList,
   mediaGalleryGroup: buildMediaGalleryGroup,
+  youtubeEmbed: buildYoutubeIframe,
   hero: buildHero,
   richTextTest: buildRichTextComponent,
   videoPlayerSection: buildVideoPlayerSection,
@@ -68,7 +71,8 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
   leadershipModule: buildLeadershipModule,
   historyTimeline: buildHistoryTimeline,
   ourLatestPagePost: buildOurLatestPostPage,
-  callToAction: buildCallToAction
+  callToAction: buildCallToAction,
+  ourLatestPage: buildOurLatestOverview
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

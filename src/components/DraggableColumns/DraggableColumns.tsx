@@ -37,7 +37,7 @@ const DraggableColumns: FC<DraggableColumnsProps> = ({ cards, className, isDeskt
         loop
         speed={500}
         centeredSlides={true}
-        spaceBetween={182}
+        spaceBetween={220}
         touchEventsTarget={'container'}
         onSwiper={(swiper) => {
           swiper.on('touchMove', handleTouchStart);
@@ -55,6 +55,10 @@ const DraggableColumns: FC<DraggableColumnsProps> = ({ cards, className, isDeskt
             <LeadershipCard {...item} className={css.leader} />
           </SwiperSlide>
         ))}
+        {cards.length % 2 === 1 && (
+          // If we have an odd number of slides add a dummy card to keep layout
+          <SwiperSlide key={cards.length} className={classNames(css.item, css.shift, { [css.disable]: isGrabbing })} />
+        )}
       </Swiper>
       {isDesktop && <Cursor isDragging={isGrabbing} containerRef={containerRef} />}
     </div>

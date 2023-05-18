@@ -16,7 +16,7 @@ export type SocialIconProps = {
   className?: string;
   platform: SocialPlatform;
   href: string;
-  label: string;
+  label?: string;
   isWhite: boolean;
 };
 

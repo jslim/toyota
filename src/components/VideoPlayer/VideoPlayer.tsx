@@ -10,6 +10,7 @@ import noop from 'no-op';
 import styles from './VideoPlayer.module.scss';
 
 import VideoControls from './VideoControls/VideoControls';
+import { VideoType } from '../VideoPlayerContainer/VideoPlayerContainer';
 
 export type Captions = {
   kind: string;
@@ -21,6 +22,7 @@ export type Captions = {
 
 export type Props = {
   className?: string;
+  theme?: VideoType;
   style?: object;
   src: string;
   preload?: string;
@@ -45,10 +47,12 @@ export type Props = {
   controlsTimeout: number;
   togglePlaying: Function;
   onEnd: Function;
+  onLoad?: Function;
 };
 
 const VideoPlayer = ({
   className,
+  theme,
   style,
   src,
   preload = 'auto',
@@ -72,7 +76,8 @@ const VideoPlayer = ({
   disableBackgroundCover = true,
   controlsTimeout = 2.5,
   togglePlaying = noop,
-  onEnd = noop
+  onEnd = noop,
+  onLoad = noop
 }: Props) => {
   const container = useRef<HTMLDivElement | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -135,7 +140,7 @@ const VideoPlayer = ({
     if (isPlaying) {
       onPlay();
       hasControls && setHideControlsTimeout();
-      device.mobile && toggleFullscreen();
+      device.mobile && !autoPlay && toggleFullscreen();
     } else {
       onPause();
       if (hasControls && progress) {
@@ -273,6 +278,7 @@ const VideoPlayer = ({
   }
 
   function onPlay() {
+    onLoad && onLoad();
     setIsPlaying(true);
   }
 
@@ -362,7 +368,7 @@ const VideoPlayer = ({
         onEnd={onVideoEnd}
         onClick={togglePlayOnClick ? togglePlay : () => {}}
         onKeyPress={onKeyPress}
-        tabIndex={allowKeyboardControl ? 0 : null}
+        tabIndex={null}
         extraVideoElementProps={{ crossOrigin }}
       />
 
@@ -375,6 +381,7 @@ const VideoPlayer = ({
       {(hasControls || hasPlayOnly) && (
         <VideoControls
           className={styles.controls}
+          theme={theme}
           captions={Boolean(captions)}
           currentTime={Number(currentTime)}
           isPlaying={isPlaying}

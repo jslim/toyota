@@ -2,20 +2,32 @@
 
 .root {
   position: relative;
-  width: px(261);
-  background-color: $white;
+  width: auto;
   padding: px(19) 0 px(24) px(24);
   text-align: left;
   border-top-left-radius: px(8);
   border-top-right-radius: px(8);
+  background-color: transparent;
+  color: $white;
+
+  @include media-desktopSm {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 
   .title {
     @include flex-center-vert;
+    @include typography-eyebrow;
+    text-transform: uppercase;
 
     .caret {
       @include box(px(7), px(3.5));
       margin-left: px(7.5);
       transform: rotate(180deg);
+
+      path {
+        stroke: $white;
+      }
     }
   }
 
@@ -23,6 +35,10 @@
     .caret {
       transform: rotate(0deg);
     }
+  }
+
+  &.dark {
+    color: $black;
   }
 }
 

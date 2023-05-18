@@ -1,30 +1,121 @@
 @import 'shared';
 
 .root {
+  @include outer-container;
+  position: relative;
   display: flex;
   flex-direction: column;
   border-radius: px(15);
-  @include outer-container;
-  @include pagePadding(padding-left);
-  @include pagePadding(padding-right);
+
+  min-height: px(825);
+
+  &::after {
+    content: '';
+    @include position-100(absolute);
+    display: none;
+    background-color: $dark-grey;
+    z-index: 1;
+    border-radius: px(15);
+    opacity: 0.75;
+  }
 
   @include media-tablet {
+    min-height: px(873);
     @include outer-container(true);
+  }
+
+  .filtersModal {
+    display: none;
+    z-index: 2;
   }
 
   &.darkMode {
     background-color: $dark-grey;
   }
 
-  .title {
-    display: flex;
-    @include typography-h2;
-    color: $white;
-    margin-bottom: px(30);
-  }
-
   .eyebrow {
+    @include pagePadding(padding-left);
     margin-bottom: px(30);
     padding-top: px(15);
+  }
+
+  .wrapper {
+    @include container;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: px(24);
+
+    @include media-desktopSm {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .title {
+      display: flex;
+      @include typography-h2;
+      color: $white;
+      margin-bottom: px(30);
+    }
+  }
+
+  .accordion {
+    @include container;
+  }
+
+  &.modalOpen {
+    &::after {
+      display: block;
+    }
+
+    @include media-desktopSm {
+      &::after {
+        display: none;
+      }
+    }
+
+    .filtersModal {
+      display: flex;
+    }
+  }
+
+  .notFound {
+    @include flex-center;
+    flex-direction: column;
+    margin-top: px(143);
+
+    @include media-tablet {
+      margin-top: px(157);
+    }
+
+    @include media-desktopSm {
+      margin-top: px(211);
+    }
+
+    .circle {
+      @include box(px(50));
+      margin-bottom: px(15);
+      background-color: $mid-grey;
+      border: none;
+
+      span {
+        @include box(px(4));
+        background-color: $grey;
+        border-radius: 50%;
+        margin-right: px(6);
+
+        &:last-of-type {
+          margin-right: 0;
+        }
+      }
+    }
+
+    .label {
+      @include typography-label;
+      color: $white;
+    }
+
+    .description {
+      color: $grey;
+    }
   }
 }

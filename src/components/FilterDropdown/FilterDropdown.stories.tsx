@@ -13,20 +13,18 @@ Default.args = {
     {
       options: [
         {
-          label: 'All',
-          value: 'all'
+          label: 'All'
         }
       ]
     },
     {
+      title: 'Location',
       options: [
         {
-          label: 'Tokyo',
-          value: 'tokyo'
+          label: 'Tokyo'
         },
         {
-          label: 'London',
-          value: 'london'
+          label: 'London'
         }
       ]
     }

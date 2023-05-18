@@ -15,7 +15,7 @@ export type EyebrowProps = {
   variant?: string;
 };
 
-const Eyebrow = ({ className, text, variant = variants.LIGHT }: EyebrowProps) => {
+const Eyebrow = ({ className, text, variant }: EyebrowProps) => {
   const circleRef = useRef<HTMLDivElement>(null);
   const animTL = useRef<GSAPTimeline>();
 
@@ -28,7 +28,12 @@ const Eyebrow = ({ className, text, variant = variants.LIGHT }: EyebrowProps) =>
   });
 
   return (
-    <div className={classNames('Eyebrow', css.root, className, { [css.dark]: variant === variants.DARK })}>
+    <div
+      className={classNames('Eyebrow', css.root, className, {
+        [css.dark]: variant === variants.DARK,
+        [css.light]: variant === variants.LIGHT
+      })}
+    >
       <p className={css.text}>
         <span className={classNames('circle', css.circle)} ref={circleRef} />
         {text}

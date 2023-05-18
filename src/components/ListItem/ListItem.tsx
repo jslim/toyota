@@ -51,7 +51,6 @@ const ListItem: FC<ListItemProps> = ({
   assetsLink,
   link
 }) => {
-  console.log(variant);
   return (
     <div className={classNames('ListItem', css.root, className)}>
       {!isMediaKit ? (

@@ -23,6 +23,7 @@ export type VideoPlayerContainerProps = {
   video: VideoProps;
   title?: string;
   theme?: VideoType;
+  onLoad?: () => void;
 };
 
 const VideoPlayerContainer: FC<VideoPlayerContainerProps> = ({
@@ -30,17 +31,24 @@ const VideoPlayerContainer: FC<VideoPlayerContainerProps> = ({
   poster,
   title,
   video,
-  theme = VideoType.Default
+  theme = VideoType.Default,
+  onLoad
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   return (
     <div className={classNames('VideoPlayerContainer', css.root, className, css[theme])}>
       {isPlaying ? (
-        <VideoPlayer {...video} className={css.video} autoPlay togglePlaying={() => setIsPlaying(!isPlaying)} />
+        <VideoPlayer
+          {...video}
+          className={css.video}
+          theme={theme}
+          autoPlay
+          togglePlaying={() => setIsPlaying(!isPlaying)}
+        />
       ) : (
         <div className={css.imageWrapper} onClick={() => setIsPlaying(true)}>
-          <ContentfulImage asset={poster} className={css.poster} />
+          <ContentfulImage asset={poster} className={css.poster} onLoad={onLoad} />
           {title && <div className={css.title}>{title}</div>}
           <Cta className={css.playButton} theme={ButtonType.Large} isWhite={true} aria-label={'play video'}>
             <PlayIcon />

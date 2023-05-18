@@ -17,6 +17,7 @@ import MutedIcon from './svgs/muted.svg';
 import PauseIcon from './svgs/pause.svg';
 import PlayIcon from './svgs/play.svg';
 import UnmutedIcon from './svgs/unmuted.svg';
+import { VideoType } from '@/components/VideoPlayerContainer/VideoPlayerContainer';
 
 export type Props = {
   className?: string;
@@ -44,6 +45,7 @@ export type Props = {
   enterFullscreenLabel?: string;
   onFocus: Function;
   onBlur: Function;
+  theme?: VideoType;
 };
 
 const VideoControls = ({
@@ -71,7 +73,8 @@ const VideoControls = ({
   exitFullscreenLabel = 'Exit Fullscreen Mode',
   enterFullscreenLabel = 'Enter Fullscreen Mode',
   onFocus = noop,
-  onBlur = noop
+  onBlur = noop,
+  theme = VideoType.Default
 }: Props) => {
   function formatTime(totalSeconds: number) {
     const totalSecondsFloat = totalSeconds;
@@ -102,7 +105,7 @@ const VideoControls = ({
 
   return (
     <nav
-      className={classnames(styles.VideoControls, className, { [styles.hasPlayOnly]: hasPlayOnly })}
+      className={classnames(styles.VideoControls, className, styles[theme], { [styles.hasPlayOnly]: hasPlayOnly })}
       aria-label={navAriaLabel}
       onFocus={onFocus as FocusEventHandler}
       onBlur={onBlur as FocusEventHandler}

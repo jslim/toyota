@@ -2,9 +2,16 @@
 
 .root {
   color: $mid-grey;
+
   &.dark {
     .text {
-      color: $grey;
+      color: $light-grey;
+    }
+  }
+
+  &.light {
+    .text {
+      color: $white;
     }
   }
 }
