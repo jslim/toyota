@@ -174,7 +174,12 @@ const HistorySlide: FC<SlideProps> = ({
   return (
     <div ref={itemRef} className={css.item}>
       <div ref={imageRef} className={css.imageWrapper}>
-        <ContentfulImage asset={item.image} className={css.image} />
+        <ContentfulImage
+          asset={item.image}
+          className={css.image}
+          imageSizeDesktop={{ numCols: 7, extraGutters: 0 }}
+          imageSizeTablet={{ numCols: 6, extraGutters: 0 }}
+        />
       </div>
       <div
         className={css.progress}

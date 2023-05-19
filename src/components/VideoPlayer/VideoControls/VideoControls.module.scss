@@ -12,16 +12,34 @@ $video-player-controls-timer-font-size: px(15);
   bottom: 0;
   width: 100%;
   height: auto;
-  padding: 0 px(36) px(36);
+  padding: 0 mobile-columns(0, 1) px(14);
   background-color: $video-player-controls-bg-color;
-  z-index: 1;
+  @include z-index(roadmap);
   box-sizing: border-box;
 
+  @include breakpoint(tablet) {
+    padding: 0 px(60) px(24);
+  }
+  @include breakpoint(desktopSm) {
+    padding: 0 px(36) px(36) px(84);
+  }
+
+  &.gallery {
+    @include breakpoint(tablet) {
+      padding: 0 px(48) px(16);
+    }
+    @include breakpoint(desktopSm) {
+      padding: 0 px(36) px(26);
+    }
+  }
   .controlsContainer {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    margin-top: px(16);
+    margin-top: px(10);
+    @include breakpoint(tablet) {
+      margin-top: px(16);
+    }
 
     .time {
       width: auto;

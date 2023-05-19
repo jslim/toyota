@@ -22,11 +22,9 @@ const LeadershipCard: FC<LeadershipCardProps> = ({ className, title, description
       <ContentfulImage
         className={css.image}
         asset={image}
-        imageQuality={50}
-        useSrcSet={true}
-        imageSizeMobile={{ extraGutters: 0, numCols: 12 }}
-        imageSizeTablet={{ extraGutters: 0, numCols: 12 }}
-        imageSizeDesktop={{ extraGutters: 0, numCols: 12 }}
+        imageSizeMobile={{ extraGutters: 0, numCols: 2 }}
+        imageSizeTablet={{ extraGutters: 1, numCols: 3 }}
+        imageSizeDesktop={{ extraGutters: 1, numCols: 2 }}
       />
       <div className={css.title}>{title}</div>
       <div className={css.description}>{description}</div>

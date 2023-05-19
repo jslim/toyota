@@ -3,6 +3,26 @@
 .root {
   width: 100%;
   background-color: $white;
+
+  &.related {
+    .container {
+      display: block;
+      padding: px(36) 0;
+
+      @include media-desktopSm {
+        padding: px(54) 0;
+      }
+
+      .wrapper {
+        margin-top: 0;
+      }
+
+      .cardList {
+        width: 100%;
+        justify-content: flex-start;
+      }
+    }
+  }
 }
 
 .eyebrow {
@@ -20,12 +40,16 @@
 
   .wrapper {
     margin-top: px(36);
-    margin-bottom: px(50);
+    margin-bottom: px(36);
+
+    @include media-tablet {
+      margin-bottom: px(35);
+    }
 
     @include media-desktopSm {
       @include use-desktop-columns(width, 4, 1);
       margin-top: px(22);
-      margin-bottom: 0;
+      margin-bottom: px(42);
     }
 
     .title {
@@ -49,10 +73,23 @@
     width: 100%;
     gap: px(15);
 
+    .card {
+      width: 100%;
+      @include media-tablet {
+        @include use-tablet-columns(width, 4);
+      }
+      @include media-desktopSm {
+        @include use-desktop-columns(width, 4);
+      }
+    }
+    @include media-tablet {
+      flex-flow: row wrap;
+      @include use-tablet-gutter(gap, 1);
+    }
+
     @include media-desktopSm {
       @include use-desktop-columns(width, 8);
       @include use-desktop-gutter(gap, 1);
-      flex-flow: row wrap;
     }
   }
 }

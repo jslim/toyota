@@ -51,3 +51,18 @@ export function checkWebpSupport(feature: keyof typeof testImages, callback: (is
 export const getImageUrl = (filePath: string) => {
   return require(`../assets/images/${filePath}`).default;
 };
+
+interface MailtoOptions {
+  email: string;
+  subject: string;
+  body: string;
+}
+
+export function getMailTo({ email, subject, body }: MailtoOptions) {
+  return `mailto:${email}?subject=${subject}&body=${body}`;
+}
+
+export function formatDate(date: string) {
+  const newDate = new Date(date);
+  return newDate.toLocaleString('default', { month: 'long', day: 'numeric', year: 'numeric' });
+}

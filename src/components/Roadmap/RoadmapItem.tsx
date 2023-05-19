@@ -173,7 +173,6 @@ const RoadmapItem: FC<RoadmapItemProps> = ({ item, index, theme, numOfSlides, se
           <ContentfulImage
             className={classNames(css.image, 'scaleDown')}
             asset={item.image}
-            useSrcSet={false}
             imageSizeMobile={{ extraGutters: 0, numCols: 4 }}
             imageSizeTablet={{ extraGutters: 0, numCols: 8 }}
             imageSizeDesktop={{ extraGutters: 0, numCols: 12 }}
@@ -185,10 +184,9 @@ const RoadmapItem: FC<RoadmapItemProps> = ({ item, index, theme, numOfSlides, se
               <ContentfulImage
                 className={css.svgIcon}
                 asset={item.svg}
-                useSrcSet={false}
-                imageSizeMobile={{ extraGutters: 0, numCols: 4 }}
-                imageSizeTablet={{ extraGutters: 0, numCols: 8 }}
-                imageSizeDesktop={{ extraGutters: 0, numCols: 12 }}
+                imageSizeMobile={{ extraGutters: 0, numCols: 3 }}
+                imageSizeTablet={{ extraGutters: 0, numCols: 3 }}
+                imageSizeDesktop={{ extraGutters: 0, numCols: 4 }}
               />
             </div>
           )}

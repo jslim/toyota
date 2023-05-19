@@ -2,6 +2,34 @@
 
 .root {
   position: relative;
+
+  &.isHorizontal {
+    margin-left: calc((100% - mobile-columns(4, 0)) / 2);
+
+    @include breakpoint(tablet) {
+      margin-left: calc((100% - tablet-columns(8, 0)) / 2);
+    }
+
+    @include breakpoint(desktopSm) {
+      margin-left: calc((100% - desktop-columns(12, 0)) / 2);
+    }
+  }
+
+  &:not(.isHorizontal) {
+    .container {
+      &::after {
+        content: '';
+        background: linear-gradient(0deg, rgba($black, 0.75) 0%, rgba($black, 0) 39%);
+        @include position-100(absolute);
+        pointer-events: none;
+        @include z-index(pages);
+
+        @include breakpoint(tablet) {
+          background: linear-gradient(331.68deg, rgba($black, 0.75) 4%, rgba($black, 0) 50%);
+        }
+      }
+    }
+  }
 }
 
 .wrapper {

@@ -53,4 +53,13 @@
     color: $mid-grey;
     pointer-events: none;
   }
+
+  .tooltip {
+    display: block;
+    position: absolute;
+    @include transform-center-horiz;
+    top: 100%;
+    white-space: nowrap;
+    @include typography-eyebrow;
+  }
 }

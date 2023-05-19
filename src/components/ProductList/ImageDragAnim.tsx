@@ -107,10 +107,9 @@ const ImageDrag: FC<ImageDragProps> = ({ className, image, getParentRef, handleS
           className={css.image}
           asset={image}
           ref={imageRef}
-          useSrcSet={false}
-          imageSizeMobile={{ extraGutters: 0, numCols: 4 }}
-          imageSizeTablet={{ extraGutters: 0, numCols: 8 }}
-          imageSizeDesktop={{ extraGutters: 0, numCols: 12 }}
+          imageSizeMobile={{ extraGutters: 0, numCols: 3 }}
+          imageSizeTablet={{ extraGutters: 0, numCols: 3 }}
+          imageSizeDesktop={{ extraGutters: 0, numCols: 4 }}
         />
       </div>
     </div>
