@@ -14,7 +14,7 @@ $video-player-controls-timer-font-size: px(15);
   height: auto;
   padding: 0 mobile-columns(0, 1) px(14);
   background-color: $video-player-controls-bg-color;
-  z-index: 1;
+  @include z-index(roadmap);
   box-sizing: border-box;
 
   @include breakpoint(tablet) {
