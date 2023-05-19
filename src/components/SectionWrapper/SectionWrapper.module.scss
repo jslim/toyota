@@ -6,7 +6,7 @@
   text-align: left;
   overflow: hidden;
   position: relative;
-  @include rounded(px(43), false);
+  @include rounded(px(24), true);
 
   .wrapper {
     @include box(100%);
@@ -31,8 +31,10 @@
   &.light {
     color: $dark-grey;
 
-    @include media-tablet {
-      width: 100%;
+    &:not(:global(.lightGreyBackgroundColorClass)) {
+      @include media-tablet {
+        width: 100%;
+      }
     }
   }
 
