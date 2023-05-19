@@ -10,10 +10,16 @@ export enum Color {
   WHITE = 'white',
   LINEAR = 'linear'
 }
-export const isDarkMode = (color: Color): string => {
-  return color === 'red' || color === 'midGrey' || color === 'black' || color === 'darkGrey'
-    ? variants.DARK
-    : variants.LIGHT;
+export const isDarkMode = (color: Color, isEyebrow = false): string => {
+  if (isEyebrow) {
+    return color === 'red' || color === 'midGrey' || color === 'black' || color === 'darkGrey'
+      ? variants.LIGHT
+      : variants.DARK;
+  } else {
+    return color === 'red' || color === 'midGrey' || color === 'black' || color === 'darkGrey'
+      ? variants.DARK
+      : variants.LIGHT;
+  }
 };
 
 export function getColorClass(color: Color) {

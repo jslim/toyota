@@ -37,7 +37,7 @@ const SectionWrapper: FC<SectionWrapperProps> = ({
       )}
     >
       <div className={css.wrapper}>
-        {eyebrow && <Eyebrow className={css.wrapperInfo} text={eyebrow} variant={isDarkMode(backgroundColor)} />}
+        {eyebrow && <Eyebrow className={css.wrapperInfo} text={eyebrow} variant={isDarkMode(backgroundColor, true)} />}
         {title && <h2 className={css.title}>{title}</h2>}
         {children}
       </div>
