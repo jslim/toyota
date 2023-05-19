@@ -239,6 +239,7 @@
     width: px(114);
     transform: scale(1);
     transition: transform 0.3s linear;
+    height: auto !important;
 
     @include media-tablet {
       width: px(231);
