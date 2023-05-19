@@ -39,10 +39,16 @@ const VideoPlayerContainer: FC<VideoPlayerContainerProps> = ({
   return (
     <div className={classNames('VideoPlayerContainer', css.root, className, css[theme])}>
       {isPlaying ? (
-        <VideoPlayer {...video} className={css.video} autoPlay togglePlaying={() => setIsPlaying(!isPlaying)} />
+        <VideoPlayer
+          {...video}
+          className={css.video}
+          theme={theme}
+          autoPlay
+          togglePlaying={() => setIsPlaying(!isPlaying)}
+        />
       ) : (
         <div className={css.imageWrapper} onClick={() => setIsPlaying(true)}>
-          <ContentfulImage asset={poster} className={css.poster} onLoad={onLoad} />
+          <ContentfulImage asset={poster} className={css.poster} onLoad={onLoad} withLazyLoad={false} />
           {title && <div className={css.title}>{title}</div>}
           <Cta className={css.playButton} theme={ButtonType.Large} isWhite={true} aria-label={'play video'}>
             <PlayIcon />

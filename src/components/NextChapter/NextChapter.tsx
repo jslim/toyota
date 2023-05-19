@@ -32,16 +32,7 @@ const NextChapter: FC<NextChapterProps> = ({ className, eyebrow, image, link }) 
       onMouseLeave={() => setActive(false)}
     >
       <div className={css.imageWrapper}>
-        <ContentfulImage
-          className={css.image}
-          asset={image}
-          imageQuality={50}
-          useSrcSet={false}
-          imageSizeMobile={{ extraGutters: 0, numCols: 12 }}
-          imageSizeTablet={{ extraGutters: 0, numCols: 12 }}
-          imageSizeDesktop={{ extraGutters: 0, numCols: 12 }}
-          alt=""
-        />
+        <ContentfulImage className={css.image} asset={image} alt="" />
       </div>
 
       <div className={css.wrapper}>

@@ -311,3 +311,22 @@
     }
   }
 }
+
+@mixin dateCat {
+  color: $dark-grey;
+  margin-bottom: px(11);
+
+  @include breakpoint(desktopSm) {
+    margin-bottom: px(16);
+  }
+
+  .category,
+  .date {
+    @include typography-eyebrow;
+    text-transform: uppercase;
+  }
+  .date {
+    color: $red;
+    margin-right: px(16);
+  }
+}

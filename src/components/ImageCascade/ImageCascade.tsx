@@ -1,5 +1,4 @@
-// @ts-nocheck
-import { FC, memo, ReactNode, useEffect, useRef } from 'react';
+import { FC, memo, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import gsap from 'gsap';
 import MorphSVGPlugin from 'gsap/dist/MorphSVGPlugin';
@@ -7,6 +6,7 @@ import MorphSVGPlugin from 'gsap/dist/MorphSVGPlugin';
 import css from './ImageCascade.module.scss';
 
 import resize from '@/services/resize';
+import { useLayout } from '@/hooks';
 
 export type ImageCascadeProps = {
   className?: string;
@@ -23,9 +23,18 @@ type pathProps = {
   offsetY?: number;
   initRound?: number;
   horizontal?: boolean;
+  divider?: number;
 };
 
-const buildPath = ({ width, height, offsetX = 0, offsetY = 0, initRound, horizontal = false }: pathProps) => {
+const buildPath = ({
+  width,
+  height,
+  offsetX = 0,
+  offsetY = 0,
+  initRound,
+  horizontal = false,
+  divider = 1
+}: pathProps) => {
   // Top edge starts at 0 so will default to offsetY
   const te = offsetY;
 
@@ -39,8 +48,8 @@ const buildPath = ({ width, height, offsetX = 0, offsetY = 0, initRound, horizon
   const be = height + offsetY;
 
   // Anchor Offsets
-  const aox = width ? 20 : 0;
-  const aoy = height ? 20 : 0;
+  const aox = width ? 20 / divider : 0;
+  const aoy = height ? 20 / divider : 0;
 
   // Corner Offsets
   let cox, coy;
@@ -48,8 +57,8 @@ const buildPath = ({ width, height, offsetX = 0, offsetY = 0, initRound, horizon
     cox = width ? initRound : 0;
     coy = height ? initRound : 0;
   } else {
-    cox = width ? 48 : 0;
-    coy = height ? 48 : 0;
+    cox = width ? 48 / divider : 0;
+    coy = height ? 48 / divider : 0;
   }
 
   // Midpoints for our straight "curve" anchors
@@ -60,20 +69,53 @@ const buildPath = ({ width, height, offsetX = 0, offsetY = 0, initRound, horizon
 
   if (horizontal) {
     return MorphSVGPlugin.rawPathToString([
-      re,
-      te,
-      midX,
-      te,
-      midX,
-      te,
-      le + cox,
-      te,
-      le + aox,
-      te,
+      [
+        re,
+        te,
+        midX,
+        te,
+        midX,
+        te,
+        le + cox,
+        te,
+        le + aox,
+        te,
+        le,
+        te + aoy,
+        le,
+        te + coy,
+        le,
+        midY,
+        le,
+        midY,
+        le,
+        be - coy,
+        le,
+        be - aoy,
+        le + aox,
+        be,
+        le + cox,
+        be,
+        midX,
+        be,
+        midX,
+        be,
+        re,
+        be,
+        re,
+        midY,
+        re,
+        midY,
+        re,
+        te
+      ]
+    ]);
+  }
+
+  return MorphSVGPlugin.rawPathToString([
+    [
       le,
-      te + aoy,
-      le,
-      te + coy,
+      te,
       le,
       midY,
       le,
@@ -90,87 +132,71 @@ const buildPath = ({ width, height, offsetX = 0, offsetY = 0, initRound, horizon
       be,
       midX,
       be,
-      re,
+      re - cox,
+      be,
+      re - aox,
       be,
       re,
-      midY,
+      be - aoy,
+      re,
+      be - coy,
       re,
       midY,
       re,
+      midY,
+      re,
+      te,
+      midX,
+      te,
+      midX,
+      te,
+      le,
       te
-    ]);
-  }
-
-  return MorphSVGPlugin.rawPathToString([
-    le,
-    te,
-    le,
-    midY,
-    le,
-    midY,
-    le,
-    be - coy,
-    le,
-    be - aoy,
-    le + aox,
-    be,
-    le + cox,
-    be,
-    midX,
-    be,
-    midX,
-    be,
-    re - cox,
-    be,
-    re - aox,
-    be,
-    re,
-    be - aoy,
-    re,
-    be - coy,
-    re,
-    midY,
-    re,
-    midY,
-    re,
-    te,
-    midX,
-    te,
-    midX,
-    te,
-    le,
-    te
+    ]
   ]);
 };
 
-const buildTargets = (width: number, height: number, offset: number, isHorizontal = false) => {
+const buildTargets = (width: number, height: number, offset: number, isHorizontal = false, divider = 1) => {
   return [
     buildPath({
       width: width, // Desired width of end shape
       height: height, // Full height of container
-      horizontal: isHorizontal
+      horizontal: isHorizontal,
+      divider
     }),
     buildPath({
       width: isHorizontal ? width - offset : width,
       height: isHorizontal ? height : height - offset,
       offsetX: isHorizontal ? offset : 0, // Path coordinates start at top left so we have to translate the shape back to the right edge
-      horizontal: isHorizontal
+      horizontal: isHorizontal,
+      divider
     }),
     buildPath({
       width: isHorizontal ? width - offset * 2 : width,
       height: isHorizontal ? height : height - offset * 2,
       offsetX: isHorizontal ? offset * 2 : 0,
-      horizontal: isHorizontal
+      horizontal: isHorizontal,
+      divider
     })
   ];
 };
 
-const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isHorizontal, fill = 'white', assetLoaded }) => {
+const ImageCascade: FC<ImageCascadeProps> = ({
+  className,
+  children,
+  isHorizontal = false,
+  fill = 'white',
+  assetLoaded
+}) => {
+  const { layout } = useLayout();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const panelsRef = useRef<(SVGPathElement | null)[]>([]);
-  const assetRef = useRef<HTMLDivElement | null>(null);
-  const uniqueId = parseInt(Date.now() * Math.random()).toString();
-
+  const assetRef = useRef<HTMLDivElement>(null);
+  const uniqueId = Math.round(Date.now() * Math.random()).toString();
+  const [firstRender, setFirstRender] = useState(true);
+  const isMobile = useMemo(() => {
+    return layout.mobile || (layout.tablet && isHorizontal);
+  }, [layout.mobile, layout.tablet, isHorizontal]);
   // eslint-disable-next-line sonarjs/cognitive-complexity
   useEffect(() => {
     if (!assetLoaded) return;
@@ -179,8 +205,7 @@ const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isHorizontal
 
     const getPathSizes = () => {
       const { width, height } = assetRef.current?.getBoundingClientRect() as DOMRect;
-
-      targets = buildTargets(width, height, 24, isHorizontal);
+      targets = buildTargets(width, height, isMobile ? 12 : 24, isHorizontal, isMobile ? 2 : 1);
 
       const startPoint = buildPath({
         width: 0,
@@ -197,73 +222,82 @@ const ImageCascade: FC<ImageCascadeProps> = ({ className, children, isHorizontal
     };
 
     getPathSizes();
-    // animating paths
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top 60%'
-        }
-      })
-      .to(
-        [panelsRef.current[0], panelsRef.current[1]],
-        {
-          morphSVG: { shape: targets[0], type: 'linear' },
-          ease: isHorizontal ? 'ease01' : 'ease02',
-          duration: 1.57
-        },
-        isHorizontal ? 0 : 0.067
-      )
-      .to(
-        panelsRef.current[2],
-        {
-          morphSVG: { shape: targets[1], type: 'linear' },
-          ease: isHorizontal ? 'ease01' : 'ease02',
-          duration: 1.57
-        },
-        0.5
-      )
-      .to(
-        panelsRef.current[3],
-        {
-          morphSVG: { shape: targets[2], type: 'linear' },
-          ease: isHorizontal ? 'ease01' : 'ease02',
-          duration: 1.35
-        },
-        isHorizontal ? 0.6 : 0.8
-      )
-      .from(
-        assetRef.current.getElementsByTagName('img'),
-        {
-          ease: 'ease01',
-          duration: 3,
-          scale: 1.28
-        },
-        0
-      );
 
     const resizePath = () => {
       getPathSizes();
-      gsap.set([panelsRef.current[0], panelsRef.current[1]], {
-        morphSVG: { shape: targets[0], type: 'linear' }
-      });
-      gsap.set(panelsRef.current[2], {
-        morphSVG: { shape: targets[1], type: 'linear' }
-      });
-      gsap.set(panelsRef.current[3], {
-        morphSVG: { shape: targets[2], type: 'linear' }
-      });
+      if (targets.length) {
+        gsap.set([panelsRef.current[0], panelsRef.current[1]], {
+          morphSVG: { shape: targets[0], type: 'linear' }
+        });
+        gsap.set(panelsRef.current[2], {
+          morphSVG: { shape: targets[1], type: 'linear' }
+        });
+        gsap.set(panelsRef.current[3], {
+          morphSVG: { shape: targets[2], type: 'linear' }
+        });
+      }
     };
 
+    // animating paths
+    if (firstRender && targets.length) {
+      gsap
+        .timeline({
+          onComplete: () => setFirstRender(false),
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top 60%'
+          }
+        })
+        .to(
+          [panelsRef.current[0], panelsRef.current[1]],
+          {
+            morphSVG: { shape: targets[0], type: 'linear' },
+            ease: isHorizontal ? 'ease01' : 'ease02',
+            duration: 1.57
+          },
+          isHorizontal ? 0 : 0.067
+        )
+        .to(
+          panelsRef.current[2],
+          {
+            morphSVG: { shape: targets[1], type: 'linear' },
+            ease: isHorizontal ? 'ease01' : 'ease02',
+            duration: 1.57
+          },
+          0.4
+        )
+        .to(
+          panelsRef.current[3],
+          {
+            morphSVG: { shape: targets[2], type: 'linear' },
+            ease: isHorizontal ? 'ease01' : 'ease02',
+            duration: 1.35
+          },
+          isHorizontal ? 0.6 : 0.8
+        )
+        .from(
+          assetRef.current?.getElementsByTagName('img') || null,
+          {
+            ease: 'ease01',
+            duration: 3,
+            scale: 1.28
+          },
+          0
+        );
+    } else {
+      resizePath();
+    }
     resize.listen(resizePath);
-
     return () => {
       resize.dismiss(resizePath);
     };
-  }, [assetLoaded, isHorizontal]);
+  }, [assetLoaded, isHorizontal, firstRender, isMobile]);
 
   return (
-    <div className={classNames('ImageCascade', css.root, className)} ref={containerRef}>
+    <div
+      className={classNames('ImageCascade', css.root, className, { [css.isHorizontal]: isHorizontal })}
+      ref={containerRef}
+    >
       <div className={css.wrapper}>
         <svg x="0px" y="0px" className={css.svg}>
           <g>

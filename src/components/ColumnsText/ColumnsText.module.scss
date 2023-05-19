@@ -15,12 +15,17 @@
       margin-bottom: px(24);
     }
   }
+  .spacer {
+    @include media-desktopSm {
+      height: px(62);
+      display: block;
+    }
+  }
   .titleContainer,
   .textContainer {
     p,
     b {
       margin-bottom: px(24);
-      display: block;
     }
   }
   .titleContainer {
@@ -34,6 +39,7 @@
     }
   }
   .textContainer {
+    overflow: hidden;
     @include typography-paragraph;
 
     b {
@@ -43,6 +49,48 @@
     a:not(:global(.cta)) {
       color: $red;
       text-decoration: underline;
+    }
+    h2,
+    h3,
+    h4,
+    h5 {
+      @include typography-h4;
+      margin-bottom: px(24);
+
+      @include media-desktopSm {
+        margin-bottom: px(32);
+      }
+    }
+  }
+
+  .leftSideTopBar {
+    @include dateCat;
+  }
+
+  .shareButtons {
+    @include flex-center-vert;
+    flex-wrap: wrap;
+    padding-top: px(7);
+    margin-bottom: px(25);
+    @include media-tablet {
+      margin-bottom: px(74);
+    }
+
+    @include media-desktopMd {
+      padding-top: px(24);
+      margin-bottom: 0;
+    }
+
+    .socialMediaButton {
+      position: relative;
+      margin-right: px(6);
+      margin-top: px(17);
+    }
+
+    .shareText {
+      width: 100%;
+      display: block;
+      @include typography-paragraph;
     }
   }
 
@@ -68,6 +116,27 @@
     }
   }
 
+  &.columns-40-60 {
+    .titleContainer {
+      .title {
+        @include typography-h2;
+      }
+      @include media-desktopSm {
+        max-width: px(380);
+        @include use-desktop-columns(width, 5);
+      }
+      @include media-desktopMd {
+        @include use-desktop-columns(width, 4);
+      }
+    }
+
+    .textContainer {
+      @include media-desktopSm {
+        @include use-desktop-columns(width, 7);
+      }
+    }
+  }
+
   &.columns-30-70 {
     .titleContainer {
       @include media-desktopSm {
@@ -82,37 +151,37 @@
     }
   }
   &.isSticky {
-    margin-bottom: px(45);
-    @include media-tablet {
-      margin-bottom: px(140);
-    }
-    @include media-desktopSm {
-      margin-bottom: px(192);
-    }
-
     .titleContainer {
       > div {
-        position: sticky;
         top: calc(#{$navbar-height} + #{px(30)});
-      }
-      @include media-tablet {
-        @include use-tablet-columns(width, 3);
-      }
-      @include media-desktopSm {
-        margin-left: px(-$grid-relative-side-padding-desktop-external);
-        width: calc(#{desktop-columns(3, 0)} + #{px($grid-relative-side-padding-desktop-external)});
-      }
-      @include breakpoint(desktopLock) {
-        margin-left: 0;
-        width: desktop-lock-columns(3, 0);
+        @include media-desktopSm {
+          position: sticky;
+          margin-bottom: px(60);
+        }
       }
     }
-    .textContainer {
-      @include media-tablet {
-        @include use-tablet-columns(width, 5);
+
+    &:not(.columns-40-60) {
+      .titleContainer {
+        @include media-tablet {
+          @include use-tablet-columns(width, 3);
+        }
+        @include media-desktopSm {
+          margin-left: px(-$grid-relative-side-padding-desktop-external);
+          width: calc(#{desktop-columns(3, 0)} + #{px($grid-relative-side-padding-desktop-external)});
+        }
+        @include breakpoint(desktopLock) {
+          margin-left: 0;
+          width: desktop-lock-columns(3, 0);
+        }
       }
-      @include media-desktopSm {
-        @include use-desktop-columns(width, 9);
+      .textContainer {
+        @include media-tablet {
+          @include use-tablet-columns(width, 5);
+        }
+        @include media-desktopSm {
+          @include use-desktop-columns(width, 9);
+        }
       }
     }
   }

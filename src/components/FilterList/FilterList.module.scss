@@ -1,17 +1,22 @@
 @import 'shared';
 
 .root {
-  position: absolute;
-  left: 0;
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  top: 60%;
+  left: 50%;
+  width: calc(100% - px(48));
   background-color: $white;
   padding: px(20) px(33) px(24) px(24);
   border-radius: px(8);
-  overflow: scroll;
+  overflow: hidden;
+  height: vh(85);
+}
 
-  @include media-tablet {
-    height: px(824);
-  }
+.contentBar {
+  overflow: scroll;
 }
 
 .close {
@@ -38,9 +43,12 @@
 
 .container {
   display: flex;
-  flex-flow: column wrap;
+  flex-wrap: wrap;
   gap: px(34);
   height: 100%;
+  @include media-tablet {
+    flex-flow: column wrap;
+  }
 }
 
 .open {

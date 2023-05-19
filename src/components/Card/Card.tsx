@@ -53,7 +53,7 @@ const Card: FC<CardProps> = ({ className, cardType = CardTypes.NEWS, image, titl
     );
   };
 
-  if (cta?.href && cta.title) {
+  if (cta?.href) {
     return (
       <BaseLink className={classNames(css.Card, className, css[cardType])} {...cta}>
         <InnerContent />

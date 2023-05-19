@@ -111,6 +111,7 @@
 
   .rightColumn {
     width: 100%;
+    margin-left: px(45);
 
     @include media-tablet {
       @include use-tablet-columns(width, 5, 0);

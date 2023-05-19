@@ -45,10 +45,9 @@ const ProductListRow: FC<ProductListRowProps> = ({ title, image, text, cta }) =>
             <ContentfulImage
               className={css.image}
               asset={image}
-              useSrcSet={false}
-              imageSizeMobile={{ extraGutters: 0, numCols: 4 }}
-              imageSizeTablet={{ extraGutters: 0, numCols: 8 }}
-              imageSizeDesktop={{ extraGutters: 0, numCols: 12 }}
+              imageSizeMobile={{ extraGutters: 0, numCols: 3 }}
+              imageSizeTablet={{ extraGutters: 0, numCols: 4 }}
+              imageSizeDesktop={{ extraGutters: 0, numCols: 4 }}
             />
           </div>
         )}
