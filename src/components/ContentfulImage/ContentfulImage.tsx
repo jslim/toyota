@@ -44,7 +44,7 @@ const ContentfulImage = forwardRef<HTMLImageElement, ContentfulImageProps>(
     // eslint-disable-next-line sonarjs/cognitive-complexity
   ) => {
     const [loadImage, setLoadImage] = useState(!(withLazyLoad || withLowResSwap));
-    const [setNode, isIntersection] = useIntersectionObserver(true, 0, '100px');
+    const [setNode, isIntersection] = useIntersectionObserver(true, 0, '-100px');
     const combinedRef = useCombinedRefs(ref, setNode);
     const isWebpSupported = useAppSelector((state) => state.isWebpSupported);
 
@@ -75,7 +75,8 @@ const ContentfulImage = forwardRef<HTMLImageElement, ContentfulImageProps>(
 
     const buildSrc = useCallback(
       (width: number, quality = imageQuality) => {
-        return `${imageUrl}?q=${quality}&w=${width}${isWebpSupported ? '&fm=webp' : ''}`;
+        const dpr = typeof window === 'undefined' ? 1 : Math.min(Math.max(window.devicePixelRatio, 1), 2);
+        return `${imageUrl}?q=${quality}&w=${width * dpr}${isWebpSupported ? '&fm=webp' : ''}`;
       },
       [imageQuality, imageUrl, isWebpSupported]
     );
@@ -86,6 +87,13 @@ const ContentfulImage = forwardRef<HTMLImageElement, ContentfulImageProps>(
         const base = 320;
         const hops = Math.floor(imageWidth / base);
         const sizes = [...Array(hops)].map((_, i) => (i + 1) * base);
+
+        /**
+         * If true asset size smaller than 1 hop, include its raw imageWidth.
+         * Stops us from downsizing images if asset was uploading at same
+         * dimensions as target location in component.
+         */
+        if (sizes.length === 1) sizes.push(imageWidth);
         sizes.forEach((size) => {
           srcSetString += `${buildSrc(size, q)} ${size}w,`;
         });
