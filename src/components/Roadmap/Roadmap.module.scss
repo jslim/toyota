@@ -95,6 +95,8 @@
   }
 
   &.default {
+    padding-bottom: px(80);
+
     .list {
       .item {
         min-height: px(588);
@@ -177,10 +179,6 @@
             width: calc(#{desktop-columns(5)} + #{px($grid-relative-side-padding-desktop-external)});
             margin-right: px(-$grid-relative-side-padding-desktop-external);
             min-height: px(228);
-          }
-
-          @include breakpoint(desktopMd) {
-            margin-bottom: px(-50);
           }
 
           .itemText {

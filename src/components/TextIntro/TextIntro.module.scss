@@ -11,7 +11,7 @@
     position: relative;
     align-items: center;
     text-align: left;
-    padding: px(68) 0;
+    padding: px(48) 0;
     height: 100%;
 
     @include media-tablet {
@@ -20,11 +20,15 @@
       justify-content: flex-start;
       align-items: flex-start;
       height: auto;
-      padding: px(48) 0;
+      padding: px(36) 0;
     }
 
     @include media-desktopSm {
-      padding: px(90) 0;
+      padding: px(70) 0;
+    }
+
+    @include media-desktopMd {
+      padding: px(38) 0;
     }
 
     &.tabletColumnLayout {
