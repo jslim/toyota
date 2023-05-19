@@ -10,11 +10,8 @@ import { Props as LinkProps } from '@/components/BaseLink/BaseLink';
 import Cta from '@/components/Cta/Cta';
 import Eyebrow from '@/components/Eyebrow/Eyebrow';
 
-import ToyotaBackground from '@/components/svgs/svg-toyota-background.svg';
-
 enum DefaultLayoutType {
   DEFAULT = 'default',
-  DEFAULT_BACKGROUND_IMAGE = 'defaultBackgroundImage',
   HEADER_LEFT = 'headerLeft'
 }
 
@@ -45,11 +42,6 @@ const TextIntro: FC<TextIntroProps> = ({ className, layout, eyebrow, header, des
 
   return (
     <div className={classNames('TextIntro', css.root, className, css[layout])}>
-      {layout === TextIntroLayout.DEFAULT_BACKGROUND_IMAGE && (
-        <div className={css.backgroundImageContainer}>
-          <ToyotaBackground className={css.backgroundImage} />
-        </div>
-      )}
       <div
         className={classNames(css.layoutWrapper, { [css.tabletColumnLayout]: layout === TextIntroLayout.HEADER_LEFT })}
       >

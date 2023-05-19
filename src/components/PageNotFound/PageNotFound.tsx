@@ -21,7 +21,7 @@ const PageNotFound: FC<PageNotFoundProps> = ({ className }) => {
   return (
     <main className={classNames('PageNotFound', css.root, className)}>
       <TextIntro
-        layout={TextIntroLayout.DEFAULT_BACKGROUND_IMAGE}
+        layout={TextIntroLayout.DEFAULT}
         eyebrow={'404'}
         header={notFoundPageHeader}
         description={notFoundPageDescription}

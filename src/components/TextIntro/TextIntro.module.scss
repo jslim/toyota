@@ -60,43 +60,6 @@
     }
   }
 
-  &.defaultBackgroundImage {
-    .layoutWrapper {
-      @include media-mobile {
-        padding-top: px(250);
-      }
-    }
-  }
-
-  .backgroundImageContainer {
-    position: absolute;
-    @include use-mobile-columns(width, 4);
-    margin-top: px(50);
-    top: 0;
-
-    @include media-tablet {
-      @include use-tablet-columns(width, 4);
-      margin: 0;
-      padding: 0;
-      bottom: 0;
-      height: 100%;
-    }
-
-    @include media-desktopSm {
-      padding: 0;
-      margin: 0;
-      @include use-desktop-columns(width, 7);
-    }
-
-    @include media-desktopMd {
-      @include use-desktop-columns(width, 8);
-    }
-  }
-
-  .backgroundImage {
-    @include box(100%);
-  }
-
   .leftColumn {
     width: 100%;
 
