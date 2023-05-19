@@ -189,7 +189,10 @@
 
             @include breakpoint(tablet) {
               @include typography-label;
-              max-width: px(425);
+            }
+
+            @include breakpoint(desktopSm) {
+              padding-right: px(26);
             }
           }
         }
