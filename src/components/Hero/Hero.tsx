@@ -49,7 +49,12 @@ const Hero: FC<HeroProps> = ({ className, title, image, video, theme = HeroType.
           onLoad={() => setAssetLoaded(true)}
         />
       ) : (
-        <ContentfulImage asset={image} onLoad={() => setAssetLoaded(true)} useSrcSet />
+        <ContentfulImage
+          asset={image}
+          onLoad={() => setAssetLoaded(true)}
+          withLazyLoad={false}
+          withLowResSwap={false}
+        />
       ),
     [image, video]
   );

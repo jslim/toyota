@@ -159,17 +159,7 @@ export const buildImageBlock = (
     ...extraProps
   },
   childrenFields: {
-    image: (
-      <ContentfulImage
-        key={fields.image.fields.title}
-        asset={fields.image}
-        useSrcSet
-        hasBorderRadius
-        imageSizeDesktop="100%"
-        imageSizeTablet="100%"
-        imageSizeMobile="100%"
-      />
-    )
+    image: <ContentfulImage key={fields.image.fields.title} asset={fields.image} hasBorderRadius withLazyLoad={false} />
   },
   component: ({ children }) => <>{children}</>
 });

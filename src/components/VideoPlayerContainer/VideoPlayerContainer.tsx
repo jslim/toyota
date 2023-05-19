@@ -48,7 +48,7 @@ const VideoPlayerContainer: FC<VideoPlayerContainerProps> = ({
         />
       ) : (
         <div className={css.imageWrapper} onClick={() => setIsPlaying(true)}>
-          <ContentfulImage asset={poster} className={css.poster} onLoad={onLoad} />
+          <ContentfulImage asset={poster} className={css.poster} onLoad={onLoad} withLazyLoad={false} />
           {title && <div className={css.title}>{title}</div>}
           <Cta className={css.playButton} theme={ButtonType.Large} isWhite={true} aria-label={'play video'}>
             <PlayIcon />
