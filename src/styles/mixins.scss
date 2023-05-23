@@ -215,12 +215,12 @@
   }
 }
 
-@mixin rounded($radius: px(24), $mobile: true) {
+@mixin rounded($radius: px(24), $mobile: false) {
   overflow: hidden;
   @if ($mobile) {
     border-radius: px(12);
   } @else {
-    border-radius: px(6);
+    border-radius: px(8);
 
     @include breakpoint(tablet) {
       border-radius: px(12);

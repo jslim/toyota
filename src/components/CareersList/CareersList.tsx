@@ -315,7 +315,7 @@ const CareersList: FC<CareersListProps> = ({
 
   return (
     <div className={classNames('CareersList', css.root, css.darkMode, className, { [css.modalOpen]: modalOpen })}>
-      <Eyebrow text={eyebrow} variant={variants.DARK} className={css.eyebrow} />
+      <Eyebrow text={eyebrow} variant={variants.LIGHT} className={css.eyebrow} />
       <div className={css.wrapper}>
         {!isDesktop && (
           <FilterList className={css.filtersModal} header={filtersLabel} onClose={() => setModalOpen(false)}>

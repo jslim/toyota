@@ -5,6 +5,17 @@
   text-align: left;
   width: 100%;
   display: flex;
+  padding: px(86) 0 0;
+  margin-bottom: px(40);
+
+  @include breakpoint(tablet) {
+    padding: px(72) 0 0;
+  }
+
+  @include breakpoint(desktopSm) {
+    padding: px(81) 0 px(8);
+    margin-bottom: px(48);
+  }
 
   .wrapper {
     @include container;
