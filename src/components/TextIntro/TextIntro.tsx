@@ -11,6 +11,8 @@ import { Props as LinkProps } from '@/components/BaseLink/BaseLink';
 import Cta from '@/components/Cta/Cta';
 import Eyebrow from '@/components/Eyebrow/Eyebrow';
 
+import useIntersectionObserver from '@/hooks/use-intersection-observer';
+
 enum DefaultLayoutType {
   DEFAULT = 'default',
   HEADER_LEFT = 'headerLeft'
@@ -26,10 +28,28 @@ export type TextIntroProps = {
   subtitle?: string | string[];
   description?: string;
   ctaProps?: LinkProps;
+  onVisibilityChange?: (isVisible: boolean) => void;
 };
 
-const TextIntro: FC<TextIntroProps> = ({ className, layout, eyebrow, header, description, ctaProps, subtitle }) => {
+const TextIntro: FC<TextIntroProps> = ({
+  className,
+  layout,
+  eyebrow,
+  header,
+  description,
+  ctaProps,
+  subtitle,
+  onVisibilityChange
+}) => {
   const contentRef = useRef<HTMLDivElement>(null);
+  const [setNode, isIntersection] = useIntersectionObserver(false, 0, '-100px');
+
+  useEffect(() => {
+    if (onVisibilityChange) {
+      setNode(contentRef.current!);
+      onVisibilityChange(isIntersection);
+    }
+  }, [isIntersection, onVisibilityChange, setNode]);
 
   useEffect(() => {
     gsap.from(contentRef.current, {

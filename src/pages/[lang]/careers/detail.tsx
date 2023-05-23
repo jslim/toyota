@@ -28,6 +28,7 @@ const CareerDetail: FC = () => {
   const [career, setCareer] = useState<Job>();
   const [leftSideContent, setLeftSideContent] = useState<ReactNode>();
   const [notFound, setNotFound] = useState<boolean>();
+  const [isCtaVisible, setIsCtaVisible] = useState<boolean>(true);
 
   const id = useMemo(() => {
     return router.query.jobID;
@@ -67,7 +68,11 @@ const CareerDetail: FC = () => {
         </div>
       ) : null
     );
-  }, [layout, career]);
+  }, [layout, career, isCtaVisible]);
+
+  const ctaVisibility = (isVisible: boolean) => {
+    setIsCtaVisible(isVisible);
+  };
 
   return (
     <>
@@ -79,6 +84,7 @@ const CareerDetail: FC = () => {
             header={career.text}
             subtitle={subtitle?.map((item, i) => (i === 0 && item ? item : ' / ' + item))}
             ctaProps={{ href: career.applyUrl, title: applyText }}
+            onVisibilityChange={ctaVisibility}
           />
           <ColumnsText theme={ColumnType.COLUMNS_30_70} isSticky={true} leftSide={leftSideContent}>
             <div dangerouslySetInnerHTML={{ __html: sanitizer(career?.description ?? '') }} />
