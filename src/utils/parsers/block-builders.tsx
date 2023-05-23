@@ -57,6 +57,7 @@ import LeadershipModule, { directorsProps } from '@/components/LeadershipModule/
 import MediaKit from '@/components/MediaKit/MediaKit';
 import NextChapter from '@/components/NextChapter/NextChapter';
 import OurLatestOverviewGrid from '@/components/OurLatestOverviewGrid/OurLatestOverviewGrid';
+import OurLatestPage from '@/components/OurLatestPage/OurLatestPage';
 import ProductList from '@/components/ProductList/ProductList';
 import RichtextWrapper from '@/components/RichtextWrapper/RichtextWrapper';
 import Roadmap from '@/components/Roadmap/Roadmap';
@@ -389,7 +390,7 @@ export const buildHero = (fields: HeroContentType, extraProps?: GenericObject): 
         date: `${month} ${day}, ${year}`,
         cat: fields?.featured?.fields?.category,
         title: fields?.featured?.fields?.pageTitle,
-        href: `/${extraProps?.lang || ''}/our-latest/${fields?.featured?.fields.slug}`
+        href: `/${extraProps?.lang || Lang.EN}/our-latest/${fields?.featured?.fields.slug}`
       },
       ...extraProps
     },
@@ -625,7 +626,7 @@ export const buildOurLatestPostPage = (
     props: {
       ...extraProps
     },
-    component: () => <>{fields.pageTitle}</>
+    component: () => <OurLatestPage {...fields} />
   };
 };
 

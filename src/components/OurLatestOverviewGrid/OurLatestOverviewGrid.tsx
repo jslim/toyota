@@ -66,22 +66,21 @@ const OurLatestOverviewGrid: FC<OurLatestOverviewGridProps> = ({
   const [filteredCards, setFilteredCards] = useState<Array<CardProps>>([]);
   const [topics, setTopics] = useState<Array<OurLatestFilterButtons>>([]);
 
-  const generateCardProps = useCallback((unfilteredCards: Array<GenericEntity<GenericObject>>) => {
-    setAllCards(
-      unfilteredCards?.map((card) => {
-        return makeFilteredEntity(card) as FilteredEntity<OurLatestPostPageContentType>;
-      })
-    );
-  }, []);
-
   const handleOnClick = useCallback(() => {
     setPage((page) => (page * 9 < filteredCards.length ? page + 1 : page));
   }, [setPage, filteredCards]);
 
   useEffect(() => {
-    if (allCards?.length !== 0) return;
+    const generateCardProps = (unfilteredCards: Array<GenericEntity<GenericObject>>) => {
+      setAllCards(
+        unfilteredCards?.map((card) => {
+          return makeFilteredEntity(card) as FilteredEntity<OurLatestPostPageContentType>;
+        })
+      );
+    };
+
     activeLang === Lang.EN ? generateCardProps(postsEn) : generateCardProps(postsJP);
-  }, [activeLang, setAllCards, allCards, generateCardProps]);
+  }, [activeLang, setAllCards]);
 
   useEffect(() => {
     let tempCards: Array<CardProps> = [];
@@ -107,7 +106,10 @@ const OurLatestOverviewGrid: FC<OurLatestOverviewGridProps> = ({
       });
 
       // if there's a topic set, ensure we're matching it and update active cards
-      if (!(topics && card.fields?.topic?.indexOf(Array.isArray(topics) ? topics[0] : topics) === -1)) {
+      if (
+        !(topics && card.fields?.topic?.indexOf(Array.isArray(topics) ? topics[0] : topics) === -1) &&
+        card.fields.topic != null
+      ) {
         const props = buildNewsCard(card.fields, { lang: activeLang }).props as CardProps;
         tempCards.push(props);
       }

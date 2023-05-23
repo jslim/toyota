@@ -13,6 +13,9 @@ import {
 
 const UNRESOLVED_LINK = {}; // unique object to avoid polyfill bloat using Symbol()
 
+// Specific object keys we should not resolve
+const skipKeys = ['pinnedPosts'];
+
 export const makeFilteredEntity = (entity: GenericEntity): FilteredEntity => {
   if (entity == null) {
     return {
@@ -109,7 +112,7 @@ const walkMutate = (
 
   if (input && typeof input === 'object') {
     for (const key in input) {
-      if (input.hasOwnProperty(key) && key !== 'pinnedPosts') {
+      if (input.hasOwnProperty(key) && skipKeys.indexOf(key) === -1) {
         input[key] = walkMutate(input[key], predicate, mutator, removeUnresolved);
       }
     }
@@ -125,16 +128,6 @@ const walkMutate = (
  */
 const normalizeLink = (entityMap: EntityMap, link: GenericObject, removeUnresolved: boolean) => {
   const resolvedLink = getLink(entityMap, link as GenericEntity);
-  // if (resolvedLink?.fields?.pinnedPosts) {
-  // resolvedLink.fields.pinnedPosts = [];
-  // }
-
-  // resolvedLink is a ref to teh actual object so modifying here removes from entry itself
-  // Can we just skip mutating this maybe and fetch the related posts by ID from the import later?
-  /**
-   * 1. We skip resolving pinned posts, stay as Link objects/references
-   * 2. In RelatedNews, we pass IDs from pinned posts, fetch directly from imported content
-   */
   if (resolvedLink === UNRESOLVED_LINK) {
     return removeUnresolved ? resolvedLink : link;
   }
