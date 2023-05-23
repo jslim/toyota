@@ -3,6 +3,16 @@
 .root {
   width: 100%;
   background-color: $white;
+  padding: px(26) 0 px(15);
+
+  @include media-tablet {
+    padding: px(12) 0 px(3);
+  }
+
+  @include media-desktopSm {
+    padding: px(38) 0 0;
+    margin-bottom: px(-22);
+  }
 
   &.related {
     .container {

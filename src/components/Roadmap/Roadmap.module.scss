@@ -95,6 +95,8 @@
   }
 
   &.default {
+    padding-bottom: px(80);
+
     .list {
       .item {
         min-height: px(588);
@@ -179,17 +181,16 @@
             min-height: px(228);
           }
 
-          @include breakpoint(desktopMd) {
-            margin-bottom: px(-50);
-          }
-
           .itemText {
             margin-top: auto;
             @include typography-paragraph;
 
             @include breakpoint(tablet) {
               @include typography-label;
-              max-width: px(425);
+            }
+
+            @include breakpoint(desktopSm) {
+              padding-right: px(26);
             }
           }
         }
