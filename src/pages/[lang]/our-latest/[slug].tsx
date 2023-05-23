@@ -13,6 +13,7 @@ import {
 import usePreviewData from '@/hooks/use-preview-data';
 import { getAllLangSlugs } from '@/utils/locales';
 import { getPageBlocks } from '@/utils/parsers/get-page-blocks';
+import { buildPageMetaData } from '@/utils/parsers/page-metadata-parser-util';
 import resolveResponse, { makeFilteredEntity } from '@/utils/parsers/response-parser-util';
 
 /* eslint-disable */
@@ -76,7 +77,7 @@ export const getStaticProps: GetStaticProps<OurLatestPostPageProps> = async ({ p
 
   return {
     props: {
-      head: { title: data?.fields?.pageTitle ?? 'Our Latest' },
+      head: buildPageMetaData(data.fields?.metadata?.fields),
       // IMPORTANT: wrap everything in "data" so that it can be swapped dynamically with Preview data
       data
     }

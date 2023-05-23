@@ -15,6 +15,7 @@ import PageDefault from '@/components/PageDefault/PageDefault';
 import usePreviewData from '@/hooks/use-preview-data';
 import { getAllLangSlugs, getLocaleByLang } from '@/utils/locales';
 import { getPageBlocks } from '@/utils/parsers/get-page-blocks';
+import { buildPageMetaData } from '@/utils/parsers/page-metadata-parser-util';
 
 type DefaultPageData = FilteredEntity<DefaultPageContentType>;
 
@@ -78,7 +79,7 @@ export const getStaticProps: GetStaticProps<DefaultPageProps> = async ({ params 
 
   return {
     props: {
-      head: { title: data?.fields?.pageTitle ?? '' },
+      head: buildPageMetaData(data.fields?.metadata?.fields),
       // IMPORTANT: wrap everything in "data" so that it can be swapped dynamically with Preview data
       data
     }
