@@ -75,7 +75,7 @@ const ContentfulImage = forwardRef<HTMLImageElement, ContentfulImageProps>(
 
     const buildSrc = useCallback(
       (width: number, quality = imageQuality) => {
-        const dpr = typeof window === 'undefined' ? 1 : Math.min(Math.max(window.devicePixelRatio, 1), 2);
+        const dpr = typeof window === 'undefined' ? 1 : Math.min(Math.max(Math.floor(window.devicePixelRatio), 1), 2);
         return `${imageUrl}?q=${quality}&w=${Math.min(width * dpr, 4000)}${isWebpSupported ? '&fm=webp' : ''}`;
       },
       [imageQuality, imageUrl, isWebpSupported]
