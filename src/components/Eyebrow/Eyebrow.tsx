@@ -12,7 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
 export type EyebrowProps = {
   className?: string;
   text: string;
-  variant?: string;
+  variant?: variants | string;
 };
 
 const Eyebrow = ({ className, text, variant }: EyebrowProps) => {
@@ -31,7 +31,8 @@ const Eyebrow = ({ className, text, variant }: EyebrowProps) => {
     <div
       className={classNames('Eyebrow', css.root, className, {
         [css.dark]: variant === variants.DARK,
-        [css.light]: variant === variants.LIGHT
+        [css.light]: variant === variants.LIGHT,
+        [css.white]: variant === 'white'
       })}
     >
       <p className={css.text}>

@@ -4,7 +4,6 @@ import classnames from 'classnames';
 import css from './NextChapter.module.scss';
 
 import { ContentfulImageAsset } from '@/data/types';
-import { variants } from '@/data/variants';
 
 import BaseLink from '@/components/BaseLink/BaseLink';
 import { Props as LinkProps } from '@/components/BaseLink/BaseLink';
@@ -37,7 +36,7 @@ const NextChapter: FC<NextChapterProps> = ({ className, eyebrow, image, link }) 
 
       <div className={css.wrapper}>
         <div className={css.textWrapper}>
-          <Eyebrow className={css.eyebrow} text={eyebrow} variant={variants.LIGHT} />
+          <Eyebrow className={css.eyebrow} text={eyebrow} variant="white" />
           <div className={css.title}>{link.title}</div>
         </div>
         <Cta

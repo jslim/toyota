@@ -5,13 +5,19 @@
 
   &.dark {
     .text {
-      color: $light-grey;
+      color: $mid-grey;
     }
   }
 
   &.light {
     .text {
-      color: $white;
+      color: $grey;
+    }
+  }
+
+  &.white {
+    .text {
+      color: $light-grey;
     }
   }
 }
