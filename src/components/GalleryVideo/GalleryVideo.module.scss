@@ -11,9 +11,9 @@
     }
 
     .slide {
+      @include rounded;
       width: 100%;
       margin-right: px($grid-relative-gap-desktop);
-      @include rounded;
 
       &:last-child {
         margin-right: 0;
@@ -22,7 +22,7 @@
 
     .image {
       @include aspect-ratio(16, 9);
-      @include box(100%);
+      @include container;
       object-fit: cover;
     }
   }
