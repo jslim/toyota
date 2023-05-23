@@ -3,6 +3,11 @@
 .root {
   display: flex;
   flex-direction: column;
+  padding-top: px(60);
+
+  @include media-desktopSm {
+    padding-top: px(120);
+  }
 }
 
 .textWrapper {
