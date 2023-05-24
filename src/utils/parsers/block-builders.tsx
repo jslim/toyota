@@ -665,6 +665,7 @@ export const buildOurLatestOverview = (
           newsLabel={fields.newsLabel}
           blogLabel={fields.blogLabel}
           researchLabel={fields.researchLabel}
+          loadMoreLabel={fields.loadMoreLabel}
         />
         {mediaKit ? (
           <SectionWrapper eyebrow="downloads" title="Media Kit">

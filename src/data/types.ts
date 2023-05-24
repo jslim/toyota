@@ -264,6 +264,7 @@ export type OurLatestPageContentType = {
   newsLabel: string;
   blogLabel: string;
   researchLabel: string;
+  loadMoreLabel: string;
 };
 
 export type OurLatestPostPageContentType = {
