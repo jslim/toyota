@@ -11,7 +11,7 @@ export const langLocaleMap: LangLocaleMap = {
 
 export function getLocaleByLang(lang: Lang | null): Locale {
   const locale = Object.keys(langLocaleMap).find((key) => key === lang) as Lang;
-  return langLocaleMap[locale || defaultLocale] as Locale;
+  return langLocaleMap[locale || defaultLocale];
 }
 
 export function getAllLangSlugs() {
