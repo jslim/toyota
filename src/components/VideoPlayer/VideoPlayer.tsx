@@ -209,9 +209,11 @@ const VideoPlayer = ({
     if (!captions) return;
 
     const video = VideoRef.current.video;
-    if (video.contains(trackRef.current)) {
-      video.removeChild(trackRef.current);
-      trackRef.current?.removeEventListener('cuechange', onTrackChange);
+    const existingTrack = video.querySelector('track');
+
+    if (existingTrack) {
+      video.removeChild(existingTrack);
+      existingTrack.removeEventListener('cuechange', onTrackChange);
     }
 
     const trackElement = document.createElement('track');
@@ -220,11 +222,10 @@ const VideoPlayer = ({
     trackElement.srclang = captions.srclang;
     trackElement.default = captions.default;
     trackElement.src = captions.src;
-    trackElement.track.mode = 'hidden';
+    trackElement.track.mode = 'showing';
 
     trackRef.current = trackElement;
     video.appendChild(trackElement);
-    video.textTracks[0].mode = 'hidden';
     trackElement.style.display = 'none';
 
     trackRef.current.addEventListener('cuechange', onTrackChange);
