@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import { FC, memo, useMemo } from 'react';
 import classNames from 'classnames';
 
 import css from './Card.module.scss';
@@ -31,7 +31,7 @@ export type CardProps = {
 };
 
 const Card: FC<CardProps> = ({ className, cardType = CardTypes.NEWS, image, title, subTitle, text, date, cta }) => {
-  const InnerContent = () => {
+  const innerContent = useMemo(() => {
     return (
       <>
         <ContentfulImage asset={image} className={css.image} />
@@ -51,21 +51,17 @@ const Card: FC<CardProps> = ({ className, cardType = CardTypes.NEWS, image, titl
         </div>
       </>
     );
-  };
+  }, [cardType, cta, date, image, subTitle, text, title]);
 
   if (cta?.href) {
     return (
       <BaseLink className={classNames(css.Card, className, css[cardType])} {...cta}>
-        <InnerContent />
+        {innerContent}
       </BaseLink>
     );
   }
 
-  return (
-    <div className={classNames(css.Card, className, css[cardType])}>
-      <InnerContent />
-    </div>
-  );
+  return <div className={classNames(css.Card, className, css[cardType])}>{innerContent}</div>;
 };
 
 export default memo(Card);

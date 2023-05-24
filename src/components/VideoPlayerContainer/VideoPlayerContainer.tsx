@@ -7,8 +7,7 @@ import { ContentfulImageAsset } from '@/data/types';
 
 import Cta, { ButtonType } from '@/components/Cta/Cta';
 import PlayIcon from '@/components/VideoPlayer/VideoControls/svgs/play.svg';
-import { Props as VideoProps } from '@/components/VideoPlayer/VideoPlayer';
-import VideoPlayer from '@/components/VideoPlayer/VideoPlayer';
+import VideoPlayer, { Props as VideoProps } from '@/components/VideoPlayer/VideoPlayer';
 
 import ContentfulImage from '../ContentfulImage/ContentfulImage';
 
