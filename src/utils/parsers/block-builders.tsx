@@ -621,16 +621,19 @@ export const buildOurLatestOverview = (
   extraProps?: GenericObject
 ): ComponentBuilder => {
   const featuredPost = fields.featuredArticle;
-  const { props: heroProps, component: HeroComponent } = buildHero(
-    {
-      video: undefined,
-      title: fields.pageTitle,
-      theme: HeroType.Overview,
-      image: featuredPost.fields.thumbnail,
-      featured: featuredPost
-    },
-    extraProps
-  );
+  let hero: ComponentBuilder;
+  if (featuredPost.fields) {
+    hero = buildHero(
+      {
+        video: undefined,
+        title: fields.pageTitle,
+        theme: HeroType.Overview,
+        image: featuredPost.fields.thumbnail,
+        featured: featuredPost
+      },
+      extraProps
+    );
+  }
 
   const mediaKit = fields?.mediaKit?.fields ? buildMediaKit(fields.mediaKit.fields) : null;
   return {
@@ -639,7 +642,7 @@ export const buildOurLatestOverview = (
     },
     component: () => (
       <>
-        <HeroComponent {...heroProps}></HeroComponent>
+        {hero && <hero.component {...hero.props}></hero.component>}
         <OurLatestOverviewGrid
           topicsLabel={fields.topicsLabel}
           categoriesLabel={fields.categoriesLabel}

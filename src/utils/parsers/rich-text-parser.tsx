@@ -1,7 +1,6 @@
-import { Children, ReactNode } from 'react';
+import { Children, ReactElement, ReactNode } from 'react';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS, Document, INLINES } from '@contentful/rich-text-types';
-import noop from 'no-op';
 
 import { ContentfulImageAsset, FilteredEntity } from '@/data/types';
 
@@ -38,6 +37,9 @@ type ContentfulImageNodeType = {
 const isRenderMarks = (children: ReactNode) => {
   if (Children.count(children) > 1) {
     return Children.toArray(children).some((child) => {
+      if ((child as ReactElement).props && (child as ReactElement).props.href) {
+        return true;
+      }
       if (child && child.hasOwnProperty('type')) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const childType = (child as any).type;
@@ -85,24 +87,9 @@ export const parseContentfulRichText = (richText: Document, className?: string):
           const videoSrc = node?.data?.target?.fields.file.url;
           return (
             videoSrc && (
-              <VideoPlayer
-                src={videoSrc}
-                style={{ width: '720px', height: '306px', margin: 'auto' }}
-                poster={''}
-                windowWidth={window.innerWidth}
-                windowHeight={window.innerHeight}
-                togglePlayOnClick={true}
-                startTime={0}
-                allowKeyboardControl={true}
-                showControlsOnLoad={true}
-                hasControls={true}
-                hasPlayOnly={false}
-                autoPlayDelay={0}
-                disableBackgroundCover={true}
-                controlsTimeout={2.5}
-                togglePlaying={noop}
-                onEnd={noop}
-              />
+              <div className="rte-video">
+                <VideoPlayer src={videoSrc} style={{ maxWidth: '100%' }} />
+              </div>
             )
           );
         }
