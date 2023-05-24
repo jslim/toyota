@@ -76,10 +76,10 @@ const OurLatestOverviewGrid: FC<OurLatestOverviewGridProps> = ({
     let tempCards: Array<CardProps> = [];
     const filters: TopicFilters = {};
 
-    allCards.forEach((card) => {
-      const category = router?.query?.category;
-      const topics = router?.query?.topic;
+    const category = router?.query?.category;
+    const topics = router?.query?.topic;
 
+    allCards.forEach((card) => {
       // If we card isn't in active category escape early
       if (category && card.fields.category !== category) return false;
 
@@ -92,7 +92,7 @@ const OurLatestOverviewGrid: FC<OurLatestOverviewGridProps> = ({
       });
 
       // if there's a topic set, ensure we're matching it and update active cards
-      if (!(topics && card.fields?.topic?.indexOf(topics[0]) === -1)) {
+      if (!(topics && card.fields?.topic?.indexOf(Array.isArray(topics) ? topics[0] : topics) === -1)) {
         const props = buildNewsCard(card.fields, { lang: activeLang }).props as CardProps;
         tempCards.push(props);
       }
