@@ -9,8 +9,8 @@ import noop from 'no-op';
 
 import styles from './VideoPlayer.module.scss';
 
-import VideoControls from './VideoControls/VideoControls';
 import { VideoType } from '../VideoPlayerContainer/VideoPlayerContainer';
+import VideoControls from './VideoControls/VideoControls';
 
 export type Captions = {
   kind: string;
@@ -372,7 +372,7 @@ const VideoPlayer = ({
         extraVideoElementProps={{ crossOrigin }}
       />
 
-      {captions && (
+      {captions && captions.src && (
         <div className={styles.captionsContainer} ref={captionsContainer}>
           {currentCaptions && <p>{currentCaptions}</p>}
         </div>

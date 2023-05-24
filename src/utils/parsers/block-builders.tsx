@@ -424,12 +424,33 @@ export const buildVideoPlayerSection = (
   fields: videoPlayerSectionContentType,
   extraProps?: GenericObject
 ): ComponentBuilder => {
-  const videoPlayerSection = {
-    poster: fields?.videoPlayerSection?.fields?.poster,
-    video: { src: fields?.videoPlayerSection?.fields?.video.fields.file.url },
-    title: fields?.videoPlayerSection?.fields?.title,
-    theme: fields?.videoPlayerSection?.fields?.theme
-  };
+  const hasCaptions = Boolean(fields?.videoPlayerSection?.fields?.closedCaptions);
+  let videoPlayerSection;
+
+  hasCaptions
+    ? (videoPlayerSection = {
+        poster: fields?.videoPlayerSection?.fields?.poster,
+        video: {
+          src: fields?.videoPlayerSection?.fields?.video.fields.file.url,
+          captions: {
+            kind: 'captions',
+            label: fields?.videoPlayerSection?.fields?.closedCaptions.fields.title,
+            srclang: fields?.videoPlayerSection?.fields?.closedCaptions.locale,
+            default: true,
+            src: fields?.videoPlayerSection?.fields?.closedCaptions.fields.file.url
+          }
+        },
+        title: fields?.videoPlayerSection?.fields?.title,
+        theme: fields?.videoPlayerSection?.fields?.theme
+      })
+    : (videoPlayerSection = {
+        poster: fields?.videoPlayerSection?.fields?.poster,
+        video: {
+          src: fields?.videoPlayerSection?.fields?.video.fields.file.url
+        },
+        title: fields?.videoPlayerSection?.fields?.title,
+        theme: fields?.videoPlayerSection?.fields?.theme
+      });
   return {
     props: {
       quote: fields?.quote,
