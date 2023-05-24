@@ -6,8 +6,7 @@ import '@/utils/why-did-you-render';
 
 import '@/styles/global.scss';
 
-import { GlobalData } from '@/data/types';
-import { PageProps } from '@/data/types';
+import { GlobalData, PageProps } from '@/data/types';
 
 import Layout from '@/components/Layout/Layout';
 

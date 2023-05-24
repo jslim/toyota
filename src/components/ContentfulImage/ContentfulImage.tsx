@@ -103,7 +103,7 @@ const ContentfulImage = forwardRef<HTMLImageElement, ContentfulImageProps>(
       [buildSrc, imageQuality, imageWidth]
     );
 
-    if (!asset || !asset.fields || !asset.fields.file) return null;
+    if (!asset?.fields?.file) return null;
 
     return (
       <img

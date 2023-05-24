@@ -4,8 +4,9 @@ import classNames from 'classnames';
 import css from './VideoPlayerSection.module.scss';
 
 import ImageCascade from '@/components/ImageCascade/ImageCascade';
-import VideoPlayerContainer from '@/components/VideoPlayerContainer/VideoPlayerContainer';
-import { VideoPlayerContainerProps as Props } from '@/components/VideoPlayerContainer/VideoPlayerContainer';
+import VideoPlayerContainer, {
+  VideoPlayerContainerProps as Props
+} from '@/components/VideoPlayerContainer/VideoPlayerContainer';
 
 export type VideoPlayerSectionProps = {
   className?: string;

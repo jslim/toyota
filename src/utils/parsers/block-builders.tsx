@@ -141,7 +141,7 @@ export const buildAccordionGroup = (
   fields: AccordionGroupContentType,
   extraProps?: GenericObject
 ): ComponentBuilder => {
-  const variant = fields.colorBackground && fields.colorBackground[0] === 'Black' ? variants.DARK : variants.LIGHT;
+  const variant = fields?.colorBackground[0] === 'Black' ? variants.DARK : variants.LIGHT;
   return {
     props: {
       variant,
@@ -175,12 +175,12 @@ export const buildNextChapter = (fields: NextChapterContentType, extraProps?: Ge
 });
 
 export const buildSectionWrapper = (fields: SectionContentType, extraProps?: GenericObject): ComponentBuilder => {
-  const theme = fields.colorBackground && fields.colorBackground[0];
+  const theme = fields?.colorBackground?.[0];
   return {
     props: {
       eyebrow: fields.eyebrowText,
       title: fields.displayTitle,
-      backgroundColor: fields?.colorBackground ? fields.colorBackground[0] : null,
+      backgroundColor: fields.colorBackground?.[0] ?? null,
       theme,
       targetId: fields?.targetId,
       ...extraProps
@@ -540,7 +540,7 @@ export const buildLeadershipModule = (
   extraProps?: GenericObject
 ): ComponentBuilder => {
   const directors: directorsProps = {
-    label: fields?.boardOfDirectorsSectionTitle || '',
+    label: fields?.boardOfDirectorsSectionTitle ?? '',
     list: fields?.boardMembers.map((el) => {
       const { name, roletitle } = el.fields;
       return {
@@ -551,7 +551,7 @@ export const buildLeadershipModule = (
   };
 
   const slides: Array<LeadershipCardProps> = fields.leaders.map((leaderPage) => {
-    const { leaderName, shortRole, headshot, slug } = leaderPage?.fields;
+    const { leaderName, shortRole, headshot, slug } = leaderPage?.fields ?? {};
     return {
       title: leaderName,
       image: headshot,
@@ -621,16 +621,19 @@ export const buildOurLatestOverview = (
   extraProps?: GenericObject
 ): ComponentBuilder => {
   const featuredPost = fields.featuredArticle;
-  const { props: heroProps, component: HeroComponent } = buildHero(
-    {
-      video: undefined,
-      title: fields.pageTitle,
-      theme: HeroType.Overview,
-      image: featuredPost.fields.thumbnail,
-      featured: featuredPost
-    },
-    extraProps
-  );
+  let hero: ComponentBuilder;
+  if (featuredPost.fields) {
+    hero = buildHero(
+      {
+        video: undefined,
+        title: fields.pageTitle,
+        theme: HeroType.Overview,
+        image: featuredPost.fields.thumbnail,
+        featured: featuredPost
+      },
+      extraProps
+    );
+  }
 
   const mediaKit = fields?.mediaKit?.fields ? buildMediaKit(fields.mediaKit.fields) : null;
   return {
@@ -639,7 +642,7 @@ export const buildOurLatestOverview = (
     },
     component: () => (
       <>
-        <HeroComponent {...heroProps}></HeroComponent>
+        {hero && <hero.component {...hero.props}></hero.component>}
         <OurLatestOverviewGrid
           topicsLabel={fields.topicsLabel}
           categoriesLabel={fields.categoriesLabel}

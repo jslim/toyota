@@ -9,8 +9,8 @@ import noop from 'no-op';
 
 import styles from './VideoPlayer.module.scss';
 
-import VideoControls from './VideoControls/VideoControls';
 import { VideoType } from '../VideoPlayerContainer/VideoPlayerContainer';
+import VideoControls from './VideoControls/VideoControls';
 
 export type Captions = {
   kind: string;
@@ -34,19 +34,19 @@ export type Props = {
   captions?: Captions;
   autoPlay?: boolean;
   volume?: number;
-  togglePlayOnClick: boolean;
-  windowWidth: number;
-  windowHeight: number;
-  startTime: number;
-  allowKeyboardControl: boolean;
-  showControlsOnLoad: boolean;
-  hasControls: boolean;
-  hasPlayOnly: boolean;
-  autoPlayDelay: number;
-  disableBackgroundCover: boolean;
-  controlsTimeout: number;
-  togglePlaying: Function;
-  onEnd: Function;
+  togglePlayOnClick?: boolean;
+  windowWidth?: number;
+  windowHeight?: number;
+  startTime?: number;
+  allowKeyboardControl?: boolean;
+  showControlsOnLoad?: boolean;
+  hasControls?: boolean;
+  hasPlayOnly?: boolean;
+  autoPlayDelay?: number;
+  disableBackgroundCover?: boolean;
+  controlsTimeout?: number;
+  togglePlaying?: Function;
+  onEnd?: Function;
   onLoad?: Function;
 };
 
@@ -89,7 +89,10 @@ const VideoPlayer = ({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const VideoRef = useRef<any | null>();
 
-  const [containerSize, setContainerSize] = useState({ width: windowWidth || 0, height: windowHeight || 0 });
+  const [containerSize, setContainerSize] = useState<{ width?: number; height?: number }>({
+    width: windowWidth || 0,
+    height: windowHeight || 0
+  });
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(muted);
   const [isFullScreen, setIsFullScreen] = useState(false);
