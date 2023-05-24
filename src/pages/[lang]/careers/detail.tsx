@@ -14,6 +14,7 @@ import PageNotFound from '@/components/PageNotFound/PageNotFound';
 import Spacer, { Sizes } from '@/components/Spacer/Spacer';
 import TextIntro from '@/components/TextIntro/TextIntro';
 
+import useIntersectionObserver from '@/hooks/use-intersection-observer';
 import useLayout from '@/hooks/use-layout';
 import { getAllLangSlugs } from '@/utils/locales';
 import sanitizer from '@/utils/sanitizer';
@@ -28,7 +29,7 @@ const CareerDetail: FC = () => {
   const [career, setCareer] = useState<Job>();
   const [leftSideContent, setLeftSideContent] = useState<ReactNode>();
   const [notFound, setNotFound] = useState<boolean>();
-  const [isCtaVisible, setIsCtaVisible] = useState<boolean>(true);
+  const [setNode, isIntersection] = useIntersectionObserver(false, 0, '0% 0% -80% 0%');
 
   const id = useMemo(() => {
     return router.query.jobID;
@@ -60,6 +61,7 @@ const CareerDetail: FC = () => {
   ];
 
   useEffect(() => {
+    console.log(isIntersection);
     setLeftSideContent(
       !layout.mobile && career ? (
         <div>
@@ -68,11 +70,7 @@ const CareerDetail: FC = () => {
         </div>
       ) : null
     );
-  }, [layout, career, isCtaVisible]);
-
-  const ctaVisibility = (isVisible: boolean) => {
-    setIsCtaVisible(isVisible);
-  };
+  }, [layout, career, isIntersection, setNode]);
 
   return (
     <>
@@ -84,7 +82,6 @@ const CareerDetail: FC = () => {
             header={career.text}
             subtitle={subtitle?.map((item, i) => (i === 0 && item ? item : ' / ' + item))}
             ctaProps={{ href: career.applyUrl, title: applyText }}
-            onVisibilityChange={ctaVisibility}
           />
           <ColumnsText theme={ColumnType.COLUMNS_30_70} isSticky={true} leftSide={leftSideContent}>
             <div dangerouslySetInnerHTML={{ __html: sanitizer(career?.description ?? '') }} />
