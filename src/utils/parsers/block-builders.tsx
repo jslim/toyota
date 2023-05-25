@@ -433,7 +433,7 @@ export const buildVideoPlayerSection = (
         video: {
           src: fields?.videoPlayerSection?.fields?.video.fields.file.url,
           captions: {
-            kind: 'captions',
+            kind: 'metadata',
             label: fields?.videoPlayerSection?.fields?.closedCaptions.fields.title,
             srclang: fields?.videoPlayerSection?.fields?.closedCaptions.locale,
             default: true,

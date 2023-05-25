@@ -209,11 +209,10 @@ const VideoPlayer = ({
     if (!captions) return;
 
     const video = VideoRef.current.video;
-    const existingTrack = video.querySelector('track');
-
-    if (existingTrack) {
-      video.removeChild(existingTrack);
-      existingTrack.removeEventListener('cuechange', onTrackChange);
+    if (video.contains(trackRef.current)) {
+      console.log(trackRef.current?.track, 'trackref');
+      video.removeChild(trackRef.current);
+      trackRef.current?.removeEventListener('cuechange', onTrackChange);
     }
 
     const trackElement = document.createElement('track');
@@ -222,12 +221,11 @@ const VideoPlayer = ({
     trackElement.srclang = captions.srclang;
     trackElement.default = captions.default;
     trackElement.src = captions.src;
-    trackElement.track.mode = 'showing';
+    trackElement.track.mode = 'hidden';
 
     trackRef.current = trackElement;
     video.appendChild(trackElement);
     trackElement.style.display = 'none';
-
     trackRef.current.addEventListener('cuechange', onTrackChange);
   }
 
@@ -373,7 +371,7 @@ const VideoPlayer = ({
         extraVideoElementProps={{ crossOrigin }}
       />
 
-      {captions && captions.src && (
+      {captions?.src && (
         <div className={styles.captionsContainer} ref={captionsContainer}>
           {currentCaptions && <p>{currentCaptions}</p>}
         </div>
