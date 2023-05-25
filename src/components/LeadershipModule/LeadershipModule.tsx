@@ -39,7 +39,7 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title
   const [isCarouselLocked, setIsCarouselLocked] = useState(false);
 
   const isDesktop = useMemo(() => {
-    return !(layout.mobile || layout.tablet);
+    return !(typeof window !== 'undefined' && (layout.mobile || layout.tablet));
   }, [layout.mobile, layout.tablet]);
   const pairsArray = useMemo(() => {
     let pairs = [];
@@ -90,7 +90,7 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title
 
       <div className={css.container}>
         <div className={css.swiperWrapper} ref={containerRef}>
-          {isDesktop && !isCarouselLocked && <Cursor containerRef={containerRef} />}
+          {isDesktop && !isCarouselLocked && containerRef.current && <Cursor containerRef={containerRef} />}
           <Swiper
             className={css.carouselContainer}
             autoHeight={true}

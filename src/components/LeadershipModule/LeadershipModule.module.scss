@@ -35,6 +35,10 @@
 
     .carouselContainer > div {
       align-items: center;
+
+      @include media-desktopSm {
+        height: auto !important;
+      }
     }
 
     .board {
