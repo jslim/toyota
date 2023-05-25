@@ -19,25 +19,27 @@
   overflow: scroll;
 }
 
-.close {
-  @include box(px(14));
-  position: absolute;
-  top: px(30);
-  right: px(24);
-  cursor: pointer;
+.titleBar {
+  .close {
+    @include box(px(18));
+    position: absolute;
+    top: px(30);
+    right: px(24);
+    cursor: pointer;
 
-  @include media-tablet {
-    right: px(40);
+    @include media-tablet {
+      right: px(40);
+    }
   }
-}
 
-.header {
-  @include typography-h2;
-  margin-bottom: px(31);
-  text-align: left;
+  .header {
+    @include typography-h2;
+    margin-bottom: px(31);
+    text-align: left;
 
-  @include media-tablet {
-    margin-bottom: px(34);
+    @include media-tablet {
+      margin-bottom: px(34);
+    }
   }
 }
 
