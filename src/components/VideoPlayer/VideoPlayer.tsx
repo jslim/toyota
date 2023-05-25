@@ -210,7 +210,6 @@ const VideoPlayer = ({
 
     const video = VideoRef.current.video;
     if (video.contains(trackRef.current)) {
-      console.log(trackRef.current?.track, 'trackref');
       video.removeChild(trackRef.current);
       trackRef.current?.removeEventListener('cuechange', onTrackChange);
     }
