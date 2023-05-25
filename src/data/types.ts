@@ -184,6 +184,7 @@ export type ContentfulVideoAsset = {
 };
 
 export type ContentfulMediaAsset = {
+  locale?: string;
   metadata: Metadata;
   sys: Sys;
   fields: {
@@ -458,6 +459,7 @@ export type videoPlayerContainerContentType = {
   title: string;
   theme: string;
   video: ContentfulVideoAsset;
+  closedCaptions: ContentfulMediaAsset;
 };
 export type videoPlayerSectionContentType = {
   quote: string;
