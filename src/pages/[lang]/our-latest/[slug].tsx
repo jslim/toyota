@@ -128,7 +128,6 @@ const OurLatestPost: FC<OurLatestPostPageProps> = ({ data }) => {
           className={css.socialMediaButton}
           href={getMailTo({
             email: '',
-            // TODO replace with emailSubject and emailBody from GlobalData
             subject: emailShareSubject,
             body: emailShareBody
           })}
@@ -140,7 +139,7 @@ const OurLatestPost: FC<OurLatestPostPageProps> = ({ data }) => {
           onMouseLeave={() => copyTooltip === copyLink && setCopyTooltip(null)}
         >
           <Cta
-            aria-label="copy link"
+            aria-label={copyLink}
             theme={ButtonType.Icon}
             className={css.socialMediaButton}
             onClick={() => {
