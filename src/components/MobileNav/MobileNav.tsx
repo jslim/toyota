@@ -16,6 +16,7 @@ export type MobileNavProps = {
 
 const MobileNav: FC<MobileNavProps> = ({ className }) => {
   const { mainNavLinks } = useAppSelector((state) => state.activeGlobalData);
+  const lang = useAppSelector((state) => state.activeLang);
   const activeRoute = useAppSelector((state) => state.activeRoute);
   const [menuOpen, setMenuOpen] = useState(false);
   const hamburgerRef = useRef<HTMLDivElement>(null);
@@ -24,7 +25,7 @@ const MobileNav: FC<MobileNavProps> = ({ className }) => {
   return (
     <div className={classNames('MobileNav', css.root, className)}>
       <div className={css.mobileNavBar}>
-        <Logo className={css.logo} href="/" />
+        <Logo className={css.logo} href={'/' + lang} />
 
         <BaseButton
           className={css.hamburgerWrapper}
