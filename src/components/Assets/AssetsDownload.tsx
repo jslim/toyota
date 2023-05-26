@@ -14,10 +14,11 @@ import IconCircle from '@/components/IconCircle/IconCircle';
 import SectionWrapper from '@/components/SectionWrapper/SectionWrapper';
 
 import { Color } from '@/utils/colors';
-
-import { useAppSelector } from '@/redux';
+import PlayIcon from '@/components/VideoPlayer/VideoControls/svgs/play.svg';
 
 import DownloadSvg from '@/components/svgs/svg-arrow-down.svg';
+import { getImageUrl } from '@/utils/basic-functions';
+import { useAppSelector } from '@/redux';
 
 export type AssetsProps = {
   className?: string;
@@ -44,29 +45,40 @@ const AssetsDownload: FC<AssetsProps> = ({ className, title, assets }) => {
     });
   }, []);
 
+  const assetComponent = (asset: ContentfulImageAsset, i: number) => {
+    const isVideo = asset.fields.file.contentType.includes('video');
+    return (
+      <div className={css.imageWrapper} key={i}>
+        {isVideo ? (
+          <img className={css.image} src={getImageUrl('video-thumbnail.png').src} alt="" />
+        ) : (
+          <ContentfulImage
+            className={css.image}
+            asset={asset}
+            imageQuality={50}
+            imageSizeMobile={{ extraGutters: 0, numCols: 2 }}
+            imageSizeTablet={{ extraGutters: 0, numCols: 4 }}
+            imageSizeDesktop={{ extraGutters: 0, numCols: 4 }}
+          />
+        )}
+        <BaseLink
+          download={true}
+          href={asset.fields.file.url}
+          className={classNames(css.overlay, { [css.isVideo]: isVideo })}
+        >
+          <IconCircle isWhite={true} className={css.iconCircle}>
+            {isVideo ? <PlayIcon className={css.playIcon} /> : <DownloadSvg />}
+          </IconCircle>
+        </BaseLink>
+      </div>
+    );
+  };
+
   return (
     <div className={classNames('AssetsDownload', css.root, className)}>
       <SectionWrapper className={css.sectionWrapper} backgroundColor={Color.LIGHT_GREY}>
         <Eyebrow className={css.eyebrow} text={title} />
-        <div className={css.assetsWrapper}>
-          {assets?.map((image, i) => (
-            <div className={css.imageWrapper} key={i}>
-              <ContentfulImage
-                className={css.image}
-                asset={image}
-                imageQuality={50}
-                imageSizeMobile={{ extraGutters: 0, numCols: 2 }}
-                imageSizeTablet={{ extraGutters: 0, numCols: 4 }}
-                imageSizeDesktop={{ extraGutters: 0, numCols: 4 }}
-              />
-              <BaseLink download={true} href={image.fields.file.url} className={css.overlay}>
-                <IconCircle isWhite={true} className={css.iconCircle}>
-                  <DownloadSvg />
-                </IconCircle>
-              </BaseLink>
-            </div>
-          ))}
-        </div>
+        <div className={css.assetsWrapper}>{assets?.map((asset, i) => assetComponent(asset, i))}</div>
         {assets && (
           <Cta download={true} className={css.cta} title={downloadAssets} onClick={() => handleZipFolder(assets)} />
         )}
