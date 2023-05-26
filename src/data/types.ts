@@ -184,6 +184,7 @@ export type ContentfulVideoAsset = {
 };
 
 export type ContentfulMediaAsset = {
+  locale?: string;
   metadata: Metadata;
   sys: Sys;
   fields: {
@@ -289,12 +290,6 @@ export type NextChapterContentType = {
   eyebrowText: string;
   titleText: string;
   backgroundImage: ContentfulImageAsset;
-};
-
-export type TextBlockContentType = {
-  heading?: string;
-  eyebrowText?: string;
-  textContent?: string;
 };
 
 export type SectionContentType = {
@@ -458,6 +453,7 @@ export type videoPlayerContainerContentType = {
   title: string;
   theme: string;
   video: ContentfulVideoAsset;
+  closedCaptions: ContentfulMediaAsset;
 };
 export type videoPlayerSectionContentType = {
   quote: string;
