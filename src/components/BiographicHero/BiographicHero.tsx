@@ -30,7 +30,7 @@ const BiographicHero: FC<BiographicHeroProps> = ({ className, title, description
               className={css.biographyHeroImage}
               asset={asset}
               hasBorderRadius
-              imageSizeDesktop={{ numCols: 12, extraGutters: 0 }}
+              imageSizeDesktop={{ numCols: 5, extraGutters: 0 }}
               imageSizeTablet={{ numCols: 4, extraGutters: 0 }}
               imageSizeMobile={{ numCols: 3, extraGutters: 0 }}
             />
