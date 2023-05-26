@@ -35,7 +35,7 @@
 }
 
 .icon {
-  @include box(px(9));
+  @include box(px(15));
   position: absolute;
   right: px(20);
   top: 50%;

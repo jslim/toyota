@@ -8,7 +8,7 @@ const poster = 'https://i1.wp.com/thetalkinggeek.com/wp-content/uploads/2015/09/
 const src = 'http://iandevlin.github.io/mdn/video-player-with-captions/video/sintel-short.mp4';
 
 const captions = {
-  kind: 'captions',
+  kind: 'metadata',
   label: 'English',
   srclang: 'en',
   default: true, // hide by default

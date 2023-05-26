@@ -8,7 +8,7 @@ import BaseLink from '@/components/BaseLink/BaseLink';
 import LanguageToggle from '@/components/LanguageToggle/LanguageToggle';
 import Logo from '@/components/Logo/Logo';
 
-import { useAppSelector } from '@/redux';
+import { setHomepageBannerVisibility, useAppDispatch, useAppSelector } from '@/redux';
 
 export type MobileNavProps = {
   className?: string;
@@ -16,21 +16,24 @@ export type MobileNavProps = {
 
 const MobileNav: FC<MobileNavProps> = ({ className }) => {
   const { mainNavLinks } = useAppSelector((state) => state.activeGlobalData);
+  const lang = useAppSelector((state) => state.activeLang);
   const activeRoute = useAppSelector((state) => state.activeRoute);
+  const dispatch = useAppDispatch();
   const [menuOpen, setMenuOpen] = useState(false);
   const hamburgerRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLDivElement>(null);
 
+  const handleClick = () => {
+    setMenuOpen(!menuOpen);
+    dispatch(setHomepageBannerVisibility(false));
+  };
+
   return (
     <div className={classNames('MobileNav', css.root, className)}>
       <div className={css.mobileNavBar}>
-        <Logo className={css.logo} href="/" />
+        <Logo className={css.logo} href={'/' + lang} />
 
-        <BaseButton
-          className={css.hamburgerWrapper}
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Click to view more menu options"
-        >
+        <BaseButton className={css.hamburgerWrapper} onClick={handleClick} aria-label="Click to view more menu options">
           {!menuOpen ? (
             <div className={css.hamburger} ref={hamburgerRef}>
               <span className={css.line} />

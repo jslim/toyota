@@ -31,7 +31,6 @@ import {
   TabGroupContentType,
   TabItemContentType,
   TestsPageContentType,
-  TextBlockContentType,
   TextIntroContentType,
   videoPlayerSectionContentType,
   YoutubeEmbedContentType
@@ -202,15 +201,6 @@ export const buildTabItem = (fields: TabItemContentType, extraProps?: GenericObj
     ...extraProps
   },
   component: ({ children }) => <>{children}</>
-});
-
-// TODO: Replace with real component in EX2332-99
-export const buildTextBlock = (fields: TextBlockContentType, extraProps?: GenericObject): ComponentBuilder => ({
-  props: {
-    textContent: fields.textContent,
-    ...extraProps
-  },
-  component: ({ textContent }) => <p>{textContent}</p>
 });
 
 export const buildTextIntro = (fields: TextIntroContentType, extraProps?: GenericObject): ComponentBuilder => {
@@ -424,12 +414,33 @@ export const buildVideoPlayerSection = (
   fields: videoPlayerSectionContentType,
   extraProps?: GenericObject
 ): ComponentBuilder => {
-  const videoPlayerSection = {
-    poster: fields?.videoPlayerSection?.fields?.poster,
-    video: { src: fields?.videoPlayerSection?.fields?.video.fields.file.url },
-    title: fields?.videoPlayerSection?.fields?.title,
-    theme: fields?.videoPlayerSection?.fields?.theme
-  };
+  const hasCaptions = Boolean(fields?.videoPlayerSection?.fields?.closedCaptions);
+  let videoPlayerSection;
+
+  hasCaptions
+    ? (videoPlayerSection = {
+        poster: fields?.videoPlayerSection?.fields?.poster,
+        video: {
+          src: fields?.videoPlayerSection?.fields?.video.fields.file.url,
+          captions: {
+            kind: 'metadata',
+            label: fields?.videoPlayerSection?.fields?.closedCaptions.fields.title,
+            srclang: fields?.videoPlayerSection?.fields?.closedCaptions.locale,
+            default: true,
+            src: fields?.videoPlayerSection?.fields?.closedCaptions.fields.file.url
+          }
+        },
+        title: fields?.videoPlayerSection?.fields?.title,
+        theme: fields?.videoPlayerSection?.fields?.theme
+      })
+    : (videoPlayerSection = {
+        poster: fields?.videoPlayerSection?.fields?.poster,
+        video: {
+          src: fields?.videoPlayerSection?.fields?.video.fields.file.url
+        },
+        title: fields?.videoPlayerSection?.fields?.title,
+        theme: fields?.videoPlayerSection?.fields?.theme
+      });
   return {
     props: {
       quote: fields?.quote,

@@ -227,9 +227,7 @@ const VideoPlayer = ({
 
     trackRef.current = trackElement;
     video.appendChild(trackElement);
-    video.textTracks[0].mode = 'hidden';
     trackElement.style.display = 'none';
-
     trackRef.current.addEventListener('cuechange', onTrackChange);
   }
 
@@ -375,7 +373,7 @@ const VideoPlayer = ({
         extraVideoElementProps={{ crossOrigin }}
       />
 
-      {captions && (
+      {captions?.src && (
         <div className={styles.captionsContainer} ref={captionsContainer}>
           {currentCaptions && <p>{currentCaptions}</p>}
         </div>
