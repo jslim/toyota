@@ -443,6 +443,7 @@ export const buildVideoPlayerSection = (
       });
   return {
     props: {
+      eyebrow: fields?.eyebrow,
       quote: fields?.quote,
       author: fields?.author,
       videoPlayerSection,

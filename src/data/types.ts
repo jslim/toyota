@@ -456,6 +456,7 @@ export type videoPlayerContainerContentType = {
   closedCaptions: ContentfulMediaAsset;
 };
 export type videoPlayerSectionContentType = {
+  eyebrow?: string;
   quote: string;
   author: string;
   videoPlayerSection: FilteredEntity<videoPlayerContainerContentType>;
