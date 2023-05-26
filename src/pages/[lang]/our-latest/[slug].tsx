@@ -207,7 +207,7 @@ export const getStaticProps: GetStaticProps<OurLatestPostPageProps> = async ({ p
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const resolvedData: any = lang === Lang.EN ? postDataEn : postDataJp;
 
-  resolvedData.items = resolveResponse(postDataEn);
+  resolvedData.items = resolveResponse(resolvedData);
   const data = makeFilteredEntity(
     resolvedData.items.filter((entry: GenericEntity) => entry.fields!.slug === slug)[0]
   ) as FilteredEntity;
