@@ -22,6 +22,10 @@
       &:last-child {
         margin-right: 0;
       }
+
+      &:not(:global(.swiper-slide-visible)) {
+        opacity: 0.6;
+      }
     }
   }
 
