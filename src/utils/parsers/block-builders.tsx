@@ -31,7 +31,6 @@ import {
   TabGroupContentType,
   TabItemContentType,
   TestsPageContentType,
-  TextBlockContentType,
   TextIntroContentType,
   videoPlayerSectionContentType,
   YoutubeEmbedContentType
@@ -202,15 +201,6 @@ export const buildTabItem = (fields: TabItemContentType, extraProps?: GenericObj
     ...extraProps
   },
   component: ({ children }) => <>{children}</>
-});
-
-// TODO: Replace with real component in EX2332-99
-export const buildTextBlock = (fields: TextBlockContentType, extraProps?: GenericObject): ComponentBuilder => ({
-  props: {
-    textContent: fields.textContent,
-    ...extraProps
-  },
-  component: ({ textContent }) => <p>{textContent}</p>
 });
 
 export const buildTextIntro = (fields: TextIntroContentType, extraProps?: GenericObject): ComponentBuilder => {

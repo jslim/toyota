@@ -292,12 +292,6 @@ export type NextChapterContentType = {
   backgroundImage: ContentfulImageAsset;
 };
 
-export type TextBlockContentType = {
-  heading?: string;
-  eyebrowText?: string;
-  textContent?: string;
-};
-
 export type SectionContentType = {
   displayTitle?: string;
   eyebrowText?: string;
