@@ -62,10 +62,6 @@ const ContentfulImage = forwardRef<HTMLImageElement, ContentfulImageProps>(
     );
 
     useEffect(() => {
-      console.log(asset.fields.file);
-    }, [asset]);
-
-    useEffect(() => {
       if (loadImage) {
         onLoad && onLoad();
       }
