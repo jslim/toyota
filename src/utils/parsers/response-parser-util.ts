@@ -38,7 +38,8 @@ export const makeFilteredEntity = (entity: GenericEntity): FilteredEntity => {
  * Checks if the object has sys.type "Link"
  * @param {GenericObject} object - Arbitrary object to check
  */
-const isLink = (object: GenericObject): boolean => object && object.sys && object.sys.type === 'Link';
+const isLink = (object: GenericObject): boolean =>
+  object && object.sys && object.sys.type === 'Link' && object.sys.linkType !== 'ContentType';
 
 /**
  * Creates a string key for lookup in entityMap
@@ -57,7 +58,7 @@ const makeLookupKey = (sys: Sys): string => `${sys.type}!${sys.id}`;
  * @param {GenericEntity} link - Linked entity
  * @return {object}
  */
-const getLink = (entityMap: EntityMap, link: GenericEntity): object => {
+const getLink = (entityMap: EntityMap, link: GenericEntity): GenericObject => {
   const { linkType: type, id } = link.sys;
   const lookupKey = makeLookupKey({ type, id });
 
@@ -108,7 +109,7 @@ const walkMutate = (
 
   if (input && typeof input === 'object') {
     for (const key in input) {
-      if (input.hasOwnProperty(key)) {
+      if (input.hasOwnProperty(key) && key !== 'pinnedPosts') {
         input[key] = walkMutate(input[key], predicate, mutator, removeUnresolved);
       }
     }
@@ -124,6 +125,16 @@ const walkMutate = (
  */
 const normalizeLink = (entityMap: EntityMap, link: GenericObject, removeUnresolved: boolean) => {
   const resolvedLink = getLink(entityMap, link as GenericEntity);
+  // if (resolvedLink?.fields?.pinnedPosts) {
+  // resolvedLink.fields.pinnedPosts = [];
+  // }
+
+  // resolvedLink is a ref to teh actual object so modifying here removes from entry itself
+  // Can we just skip mutating this maybe and fetch the related posts by ID from the import later?
+  /**
+   * 1. We skip resolving pinned posts, stay as Link objects/references
+   * 2. In RelatedNews, we pass IDs from pinned posts, fetch directly from imported content
+   */
   if (resolvedLink === UNRESOLVED_LINK) {
     return removeUnresolved ? resolvedLink : link;
   }
@@ -164,7 +175,7 @@ const getEntityMap = (allEntries: GenericEntity<GenericObject>[]): EntityMap => 
  */
 const resolveResponse = (
   response: Response,
-  options: ContentfulOptions = { removeUnresolved: false }
+  options: ContentfulOptions = { removeUnresolved: true }
 ): Response['items'] => {
   options = options || {};
   if (!response.items) {

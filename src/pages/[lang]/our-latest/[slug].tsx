@@ -164,7 +164,7 @@ const OurLatestPost: FC<OurLatestPostPageProps> = ({ data }) => {
             {content}
           </ColumnsText>
           {assetsData?.assets.length && <AssetsDownload title={assetsData.eyebrowText} assets={assetsData.assets} />}
-          {relatedData.fields.newsPosts?.length && getPageBlocks(relatedData)}
+          {relatedData.fields.newsPosts?.length ? getPageBlocks(relatedData) : null}
         </main>
       ) : (
         <PageNotFound head={{ title: 'Our Latest Detail' }} />
