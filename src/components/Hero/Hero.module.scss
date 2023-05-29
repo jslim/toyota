@@ -217,6 +217,10 @@
         margin-top: px(80);
       }
 
+      @include breakpoint(desktopSm) {
+        margin-top: px(140);
+      }
+
       @include breakpoint(desktopMd) {
         margin-top: px(156);
         @include use-desktop-columns(width, 12);
