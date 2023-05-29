@@ -23,12 +23,10 @@ import PageNotFound from '@/components/PageNotFound/PageNotFound';
 import SocialIcon from '@/components/SocialIcon/SocialIcon';
 
 import usePreviewData from '@/hooks/use-preview-data';
-import { formatDate } from '@/utils/basic-functions';
-import { getMailTo } from '@/utils/basic-functions';
+import { formatDate, getMailTo } from '@/utils/basic-functions';
 import { getAllLangSlugs } from '@/utils/locales';
 import { getPageBlocks } from '@/utils/parsers/get-page-blocks';
-import resolveResponse from '@/utils/parsers/response-parser-util';
-import { makeFilteredEntity } from '@/utils/parsers/response-parser-util';
+import resolveResponse, { makeFilteredEntity } from '@/utils/parsers/response-parser-util';
 import { parseContentfulRichText } from '@/utils/parsers/rich-text-parser';
 import share from '@/utils/share';
 

@@ -12,7 +12,7 @@ export type ImageDragProps = {
   className?: string;
   getParentRef: MutableRefObject<HTMLDivElement>;
   image: ContentfulImageAsset;
-  handleHover: Boolean;
+  handleHover: boolean;
 };
 
 const EASE = 'power3.out';
