@@ -110,7 +110,8 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title
               },
               1024: {
                 spaceBetween: 22,
-                autoHeight: false
+                autoHeight: false,
+                slidesOffsetAfter: 700
               }
             }}
             freeMode={true}

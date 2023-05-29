@@ -38,6 +38,7 @@
 
       @include media-desktopSm {
         height: auto !important;
+        justify-content: space-between;
       }
     }
 
@@ -53,7 +54,8 @@
     @include flex-center;
 
     @include breakpoint(desktopSm) {
-      margin: px(40) 0 0;
+      justify-content: flex-start;
+      margin: px(40) 0 px(40) px(96);
     }
 
     > span {
@@ -261,20 +263,16 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      align-self: baseline;
+      align-self: normal;
+      gap: px(24);
       width: px(192);
       transition: opacity 0.33s linear;
 
       &:not(.isLocked) {
-        &:global(.swiper-slide-next + .swiper-slide + .swiper-slide),
         &:global(.swiper-slide-prev) {
           opacity: 0.4;
         }
       }
-    }
-
-    .card {
-      margin-bottom: px(24);
     }
   }
 }

@@ -30,7 +30,7 @@
     }
 
     @include media-desktopSm {
-      @include font-size(20, 30);
+      @include font-size(16, 24);
     }
   }
 
@@ -43,7 +43,7 @@
     }
 
     @include media-desktopSm {
-      @include font-size(16, 24);
+      @include font-size(14, 20);
     }
   }
 
