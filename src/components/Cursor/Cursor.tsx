@@ -4,15 +4,16 @@ import gsap from 'gsap';
 
 import css from './Cursor.module.scss';
 
+import { useAppSelector } from '@/redux';
+
 export type CursorProps = {
   className?: string;
   containerRef: MutableRefObject<HTMLElement>;
   isDragging?: boolean;
 };
 
-const text = 'Drag';
-
 const Cursor: FC<CursorProps> = ({ className, containerRef, isDragging }) => {
+  const { drag } = useAppSelector((state) => state.activeGlobalStrings);
   const cursorRef = useRef() as MutableRefObject<HTMLDivElement>;
   const circleRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
@@ -146,7 +147,7 @@ const Cursor: FC<CursorProps> = ({ className, containerRef, isDragging }) => {
     <div className={classNames('Cursor', css.root, className)} ref={cursorRef}>
       <div className={css.circle} ref={circleRef} />
       <div className={css.text} ref={textRef}>
-        {text}
+        {drag}
       </div>
     </div>
   );

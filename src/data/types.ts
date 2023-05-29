@@ -57,6 +57,22 @@ export type GlobalData = {
   [key in Lang]: GlobalDataFields;
 };
 
+export type GlobalStringsFields = {
+  shareText: string;
+  copyLink: string;
+  copyLinkSuccess: string;
+  relatedNews: string;
+  emailShareSubject: string;
+  emailShareBody: string;
+  downloadAssets: string;
+  drag: string;
+  learnMore: string;
+};
+
+export type GlobalStrings = {
+  [key in Lang]: GlobalStringsFields;
+};
+
 export type PageProps = {
   head: HeadProps;
   unsupported?: boolean;
@@ -456,6 +472,7 @@ export type videoPlayerContainerContentType = {
   closedCaptions: ContentfulMediaAsset;
 };
 export type videoPlayerSectionContentType = {
+  eyebrow?: string;
   quote: string;
   author: string;
   videoPlayerSection: FilteredEntity<videoPlayerContainerContentType>;

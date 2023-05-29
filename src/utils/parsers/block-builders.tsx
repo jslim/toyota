@@ -70,6 +70,7 @@ import YoutubeEmbed from '@/components/YoutubeEmbed/YoutubeEmbed';
 import ChevronDownSvg from '@/components/svgs/svg-chevron-down.svg';
 
 import { Color } from '../colors';
+import scrollPage from '../scroll-page';
 import { parseContentfulRichText } from './rich-text-parser';
 
 export type ComponentBuilder = {
@@ -443,6 +444,7 @@ export const buildVideoPlayerSection = (
       });
   return {
     props: {
+      eyebrow: fields?.eyebrow,
       quote: fields?.quote,
       author: fields?.author,
       videoPlayerSection,
@@ -725,6 +727,9 @@ export const buildCallToAction = (fields: CTAContentType, extraProps?: GenericOb
       href = `/${extraProps?.lang || 'en'}${subPath}/${entity.fields.slug}`;
     }
   }
+  const jumpToSection = (id: string) => {
+    scrollPage({ y: document.getElementById(id.split('#')[1])?.offsetTop, duration: 1, ease: 'ease1' });
+  };
   const props = {
     theme,
     href,
@@ -733,6 +738,13 @@ export const buildCallToAction = (fields: CTAContentType, extraProps?: GenericOb
   };
   return {
     props,
-    component: () => <Cta {...props}>{isJumpTo && <ChevronDownSvg />}</Cta>
+    component: () =>
+      isJumpTo ? (
+        <Cta onClick={() => jumpToSection(fields.linkUrl)} {...props} href={undefined}>
+          <ChevronDownSvg />
+        </Cta>
+      ) : (
+        <Cta {...props} />
+      )
   };
 };

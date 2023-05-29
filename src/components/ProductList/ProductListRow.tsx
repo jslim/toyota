@@ -11,6 +11,8 @@ import Cta, { ButtonType } from '@/components/Cta/Cta';
 
 import useLayout from '@/hooks/use-layout';
 
+import { useAppSelector } from '@/redux';
+
 import ContentfulImage from '../ContentfulImage/ContentfulImage';
 import ImageDragAnim from './ImageDragAnim';
 
@@ -21,9 +23,8 @@ export type ProductListRowProps = {
   cta: LinkProps;
 };
 
-const ctaText = 'Learn More';
-
 const ProductListRow: FC<ProductListRowProps> = ({ title, image, text, cta }) => {
+  const { learnMore } = useAppSelector((state) => state.activeGlobalStrings);
   const { layout } = useLayout();
   const [isHovering, setIsHovering] = useState<boolean>(false);
   const itemRef = useRef() as MutableRefObject<HTMLDivElement>;
@@ -56,7 +57,7 @@ const ProductListRow: FC<ProductListRowProps> = ({ title, image, text, cta }) =>
       <div className={css.text}>
         {text}
         <Cta
-          title={ctaText}
+          title={learnMore}
           href={cta?.href}
           theme={ButtonType.Secondary}
           isWhite={true}

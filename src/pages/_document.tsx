@@ -3,7 +3,7 @@ import Document, { DocumentContext, DocumentInitialProps, Head, Html, Main, Next
 
 import { APIContentful } from '@/data/API';
 import { hideStaticHtml } from '@/data/settings';
-import { GlobalData, Lang } from '@/data/types';
+import { GlobalData, GlobalStrings, Lang } from '@/data/types';
 
 import { getLocaleByLang } from '@/utils/locales';
 import { globalDataParserUtil } from '@/utils/parsers/global-data-parser-util';
@@ -16,6 +16,7 @@ const hideStaticHtmlScript = `
 
 type ExtendedDocumentInitialProps = DocumentInitialProps & {
   globalData?: GlobalData;
+  globalStrings?: GlobalStrings;
 };
 
 class MyDocument extends Document<ExtendedDocumentInitialProps> {
@@ -25,30 +26,44 @@ class MyDocument extends Document<ExtendedDocumentInitialProps> {
     const apiContentful = new APIContentful({ isPreview: false, spaceId, accessToken });
     const originalRenderPage = ctx.renderPage;
 
-    const [globalDataResponseEn, globalDataResponseJp] = await Promise.all([
-      apiContentful.getEntryBySlug('global-data', 'globalData', {
-        include: 2,
-        locale: getLocaleByLang(Lang.EN)
-      }),
-      apiContentful.getEntryBySlug('global-data', 'globalData', {
-        include: 2,
-        locale: getLocaleByLang(Lang.JP)
-      })
-    ]);
+    const [globalDataResponseEn, globalDataResponseJp, globalStringsResponseEn, globalStringsResponseJp] =
+      await Promise.all([
+        apiContentful.getEntryBySlug('global-data', 'globalData', {
+          include: 2,
+          locale: getLocaleByLang(Lang.EN)
+        }),
+        apiContentful.getEntryBySlug('global-data', 'globalData', {
+          include: 2,
+          locale: getLocaleByLang(Lang.JP)
+        }),
+        apiContentful.getEntryBySlug('global-strings', 'globalStrings', {
+          include: 2,
+          locale: getLocaleByLang(Lang.EN)
+        }),
+        apiContentful.getEntryBySlug('global-strings', 'globalStrings', {
+          include: 2,
+          locale: getLocaleByLang(Lang.JP)
+        })
+      ]);
 
     const globalData: GlobalData = {
       [Lang.EN]: globalDataParserUtil(globalDataResponseEn.fields),
       [Lang.JP]: globalDataParserUtil(globalDataResponseJp.fields)
     };
 
+    const globalStrings: GlobalStrings = {
+      [Lang.EN]: globalStringsResponseEn.fields,
+      [Lang.JP]: globalStringsResponseJp.fields
+    };
+
     ctx.renderPage = () =>
       originalRenderPage({
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        enhanceApp: (App: any) => (props) => <App {...props} globalData={globalData} />
+        enhanceApp: (App: any) => (props) => <App {...props} globalData={globalData} globalStrings={globalStrings} />
       });
 
     const initialProps = await Document.getInitialProps(ctx);
-    return { ...initialProps, globalData };
+    return { ...initialProps, globalData, globalStrings };
   }
 
   render() {
@@ -66,6 +81,14 @@ class MyDocument extends Document<ExtendedDocumentInitialProps> {
             crossOrigin="anonymous"
             dangerouslySetInnerHTML={{
               __html: sanitizer(JSON.stringify(this.props.globalData))
+            }}
+          />
+          <script
+            id="__GLOBAL_STRINGS__"
+            type="application/json"
+            crossOrigin="anonymous"
+            dangerouslySetInnerHTML={{
+              __html: sanitizer(JSON.stringify(this.props.globalStrings))
             }}
           />
           <NextScript />

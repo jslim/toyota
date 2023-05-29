@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import { FC, memo, useCallback } from 'react';
 import classNames from 'classnames';
 import JSZip from 'jszip';
 
@@ -15,6 +15,8 @@ import SectionWrapper from '@/components/SectionWrapper/SectionWrapper';
 
 import { Color } from '@/utils/colors';
 
+import { useAppSelector } from '@/redux';
+
 import DownloadSvg from '@/components/svgs/svg-arrow-down.svg';
 
 export type AssetsProps = {
@@ -23,13 +25,11 @@ export type AssetsProps = {
   assets?: ContentfulImageAsset[];
 };
 
-// global variable for Locales
-const ctaText = 'download All assets';
-
 const AssetsDownload: FC<AssetsProps> = ({ className, title, assets }) => {
-  let zip = new JSZip();
+  const { downloadAssets } = useAppSelector((state) => state.activeGlobalStrings);
 
-  const handleZipFolder = (files: ContentfulImageAsset[]) => {
+  const handleZipFolder = useCallback((files: ContentfulImageAsset[]) => {
+    let zip = new JSZip();
     files.map((file) => {
       let blob = fetch(file.fields.file.url).then((r) => r.blob());
       return zip.file(file.fields.file.fileName, blob);
@@ -42,7 +42,7 @@ const AssetsDownload: FC<AssetsProps> = ({ className, title, assets }) => {
       tempLink.setAttribute('download', 'Article Assets');
       tempLink.click();
     });
-  };
+  }, []);
 
   return (
     <div className={classNames('AssetsDownload', css.root, className)}>
@@ -67,7 +67,9 @@ const AssetsDownload: FC<AssetsProps> = ({ className, title, assets }) => {
             </div>
           ))}
         </div>
-        {assets && <Cta download={true} className={css.cta} title={ctaText} onClick={() => handleZipFolder(assets)} />}
+        {assets && (
+          <Cta download={true} className={css.cta} title={downloadAssets} onClick={() => handleZipFolder(assets)} />
+        )}
       </SectionWrapper>
     </div>
   );

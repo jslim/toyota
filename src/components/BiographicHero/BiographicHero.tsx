@@ -26,7 +26,14 @@ const BiographicHero: FC<BiographicHeroProps> = ({ className, title, description
       <div className={css.contentContainer}>
         <div className={css.rightMobileImage}>
           <div className={css.imageContainer}>
-            <ContentfulImage className={css.biographyHeroImage} asset={asset} />
+            <ContentfulImage
+              className={css.biographyHeroImage}
+              asset={asset}
+              hasBorderRadius
+              imageSizeDesktop={{ numCols: 5, extraGutters: 0 }}
+              imageSizeTablet={{ numCols: 4, extraGutters: 0 }}
+              imageSizeMobile={{ numCols: 3, extraGutters: 0 }}
+            />
           </div>
         </div>
         <div className={css.description}>
