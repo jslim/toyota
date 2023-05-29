@@ -6,7 +6,7 @@ import '@/utils/why-did-you-render';
 
 import '@/styles/global.scss';
 
-import { GlobalData } from '@/data/types';
+import { GlobalData, GlobalStrings } from '@/data/types';
 import { PageProps } from '@/data/types';
 
 import Layout from '@/components/Layout/Layout';
@@ -23,6 +23,7 @@ gsapInit();
 
 export type ExtendedAppProps<T> = AppProps<T> & {
   globalData: GlobalData;
+  globalStrings: GlobalStrings;
 };
 
 // This default export is required in a new `pages/_app.js` file.

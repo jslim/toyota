@@ -18,7 +18,7 @@ const CardGrid: FC<CardGridProps> = ({ className, cardType, cards }) => {
     <>
       <div className={classNames('CardGrid', css.root, className, css['columns-' + columns])}>
         {cards?.map((card, i) => (
-          <Card {...card} cardType={cardType} className={css.card} key={i} />
+          <Card {...card} cardType={cardType} className={css.card} key={i} columns={columns === 3 ? 3 : 2} />
         ))}
       </div>
     </>

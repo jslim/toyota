@@ -10,8 +10,30 @@
   }
 }
 
+.eyebrow {
+  order: 1;
+  @include container;
+  margin-bottom: px(25);
+
+  @include media-tablet {
+    order: 2;
+    height: 0;
+    margin-bottom: px(-35);
+    margin-top: px(35);
+  }
+}
+
+.videoCon {
+  order: 2;
+
+  @include media-tablet {
+    order: 1;
+  }
+}
+
 .textWrapper {
   @include container;
+  order: 3;
 
   .quote,
   .author {
@@ -33,9 +55,12 @@
     @include font-size(20, 26);
     margin-top: px(25);
 
+    @include media-tablet {
+      margin-top: px(35);
+    }
+
     @include media-desktopMd {
       @include font-size(32, 40);
-      margin-top: px(40);
     }
   }
 

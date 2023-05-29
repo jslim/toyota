@@ -17,6 +17,7 @@ import {
   setActiveLang,
   setActiveRoute,
   setGlobalData,
+  setGlobalStrings,
   setIsWebpSupported,
   setPrevRoute,
   useAppDispatch
@@ -27,7 +28,7 @@ const AppAdmin = dynamic(() => import('@/components/AppAdmin/AppAdmin'), { ssr: 
 
 export type Props = PropsWithChildren<{}>;
 
-const Layout: FC<ExtendedAppProps<PageProps>> = ({ Component, pageProps, globalData }) => {
+const Layout: FC<ExtendedAppProps<PageProps>> = ({ Component, pageProps, globalData, globalStrings }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [cookiebot, setCookiebot] = useState<CookieBot | null>(null);
@@ -62,8 +63,12 @@ const Layout: FC<ExtendedAppProps<PageProps>> = ({ Component, pageProps, globalD
   useEffect(() => {
     if (typeof window !== 'undefined') {
       // Set in _document.tsx
-      const data = JSON.parse(document.getElementById('__GLOBAL_DATA__')!.textContent as string);
-      dispatch(setGlobalData(data));
+      const globalData = JSON.parse(document.getElementById('__GLOBAL_DATA__')!.textContent as string);
+      dispatch(setGlobalData(globalData));
+
+      const globalStrings = JSON.parse(document.getElementById('__GLOBAL_STRINGS__')!.textContent as string);
+      dispatch(setGlobalStrings(globalStrings));
+
       dispatch(setActiveLang((router?.query?.lang as Lang) ?? Lang.EN));
     }
   }, [dispatch, globalData, router]);
@@ -71,6 +76,7 @@ const Layout: FC<ExtendedAppProps<PageProps>> = ({ Component, pageProps, globalD
   // Should only run during build of each page to initialize state used when static building out nav
   if (typeof window === 'undefined' && globalData != null) {
     dispatch(setGlobalData(globalData));
+    dispatch(setGlobalStrings(globalStrings));
     dispatch(setActiveLang((router?.query?.lang as Lang) ?? Lang.EN));
   }
 

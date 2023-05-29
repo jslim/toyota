@@ -38,8 +38,11 @@
     border-radius: px(8);
     background-color: $white;
     color: $black;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 
-    @include media-desktopSm {
+    @include media-tablet {
       width: px(456);
     }
 
@@ -53,6 +56,7 @@
 
     .textWrapper {
       padding: px(20) px(60) px(27) px(24);
+      height: 100%;
 
       .titleWrapper {
         margin-bottom: px(10);
@@ -65,7 +69,15 @@
 
       .text {
         @include typography-paragraph;
+        margin-bottom: px(16);
+
+        @include media-desktopSm {
+          margin-bottom: px(36);
+        }
       }
+    }
+    .cta {
+      margin-top: auto;
     }
   }
 

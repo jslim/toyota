@@ -108,7 +108,8 @@ const ContentfulImage = forwardRef<HTMLImageElement, ContentfulImageProps>(
     return (
       <img
         className={classNames('ContentfulImage', css.root, className, {
-          [css.hasBorderRadius]: hasBorderRadius
+          [css.hasBorderRadius]: hasBorderRadius,
+          [css.hasFilterBlur]: (withLazyLoad || withLowResSwap) && !loadImage
         })}
         data-src={imageUrl}
         src={
