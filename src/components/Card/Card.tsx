@@ -28,13 +28,30 @@ export type CardProps = {
   date?: string;
   subTitle?: string;
   cta?: LinkProps;
+  columns?: number;
 };
 
-const Card: FC<CardProps> = ({ className, cardType = CardTypes.NEWS, image, title, subTitle, text, date, cta }) => {
+const Card: FC<CardProps> = ({
+  className,
+  cardType = CardTypes.NEWS,
+  image,
+  title,
+  subTitle,
+  text,
+  date,
+  cta,
+  columns
+}) => {
   const innerContent = useMemo(() => {
     return (
       <>
-        <ContentfulImage asset={image} className={css.image} />
+        <ContentfulImage
+          asset={image}
+          className={css.image}
+          imageSizeDesktop={{ numCols: 12 / (columns ?? 1), extraGutters: 0 }}
+          imageSizeTablet={{ numCols: 8 / (columns ?? 1), extraGutters: 0 }}
+          imageSizeMobile={{ numCols: 4 / (columns ?? 1), extraGutters: 0 }}
+        />
         <div className={css.textWrapper}>
           {cardType === CardTypes.QUOTE && <p className={css.text}>{'"' + text + '"'}</p>}
           <div className={css.titleWrapper}>
@@ -51,7 +68,7 @@ const Card: FC<CardProps> = ({ className, cardType = CardTypes.NEWS, image, titl
         </div>
       </>
     );
-  }, [cardType, cta, date, image, subTitle, text, title]);
+  }, [cardType, columns, cta, date, image, subTitle, text, title]);
 
   if (cta?.href) {
     return (

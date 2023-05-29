@@ -70,7 +70,9 @@ const HistoryTimeline: FC<HistoryTimelineProps> = ({ className, eyebrow, title, 
           <div className={css.year}>{slides[swiper?.activeIndex || 0].year}</div>
         </div>
         <div ref={swiperRef}>
-          {hasHoverEffect && <Cursor className={css.cursor} containerRef={swiperRef} isDragging={isDraggable} />}
+          {hasHoverEffect && swiperRef.current && (
+            <Cursor className={css.cursor} containerRef={swiperRef} isDragging={isDraggable} />
+          )}
           <Swiper
             className={css.slides}
             slidesPerView={'auto'}

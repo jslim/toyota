@@ -11,6 +11,8 @@ import Cta, { ButtonType } from '@/components/Cta/Cta';
 
 import useLayout from '@/hooks/use-layout';
 
+import { useAppSelector } from '@/redux';
+
 import ContentfulImage from '../ContentfulImage/ContentfulImage';
 import ImageDragAnim from './ImageDragAnim';
 
@@ -21,25 +23,24 @@ export type ProductListRowProps = {
   cta: LinkProps;
 };
 
-const ctaText = 'Learn More';
-
 const ProductListRow: FC<ProductListRowProps> = ({ title, image, text, cta }) => {
+  const { learnMore } = useAppSelector((state) => state.activeGlobalStrings);
   const { layout } = useLayout();
-  const [showImage, setShowImage] = useState<boolean>(false);
+  const [isHovering, setIsHovering] = useState<boolean>(false);
   const itemRef = useRef() as MutableRefObject<HTMLDivElement>;
 
   const hasHoverEffect = typeof window !== 'undefined' && !layout.mobile && !layout.tablet && !device.touch;
 
   return (
     <div
-      className={classNames(css.item, { [css.hoverable]: hasHoverEffect, [css.active]: showImage })}
+      className={classNames(css.item, { [css.hoverable]: hasHoverEffect, [css.active]: isHovering })}
       ref={itemRef}
-      onMouseEnter={() => setShowImage(true)}
-      onMouseLeave={() => setShowImage(false)}
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
     >
       <div className={css.imageCon}>
         {hasHoverEffect ? (
-          <ImageDragAnim image={image} getParentRef={itemRef} handleShowImage={showImage} />
+          <ImageDragAnim image={image} getParentRef={itemRef} handleHover={isHovering} />
         ) : (
           <div className={css.imageWrapperInner}>
             <ContentfulImage
@@ -56,13 +57,13 @@ const ProductListRow: FC<ProductListRowProps> = ({ title, image, text, cta }) =>
       <div className={css.text}>
         {text}
         <Cta
-          title={ctaText}
+          title={learnMore}
           href={cta?.href}
           theme={ButtonType.Secondary}
           isWhite={true}
           className={css.cta}
-          onFocus={() => setShowImage(true)}
-          onBlur={() => setShowImage(false)}
+          onFocus={() => setIsHovering(true)}
+          onBlur={() => setIsHovering(false)}
         />
       </div>
     </div>

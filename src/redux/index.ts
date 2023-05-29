@@ -1,7 +1,15 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { GlobalData, GlobalDataFields, Lang, NavLinks, SocialLinks } from '@/data/types';
+import {
+  GlobalData,
+  GlobalDataFields,
+  GlobalStrings,
+  GlobalStringsFields,
+  Lang,
+  NavLinks,
+  SocialLinks
+} from '@/data/types';
 
 export const defaultGlobalData: GlobalDataFields = {
   mainNavLinks: [] as Array<NavLinks>,
@@ -17,6 +25,18 @@ export const defaultGlobalData: GlobalDataFields = {
   notFoundPageButton: ''
 };
 
+export const defaultGlobalStrings: GlobalStringsFields = {
+  shareText: 'Share Link',
+  copyLink: 'Copy Link',
+  copyLinkSuccess: 'Link Copied',
+  relatedNews: 'RelatedNews',
+  emailShareSubject: 'Woven by Toyota',
+  emailShareBody: '',
+  downloadAssets: 'Download all assets',
+  drag: 'Drag',
+  learnMore: 'Learn More'
+};
+
 const { actions, reducer } = createSlice({
   name: 'app',
   initialState: {
@@ -28,6 +48,11 @@ const { actions, reducer } = createSlice({
       [Lang.JP]: { ...defaultGlobalData }
     },
     activeGlobalData: { ...defaultGlobalData },
+    globalStrings: {
+      [Lang.EN]: { ...defaultGlobalStrings },
+      [Lang.JP]: { ...defaultGlobalStrings }
+    },
+    activeGlobalStrings: { ...defaultGlobalStrings },
     activeLang: Lang.EN,
     homepageBannerHeight: 0
   },
@@ -43,6 +68,9 @@ const { actions, reducer } = createSlice({
     },
     setGlobalData(state, action: PayloadAction<GlobalData>) {
       state.globalData = action.payload;
+    },
+    setGlobalStrings(state, action: PayloadAction<GlobalStrings>) {
+      state.globalStrings = action.payload;
     },
     setActiveLang(state, action: PayloadAction<Lang>) {
       // Set any necessary state to the localized version based on Lang
@@ -64,6 +92,7 @@ export const {
   setPrevRoute,
   setIsWebpSupported,
   setGlobalData,
+  setGlobalStrings,
   setActiveLang,
   setHomepageBannerVisibility,
   setHomepageBannerHeight

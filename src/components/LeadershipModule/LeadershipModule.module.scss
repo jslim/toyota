@@ -1,19 +1,50 @@
 @import 'shared';
 
 .root {
-  @include outer-container;
+  @include pagePadding(padding-left);
+  display: flex;
+  flex-direction: column;
   width: 100%;
   overflow-x: hidden;
+  background-color: $light-grey;
+  padding-top: px(36);
+  padding-bottom: px(27);
+
+  @include media-tablet {
+    padding-top: px(32);
+    padding-bottom: px(72);
+  }
 
   @include media-desktopSm {
     position: relative;
-    min-height: px(720);
+    min-height: px(792);
     overflow-y: hidden;
+    flex-direction: row;
+    padding-top: px(43);
+    padding-bottom: px(43);
   }
 
   .container {
+    @include media-desktopSm {
+      width: 100%;
+    }
+
+    .swiperWrapper {
+      width: 100%;
+    }
+
     .carouselContainer > div {
       align-items: center;
+
+      @include media-desktopSm {
+        height: auto !important;
+      }
+    }
+
+    .board {
+      @include media-desktopSm {
+        display: none;
+      }
     }
   }
 
@@ -22,15 +53,19 @@
     @include flex-center;
 
     @include breakpoint(desktopSm) {
-      margin: px(83) 0 0;
+      margin: px(40) 0 0;
     }
 
     > span {
       position: relative;
       @include box(px(25));
       @include flex-center;
-      margin: 0 px(13);
+      margin: 0 px(8);
       cursor: pointer;
+
+      @include breakpoint(desktopSm) {
+        margin: 0 px(13);
+      }
 
       &:global(.swiper-pagination-bullet-active) {
         &::after {
@@ -56,15 +91,21 @@
         transition: $ease1 0.66s transform;
       }
     }
+
+    &.isDisabled {
+      display: none;
+    }
   }
 }
 
 .wrapper {
-  margin: 0 auto;
-
   .eyebrow {
     @include outer-container;
-    @include container;
+  }
+
+  @include media-desktopSm {
+    @include use-desktop-columns(width, 5, 1);
+    margin-left: px(60);
   }
 
   .textWrapper {
@@ -74,12 +115,14 @@
     margin-top: px(18);
     margin-bottom: px(62);
     text-align: left;
+    margin-left: 0;
 
     @include media-tablet {
       margin-top: px(24);
     }
 
     @include media-desktopSm {
+      width: auto;
       margin-top: px(22);
       margin-bottom: 0;
     }
@@ -97,13 +140,7 @@
       }
     }
 
-    .description {
-      @include typography-paragraph;
-      color: $mid-grey;
-    }
-
-    .title,
-    .description {
+    .title {
       @include media-tablet {
         @include use-tablet-columns(max-width, 5);
       }
@@ -119,14 +156,13 @@
       @include media-desktopSm {
         @include use-desktop-columns(width, 5);
         display: block;
-        margin-left: 0;
       }
     }
   }
 }
 
 .board {
-  @include container;
+  margin-left: 0;
 
   .label {
     @include typography-eyebrow;
@@ -140,7 +176,7 @@
     }
 
     @include media-desktopSm {
-      margin-top: px(66);
+      margin-top: px(218);
       margin-bottom: px(18);
     }
 
@@ -193,18 +229,25 @@
 
 .carouselContainer {
   padding-top: px(26);
+  padding-left: px(23);
   overflow: visible;
-  padding-left: px(40);
 
   @include media-tablet {
     padding-top: px(62);
-    padding-left: px(94);
+  }
+
+  @include media-desktopSm {
+    margin-top: px(62);
+    padding-left: px(96);
+    padding-top: 0;
+    overflow-x: hidden;
   }
 
   .slide {
     width: px(114);
     transform: scale(1);
     transition: transform 0.3s linear;
+    height: auto !important;
 
     @include media-tablet {
       width: px(231);
@@ -216,6 +259,30 @@
       @include media-tablet {
         transform: scale(1.15);
       }
+
+      @include media-desktopSm {
+        transform: none;
+      }
+    }
+
+    @include media-desktopSm {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-self: baseline;
+      width: px(192);
+      transition: opacity 0.33s linear;
+
+      &:not(.isLocked) {
+        &:global(.swiper-slide-next + .swiper-slide + .swiper-slide),
+        &:global(.swiper-slide-prev) {
+          opacity: 0.4;
+        }
+      }
+    }
+
+    .card {
+      margin-bottom: px(24);
     }
   }
 }

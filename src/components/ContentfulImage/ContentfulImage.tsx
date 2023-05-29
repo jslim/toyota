@@ -70,8 +70,8 @@ const ContentfulImage = forwardRef<HTMLImageElement, ContentfulImageProps>(
       if (isIntersection) setLoadImage(true);
     }, [loadImage, withLazyLoad, isIntersection, onLoad]);
 
-    const imageUrl = useMemo(() => asset.fields.file.url.replace('//downloads', '//images'), [asset.fields.file.url]);
-    const imageWidth = useMemo(() => asset.fields.file.details.image.width, [asset.fields.file.details.image]);
+    const imageUrl = useMemo(() => asset?.fields?.file?.url.replace('//downloads', '//images'), [asset]);
+    const imageWidth = useMemo(() => asset?.fields?.file?.details?.image?.width, [asset]);
 
     const buildSrc = useCallback(
       (width: number, quality = imageQuality) => {
@@ -108,7 +108,8 @@ const ContentfulImage = forwardRef<HTMLImageElement, ContentfulImageProps>(
     return (
       <img
         className={classNames('ContentfulImage', css.root, className, {
-          [css.hasBorderRadius]: hasBorderRadius
+          [css.hasBorderRadius]: hasBorderRadius,
+          [css.hasFilterBlur]: (withLazyLoad || withLowResSwap) && !loadImage
         })}
         data-src={imageUrl}
         src={

@@ -77,11 +77,9 @@ export class APIContentful {
     return response.fields;
   };
 
-  getEntriesByContentType = async (contentType: string, { limit = 12, page = 1, ...restParams }) => {
+  getEntriesByContentType = async (contentType: string, { ...restParams }) => {
     return await this.contentfulFetch(`/entries`, {
       content_type: contentType,
-      limit,
-      skip: limit * (page - 1),
       ...restParams
     });
   };

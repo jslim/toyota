@@ -6,57 +6,52 @@ import css from './ProductList.module.scss';
 
 import { ContentfulImageAsset } from '@/data/types';
 
-import ContentfulImage from '../ContentfulImage/ContentfulImage';
+import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
 
 export type ImageDragProps = {
   className?: string;
   getParentRef: MutableRefObject<HTMLDivElement>;
   image: ContentfulImageAsset;
-  handleShowImage: boolean;
+  handleHover: boolean;
 };
 
 const EASE = 'power3.out';
 
-const ImageDrag: FC<ImageDragProps> = ({ className, image, getParentRef, handleShowImage }) => {
+const ImageDrag: FC<ImageDragProps> = ({ className, image, getParentRef, handleHover }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const wrapperInnerRef = useRef(null);
-  const imageRef = useRef(null);
 
   useEffect(() => {
-    handleShowImage ? showImage() : hideImage();
-  }, [handleShowImage]);
+    handleHover ? growImage() : shrinkImage();
+  }, [handleHover]);
 
-  const showImage = () => {
+  const growImage = () => {
     gsap.to(wrapperInnerRef.current, {
-      scale: 1,
-      autoAlpha: 1,
-      duration: 0.6,
-      ease: EASE
-    });
-
-    gsap.to(imageRef.current, {
       scale: 1,
       duration: 0.6,
       ease: EASE
     });
   };
 
-  const hideImage = () => {
+  const shrinkImage = () => {
     gsap.to(wrapperInnerRef.current, {
-      scale: 0.5,
+      scale: 0.8,
       duration: 0.6,
-      autoAlpha: 0,
       ease: EASE
     });
-    gsap.to(imageRef.current, {
-      scale: 1.5,
-      duration: 0.6,
-      ease: EASE
+
+    gsap.to(wrapperRef.current, {
+      duration: 1,
+      overwrite: 'auto',
+      x: 0,
+      y: 0,
+      rotationZ: 0,
+      ease: 'sine.out'
     });
   };
 
   useEffect(() => {
-    if (!handleShowImage) return;
+    if (!handleHover) return;
     const hoverRef = getParentRef.current;
     const parentBounds = hoverRef.getBoundingClientRect();
     let oldx = 0;
@@ -98,7 +93,7 @@ const ImageDrag: FC<ImageDragProps> = ({ className, image, getParentRef, handleS
     return () => {
       document.removeEventListener('mousemove', updateImagePos);
     };
-  }, [wrapperRef, getParentRef, handleShowImage]);
+  }, [wrapperRef, getParentRef, handleHover]);
 
   return (
     <div className={classNames(css.imageWrapper, className)} ref={wrapperRef}>
@@ -106,7 +101,6 @@ const ImageDrag: FC<ImageDragProps> = ({ className, image, getParentRef, handleS
         <ContentfulImage
           className={css.image}
           asset={image}
-          ref={imageRef}
           imageSizeMobile={{ extraGutters: 0, numCols: 3 }}
           imageSizeTablet={{ extraGutters: 0, numCols: 3 }}
           imageSizeDesktop={{ extraGutters: 0, numCols: 4 }}

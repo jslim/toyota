@@ -35,11 +35,9 @@ const contentfulFetch = (urlSuffix = '', params = {}) => {
   });
 };
 
-const getEntriesByContentType = async (contentType, { limit = 12, page = 1, ...restParams }) => {
+const getEntriesByContentType = async (contentType, { ...restParams }) => {
   return await contentfulFetch(`/entries`, {
     content_type: contentType,
-    limit,
-    skip: limit * (page - 1),
     ...restParams
   });
 };

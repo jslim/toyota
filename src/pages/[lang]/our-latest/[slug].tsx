@@ -30,6 +30,8 @@ import resolveResponse, { makeFilteredEntity } from '@/utils/parsers/response-pa
 import { parseContentfulRichText } from '@/utils/parsers/rich-text-parser';
 import share from '@/utils/share';
 
+import { useAppSelector } from '@/redux';
+
 import MailSvg from '@/components/svgs/mail.svg';
 import ShareSvg from '@/components/svgs/share.svg';
 /* eslint-disable */
@@ -44,12 +46,6 @@ type OurLatestPostData = FilteredEntity<OurLatestPostPageContentType>;
 export interface OurLatestPostPageProps extends PageProps {
   data: OurLatestPostData;
 }
-
-// TODO replace with GlobalStrings
-const shareText = 'Share this article';
-const copyText = 'Copy link';
-const copySuccessText = 'Link copied';
-const relatedText = 'Related News';
 
 const socials = [
   {
@@ -67,6 +63,9 @@ const socials = [
 ];
 
 const OurLatestPost: FC<OurLatestPostPageProps> = ({ data }) => {
+  const { relatedNews, copyLink, copyLinkSuccess, shareText, emailShareBody, emailShareSubject } = useAppSelector(
+    (state) => state.activeGlobalStrings
+  );
   const [url, setUrl] = useState('');
   const [copyTooltip, setCopyTooltip] = useState<string | null>(null);
   const pageData = usePreviewData({
@@ -79,7 +78,7 @@ const OurLatestPost: FC<OurLatestPostPageProps> = ({ data }) => {
     contentType: 'featuredArticles',
     locale: pageData.locale,
     fields: {
-      heading: relatedText,
+      heading: relatedNews,
       eyebrow: '',
       newsPosts: pageData.fields.pinnedPosts?.map((item: CardContentType) => ({ ...item, contentType: 'card' }))
     }
@@ -94,13 +93,13 @@ const OurLatestPost: FC<OurLatestPostPageProps> = ({ data }) => {
   useEffect(() => {
     let timeout: NodeJS.Timeout;
     // hide copied tooltip
-    if (copyTooltip === copySuccessText) {
+    if (copyTooltip === copyLinkSuccess) {
       timeout = setTimeout(() => {
         setCopyTooltip(null);
       }, 4000);
     }
     return () => clearTimeout(timeout);
-  }, [copyTooltip]);
+  }, [copyLinkSuccess, copyTooltip]);
 
   const leftSideContent = (
     <div>
@@ -127,24 +126,23 @@ const OurLatestPost: FC<OurLatestPostPageProps> = ({ data }) => {
           className={css.socialMediaButton}
           href={getMailTo({
             email: '',
-            // TODO replace with emailSubject and emailBody from GlobalData
-            subject: `Woven by Toyota - ${typeof document !== 'undefined' ? window.document.title : ''}`,
-            body: `Check this website ${typeof document !== 'undefined' ? window.location.href : ''}`
+            subject: emailShareSubject,
+            body: emailShareBody
           })}
         >
           <MailSvg />
         </Cta>
         <div
-          onMouseEnter={() => copyTooltip !== copySuccessText && setCopyTooltip(copyText)}
-          onMouseLeave={() => copyTooltip === copyText && setCopyTooltip(null)}
+          onMouseEnter={() => copyTooltip !== copyLinkSuccess && setCopyTooltip(copyLink)}
+          onMouseLeave={() => copyTooltip === copyLink && setCopyTooltip(null)}
         >
           <Cta
-            aria-label="copy link"
+            aria-label={copyLink}
             theme={ButtonType.Icon}
             className={css.socialMediaButton}
             onClick={() => {
               navigator.clipboard.writeText(window.location.href);
-              setCopyTooltip(copySuccessText);
+              setCopyTooltip(copyLinkSuccess);
             }}
             tooltip={copyTooltip}
           >
@@ -205,7 +203,7 @@ export const getStaticProps: GetStaticProps<OurLatestPostPageProps> = async ({ p
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const resolvedData: any = lang === Lang.EN ? postDataEn : postDataJp;
 
-  resolvedData.items = resolveResponse(postDataEn);
+  resolvedData.items = resolveResponse(resolvedData);
   const data = makeFilteredEntity(
     resolvedData.items.filter((entry: GenericEntity) => entry.fields!.slug === slug)[0]
   ) as FilteredEntity;
