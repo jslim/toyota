@@ -31,7 +31,9 @@
     }
 
     .swiperWrapper {
-      width: 100%;
+      @include media-desktopSm {
+        width: 50vw;
+      }
     }
 
     .carouselContainer > div {
