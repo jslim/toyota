@@ -251,6 +251,12 @@ export type LegalPageContentType = {
   slug: string;
 };
 
+export type ArticleDownloadAssetsContentType = {
+  eyebrowText: string;
+  downloadButtonText: string;
+  assets: Array<ContentfulImageAsset>;
+};
+
 export type OurLatestPageContentType = {
   pageTitle: string;
   slug: string;
@@ -264,11 +270,12 @@ export type OurLatestPageContentType = {
   newsLabel: string;
   blogLabel: string;
   researchLabel: string;
+  loadMoreLabel: string;
 };
 
 export type OurLatestPostPageContentType = {
-  articleAssets: { fields: FeaturedArticlesContentyType };
-  pinnedPosts: CardContentType[];
+  articleAssets: FilteredEntity<ArticleDownloadAssetsContentType>;
+  pinnedPosts: Array<{ sys: Pick<Sys, 'id' | 'linkType' | 'contentType'> }>;
   body: Document;
   pageTitle: string;
   slug: string;

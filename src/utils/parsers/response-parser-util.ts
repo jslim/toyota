@@ -13,6 +13,9 @@ import {
 
 const UNRESOLVED_LINK = {}; // unique object to avoid polyfill bloat using Symbol()
 
+// Specific object keys we should not resolve
+const skipKeys = ['pinnedPosts'];
+
 export const makeFilteredEntity = (entity: GenericEntity): FilteredEntity => {
   if (entity == null) {
     return {
@@ -38,7 +41,8 @@ export const makeFilteredEntity = (entity: GenericEntity): FilteredEntity => {
  * Checks if the object has sys.type "Link"
  * @param {GenericObject} object - Arbitrary object to check
  */
-const isLink = (object: GenericObject): boolean => object && object.sys && object.sys.type === 'Link';
+const isLink = (object: GenericObject): boolean =>
+  object && object.sys && object.sys.type === 'Link' && object.sys.linkType !== 'ContentType';
 
 /**
  * Creates a string key for lookup in entityMap
@@ -57,7 +61,7 @@ const makeLookupKey = (sys: Sys): string => `${sys.type}!${sys.id}`;
  * @param {GenericEntity} link - Linked entity
  * @return {object}
  */
-const getLink = (entityMap: EntityMap, link: GenericEntity): object => {
+const getLink = (entityMap: EntityMap, link: GenericEntity): GenericObject => {
   const { linkType: type, id } = link.sys;
   const lookupKey = makeLookupKey({ type, id });
 
@@ -108,7 +112,7 @@ const walkMutate = (
 
   if (input && typeof input === 'object') {
     for (const key in input) {
-      if (input.hasOwnProperty(key)) {
+      if (input.hasOwnProperty(key) && skipKeys.indexOf(key) === -1) {
         input[key] = walkMutate(input[key], predicate, mutator, removeUnresolved);
       }
     }
@@ -164,7 +168,7 @@ const getEntityMap = (allEntries: GenericEntity<GenericObject>[]): EntityMap => 
  */
 const resolveResponse = (
   response: Response,
-  options: ContentfulOptions = { removeUnresolved: false }
+  options: ContentfulOptions = { removeUnresolved: true }
 ): Response['items'] => {
   options = options || {};
   if (!response.items) {

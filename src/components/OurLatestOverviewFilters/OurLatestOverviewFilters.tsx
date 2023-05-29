@@ -44,7 +44,7 @@ export type OurLatestOverviewFiltersProps = {
   allLabel: string;
 };
 
-const BUTTON_LIMIT = 3;
+const BUTTON_LIMIT = 5;
 
 const OurLatestFilterButton: FC<OurLatestFilterButtons> = ({ title, articleCount, category, shouldClear = false }) => {
   const router = useRouter();
