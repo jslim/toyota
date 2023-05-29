@@ -422,7 +422,7 @@ export const buildVideoPlayerSection = (
     ? (videoPlayerSection = {
         poster: fields?.videoPlayerSection?.fields?.poster,
         video: {
-          src: fields?.videoPlayerSection?.fields?.video.fields.file.url,
+          src: fields?.videoPlayerSection?.fields?.video?.fields?.file?.url,
           captions: {
             kind: 'metadata',
             label: fields?.videoPlayerSection?.fields?.closedCaptions.fields.title,
@@ -437,7 +437,7 @@ export const buildVideoPlayerSection = (
     : (videoPlayerSection = {
         poster: fields?.videoPlayerSection?.fields?.poster,
         video: {
-          src: fields?.videoPlayerSection?.fields?.video.fields.file.url
+          src: fields?.videoPlayerSection?.fields?.video?.fields?.file?.url
         },
         title: fields?.videoPlayerSection?.fields?.title,
         theme: fields?.videoPlayerSection?.fields?.theme
