@@ -5,8 +5,7 @@ import css from './NextChapter.module.scss';
 
 import { ContentfulImageAsset } from '@/data/types';
 
-import BaseLink from '@/components/BaseLink/BaseLink';
-import { Props as LinkProps } from '@/components/BaseLink/BaseLink';
+import BaseLink, { Props as LinkProps } from '@/components/BaseLink/BaseLink';
 import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
 import Cta, { ButtonType } from '@/components/Cta/Cta';
 import Eyebrow from '@/components/Eyebrow/Eyebrow';

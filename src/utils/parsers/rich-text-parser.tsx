@@ -2,8 +2,7 @@ import { Children, ReactElement, ReactNode } from 'react';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS, Document, INLINES } from '@contentful/rich-text-types';
 
-import { FilteredEntity } from '@/data/types';
-import { ContentfulImageAsset } from '@/data/types';
+import { ContentfulImageAsset, FilteredEntity } from '@/data/types';
 
 import BaseLink, { Target } from '@/components/BaseLink/BaseLink';
 import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
