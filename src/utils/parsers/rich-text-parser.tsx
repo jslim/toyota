@@ -1,8 +1,6 @@
-import { Children, ReactElement, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import { BLOCKS, Document, INLINES } from '@contentful/rich-text-types';
-
-import { ContentfulImageAsset, FilteredEntity } from '@/data/types';
+import { Block, BLOCKS, Document, Inline, INLINES } from '@contentful/rich-text-types';
 
 import BaseLink, { Target } from '@/components/BaseLink/BaseLink';
 import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
@@ -10,68 +8,44 @@ import VideoPlayer from '@/components/VideoPlayer/VideoPlayer';
 
 import { getPageBlocks } from './get-page-blocks';
 
-type ContentfulNodeType = {
-  data: {
-    uri?: string;
-  };
-};
-
-type ContentfulEmbeddedNodeType = {
-  data: { target?: FilteredEntity };
-};
-
-type ContentfulImageNodeType = {
-  nodeType: string;
-  data: {
-    target?: ContentfulImageAsset;
-  };
-};
-
 /**
- * Utility method to check if react children are "RenderMark" components from rich text.
- * Used to determine if we should render a wrapping paragraph or not.
+ * Utility method to check if node contains "inline" entries and removing
+ * wrapping paragraph if so. This is used primarily for adding content nested
+ * within tables as the tables default to rendering a pargaph for any table cell
+ * content.
  *
- * @param children ReactNode(s) within paragraph block elements to check against.
+ * @param node Pargaraph node to check against.
  * @returns boolean
  */
-const isRenderMarks = (children: ReactNode) => {
-  if (Children.count(children) > 1) {
-    return Children.toArray(children).some((child) => {
-      if ((child as ReactElement).props && (child as ReactElement).props.href) {
-        return true;
-      }
-      if (child && child.hasOwnProperty('type')) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const childType = (child as any).type;
-        return childType === 'b' || childType === 'u' || childType === 'i';
-      }
-      return false;
-    });
-  }
-  return true;
+const hasInlineEntry = (node: Block | Inline) => {
+  let shouldWrap = false;
+  node.content.forEach((node) => {
+    if (node.nodeType === INLINES.EMBEDDED_ENTRY) shouldWrap = true;
+  });
+  return shouldWrap;
 };
 
 export const parseContentfulRichText = (richText: Document, className?: string): ReactNode => {
   const renderOptions = {
     renderNode: {
-      [INLINES.HYPERLINK]: (node: ContentfulNodeType, children: ReactNode) => (
+      [INLINES.HYPERLINK]: (node: Inline | Block, children: ReactNode) => (
         <BaseLink className={className} target={Target.BLANK} href={node.data.uri}>
           {children}
         </BaseLink>
       ),
-      [BLOCKS.PARAGRAPH]: (_node: ContentfulNodeType, children: ReactNode) => {
-        return isRenderMarks(children) ? <p>{children}</p> : <>{children}</>;
+      [BLOCKS.PARAGRAPH]: (node: Inline | Block, children: ReactNode) => {
+        return hasInlineEntry(node) ? <>{children}</> : <p>{children}</p>;
       },
-      [BLOCKS.EMBEDDED_ENTRY]: (node: ContentfulEmbeddedNodeType) => {
+      [BLOCKS.EMBEDDED_ENTRY]: (node: Inline | Block) => {
         const entity = node?.data?.target;
         return entity && getPageBlocks(entity);
       },
-      [INLINES.EMBEDDED_ENTRY]: (node: ContentfulEmbeddedNodeType) => {
+      [INLINES.EMBEDDED_ENTRY]: (node: Inline | Block) => {
         const entity = node?.data?.target;
         return entity && getPageBlocks(entity);
       },
 
-      [BLOCKS.EMBEDDED_ASSET]: (node: ContentfulImageNodeType) => {
+      [BLOCKS.EMBEDDED_ASSET]: (node: Inline | Block) => {
         const contentType = node?.data?.target?.fields.file.contentType;
 
         if (contentType?.includes('image')) {
