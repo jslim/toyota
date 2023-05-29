@@ -26,7 +26,8 @@
 
   .container {
     @include media-desktopSm {
-      width: 100%;
+      overflow-x: hidden;
+      width: 60vw;
     }
 
     .swiperWrapper {
@@ -234,7 +235,7 @@
     margin-top: px(62);
     padding-left: px(96);
     padding-top: 0;
-    overflow-x: hidden;
+    overflow: visible;
   }
 
   .slide {
@@ -267,11 +268,17 @@
       gap: px(24);
       width: px(192);
       transition: opacity 0.33s linear;
+      opacity: 0.4;
 
+      /*
       &:not(.isLocked) {
         &:global(.swiper-slide-prev) {
-          opacity: 0.4;
+          //  opacity: 0.4;
         }
+      } */
+
+      &:global(.swiper-slide-visible) {
+        opacity: 1;
       }
     }
   }
