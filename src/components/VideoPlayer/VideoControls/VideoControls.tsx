@@ -7,6 +7,7 @@ import styles from './VideoControls.module.scss';
 
 // eslint-disable-next-line import/order
 import Cta, { ButtonType } from '@/components/Cta/Cta';
+import { VideoType } from '@/components/VideoPlayerContainer/VideoPlayerContainer';
 
 import VideoTimeline from '../VideoTimeline/VideoTimeline';
 import CaptionsOffIcon from './svgs/captions-off.svg';
@@ -17,7 +18,6 @@ import MutedIcon from './svgs/muted.svg';
 import PauseIcon from './svgs/pause.svg';
 import PlayIcon from './svgs/play.svg';
 import UnmutedIcon from './svgs/unmuted.svg';
-import { VideoType } from '@/components/VideoPlayerContainer/VideoPlayerContainer';
 
 export type Props = {
   className?: string;

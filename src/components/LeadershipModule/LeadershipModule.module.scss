@@ -133,19 +133,11 @@
 
       @include media-tablet {
         margin-bottom: px(24);
-      }
-
-      @include media-desktopSm {
-        margin-bottom: px(32);
-      }
-    }
-
-    .title {
-      @include media-tablet {
         @include use-tablet-columns(max-width, 5);
       }
 
       @include media-desktopSm {
+        margin-bottom: px(32);
         @include use-desktop-columns(max-width, 4, 1);
       }
     }

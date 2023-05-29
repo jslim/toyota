@@ -22,7 +22,7 @@ export type TextIntroProps = {
   layout: DefaultLayoutType | ColumnType;
   eyebrow: string;
   header: string;
-  subtitle?: string | String[];
+  subtitle?: string | string[];
   description?: string;
   ctaProps?: LinkProps;
 };
