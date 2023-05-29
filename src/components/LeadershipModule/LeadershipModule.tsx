@@ -111,7 +111,7 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title
               1024: {
                 spaceBetween: 22,
                 autoHeight: false,
-                slidesOffsetAfter: 100
+                slidesOffsetAfter: 0
               }
             }}
             freeMode={true}
@@ -125,7 +125,7 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title
           >
             {pairsArray.map((pair, i) => {
               return (
-                <SwiperSlide className={classNames(css.slide, { [css.isLocked]: isCarouselLocked })} key={`slide-${i}`}>
+                <SwiperSlide className={css.slide} key={`slide-${i}`}>
                   {pair.map((item, i) => {
                     if (item == null) return null;
                     return <LeadershipCard {...item} key={i} className={css.card} />;
