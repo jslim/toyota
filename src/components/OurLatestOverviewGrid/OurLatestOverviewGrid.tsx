@@ -1,10 +1,13 @@
 import { FC, memo, useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
+import css from './OurLatestOverviewGrid.module.scss';
+
 import { FilteredEntity, GenericEntity, GenericObject, Lang, OurLatestPostPageContentType } from '@/data/types';
 
 import { CardProps, CardTypes } from '@/components/Card/Card';
 import CardGrid from '@/components/CardGrid/CardGrid';
+import Cta from '@/components/Cta/Cta';
 import OurLatestOverviewFilters, {
   OurLatestFilterButtons
 } from '@/components/OurLatestOverviewFilters/OurLatestOverviewFilters';
@@ -38,10 +41,13 @@ export type OurLatestOverviewGridProps = {
   newsLabel: string;
   blogLabel: string;
   researchLabel: string;
+  loadMoreLabel: string;
 };
 
 const postsEn = resolveResponse(postDataEn);
 const postsJP = resolveResponse(postDataJP);
+
+const POSTS_PER_PAGE = 6;
 
 const OurLatestOverviewGrid: FC<OurLatestOverviewGridProps> = ({
   topicsLabel,
@@ -51,29 +57,36 @@ const OurLatestOverviewGrid: FC<OurLatestOverviewGridProps> = ({
   allLabel,
   newsLabel,
   blogLabel,
-  researchLabel
+  researchLabel,
+  loadMoreLabel
 }) => {
+  const [page, setPage] = useState(1);
+  const [cardCount, setCardCount] = useState(0);
   const router = useRouter();
   const activeLang = useAppSelector((state) => state.activeLang);
   const [allCards, setAllCards] = useState<Array<FilteredEntity<OurLatestPostPageContentType>>>([]);
   const [filteredCards, setFilteredCards] = useState<Array<CardProps>>([]);
   const [topics, setTopics] = useState<Array<OurLatestFilterButtons>>([]);
 
-  const generateCardProps = useCallback((unfilteredCards: Array<GenericEntity<GenericObject>>) => {
-    setAllCards(
-      unfilteredCards?.map((card) => {
-        return makeFilteredEntity(card) as FilteredEntity<OurLatestPostPageContentType>;
-      })
-    );
-  }, []);
+  const handleOnClick = useCallback(() => {
+    setPage((page) => (page * POSTS_PER_PAGE < filteredCards.length ? page + 1 : page));
+  }, [setPage, filteredCards]);
 
   useEffect(() => {
-    if (allCards?.length !== 0) return;
+    const generateCardProps = (unfilteredCards: Array<GenericEntity<GenericObject>>) => {
+      setAllCards(
+        unfilteredCards?.map((card) => {
+          return makeFilteredEntity(card) as FilteredEntity<OurLatestPostPageContentType>;
+        })
+      );
+    };
+
     activeLang === Lang.EN ? generateCardProps(postsEn) : generateCardProps(postsJP);
-  }, [activeLang, setAllCards, allCards, generateCardProps]);
+  }, [activeLang, setAllCards]);
 
   useEffect(() => {
     let tempCards: Array<CardProps> = [];
+    let tempCardCount = 0;
     const filters: TopicFilters = {};
 
     const category = router?.query?.category;
@@ -82,6 +95,9 @@ const OurLatestOverviewGrid: FC<OurLatestOverviewGridProps> = ({
     allCards.forEach((card) => {
       // If we card isn't in active category escape early
       if (category && card.fields.category !== category) return false;
+
+      // Increase card count for any card within same category
+      tempCardCount++;
 
       card?.fields?.topic?.forEach((topic) => {
         if (!filters[topic]) {
@@ -92,10 +108,22 @@ const OurLatestOverviewGrid: FC<OurLatestOverviewGridProps> = ({
       });
 
       // if there's a topic set, ensure we're matching it and update active cards
-      if (!(topics && card.fields?.topic?.indexOf(Array.isArray(topics) ? topics[0] : topics) === -1)) {
+      if (
+        !(topics && card.fields?.topic?.indexOf(Array.isArray(topics) ? topics[0] : topics) === -1) &&
+        card.fields.topic != null
+      ) {
         const props = buildNewsCard(card.fields, { lang: activeLang }).props as CardProps;
         tempCards.push(props);
       }
+
+      setCardCount(tempCardCount);
+    });
+
+    // Ensure we're ordering by the custom publish date and not when the post was created
+    tempCards.sort((a, b) => {
+      const first = new Date(a.date!).getTime();
+      const second = new Date(b.date!).getTime();
+      return second - first;
     });
 
     setFilteredCards(tempCards);
@@ -117,11 +145,19 @@ const OurLatestOverviewGrid: FC<OurLatestOverviewGridProps> = ({
         topicTitle={topicsLabel}
         topics={topics}
         topicQuery="topic" // don't localize
-        totalCards={filteredCards?.length || 0}
+        totalCards={cardCount}
         filtersLabel={filtersLabel}
         allLabel={allLabel}
       />
-      <CardGrid cardType={CardTypes.NEWS} cards={filteredCards} />
+      <CardGrid cardType={CardTypes.NEWS} cards={filteredCards.filter((_el, i) => i < page * POSTS_PER_PAGE)} />
+      {page * POSTS_PER_PAGE <= filteredCards.length && (
+        <Cta
+          className={css.loadMore}
+          title={loadMoreLabel}
+          onClick={() => handleOnClick()}
+          isDisabled={page * POSTS_PER_PAGE >= filteredCards.length}
+        />
+      )}
     </SectionWrapper>
   );
 };

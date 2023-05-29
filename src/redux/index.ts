@@ -29,7 +29,7 @@ export const defaultGlobalStrings: GlobalStringsFields = {
   shareText: 'Share Link',
   copyLink: 'Copy Link',
   copyLinkSuccess: 'Link Copied',
-  relatedNews: 'RelatedNews',
+  relatedNews: 'Related News',
   emailShareSubject: 'Woven by Toyota',
   emailShareBody: '',
   downloadAssets: 'Download all assets',
