@@ -47,6 +47,8 @@ export type OurLatestOverviewGridProps = {
 const postsEn = resolveResponse(postDataEn);
 const postsJP = resolveResponse(postDataJP);
 
+const POSTS_PER_PAGE = 6;
+
 const OurLatestOverviewGrid: FC<OurLatestOverviewGridProps> = ({
   topicsLabel,
   categoriesLabel,
@@ -67,7 +69,7 @@ const OurLatestOverviewGrid: FC<OurLatestOverviewGridProps> = ({
   const [topics, setTopics] = useState<Array<OurLatestFilterButtons>>([]);
 
   const handleOnClick = useCallback(() => {
-    setPage((page) => (page * 9 < filteredCards.length ? page + 1 : page));
+    setPage((page) => (page * POSTS_PER_PAGE < filteredCards.length ? page + 1 : page));
   }, [setPage, filteredCards]);
 
   useEffect(() => {
@@ -147,13 +149,15 @@ const OurLatestOverviewGrid: FC<OurLatestOverviewGridProps> = ({
         filtersLabel={filtersLabel}
         allLabel={allLabel}
       />
-      <CardGrid cardType={CardTypes.NEWS} cards={filteredCards.filter((_el, i) => i < page * 9)} />
-      <Cta
-        className={css.loadMore}
-        title={loadMoreLabel}
-        onClick={() => handleOnClick()}
-        isDisabled={page * 9 >= filteredCards.length}
-      />
+      <CardGrid cardType={CardTypes.NEWS} cards={filteredCards.filter((_el, i) => i < page * POSTS_PER_PAGE)} />
+      {page * POSTS_PER_PAGE <= filteredCards.length && (
+        <Cta
+          className={css.loadMore}
+          title={loadMoreLabel}
+          onClick={() => handleOnClick()}
+          isDisabled={page * POSTS_PER_PAGE >= filteredCards.length}
+        />
+      )}
     </SectionWrapper>
   );
 };
