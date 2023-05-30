@@ -102,7 +102,7 @@ export const getPageBlocks = (entry: FilteredEntity): JSX.Element | null => {
    * This allows us to keep the order of the fields on the content type.
    */
   Object.keys(fields).forEach((fieldId: string) => {
-    if (childrenFields && childrenFields[fieldId]) {
+    if (childrenFields?.[fieldId]) {
       // Specific fields set in the current ComponentBuilder that should be passed as children instead of a prop.
       Children.push(childrenFields[fieldId]);
     } else if (isEntity(fields[fieldId])) {

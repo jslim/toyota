@@ -13,8 +13,7 @@ import {
 import usePreviewData from '@/hooks/use-preview-data';
 import { getAllLangSlugs } from '@/utils/locales';
 import { getPageBlocks } from '@/utils/parsers/get-page-blocks';
-import resolveResponse from '@/utils/parsers/response-parser-util';
-import { makeFilteredEntity } from '@/utils/parsers/response-parser-util';
+import resolveResponse, { makeFilteredEntity } from '@/utils/parsers/response-parser-util';
 
 /* eslint-disable */
 // @ts-ignore: populated during prebuild

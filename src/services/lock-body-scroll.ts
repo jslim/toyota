@@ -22,7 +22,7 @@ class Service {
     : noop;
 
   unlock = device.browser
-    ? (skipPositionRestore: Boolean = false) => {
+    ? (skipPositionRestore: boolean = false) => {
         document.body.style.position = '';
         document.body.style.overflowY = '';
         document.body.style.marginTop = '';
