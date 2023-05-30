@@ -6,6 +6,8 @@ import { useRouter } from 'next/router';
 import * as settings from '@/data/settings';
 import { HeadProps } from '@/data/types';
 
+import { useAppSelector } from '@/redux';
+
 const MockFeaturePolicy = dynamic(() => import('@/components/Head/MockFeaturePolicy'), { ssr: false });
 const MockContentSecurityPolicy = dynamic(() => import('@/components/Head/MockContentSecurityPolicy'), { ssr: false });
 
@@ -13,12 +15,13 @@ const TITLE_SEPARATOR = '-';
 
 const Head: FC<HeadProps> = ({ title, keywords, description, siteName, image }) => {
   const router = useRouter();
+  const { defaultPageMetadata } = useAppSelector((state) => state.activeGlobalData);
 
   const ogUrl = `${process.env.NEXT_PUBLIC_WEBSITE_SITE_URL}${router.asPath}`;
-  const ogDefaultImage = image ?? `${process.env.NEXT_PUBLIC_WEBSITE_SITE_URL}/common/assets/images/share-image.png`;
+  const ogDefaultImage = image ?? defaultPageMetadata.image;
   const fullTitle = title
-    ? `${title} ${TITLE_SEPARATOR} ${siteName ?? settings.siteName}`
-    : `${siteName} ${TITLE_SEPARATOR} ${settings.siteSlogan}`;
+    ? `${title} ${TITLE_SEPARATOR} ${siteName ?? defaultPageMetadata.siteName}`
+    : `${siteName ?? defaultPageMetadata.siteName}`;
 
   return (
     <NextHead>

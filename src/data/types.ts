@@ -52,6 +52,7 @@ export type GlobalDataFields = {
   notFoundPageHeader: string;
   notFoundPageDescription: string;
   notFoundPageButton: string;
+  defaultPageMetadata: HeadProps;
 };
 
 export type GlobalData = {
@@ -304,6 +305,7 @@ export type GlobalDataContentType = {
   notFoundPageHeader: string;
   notFoundPageDescription: string;
   notFoundPageButton: string;
+  defaultPageMetadata: FilteredEntity<PageMetadataContentType>;
 };
 
 export type CTAContentType = {
