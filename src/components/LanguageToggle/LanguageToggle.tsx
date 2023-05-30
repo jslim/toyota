@@ -30,11 +30,8 @@ const LanguageToggle: FC<LanguageToggleProps> = ({ className }) => {
     setActiveLang(lang);
     router.push({
       query: {
-        lang: lang,
-        slug: router.asPath
-          .split('/')
-          .filter((item) => item !== '' && Object.values(Lang).every((lang) => item !== lang) && item)
-          .join('/')
+        ...router.query,
+        lang: lang
       }
     });
   };
