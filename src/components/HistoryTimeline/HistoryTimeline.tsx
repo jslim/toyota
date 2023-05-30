@@ -67,7 +67,7 @@ const HistoryTimeline: FC<HistoryTimelineProps> = ({ className, eyebrow, title, 
         <Eyebrow text={eyebrow} />
         <div className={css.titleWrapper} ref={titleRef}>
           <h3 className={css.title}>{title}</h3>
-          <div className={css.year}>{slides[swiper?.activeIndex || 0].year}</div>
+          <div className={css.year}>{slides[swiper?.activeIndex ?? 0].year}</div>
         </div>
         <div ref={swiperRef}>
           {hasHoverEffect && swiperRef.current && (

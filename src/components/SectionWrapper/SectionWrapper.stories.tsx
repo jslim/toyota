@@ -25,7 +25,7 @@ Default.args = {
 export const WithContent: Story<SectionWrapperProps> = (args) => (
   <SectionWrapper {...args}>
     <div style={{ marginTop: '30px' }}>
-      <Accordion variant={isDarkMode(args.backgroundColor || Color.DARK_GREY)}>
+      <Accordion variant={isDarkMode(args.backgroundColor ?? Color.DARK_GREY)}>
         <AccordionItem key={1} title="Section 1">
           <p>Section 1 content...</p>
         </AccordionItem>

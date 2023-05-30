@@ -60,5 +60,5 @@ export default function usePreviewData({ staticData }: Args) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [entryId, validPreviewParams]);
 
-  return data || staticData;
+  return data ?? staticData;
 }

@@ -63,7 +63,7 @@ const ContentfulImage = forwardRef<HTMLImageElement, ContentfulImageProps>(
 
     useEffect(() => {
       if (loadImage) {
-        onLoad && onLoad();
+        onLoad?.();
       }
 
       if (!withLazyLoad) setLoadImage(true);
