@@ -7,8 +7,6 @@ import { ContentfulImageAsset } from '@/data/types';
 
 import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
 
-import SvgBiographicHeroBackground from '@/components/svgs/biographic-hero-background.svg';
-
 export type BiographicHeroProps = {
   className?: string;
   title: string;
@@ -19,9 +17,7 @@ export type BiographicHeroProps = {
 const BiographicHero: FC<BiographicHeroProps> = ({ className, title, description, asset }) => {
   return (
     <div className={classNames('BiographicHero', css.root, className)}>
-      <div className={css.backgroundContainer}>
-        <SvgBiographicHeroBackground className={css.backgroundImage} />
-      </div>
+      <div className={css.overlay}></div>
 
       <div className={css.contentContainer}>
         <div className={css.rightMobileImage}>
