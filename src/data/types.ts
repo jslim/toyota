@@ -45,6 +45,7 @@ export type GlobalDataFields = {
   footerLegalLinks: Array<NavLinks>;
   footerSocialLinks: Array<SocialLinks>;
   footerOfficeLocations: Array<string>;
+  companyName: string;
   homepageBannerText: string;
   showHomepageBanner: boolean;
   skipToContentText: string;
@@ -292,6 +293,7 @@ export type GlobalDataContentType = {
   footerLegalLinks: Array<FilteredEntity<CTAContentType>>;
   footerSocialLinks: Array<FilteredEntity<CTAContentType>>;
   footerOfficeLocations: Array<string>;
+  companyName: string;
   homepageBannerText: string;
   showHomepageBanner: boolean;
   skipToContentText: string;
