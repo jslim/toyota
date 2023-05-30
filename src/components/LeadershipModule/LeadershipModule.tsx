@@ -108,7 +108,6 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title
                 },
                 1024: {
                   spaceBetween: 22,
-                  slidesOffsetAfter: 0
                 }
               }}
               onLock={(_swiper) => {
