@@ -276,7 +276,7 @@ const ImageCascade: FC<ImageCascadeProps> = ({
           isHorizontal ? 0.6 : 0.8
         )
         .from(
-          assetRef.current?.getElementsByTagName('img') || null,
+          assetRef.current?.getElementsByTagName('img') ?? null,
           {
             ease: 'ease01',
             duration: 3,

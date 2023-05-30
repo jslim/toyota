@@ -15,17 +15,17 @@ const Head: FC<HeadProps> = ({ title, keywords, description, siteName, image }) 
   const router = useRouter();
 
   const ogUrl = `${process.env.NEXT_PUBLIC_WEBSITE_SITE_URL}${router.asPath}`;
-  const ogDefaultImage = image || `${process.env.NEXT_PUBLIC_WEBSITE_SITE_URL}/common/assets/images/share-image.png`;
+  const ogDefaultImage = image ?? `${process.env.NEXT_PUBLIC_WEBSITE_SITE_URL}/common/assets/images/share-image.png`;
   const fullTitle = title
-    ? `${title} ${TITLE_SEPARATOR} ${siteName || settings.siteName}`
+    ? `${title} ${TITLE_SEPARATOR} ${siteName ?? settings.siteName}`
     : `${siteName} ${TITLE_SEPARATOR} ${settings.siteSlogan}`;
 
   return (
     <NextHead>
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
       <title>{fullTitle}</title>
-      <meta name="description" content={description || settings.siteDescription} />
-      <meta name="keywords" content={(keywords || settings.siteKeywords).join(', ')} />
+      <meta name="description" content={description ?? settings.siteDescription} />
+      <meta name="keywords" content={(keywords ?? settings.siteKeywords).join(', ')} />
       {/* Generate favicons in https://realfavicongenerator.net */}
       <meta name="theme-color" content="#ffffff" />
       <meta name="msapplication-TileColor" content="#ffffff" />

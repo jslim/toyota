@@ -30,9 +30,9 @@ const AssetsDownload: FC<AssetsProps> = ({ className, title, assets }) => {
 
   const handleZipFolder = useCallback((files: ContentfulImageAsset[]) => {
     let zip = new JSZip();
-    files.map((file) => {
+    files.forEach((file) => {
       let blob = fetch(file.fields.file.url).then((r) => r.blob());
-      return zip.file(file.fields.file.fileName, blob);
+      zip.file(file.fields.file.fileName, blob);
     });
 
     zip.generateAsync({ type: 'blob' }).then((blob: Blob | MediaSource) => {

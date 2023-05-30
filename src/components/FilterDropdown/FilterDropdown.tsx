@@ -83,7 +83,7 @@ const FilterDropdown: FC<FilterDropdownProps> = ({
       </div>
 
       <FilterDropdownModal isOpen={isOpen}>
-        <FilterDropdownModalOptions category={categoryOverride || title} content={categories} />
+        <FilterDropdownModalOptions category={categoryOverride ?? title} content={categories} />
       </FilterDropdownModal>
     </div>
   );

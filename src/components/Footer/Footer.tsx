@@ -68,7 +68,7 @@ const Footer: FC<FooterProps> = ({ className }) => {
                   className={css.socialMediaButton}
                   platform={platform}
                   href={linkUrl}
-                  label={linkText || ariaLabel}
+                  label={linkText ?? ariaLabel}
                   isWhite={true}
                 />
               ))}
