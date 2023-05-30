@@ -271,19 +271,20 @@
   }
 }
 
-@mixin pagination($color: $white) {
+@mixin pagination($color: $white, $big: true) {
   @include flex-center;
 
   > span {
     position: relative;
     @include box(px(25));
     @include flex-center;
-    margin: 0 px(13);
     margin: 0;
     cursor: pointer;
 
     @include breakpoint(desktopSm) {
-      margin: 0 px(13);
+      @if ($big) {
+        margin: 0 px(13);
+      }
     }
 
     &:global(.swiper-pagination-bullet-active) {
