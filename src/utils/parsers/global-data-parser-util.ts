@@ -8,6 +8,8 @@ import {
 } from '@/data/types';
 import { SocialPlatform } from '@/data/variants';
 
+import { buildPageMetaData } from './page-metadata-parser-util';
+
 const convertCtaToNavLink = (link: FilteredEntity<CTAContentType>) => ({
   linkUrl: link.fields?.linkUrl ?? '',
   linkText: link.fields?.linkText ?? '',
@@ -50,7 +52,8 @@ export const globalDataParserUtil = (entity: GlobalDataContentType): GlobalDataF
   const showHomepageBanner = entity?.showHomepageBanner ?? false;
   const notFoundPageHeader = entity?.notFoundPageHeader;
   const notFoundPageDescription = entity?.notFoundPageDescription;
-  const notFoundPageButton = entity.notFoundPageButton;
+  const notFoundPageButton = entity?.notFoundPageButton;
+  const defaultPageMetadata = buildPageMetaData(entity?.defaultPageMetadata?.fields ?? {});
 
   return {
     mainNavLinks,
@@ -64,6 +67,7 @@ export const globalDataParserUtil = (entity: GlobalDataContentType): GlobalDataF
     showHomepageBanner,
     notFoundPageHeader,
     notFoundPageDescription,
-    notFoundPageButton
+    notFoundPageButton,
+    defaultPageMetadata
   };
 };

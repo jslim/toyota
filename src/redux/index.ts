@@ -11,6 +11,8 @@ import {
   SocialLinks
 } from '@/data/types';
 
+import { buildPageMetaData } from '@/utils/parsers/page-metadata-parser-util';
+
 export const defaultGlobalData: GlobalDataFields = {
   mainNavLinks: [] as Array<NavLinks>,
   footerNavLinks: [] as Array<NavLinks>,
@@ -23,7 +25,8 @@ export const defaultGlobalData: GlobalDataFields = {
   skipToContentText: '',
   notFoundPageHeader: '',
   notFoundPageDescription: '',
-  notFoundPageButton: ''
+  notFoundPageButton: '',
+  defaultPageMetadata: buildPageMetaData({})
 };
 
 export const defaultGlobalStrings: GlobalStringsFields = {
