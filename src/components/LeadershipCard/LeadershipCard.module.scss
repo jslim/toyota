@@ -44,6 +44,7 @@
 
     @include media-desktopSm {
       @include font-size(14, 20);
+      min-height: px(48);
     }
   }
 
