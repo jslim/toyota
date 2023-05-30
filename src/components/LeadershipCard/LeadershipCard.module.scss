@@ -23,25 +23,28 @@
 
   .title {
     @include font-size(8.6, 13);
+    color: $dark-grey;
 
     @include media-tablet {
       @include font-size(18, 26);
     }
 
     @include media-desktopSm {
-      @include font-size(20, 30);
+      @include font-size(16, 24);
     }
   }
 
   .description {
     @include font-size(7, 10);
+    color: $mid-grey;
 
     @include media-tablet {
       @include font-size(13, 22);
     }
 
     @include media-desktopSm {
-      @include font-size(16, 24);
+      @include font-size(14, 20);
+      min-height: px(48);
     }
   }
 

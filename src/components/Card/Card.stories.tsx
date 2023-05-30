@@ -1,8 +1,7 @@
 // eslint-disable-next-line simple-import-sort/imports
 import { Story } from '@storybook/react';
 
-import Card, { CardProps } from './Card';
-import { CardTypes } from './Card';
+import Card, { CardProps, CardTypes } from './Card';
 
 import { contentfulTestAsset } from '../ContentfulImage/ContentfulImage.stories';
 

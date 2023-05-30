@@ -17,7 +17,7 @@ Default.args = {
       { name: 'James Kuffner', role: 'Representative Director  ' },
       { name: 'Kenta Kon', role: 'Representative Director' },
       { name: 'Takanori Azuma', role: 'Director' },
-      { name: 'Julie Hamp', role: 'Director' },
+      { name: 'Julie Hamp', role: 'Director, Director, Audit & Supervisory' },
       { name: 'Koji Kobayashi', role: 'Audit & Supervisory' }
     ]
   },
@@ -87,7 +87,7 @@ Default.args = {
     },
     {
       title: 'Name Person 8',
-      description: 'Job title 8',
+      description: 'Job title 8, 8 8',
       image: contentfulTestAsset,
       cta: {
         title: 'maping',
@@ -96,7 +96,7 @@ Default.args = {
     },
     {
       title: 'Name Person 9',
-      description: 'Job title 9',
+      description: 'Job title 9, Job title 9, Job title 9',
       image: contentfulTestAsset,
       cta: {
         title: 'maping',
@@ -106,6 +106,24 @@ Default.args = {
     {
       title: 'Name Person 10',
       description: 'Job title 10',
+      image: contentfulTestAsset,
+      cta: {
+        title: 'maping',
+        href: 'https://google.com'
+      }
+    },
+    {
+      title: 'Name Person 11',
+      description: 'Job title 11',
+      image: contentfulTestAsset,
+      cta: {
+        title: 'maping',
+        href: 'https://google.com'
+      }
+    },
+    {
+      title: 'Name Person 12',
+      description: 'Job title 12',
       image: contentfulTestAsset,
       cta: {
         title: 'maping',

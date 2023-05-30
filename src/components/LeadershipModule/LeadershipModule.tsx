@@ -93,7 +93,7 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title
           {isDesktop && !isCarouselLocked && containerRef.current && <Cursor containerRef={containerRef} />}
           <Swiper
             className={css.carouselContainer}
-            autoHeight={true}
+            autoHeight={false}
             speed={SLIDE_DURATION}
             pagination={{
               el: `.${css.pagination}`,
@@ -106,11 +106,11 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title
             breakpoints={{
               768: {
                 spaceBetween: 46,
-                slidesOffsetAfter: 500
+                slidesOffsetAfter: 400
               },
               1024: {
                 spaceBetween: 22,
-                autoHeight: false
+                slidesOffsetAfter: 0
               }
             }}
             freeMode={true}
@@ -124,7 +124,7 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title
           >
             {pairsArray.map((pair, i) => {
               return (
-                <SwiperSlide className={classNames(css.slide, { [css.isLocked]: isCarouselLocked })} key={`slide-${i}`}>
+                <SwiperSlide className={css.slide} key={`slide-${i}`}>
                   {pair.map((item, i) => {
                     if (item == null) return null;
                     return <LeadershipCard {...item} key={i} className={css.card} />;

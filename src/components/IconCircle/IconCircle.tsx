@@ -8,8 +8,8 @@ import { ButtonType } from '@/components/Cta/Cta';
 export type IconCircleProps = {
   className?: string;
   children?: ReactNode;
-  isWhite?: Boolean;
-  isActive?: Boolean;
+  isWhite?: boolean;
+  isActive?: boolean;
   theme?: ButtonType;
   isDisabled?: boolean;
 };

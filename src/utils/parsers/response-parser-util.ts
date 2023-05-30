@@ -32,7 +32,7 @@ export const makeFilteredEntity = (entity: GenericEntity): FilteredEntity => {
     // Creating a "content type" for any assets so component/page builder has consistent structure
     contentType: isEntry ? entity?.sys?.contentType?.sys?.id! : 'contentfulAssetEntity',
     id: entity?.sys?.id!,
-    locale: entity?.sys?.locale || Locale.EN
+    locale: entity?.sys?.locale ?? Locale.EN
   };
 };
 
@@ -42,7 +42,7 @@ export const makeFilteredEntity = (entity: GenericEntity): FilteredEntity => {
  * @param {GenericObject} object - Arbitrary object to check
  */
 const isLink = (object: GenericObject): boolean =>
-  object && object.sys && object.sys.type === 'Link' && object.sys.linkType !== 'ContentType';
+  object?.sys?.type === 'Link' && object.sys.linkType !== 'ContentType';
 
 /**
  * Creates a string key for lookup in entityMap
@@ -65,7 +65,7 @@ const getLink = (entityMap: EntityMap, link: GenericEntity): GenericObject => {
   const { linkType: type, id } = link.sys;
   const lookupKey = makeLookupKey({ type, id });
 
-  return entityMap.get(lookupKey) || UNRESOLVED_LINK;
+  return entityMap.get(lookupKey) ?? UNRESOLVED_LINK;
 };
 
 /**
