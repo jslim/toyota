@@ -26,11 +26,14 @@
 
   .container {
     @include media-desktopSm {
-      width: 100%;
+      overflow-x: hidden;
+      width: 60vw;
     }
 
     .swiperWrapper {
-      width: 100%;
+      @include media-desktopSm {
+        width: 45vw;
+      }
     }
 
     .carouselContainer > div {
@@ -38,6 +41,7 @@
 
       @include media-desktopSm {
         height: auto !important;
+        justify-content: space-between;
       }
     }
 
@@ -53,7 +57,8 @@
     @include flex-center;
 
     @include breakpoint(desktopSm) {
-      margin: px(40) 0 0;
+      justify-content: flex-start;
+      margin: px(40) 0 px(40) px(96);
     }
 
     > span {
@@ -232,14 +237,12 @@
     margin-top: px(62);
     padding-left: px(96);
     padding-top: 0;
-    overflow-x: hidden;
   }
 
   .slide {
     width: px(114);
     transform: scale(1);
     transition: transform 0.3s linear;
-    height: auto !important;
 
     @include media-tablet {
       width: px(231);
@@ -261,20 +264,15 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      align-self: baseline;
+      align-self: normal;
+      gap: px(16);
       width: px(192);
       transition: opacity 0.33s linear;
+      opacity: 0.4;
 
-      &:not(.isLocked) {
-        &:global(.swiper-slide-next + .swiper-slide + .swiper-slide),
-        &:global(.swiper-slide-prev) {
-          opacity: 0.4;
-        }
+      &:global(.swiper-slide-visible) {
+        opacity: 1;
       }
-    }
-
-    .card {
-      margin-bottom: px(24);
     }
   }
 }
