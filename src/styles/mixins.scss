@@ -286,6 +286,9 @@
         margin: 0 px(13);
       }
     }
+    @include breakpoint(desktopMd) {
+      margin: 0 px(13);
+    }
 
     &:global(.swiper-pagination-bullet-active) {
       &::after {
