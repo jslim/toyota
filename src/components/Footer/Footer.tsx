@@ -21,10 +21,8 @@ export interface FooterProps {
   className?: string;
 }
 
-const siteName = 'Woven Planet Holdings, Inc.';
-
 const Footer: FC<FooterProps> = ({ className }) => {
-  const { footerNavLinks, footerLegalLinks, footerSocialLinks, footerOfficeLocations } = useAppSelector(
+  const { footerNavLinks, footerLegalLinks, footerSocialLinks, footerOfficeLocations, companyName } = useAppSelector(
     (state) => state.activeGlobalData
   );
   const activeRoute = useAppSelector((state) => state.activeRoute);
@@ -84,7 +82,7 @@ const Footer: FC<FooterProps> = ({ className }) => {
                 </li>
               ))}
               <li className={css.copyright} key="copyright">
-                {siteName}
+                {companyName}
                 <span dangerouslySetInnerHTML={{ __html: sanitizer(' &copy; ') }} />
                 {new Date().getFullYear()}
               </li>
