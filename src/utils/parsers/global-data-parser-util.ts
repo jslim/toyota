@@ -44,6 +44,7 @@ export const globalDataParserUtil = (entity: GlobalDataContentType): GlobalDataF
   const footerLegalLinks: Array<NavLinks> = entity?.footerLegalLinks?.map((link) => convertCtaToNavLink(link));
   const footerSocialLinks: Array<SocialLinks> = entity?.footerSocialLinks?.map((link) => convertCtaToSocialLink(link));
   const footerOfficeLocations = entity?.footerOfficeLocations || [];
+  const companyName = entity?.companyName ?? 'Woven by Toyota, Inc.';
   const skipToContentText = entity?.skipToContentText ?? 'Skip to content';
   const homepageBannerText = entity?.homepageBannerText ?? '';
   const showHomepageBanner = entity?.showHomepageBanner ?? false;
@@ -57,6 +58,7 @@ export const globalDataParserUtil = (entity: GlobalDataContentType): GlobalDataF
     footerLegalLinks,
     footerSocialLinks,
     footerOfficeLocations,
+    companyName,
     skipToContentText,
     homepageBannerText,
     showHomepageBanner,

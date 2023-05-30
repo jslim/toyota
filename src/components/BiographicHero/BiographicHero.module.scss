@@ -1,26 +1,18 @@
 @import 'shared';
 
+$spacing-desktop: desktop-columns(1, 1.5);
+$spacing-desktop-lock: desktop-lock-columns(1, 1.5);
+
 .root {
   width: 100%;
   position: relative;
-  max-height: 100vh;
-  min-height: 55vh;
-  padding-top: px(75);
+  padding-top: px(68);
 
   @include media-tablet {
-    height: 65vh;
     padding: 0;
   }
 
-  @include media-desktopSm {
-    height: 75vh;
-  }
-
-  @include media-desktopMd {
-    height: 100vh;
-  }
-
-  .backgroundContainer {
+  .overlay {
     @include position-100(absolute);
     background-color: $light-grey;
     width: 100%;
@@ -32,20 +24,16 @@
       align-items: flex-end;
       justify-content: center;
     }
-  }
-
-  .backgroundImage {
-    width: 100%;
-    height: auto;
-    padding-top: px(50);
-
     @include media-tablet {
-      @include use-tablet-columns(width, 8);
+      height: calc(100% - #{desktop-columns(2)});
     }
 
     @include media-desktopSm {
-      height: auto;
-      @include use-desktop-columns(width, 10);
+      height: calc(100% - $spacing-desktop);
+    }
+
+    @include media-desktopLock {
+      height: calc(100% - $spacing-desktop-lock);
     }
   }
 
@@ -59,9 +47,14 @@
 
     @include media-tablet {
       flex-direction: row;
-      justify-content: space-evenly;
-      align-items: center;
-      padding-bottom: 0;
+    }
+
+    @include media-tablet {
+      height: auto;
+    }
+
+    @include media-desktopMd {
+      align-items: stretch;
     }
   }
 
@@ -71,6 +64,18 @@
     justify-content: flex-end;
     position: relative;
     height: 100%;
+
+    @include media-tablet {
+      margin-top: px(60);
+    }
+
+    @include media-desktopSm {
+      margin-top: calc(#{$navbar-height} + #{$spacing-desktop});
+    }
+
+    @include media-desktopLock {
+      margin-top: calc(#{$navbar-height} + #{$spacing-desktop-lock});
+    }
   }
 
   .imageContainer {
@@ -81,6 +86,12 @@
     flex-direction: row;
     justify-content: flex-end;
     @include use-mobile-columns(max-width, 3);
+    @include aspect-ratio(19, 30);
+
+    img {
+      height: 100%;
+      object-fit: cover;
+    }
 
     @include media-tablet {
       flex-direction: column;
@@ -89,6 +100,7 @@
 
     @include media-desktopSm {
       @include use-desktop-columns(width, 5);
+      @include aspect-ratio(38, 51);
     }
   }
 
@@ -98,20 +110,26 @@
   }
 
   .description {
-    margin-bottom: px(50);
+    margin-bottom: px(30);
     text-align: left;
     @include use-mobile-columns(width, 3);
 
     @include media-tablet {
-      margin-top: px(200);
-      @include use-tablet-gutter(margin-left, 1);
-      @include use-tablet-columns(width, 3);
-      @include use-tablet-gutter(padding-right, 1);
+      margin-top: auto;
+      @include use-tablet-gutter(margin-left, 2);
+      @include use-tablet-columns(width, 4);
+      margin-bottom: 0;
+      padding-bottom: calc(#{px(48)} + #{desktop-columns(2)});
     }
 
     @include media-desktopSm {
       @include use-desktop-columns(margin-left, 1, 2);
       @include use-desktop-columns(width, 6);
+      padding-bottom: calc(#{$spacing-desktop} * 2);
+    }
+
+    @include media-desktopLock {
+      padding-bottom: calc(#{$spacing-desktop-lock} * 2);
     }
   }
 

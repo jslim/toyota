@@ -51,8 +51,10 @@ main {
   min-height: 100vh;
   padding-top: $navbar-height;
   @include z-index(pages);
-  @include media-desktopSm {
-    padding-top: 0;
+  &:not(.CareerDetail):not(.PageNotFound) {
+    @include media-desktopSm {
+      padding-top: 0;
+    }
   }
 }
 

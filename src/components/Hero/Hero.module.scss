@@ -163,7 +163,7 @@
       @include breakpoint(tablet) {
         margin: px(58) 0 px(30);
       }
-      @include breakpoint(desktopMd) {
+      @include breakpoint(desktopSm) {
         margin: px(202) 0 px(42);
       }
     }
@@ -215,6 +215,10 @@
 
       @include breakpoint(tablet) {
         margin-top: px(80);
+      }
+
+      @include breakpoint(desktopSm) {
+        margin-top: px(140);
       }
 
       @include breakpoint(desktopMd) {
