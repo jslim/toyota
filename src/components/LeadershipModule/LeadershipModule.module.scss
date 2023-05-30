@@ -237,14 +237,12 @@
     margin-top: px(62);
     padding-left: px(96);
     padding-top: 0;
-    overflow: visible;
   }
 
   .slide {
     width: px(114);
     transform: scale(1);
     transition: transform 0.3s linear;
-    height: auto !important;
 
     @include media-tablet {
       width: px(231);
