@@ -52,6 +52,15 @@ export type GlobalDataFields = {
   notFoundPageHeader: string;
   notFoundPageDescription: string;
   notFoundPageButton: string;
+  defaultPageMetadata: HeadProps;
+  toyotaGlobalLink: NavLinks;
+  toyotaGlobalLogo?: ContentfulImageAsset;
+  wovenCityLink: NavLinks;
+  wovenCityLogo?: ContentfulImageAsset;
+  wovenCapitalLink: NavLinks;
+  wovenCapitalLogo?: ContentfulImageAsset;
+  languageToggleEnglish: string;
+  languageToggleJapanese: string;
 };
 
 export type GlobalData = {
@@ -234,6 +243,7 @@ export type DefaultPageContentType = {
   slug: string;
   innerBlocks: Array<FilteredEntity>;
   nextChapter: FilteredEntity<NextChapterContentType>;
+  metadata: FilteredEntity<PageMetadataContentType>;
 };
 
 export type LeaderPageContentType = {
@@ -245,6 +255,7 @@ export type LeaderPageContentType = {
   leftSideBio: Document;
   rightSideBio: Document;
   featuredArticles: FilteredEntity<FeaturedArticlesContentyType>;
+  metadata: FilteredEntity<PageMetadataContentType>;
 };
 
 export type LegalPageContentType = {
@@ -263,6 +274,7 @@ export type OurLatestPageContentType = {
   slug: string;
   featuredArticle: FilteredEntity<OurLatestPostPageContentType>;
   mediaKit: FilteredEntity<MediaKitContentType>;
+  metadata: FilteredEntity<PageMetadataContentType>;
   topicsLabel: string;
   categoriesLabel: string;
   sectionTitle: string;
@@ -284,6 +296,7 @@ export type OurLatestPostPageContentType = {
   topic: Array<string>;
   thumbnail: ContentfulImageAsset;
   publishDate: string;
+  metadata: FilteredEntity<PageMetadataContentType>;
 };
 
 // Contentful Component Content Types
@@ -300,6 +313,15 @@ export type GlobalDataContentType = {
   notFoundPageHeader: string;
   notFoundPageDescription: string;
   notFoundPageButton: string;
+  defaultPageMetadata: FilteredEntity<PageMetadataContentType>;
+  toyotaGlobalLink: FilteredEntity<CTAContentType>;
+  toyotaGlobalLogo: ContentfulImageAsset;
+  wovenCityLink: FilteredEntity<CTAContentType>;
+  wovenCityLogo: ContentfulImageAsset;
+  wovenCapitalLink: FilteredEntity<CTAContentType>;
+  wovenCapitalLogo: ContentfulImageAsset;
+  languageToggleEnglish: string;
+  languageToggleJapanese: string;
 };
 
 export type CTAContentType = {
@@ -531,4 +553,12 @@ export type HistoryTimelineContentType = {
   eyebrowText: string;
   title: string;
   slides: Array<FilteredEntity<HistoryTimelineSlideContentType>>;
+};
+
+export type PageMetadataContentType = {
+  metaTitle?: string;
+  metaDescription?: string;
+  metaSiteName?: string;
+  metaKeywords?: Array<string>;
+  metaShareImage?: FilteredEntity<ContentfulImageAsset>;
 };

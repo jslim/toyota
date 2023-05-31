@@ -90,14 +90,14 @@ const VideoPlayer = ({
   const VideoRef = useRef<any | null>();
 
   const [containerSize, setContainerSize] = useState<{ width?: number; height?: number }>({
-    width: windowWidth || 0,
-    height: windowHeight || 0
+    width: windowWidth ?? 0,
+    height: windowHeight ?? 0
   });
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(muted);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isShowingControls, setIsShowingControls] = useState(showControlsOnLoad);
-  const [isShowingCaptions, setIsShowingCaptions] = useState(captions && captions.default);
+  const [isShowingCaptions, setIsShowingCaptions] = useState(captions?.default);
   const [currentCaptions, setCurrentCaptions] = useState('');
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -130,7 +130,7 @@ const VideoPlayer = ({
       clearAutoPlayTimeout();
       clearHideControlsTimeout();
       fullScreen.current?.destroy();
-      trackRef.current && trackRef.current.removeEventListener('cuechange', onTrackChange);
+      trackRef.current?.removeEventListener('cuechange', onTrackChange);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -260,8 +260,7 @@ const VideoPlayer = ({
   function onTrackChange() {
     const trackList = VideoRef.current.video.textTracks;
     const textTracks = trackList && trackList.length > 0 ? trackList[0] : null;
-    const cue =
-      textTracks && textTracks.activeCues && textTracks.activeCues.length > 0 ? textTracks.activeCues[0] : null;
+    const cue = textTracks?.activeCues && textTracks.activeCues.length > 0 ? textTracks.activeCues[0] : null;
     const text = cue ? cue.text : '';
     setCurrentCaptions(text);
   }
@@ -279,7 +278,7 @@ const VideoPlayer = ({
   }
 
   function onPlay() {
-    onLoad && onLoad();
+    onLoad?.();
     setIsPlaying(true);
   }
 

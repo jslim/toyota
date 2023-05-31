@@ -3,8 +3,6 @@
 .root {
   width: 100%;
   @include outer-container(true);
-  text-align: left;
-  overflow: hidden;
   position: relative;
   @include rounded(px(24), true);
 

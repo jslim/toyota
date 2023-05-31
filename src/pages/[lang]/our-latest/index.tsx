@@ -8,6 +8,7 @@ import { FilteredEntity, LocalizedPageParams, OurLatestPageContentType, PageProp
 import usePreviewData from '@/hooks/use-preview-data';
 import { getAllLangSlugs, getLocaleByLang } from '@/utils/locales';
 import { getPageBlocks } from '@/utils/parsers/get-page-blocks';
+import { buildPageMetaData } from '@/utils/parsers/page-metadata-parser-util';
 
 type OurLatestData = FilteredEntity<OurLatestPageContentType>;
 
@@ -49,7 +50,7 @@ export const getStaticProps: GetStaticProps<OurLatestPageProps> = async ({ param
 
   return {
     props: {
-      head: { title: data?.fields?.pageTitle ?? 'Our Latest' },
+      head: buildPageMetaData(data.fields?.metadata?.fields),
       // IMPORTANT: wrap everything in "data" so that it can be swapped dynamically with Preview data
       data
     }

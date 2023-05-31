@@ -45,7 +45,7 @@ const RoadmapItem: FC<RoadmapItemProps> = ({ item, index, theme, numOfSlides, se
 
     return () => {
       resize.dismiss(handleResize);
-      tl.current && tl.current.kill();
+      tl.current?.kill();
     };
   }, [itemRef, setStickyInfoHeight, index]);
 
@@ -69,7 +69,7 @@ const RoadmapItem: FC<RoadmapItemProps> = ({ item, index, theme, numOfSlides, se
         gsap.set(content, {
           opacity: 1
         });
-        content.map((item) =>
+        content.forEach((item) =>
           gsap.to(item, {
             opacity: 0,
             duration: 0.6,

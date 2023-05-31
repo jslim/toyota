@@ -19,6 +19,7 @@
     @include flex-center-vert;
     @include typography-eyebrow;
     text-transform: uppercase;
+    cursor: pointer;
 
     .caret {
       @include box(px(7), px(3.5));

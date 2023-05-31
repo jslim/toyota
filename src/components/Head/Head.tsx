@@ -3,8 +3,9 @@ import dynamic from 'next/dynamic';
 import NextHead from 'next/head';
 import { useRouter } from 'next/router';
 
-import * as settings from '@/data/settings';
 import { HeadProps } from '@/data/types';
+
+import { useAppSelector } from '@/redux';
 
 const MockFeaturePolicy = dynamic(() => import('@/components/Head/MockFeaturePolicy'), { ssr: false });
 const MockContentSecurityPolicy = dynamic(() => import('@/components/Head/MockContentSecurityPolicy'), { ssr: false });
@@ -13,20 +14,20 @@ const TITLE_SEPARATOR = '-';
 
 const Head: FC<HeadProps> = ({ title, keywords, description, siteName, image }) => {
   const router = useRouter();
+  const { defaultPageMetadata } = useAppSelector((state) => state.activeGlobalData);
 
   const ogUrl = `${process.env.NEXT_PUBLIC_WEBSITE_SITE_URL}${router.asPath}`;
-  const ogDefaultImage = image || `${process.env.NEXT_PUBLIC_WEBSITE_SITE_URL}/common/assets/images/share-image.png`;
+  const ogDefaultImage = image ?? defaultPageMetadata.image;
   const fullTitle = title
-    ? `${title} ${TITLE_SEPARATOR} ${siteName || settings.siteName}`
-    : `${siteName} ${TITLE_SEPARATOR} ${settings.siteSlogan}`;
+    ? `${title} ${TITLE_SEPARATOR} ${siteName ?? defaultPageMetadata.siteName}`
+    : `${siteName ?? defaultPageMetadata.siteName}`;
 
   return (
     <NextHead>
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
       <title>{fullTitle}</title>
-      <meta name="description" content={description || settings.siteDescription} />
-      <meta name="keywords" content={(keywords || settings.siteKeywords).join(', ')} />
-      {/* Generate favicons in https://realfavicongenerator.net */}
+      <meta name="description" content={description ?? defaultPageMetadata.description} />
+      <meta name="keywords" content={(keywords ?? defaultPageMetadata.keywords)?.join(', ')} />
       <meta name="theme-color" content="#ffffff" />
       <meta name="msapplication-TileColor" content="#ffffff" />
       <link rel="apple-touch-icon" sizes="180x180" href="/common/favicons/apple-touch-icon.png" />

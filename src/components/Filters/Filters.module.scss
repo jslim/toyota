@@ -6,14 +6,23 @@
   align-items: flex-start;
   flex-direction: column;
 
+  @include use-mobile-columns(width, 4);
+
+  @include media-tablet {
+    @include use-tablet-columns(width, 8);
+  }
+
   @include media-desktopSm {
     @include use-desktop-columns(width, 5);
+    align-items: flex-end;
+    min-width: px(400);
     margin: 0;
   }
 }
 
 .search {
   margin-bottom: px(14);
+  width: 100%;
 }
 
 .container {

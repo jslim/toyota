@@ -50,8 +50,8 @@ const FeaturesList: FC<FeaturesListProps> = ({ className, title, eyebrow, items 
       }));
     };
 
-    itemPointRef.current.map((point, i) => {
-      return gsap.to(point, {
+    itemPointRef.current.forEach((point, i) => {
+      gsap.to(point, {
         scrollTrigger: {
           start: 'top 50%',
           end: 'bottom 50%',
