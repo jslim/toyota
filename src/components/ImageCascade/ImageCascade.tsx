@@ -195,7 +195,6 @@ const ImageCascade: FC<ImageCascadeProps> = ({
   const uniqueId = useMemo(() => Math.round(Date.now() * Math.random()).toString(), []);
   const [firstRender, setFirstRender] = useState(true);
   const [targets, setTargets] = useState<Array<string>>([]);
-  const [hideEffect] = useState(false);
   const isMobile = useMemo(() => {
     return layout.mobile || (layout.tablet && isHorizontal);
   }, [layout.mobile, layout.tablet, isHorizontal]);
@@ -343,11 +342,7 @@ const ImageCascade: FC<ImageCascadeProps> = ({
             <rect x="0" y="0" width="100%" height="100%" fill={fill} mask={`url(#${uniqueId})`}></rect>
           </g>
         </svg>
-        <div
-          className={css.container}
-          ref={assetRef}
-          style={{ clipPath: !hideEffect ? `url(#path-${uniqueId})` : undefined }}
-        >
+        <div className={css.container} ref={assetRef}>
           {children}
         </div>
       </div>
