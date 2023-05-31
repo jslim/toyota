@@ -48,13 +48,15 @@ if (!fs.existsSync(targetFolder)) {
   fs.mkdirSync(targetFolder);
 }
 
-getEntriesByContentType('ourLatestPagePost', { include: 10, limit: 1000 }).then((data) => {
+const sortData = (data) =>
   data.items.sort((a, b) => {
     const first = new Date(a.fields.publishDate).getTime();
     const second = new Date(b.fields.publishDate).getTime();
     return second - first;
   });
 
+getEntriesByContentType('ourLatestPagePost', { include: 10, limit: 1000 }).then((data) => {
+  sortData(data);
   fs.writeFile(path.join(targetFolder, 'our-latest-posts-en.json'), JSON.stringify(data), (err) => {
     if (err) throw err;
     console.log('Our Latest posts in English written to file');
@@ -62,11 +64,7 @@ getEntriesByContentType('ourLatestPagePost', { include: 10, limit: 1000 }).then(
 });
 
 getEntriesByContentType('ourLatestPagePost', { include: 10, locale: 'ja-JP', limit: 1000 }).then((data) => {
-  data.items.sort((a, b) => {
-    const first = new Date(a.fields.publishDate).getTime();
-    const second = new Date(b.fields.publishDate).getTime();
-    return second - first;
-  });
+  sortData(data);
   fs.writeFile(path.join(targetFolder, 'our-latest-posts-jp.json'), JSON.stringify(data), (err) => {
     if (err) throw err;
     console.log('Our Latest posts in Japanese written to file');

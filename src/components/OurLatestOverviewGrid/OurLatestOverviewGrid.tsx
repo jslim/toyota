@@ -73,8 +73,8 @@ const OurLatestOverviewGrid: FC<OurLatestOverviewGridProps> = ({
   const [allCards, setAllCards] = useState<Array<FilteredEntity<OurLatestPostPageContentType>>>([]);
   const [filteredCards, setFilteredCards] = useState<Array<CardProps>>(
     activeLang === Lang.EN
-      ? generateCardProps(postsEn).map((el) => buildNewsCard(el.fields).props as CardProps)
-      : generateCardProps(postsJP).map((el) => buildNewsCard(el.fields).props as CardProps)
+      ? generateCardProps(postsEn).map((el) => buildNewsCard(el.fields, { lang: activeLang }).props as CardProps)
+      : generateCardProps(postsJP).map((el) => buildNewsCard(el.fields, { lang: activeLang }).props as CardProps)
   );
   const [topics, setTopics] = useState<Array<OurLatestFilterButtons>>([]);
 
