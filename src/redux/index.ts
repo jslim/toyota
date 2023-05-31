@@ -26,7 +26,27 @@ export const defaultGlobalData: GlobalDataFields = {
   notFoundPageHeader: '',
   notFoundPageDescription: '',
   notFoundPageButton: '',
-  defaultPageMetadata: buildPageMetaData({})
+  defaultPageMetadata: buildPageMetaData({}),
+  toyotaGlobalLink: {
+    linkUrl: 'https://global.toyota/en/',
+    linkText: '',
+    ariaLabel: '',
+    isActive: false
+  },
+  wovenCityLink: {
+    linkUrl: 'https://www.woven-city.global/',
+    linkText: '',
+    ariaLabel: '',
+    isActive: false
+  },
+  wovenCapitalLink: {
+    linkUrl: 'https://woven.vc/',
+    linkText: '',
+    ariaLabel: '',
+    isActive: false
+  },
+  languageToggleEnglish: 'English',
+  languageToggleJapanese: 'Japanese'
 };
 
 export const defaultGlobalStrings: GlobalStringsFields = {

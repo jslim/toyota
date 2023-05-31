@@ -6,25 +6,32 @@ import css from './Footer.module.scss';
 import routes from '@/data/routes';
 
 import BaseLink from '@/components/BaseLink/BaseLink';
+import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
 import Logo from '@/components/Logo/Logo';
+import SocialIcon from '@/components/SocialIcon/SocialIcon';
 
 import sanitizer from '@/utils/sanitizer';
 
 import { useAppSelector } from '@/redux';
 
-import SvgLogoTitle from '@/components/svgs/logo-title.svg';
-import SvgLogoCapital from '@/components/svgs/logo-woven-capital.svg';
-import SvgLogoCity from '@/components/svgs/logo-woven-city.svg';
-
-import SocialIcon from '../SocialIcon/SocialIcon';
 export interface FooterProps {
   className?: string;
 }
 
 const Footer: FC<FooterProps> = ({ className }) => {
-  const { footerNavLinks, footerLegalLinks, footerSocialLinks, footerOfficeLocations, companyName } = useAppSelector(
-    (state) => state.activeGlobalData
-  );
+  const {
+    footerNavLinks,
+    footerLegalLinks,
+    footerSocialLinks,
+    footerOfficeLocations,
+    companyName,
+    wovenCapitalLink,
+    wovenCapitalLogo,
+    wovenCityLink,
+    wovenCityLogo,
+    toyotaGlobalLink,
+    toyotaGlobalLogo
+  } = useAppSelector((state) => state.activeGlobalData);
   const activeRoute = useAppSelector((state) => state.activeRoute);
 
   return (
@@ -89,14 +96,14 @@ const Footer: FC<FooterProps> = ({ className }) => {
             </ul>
           </div>
           <div className={css.logosWrapper}>
-            <BaseLink href="#" className={css.logoTitle} title={'Toyota footer link'}>
-              <SvgLogoTitle className={css.footerLogos} />
+            <BaseLink href={toyotaGlobalLink.linkUrl} className={css.partnerLogo} title={toyotaGlobalLink.linkText}>
+              {toyotaGlobalLogo && <ContentfulImage asset={toyotaGlobalLogo} withLazyLoad={false} />}
             </BaseLink>
-            <BaseLink href="#" className={css.logoCity} title={'Woven City footer link'}>
-              <SvgLogoCity className={css.footerLogos} />
+            <BaseLink href={wovenCityLink.linkUrl} className={css.partnerLogo} title={wovenCityLink.linkText}>
+              {wovenCityLogo && <ContentfulImage asset={wovenCityLogo} withLazyLoad={false} />}
             </BaseLink>
-            <BaseLink href="#" className={css.logoCapital} title={'Woven Capital footer link'}>
-              <SvgLogoCapital className={css.footerLogos} />
+            <BaseLink href={wovenCapitalLink.linkUrl} className={css.partnerLogo} title={wovenCapitalLink.linkText}>
+              {wovenCapitalLogo && <ContentfulImage asset={wovenCapitalLogo} withLazyLoad={false} />}
             </BaseLink>
           </div>
         </div>

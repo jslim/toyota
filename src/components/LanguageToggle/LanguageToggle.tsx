@@ -18,6 +18,7 @@ export type LanguageToggleProps = {
 const LanguageToggle: FC<LanguageToggleProps> = ({ className }) => {
   const router = useRouter();
   const initLang = useAppSelector((state) => state.activeLang);
+  const { languageToggleEnglish, languageToggleJapanese } = useAppSelector((state) => state.activeGlobalData);
   const [activeLang, setActiveLang] = useState(initLang);
   const [open, setOpen] = useState(false);
 
@@ -48,7 +49,7 @@ const LanguageToggle: FC<LanguageToggleProps> = ({ className }) => {
         {Object.values(Lang).map((lang) => (
           <div className={classNames(css.lang, { [css.active]: activeLang === lang })} key={lang}>
             <BaseButton
-              aria-label={lang}
+              aria-label={lang === Lang.EN ? languageToggleEnglish : languageToggleJapanese}
               className={css.langButton}
               onClick={() => {
                 setOpen(true);
