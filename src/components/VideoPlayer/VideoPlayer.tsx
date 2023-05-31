@@ -192,8 +192,6 @@ const VideoPlayer = ({
   }
 
   function toggleFullscreen() {
-    console.log(fullScreen.current);
-    console.log('huh?');
     if (isAndroid) {
       if (isFullScreen) {
         fullScreen.current?.exit();
