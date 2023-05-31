@@ -7,7 +7,7 @@ const useReducedMotion = () => {
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (mediaQuery && mediaQuery.matches) setReducedMotion(true);
+    if (mediaQuery?.matches) setReducedMotion(true);
     function onChange(event: MediaQueryListEvent) {
       const element = event.target as MediaQueryList;
       setReducedMotion(element.matches);

@@ -17,7 +17,7 @@ export type IconCircleProps = {
 const IconCircle: FC<IconCircleProps> = ({ className, children, isWhite, isActive, isDisabled, theme }) => {
   return (
     <div
-      className={classNames('IconCircle', css.IconCircle, css[theme || ''], className, {
+      className={classNames('IconCircle', css.IconCircle, css[theme ?? ''], className, {
         [css.isWhite]: isWhite,
         [css.active]: isActive,
         [css.disabled]: isDisabled

@@ -82,7 +82,7 @@ const Layout: FC<ExtendedAppProps<PageProps>> = ({ Component, pageProps, globalD
 
   return (
     <>
-      <GtmScript consent={cookiebot?.consent?.statistics || false} />
+      <GtmScript consent={cookiebot?.consent?.statistics ?? false} />
 
       <Head {...pageProps.head} />
 

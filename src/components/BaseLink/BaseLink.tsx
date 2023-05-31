@@ -59,7 +59,7 @@ const BaseLink = (
   );
 
   return useMemo(() => {
-    componentProps['aria-label'] = props['aria-label'] || props.title;
+    componentProps['aria-label'] = props['aria-label'] ?? props.title;
 
     if (Component === 'a') {
       componentProps.href = href;
@@ -72,7 +72,7 @@ const BaseLink = (
       if (externalSiteRegex.test(href) && !isDownload) {
         componentProps.target = target;
         if (target === Target.BLANK) {
-          componentProps.rel = rel || 'noreferrer noopener';
+          componentProps.rel = rel ?? 'noreferrer noopener';
         }
       }
 

@@ -175,7 +175,7 @@ const resolveResponse = (
     return [];
   }
   const responseClone = cloneDeep(response);
-  const allIncludes = Object.keys(responseClone.includes || {}).reduce(
+  const allIncludes = Object.keys(responseClone?.includes ?? {}).reduce(
     (all: Array<GenericEntity>, type: string) => [...all, ...response.includes![type]],
     []
   );

@@ -8,10 +8,12 @@ import {
 } from '@/data/types';
 import { SocialPlatform } from '@/data/variants';
 
-const convertCtaToNavLink = (link: FilteredEntity<CTAContentType>) => ({
-  linkUrl: link.fields?.linkUrl ?? '',
-  linkText: link.fields?.linkText ?? '',
-  ariaLabel: link.fields?.ariaLabel ?? '',
+import { buildPageMetaData } from './page-metadata-parser-util';
+
+const convertCtaToNavLink = (link: FilteredEntity<CTAContentType>): NavLinks => ({
+  linkUrl: link?.fields?.linkUrl ?? '',
+  linkText: link?.fields?.linkText ?? '',
+  ariaLabel: link?.fields?.ariaLabel ?? '',
   isActive: false
 });
 
@@ -50,7 +52,16 @@ export const globalDataParserUtil = (entity: GlobalDataContentType): GlobalDataF
   const showHomepageBanner = entity?.showHomepageBanner ?? false;
   const notFoundPageHeader = entity?.notFoundPageHeader;
   const notFoundPageDescription = entity?.notFoundPageDescription;
-  const notFoundPageButton = entity.notFoundPageButton;
+  const notFoundPageButton = entity?.notFoundPageButton;
+  const defaultPageMetadata = buildPageMetaData(entity?.defaultPageMetadata?.fields ?? {});
+  const toyotaGlobalLink = convertCtaToNavLink(entity?.toyotaGlobalLink);
+  const toyotaGlobalLogo = entity?.toyotaGlobalLogo;
+  const wovenCapitalLink = convertCtaToNavLink(entity?.wovenCapitalLink);
+  const wovenCapitalLogo = entity?.wovenCapitalLogo;
+  const wovenCityLink = convertCtaToNavLink(entity?.wovenCityLink);
+  const wovenCityLogo = entity?.wovenCityLogo;
+  const languageToggleEnglish = entity?.languageToggleEnglish ?? 'English';
+  const languageToggleJapanese = entity?.languageToggleJapanese ?? 'Japanese';
 
   return {
     mainNavLinks,
@@ -64,6 +75,15 @@ export const globalDataParserUtil = (entity: GlobalDataContentType): GlobalDataF
     showHomepageBanner,
     notFoundPageHeader,
     notFoundPageDescription,
-    notFoundPageButton
+    notFoundPageButton,
+    defaultPageMetadata,
+    toyotaGlobalLink,
+    toyotaGlobalLogo,
+    wovenCapitalLink,
+    wovenCapitalLogo,
+    wovenCityLink,
+    wovenCityLogo,
+    languageToggleEnglish,
+    languageToggleJapanese
   };
 };
