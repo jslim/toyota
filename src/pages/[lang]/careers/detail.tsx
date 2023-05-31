@@ -3,6 +3,8 @@ import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import classNames from 'classnames';
 
+import css from '@/components/ColumnsText/ColumnsText.module.scss';
+
 import { Job } from '@/data/types';
 import { ColumnType } from '@/data/variants';
 
@@ -61,7 +63,7 @@ const CareerDetail: FC = () => {
       !layout.mobile && career ? (
         <div>
           <div dangerouslySetInnerHTML={{ __html: sanitizer(career.text || '') }} />
-          <Cta href={career.applyUrl} title={applyText} />
+          <Cta className={css.leftCta} href={career.applyUrl} title={applyText} />
         </div>
       ) : null
     );

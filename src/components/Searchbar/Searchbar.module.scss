@@ -1,16 +1,7 @@
 @import 'shared';
 
 .root {
-  @include use-mobile-columns(width, 4);
   position: relative;
-
-  @include media-tablet {
-    @include use-tablet-columns(width, 8);
-  }
-
-  @include media-desktopSm {
-    @include use-desktop-columns(width, 5);
-  }
 }
 
 .input {
