@@ -198,6 +198,7 @@
 
       .partnerLogo {
         margin-bottom: px(13);
+        max-width: px(220);
 
         @include media-desktopSm {
           margin-bottom: px(16);

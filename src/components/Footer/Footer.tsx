@@ -97,13 +97,13 @@ const Footer: FC<FooterProps> = ({ className }) => {
           </div>
           <div className={css.logosWrapper}>
             <BaseLink href={toyotaGlobalLink.linkUrl} className={css.partnerLogo} title={toyotaGlobalLink.linkText}>
-              {toyotaGlobalLogo && <ContentfulImage asset={toyotaGlobalLogo} />}
+              {toyotaGlobalLogo && <ContentfulImage asset={toyotaGlobalLogo} withLazyLoad={false} />}
             </BaseLink>
             <BaseLink href={wovenCityLink.linkUrl} className={css.partnerLogo} title={wovenCityLink.linkText}>
-              {wovenCityLogo && <ContentfulImage asset={wovenCityLogo} />}
+              {wovenCityLogo && <ContentfulImage asset={wovenCityLogo} withLazyLoad={false} />}
             </BaseLink>
             <BaseLink href={wovenCapitalLink.linkUrl} className={css.partnerLogo} title={wovenCapitalLink.linkText}>
-              {wovenCapitalLogo && <ContentfulImage asset={wovenCapitalLogo} />}
+              {wovenCapitalLogo && <ContentfulImage asset={wovenCapitalLogo} withLazyLoad={false} />}
             </BaseLink>
           </div>
         </div>
