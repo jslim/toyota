@@ -1,13 +1,18 @@
 @import 'shared';
 
 .root {
-  @include outer-container;
   position: relative;
   display: flex;
   flex-direction: column;
   border-radius: px(15);
 
-  min-height: px(825);
+  .sectionWrapper {
+    min-height: px(825);
+
+    @include media-tablet {
+      min-height: px(873);
+    }
+  }
 
   &::after {
     content: '';
@@ -19,17 +24,8 @@
     opacity: 0.75;
   }
 
-  @include media-tablet {
-    min-height: px(873);
-    @include outer-container(true);
-  }
-
   .filtersModal {
     display: none;
-  }
-
-  &.darkMode {
-    background-color: $dark-grey;
   }
 
   .wrapper {
@@ -86,6 +82,7 @@
     @include flex-center;
     flex-direction: column;
     margin-top: px(143);
+    width: 100%;
 
     @include media-tablet {
       margin-top: px(157);

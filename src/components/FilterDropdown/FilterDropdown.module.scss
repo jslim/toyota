@@ -9,7 +9,6 @@
   border-top-right-radius: px(8);
   background-color: transparent;
   color: $white;
-  cursor: pointer;
 
   @include media-desktopSm {
     padding-top: 0;
@@ -20,6 +19,7 @@
     @include flex-center-vert;
     @include typography-eyebrow;
     text-transform: uppercase;
+    cursor: pointer;
 
     .caret {
       @include box(px(7), px(3.5));

@@ -316,8 +316,8 @@ const CareersList: FC<CareersListProps> = ({
   };
 
   return (
-    <div className={classNames('CareersList', css.root, css.darkMode, className, { [css.modalOpen]: modalOpen })}>
-      <SectionWrapper backgroundColor={Color.DARK_GREY} eyebrow={eyebrow}>
+    <div className={classNames('CareersList', css.root, className, { [css.modalOpen]: modalOpen })}>
+      <SectionWrapper backgroundColor={Color.DARK_GREY} eyebrow={eyebrow} className={css.sectionWrapper}>
         <div className={css.wrapper}>
           {!isDesktop && (
             <FilterList
