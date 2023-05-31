@@ -1,6 +1,4 @@
 import { FC, memo, MutableRefObject, useRef, useState } from 'react';
-import { device } from '@jam3/detect';
-import classNames from 'classnames';
 
 import css from './ProductList.module.scss';
 
@@ -9,12 +7,9 @@ import { ContentfulImageAsset } from '@/data/types';
 import { Props as LinkProps } from '@/components/BaseLink/BaseLink';
 import Cta, { ButtonType } from '@/components/Cta/Cta';
 
-import useLayout from '@/hooks/use-layout';
-
 import { useAppSelector } from '@/redux';
-
-import ContentfulImage from '../ContentfulImage/ContentfulImage';
 import ImageDragAnim from './ImageDragAnim';
+import classNames from 'classnames';
 
 export type ProductListRowProps = {
   title: string;
@@ -25,33 +20,18 @@ export type ProductListRowProps = {
 
 const ProductListRow: FC<ProductListRowProps> = ({ title, image, text, cta }) => {
   const { learnMore } = useAppSelector((state) => state.activeGlobalStrings);
-  const { layout } = useLayout();
-  const [isHovering, setIsHovering] = useState<boolean>(false);
+  const [isHovering, setIsHovering] = useState<boolean | null>(null);
   const itemRef = useRef() as MutableRefObject<HTMLDivElement>;
-
-  const hasHoverEffect = typeof window !== 'undefined' && !layout.mobile && !layout.tablet && !device.touch;
 
   return (
     <div
-      className={classNames(css.item, { [css.hoverable]: hasHoverEffect, [css.active]: isHovering })}
+      className={classNames(css.item, { [css.active]: isHovering })}
       ref={itemRef}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
       <div className={css.imageCon}>
-        {hasHoverEffect ? (
-          <ImageDragAnim image={image} getParentRef={itemRef} handleHover={isHovering} />
-        ) : (
-          <div className={css.imageWrapperInner}>
-            <ContentfulImage
-              className={css.image}
-              asset={image}
-              imageSizeMobile={{ extraGutters: 0, numCols: 3 }}
-              imageSizeTablet={{ extraGutters: 0, numCols: 4 }}
-              imageSizeDesktop={{ extraGutters: 0, numCols: 4 }}
-            />
-          </div>
-        )}
+        <ImageDragAnim image={image} getParentRef={itemRef} handleHover={isHovering} />
       </div>
       <div className={css.title}>{title}</div>
       <div className={css.text}>

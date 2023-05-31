@@ -12,16 +12,17 @@ export type ImageDragProps = {
   className?: string;
   getParentRef: MutableRefObject<HTMLDivElement>;
   image: ContentfulImageAsset;
-  handleHover: boolean;
+  handleHover: boolean | null;
 };
 
 const EASE = 'power3.out';
 
-const ImageDrag: FC<ImageDragProps> = ({ className, image, getParentRef, handleHover }) => {
+const ImageDrag: FC<ImageDragProps> = ({ className, image, getParentRef, handleHover = null }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const wrapperInnerRef = useRef(null);
 
   useEffect(() => {
+    if (handleHover === null) return;
     handleHover ? growImage() : shrinkImage();
   }, [handleHover]);
 
