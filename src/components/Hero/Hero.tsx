@@ -47,6 +47,7 @@ const Hero: FC<HeroProps> = ({ className, title, image, video, theme = HeroType.
           hasPlayOnly={true}
           loop={true}
           onLoad={() => setAssetLoaded(true)}
+          playsInline={true}
         />
       ) : (
         <ContentfulImage
