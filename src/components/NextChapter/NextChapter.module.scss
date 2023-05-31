@@ -5,6 +5,7 @@
   @include outer-container(true);
   display: block;
   margin: 0 auto;
+  margin-top: px(12);
   position: relative;
   height: px(168);
   overflow: hidden;
@@ -12,8 +13,9 @@
   border-top-left-radius: px(16);
   border-top-right-radius: px(16);
 
-  @include media-desktopSm {
+  @include media-tablet {
     height: px(276);
+    margin-top: px(48);
   }
 }
 
@@ -24,7 +26,8 @@
   &::after {
     @include position-100(absolute);
     content: '';
-    background: linear-gradient(0deg, rgba(47, 47, 47, 0.25), rgba(47, 47, 47, 0.25));
+    background: linear-gradient(0deg, rgba($dark-grey, 0.25), rgba($dark-grey, 0.25)),
+      radial-gradient(58.78% 286.23% at 50% 200.72%, rgba($black, 0) 0%, rgba($black, 0.55) 100%);
   }
 
   .image {
@@ -40,13 +43,17 @@
   padding: px(20) px($grid-relative-gap-mobile) px(24);
   height: 100%;
 
+  @include media-tablet {
+    padding: px(36) 0;
+  }
+
   @include media-desktopSm {
     padding: px(55) 0;
   }
 
   .textWrapper {
     .title {
-      @include font-size(22, 28);
+      @include typography-h2;
       @include use-mobile-columns(max-width, 3);
       position: relative;
       margin-top: px(6);
@@ -55,11 +62,11 @@
       overflow-wrap: break-word;
 
       @include media-tablet {
-        margin-top: px(23);
+        margin-top: px(66);
       }
 
       @include media-desktopSm {
-        @include font-size(40, 48);
+        margin-top: px(22);
         @include use-desktop-columns(max-width, 10);
       }
     }
