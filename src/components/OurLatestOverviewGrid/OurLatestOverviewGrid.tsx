@@ -49,6 +49,12 @@ const postsJP = resolveResponse(postDataJP);
 
 const POSTS_PER_PAGE = 6;
 
+const generateCardProps = (unfilteredCards: Array<GenericEntity<GenericObject>>) => {
+  return unfilteredCards?.map((card) => {
+    return makeFilteredEntity(card) as FilteredEntity<OurLatestPostPageContentType>;
+  });
+};
+
 const OurLatestOverviewGrid: FC<OurLatestOverviewGridProps> = ({
   topicsLabel,
   categoriesLabel,
@@ -65,7 +71,11 @@ const OurLatestOverviewGrid: FC<OurLatestOverviewGridProps> = ({
   const router = useRouter();
   const activeLang = useAppSelector((state) => state.activeLang);
   const [allCards, setAllCards] = useState<Array<FilteredEntity<OurLatestPostPageContentType>>>([]);
-  const [filteredCards, setFilteredCards] = useState<Array<CardProps>>([]);
+  const [filteredCards, setFilteredCards] = useState<Array<CardProps>>(
+    activeLang === Lang.EN
+      ? generateCardProps(postsEn).map((el) => buildNewsCard(el.fields).props as CardProps)
+      : generateCardProps(postsJP).map((el) => buildNewsCard(el.fields).props as CardProps)
+  );
   const [topics, setTopics] = useState<Array<OurLatestFilterButtons>>([]);
 
   const handleOnClick = useCallback(() => {
@@ -73,15 +83,7 @@ const OurLatestOverviewGrid: FC<OurLatestOverviewGridProps> = ({
   }, [setPage, filteredCards]);
 
   useEffect(() => {
-    const generateCardProps = (unfilteredCards: Array<GenericEntity<GenericObject>>) => {
-      setAllCards(
-        unfilteredCards?.map((card) => {
-          return makeFilteredEntity(card) as FilteredEntity<OurLatestPostPageContentType>;
-        })
-      );
-    };
-
-    activeLang === Lang.EN ? generateCardProps(postsEn) : generateCardProps(postsJP);
+    setAllCards(activeLang === Lang.EN ? generateCardProps(postsEn) : generateCardProps(postsJP));
   }, [activeLang, setAllCards]);
 
   useEffect(() => {
