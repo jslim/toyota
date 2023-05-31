@@ -196,31 +196,11 @@
         @include box(100%);
       }
 
-      .logoTitle {
-        width: px(60);
+      .partnerLogo {
         margin-bottom: px(13);
 
         @include media-desktopSm {
-          width: px(78);
           margin-bottom: px(16);
-        }
-      }
-
-      .logoCity {
-        width: px(161);
-        margin-bottom: px(12);
-
-        @include media-desktopSm {
-          width: px(217);
-          margin-bottom: px(16);
-        }
-      }
-
-      .logoCapital {
-        width: px(114);
-
-        @include media-desktopSm {
-          width: px(165);
         }
       }
     }

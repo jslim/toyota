@@ -10,10 +10,10 @@ import { SocialPlatform } from '@/data/variants';
 
 import { buildPageMetaData } from './page-metadata-parser-util';
 
-const convertCtaToNavLink = (link: FilteredEntity<CTAContentType>) => ({
-  linkUrl: link.fields?.linkUrl ?? '',
-  linkText: link.fields?.linkText ?? '',
-  ariaLabel: link.fields?.ariaLabel ?? '',
+const convertCtaToNavLink = (link: FilteredEntity<CTAContentType>): NavLinks => ({
+  linkUrl: link?.fields?.linkUrl ?? '',
+  linkText: link?.fields?.linkText ?? '',
+  ariaLabel: link?.fields?.ariaLabel ?? '',
   isActive: false
 });
 
@@ -54,6 +54,14 @@ export const globalDataParserUtil = (entity: GlobalDataContentType): GlobalDataF
   const notFoundPageDescription = entity?.notFoundPageDescription;
   const notFoundPageButton = entity?.notFoundPageButton;
   const defaultPageMetadata = buildPageMetaData(entity?.defaultPageMetadata?.fields ?? {});
+  const toyotaGlobalLink = convertCtaToNavLink(entity?.toyotaGlobalLink);
+  const toyotaGlobalLogo = entity?.toyotaGlobalLogo;
+  const wovenCapitalLink = convertCtaToNavLink(entity?.wovenCapitalLink);
+  const wovenCapitalLogo = entity?.wovenCapitalLogo;
+  const wovenCityLink = convertCtaToNavLink(entity?.wovenCityLink);
+  const wovenCityLogo = entity?.wovenCityLogo;
+  const languageToggleEnglish = entity?.languageToggleEnglish ?? 'English';
+  const languageToggleJapanese = entity?.languageToggleJapanese ?? 'Japanese';
 
   return {
     mainNavLinks,
@@ -68,6 +76,14 @@ export const globalDataParserUtil = (entity: GlobalDataContentType): GlobalDataF
     notFoundPageHeader,
     notFoundPageDescription,
     notFoundPageButton,
-    defaultPageMetadata
+    defaultPageMetadata,
+    toyotaGlobalLink,
+    toyotaGlobalLogo,
+    wovenCapitalLink,
+    wovenCapitalLogo,
+    wovenCityLink,
+    wovenCityLogo,
+    languageToggleEnglish,
+    languageToggleJapanese
   };
 };

@@ -53,6 +53,14 @@ export type GlobalDataFields = {
   notFoundPageDescription: string;
   notFoundPageButton: string;
   defaultPageMetadata: HeadProps;
+  toyotaGlobalLink: NavLinks;
+  toyotaGlobalLogo?: ContentfulImageAsset;
+  wovenCityLink: NavLinks;
+  wovenCityLogo?: ContentfulImageAsset;
+  wovenCapitalLink: NavLinks;
+  wovenCapitalLogo?: ContentfulImageAsset;
+  languageToggleEnglish: string;
+  languageToggleJapanese: string;
 };
 
 export type GlobalData = {
@@ -306,6 +314,14 @@ export type GlobalDataContentType = {
   notFoundPageDescription: string;
   notFoundPageButton: string;
   defaultPageMetadata: FilteredEntity<PageMetadataContentType>;
+  toyotaGlobalLink: FilteredEntity<CTAContentType>;
+  toyotaGlobalLogo: ContentfulImageAsset;
+  wovenCityLink: FilteredEntity<CTAContentType>;
+  wovenCityLogo: ContentfulImageAsset;
+  wovenCapitalLink: FilteredEntity<CTAContentType>;
+  wovenCapitalLogo: ContentfulImageAsset;
+  languageToggleEnglish: string;
+  languageToggleJapanese: string;
 };
 
 export type CTAContentType = {
