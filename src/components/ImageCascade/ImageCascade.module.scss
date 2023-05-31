@@ -33,6 +33,7 @@
 
 .wrapper {
   @include position-100;
+  overflow: hidden;
 }
 
 .container {
