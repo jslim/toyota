@@ -1,4 +1,5 @@
 import { FC, memo, MutableRefObject, useRef, useState } from 'react';
+import classNames from 'classnames';
 
 import css from './ProductList.module.scss';
 
@@ -9,7 +10,6 @@ import Cta, { ButtonType } from '@/components/Cta/Cta';
 
 import { useAppSelector } from '@/redux';
 import ImageDragAnim from './ImageDragAnim';
-import classNames from 'classnames';
 
 export type ProductListRowProps = {
   title: string;
