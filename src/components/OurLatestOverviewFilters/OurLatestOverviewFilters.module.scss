@@ -58,9 +58,8 @@
 
   .filtersModal {
     display: none;
-    z-index: 1;
     &.isOpen {
-      display: block;
+      display: flex;
     }
   }
 

@@ -26,17 +26,10 @@
 
   .filtersModal {
     display: none;
-    z-index: 2;
   }
 
   &.darkMode {
     background-color: $dark-grey;
-  }
-
-  .eyebrow {
-    @include pagePadding(padding-left);
-    margin-bottom: px(30);
-    padding-top: px(15);
   }
 
   .wrapper {
@@ -44,10 +37,16 @@
     display: flex;
     flex-direction: column;
     margin-bottom: px(24);
+    margin-top: px(30);
+
+    @include media-tablet {
+      margin-bottom: px(28);
+    }
 
     @include media-desktopSm {
       flex-direction: row;
       justify-content: space-between;
+      margin-bottom: px(38);
     }
 
     .title {
@@ -55,6 +54,11 @@
       @include typography-h2;
       color: $white;
       margin-bottom: px(30);
+      max-width: px(400);
+
+      @include media-desktopSm {
+        margin-bottom: 0;
+      }
     }
   }
 

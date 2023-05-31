@@ -184,6 +184,7 @@ const OurLatestOverviewFilters: FC<OurLatestOverviewFiltersProps> = ({
       <FilterList
         className={classnames(css.filtersModal, { [css.isOpen]: modalOpen })}
         header={filtersLabel}
+        isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
       >
         <FilterDropdownModalOptions

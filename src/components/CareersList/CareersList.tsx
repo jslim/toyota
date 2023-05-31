@@ -9,15 +9,17 @@ import { variants } from '@/data/variants';
 
 import { Accordion, AccordionItem } from '@/components/Accordion/Accordion';
 import AccordionContentCard from '@/components/AccordionContent/AccordionContentCard';
-import Eyebrow from '@/components/Eyebrow/Eyebrow';
 import FilterDropdownModalOptions from '@/components/FilterDropdownModalOptions/FilterDropdownModalOptions';
 import FilterList from '@/components/FilterList/FilterList';
 import Filters from '@/components/Filters/Filters';
 import IconCircle from '@/components/IconCircle/IconCircle';
 
 import { useLayout } from '@/hooks';
+import { Color } from '@/utils/colors';
 
 import { useAppSelector } from '@/redux';
+
+import SectionWrapper from '../SectionWrapper/SectionWrapper';
 
 export type CareersListProps = {
   className?: string;
@@ -315,60 +317,66 @@ const CareersList: FC<CareersListProps> = ({
 
   return (
     <div className={classNames('CareersList', css.root, css.darkMode, className, { [css.modalOpen]: modalOpen })}>
-      <Eyebrow text={eyebrow} variant={variants.LIGHT} className={css.eyebrow} />
-      <div className={css.wrapper}>
-        {!isDesktop && (
-          <FilterList className={css.filtersModal} header={filtersLabel} onClose={() => setModalOpen(false)}>
-            {Object.keys(categories).map((category, index) => {
-              return (
-                <FilterDropdownModalOptions
-                  key={index}
-                  {...categories[category as keyof Categories]}
-                  category={categories[category as keyof Categories].header}
-                />
-              );
-            })}
-          </FilterList>
-        )}
-
-        <h2 className={css.title}>{title}</h2>
-        <Filters
-          className={css.filtersContainer}
-          filtersLabel={filtersLabel}
-          searchLabel={searchLabel}
-          cleanLabel={cleanLabel}
-          onFilterModalClick={() => setModalOpen(!modalOpen)}
-          onSearch={onSearch}
-          dropdowns={categories}
-          filtersAmount={filterParams.length}
-        />
-      </div>
-      {Object.keys(filteredJobs).length > 0 ? (
-        <Accordion className={css.accordion} variant={variants.DARK}>
-          {Object.keys(filteredJobs).map((department, key) => (
-            <AccordionItem
-              key={key}
-              title={department}
-              secondaryText={`${filteredJobs[department]?.length} openings`}
-              variant={variants.DARK}
+      <SectionWrapper backgroundColor={Color.DARK_GREY} eyebrow={eyebrow}>
+        <div className={css.wrapper}>
+          {!isDesktop && (
+            <FilterList
+              className={css.filtersModal}
+              header={filtersLabel}
+              isOpen={modalOpen}
+              onClose={() => setModalOpen(false)}
             >
-              {Object.values(filteredJobs)[key].map((item) => {
-                return modifiedAccordionItem(item);
+              {Object.keys(categories).map((category, index) => {
+                return (
+                  <FilterDropdownModalOptions
+                    key={index}
+                    {...categories[category as keyof Categories]}
+                    category={categories[category as keyof Categories].header}
+                  />
+                );
               })}
-            </AccordionItem>
-          ))}
-        </Accordion>
-      ) : (
-        <div className={css.notFound}>
-          <IconCircle className={css.circle}>
-            <span className={css.dot}></span>
-            <span className={css.dot}></span>
-            <span className={css.dot}></span>
-          </IconCircle>
-          <div className={css.label}>{noResultsLabel}</div>
-          <div className={css.description}> {noResultsDescription}</div>
+            </FilterList>
+          )}
+
+          <h2 className={css.title}>{title}</h2>
+          <Filters
+            className={css.filtersContainer}
+            filtersLabel={filtersLabel}
+            searchLabel={searchLabel}
+            cleanLabel={cleanLabel}
+            onFilterModalClick={() => setModalOpen(!modalOpen)}
+            onSearch={onSearch}
+            dropdowns={categories}
+            filtersAmount={filterParams.length}
+          />
         </div>
-      )}
+        {Object.keys(filteredJobs).length > 0 ? (
+          <Accordion className={css.accordion} variant={variants.DARK}>
+            {Object.keys(filteredJobs).map((department, key) => (
+              <AccordionItem
+                key={key}
+                title={department}
+                secondaryText={`${filteredJobs[department]?.length} openings`}
+                variant={variants.DARK}
+              >
+                {Object.values(filteredJobs)[key].map((item) => {
+                  return modifiedAccordionItem(item);
+                })}
+              </AccordionItem>
+            ))}
+          </Accordion>
+        ) : (
+          <div className={css.notFound}>
+            <IconCircle className={css.circle}>
+              <span className={css.dot}></span>
+              <span className={css.dot}></span>
+              <span className={css.dot}></span>
+            </IconCircle>
+            <div className={css.label}>{noResultsLabel}</div>
+            <div className={css.description}> {noResultsDescription}</div>
+          </div>
+        )}
+      </SectionWrapper>
     </div>
   );
 };

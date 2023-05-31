@@ -21,7 +21,7 @@ const AccordionContentCard: FC<AccordionContentProps> = ({ className, title, tex
         {text && <p>{text}</p>}
       </div>
 
-      {cta && <Cta className={css.cta} theme={ButtonType.Secondary} {...cta} />}
+      {cta && <Cta className={css.cta} isWhite={true} theme={ButtonType.Secondary} {...cta} />}
     </div>
   );
 };
