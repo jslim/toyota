@@ -292,7 +292,7 @@ export type OurLatestPostPageContentType = {
   body: Document;
   pageTitle: string;
   slug: string;
-  category: string;
+  category: 'News' | 'Blog' | 'Research';
   topic: Array<string>;
   thumbnail: ContentfulImageAsset;
   publishDate: string;

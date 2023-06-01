@@ -109,14 +109,16 @@ const OurLatestOverviewGrid: FC<OurLatestOverviewGridProps> = ({
         }
       });
 
-      // if there's a topic set, ensure we're matching it and update active cards
+      // Exit early if there's a topic set and the card doesn't match it
       if (
-        !(topics && card.fields?.topic?.indexOf(Array.isArray(topics) ? topics[0] : topics) === -1) &&
-        card.fields.topic != null
+        topics &&
+        (card.fields?.topic?.indexOf(Array.isArray(topics) ? topics[0] : topics) === -1 || card.fields.topic == null)
       ) {
-        const props = buildNewsCard(card.fields, { lang: activeLang }).props as CardProps;
-        tempCards.push(props);
+        return false;
       }
+
+      const props = buildNewsCard(card.fields, { lang: activeLang }).props as CardProps;
+      tempCards.push(props);
 
       setCardCount(tempCardCount);
     });
@@ -132,10 +134,10 @@ const OurLatestOverviewGrid: FC<OurLatestOverviewGridProps> = ({
     setTopics(Object.keys(filters).map((el) => ({ title: el, articleCount: filters[el].count, category: 'topic' })));
   }, [allCards, activeLang, router]);
 
-  const categories = [
-    { title: newsLabel, category: 'category' },
-    { title: blogLabel, category: 'category' },
-    { title: researchLabel, category: 'category' }
+  const categories: Array<OurLatestFilterButtons> = [
+    { displayTitle: newsLabel, title: 'News', category: 'category' },
+    { displayTitle: blogLabel, title: 'Blog', category: 'category' },
+    { displayTitle: researchLabel, title: 'Research', category: 'category' }
   ];
 
   return (
