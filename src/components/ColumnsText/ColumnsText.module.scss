@@ -148,6 +148,12 @@
     }
 
     .textContainer {
+      @include use-mobile-columns(max-width, 4);
+
+      @include media-tablet {
+        max-width: none;
+      }
+
       @include media-desktopSm {
         @include use-desktop-columns(width, 9);
       }

@@ -173,6 +173,11 @@ p {
 }
 
 // default tables styling
+
+.tableContainer {
+  overflow: scroll;
+}
+
 table {
   text-align: left;
   border-collapse: collapse;
