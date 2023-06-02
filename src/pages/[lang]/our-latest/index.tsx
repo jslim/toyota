@@ -10,6 +10,8 @@ import { getAllLangSlugs, getLocaleByLang } from '@/utils/locales';
 import { getPageBlocks } from '@/utils/parsers/get-page-blocks';
 import { buildPageMetaData } from '@/utils/parsers/page-metadata-parser-util';
 
+import { useAppSelector } from '@/redux';
+
 type OurLatestData = FilteredEntity<OurLatestPageContentType>;
 
 export interface OurLatestPageProps extends PageProps {
@@ -17,14 +19,15 @@ export interface OurLatestPageProps extends PageProps {
 }
 
 const OurLatest: FC<OurLatestPageProps> = ({ data }) => {
+  const globalStrings = useAppSelector((state) => state.activeGlobalStrings);
   const pageData = usePreviewData({
     // this is a mandatory hook to be called on every page
     staticData: data
   }) as OurLatestData;
 
   const pageBlocks = useMemo(() => {
-    return getPageBlocks(pageData);
-  }, [pageData]);
+    return getPageBlocks(pageData, globalStrings);
+  }, [pageData, globalStrings]);
 
   return (
     <main className={classNames('OurLatest')}>

@@ -66,7 +66,10 @@ export const defaultGlobalStrings: GlobalStringsFields = {
   downloadAgreementTerms:
     'The Content may only be used for editorial or personal, non-commercial purposes, and may not be used for any commercial purposes, including, without limitation, advertising, marketing and merchandising. In order to download the Content, you must first agree to abide by the following terms.',
   downloadAgreementCloseLabel: 'Close',
-  downloadAgreementCallToActionTitle: 'Download'
+  downloadAgreementCallToActionTitle: 'Download',
+  news: 'News',
+  blog: 'Blog',
+  researchPapers: 'Research papers'
 };
 
 const { actions, reducer } = createSlice({

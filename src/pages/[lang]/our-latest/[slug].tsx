@@ -16,6 +16,8 @@ import { getPageBlocks } from '@/utils/parsers/get-page-blocks';
 import { buildPageMetaData } from '@/utils/parsers/page-metadata-parser-util';
 import resolveResponse, { makeFilteredEntity } from '@/utils/parsers/response-parser-util';
 
+import { useAppSelector } from '@/redux';
+
 /* eslint-disable */
 // @ts-ignore: populated during prebuild
 import postDataEn from '@/json/our-latest-posts-en.json';
@@ -30,14 +32,15 @@ export interface OurLatestPostPageProps extends PageProps {
 }
 
 const OurLatestPost: FC<OurLatestPostPageProps> = ({ data }) => {
+  const globalStrings = useAppSelector((state) => state.activeGlobalStrings);
   const pageData = usePreviewData({
     // this is a mandatory hook to be called on every page
     staticData: data
   });
 
   const pageBlocks = useMemo(() => {
-    return getPageBlocks(pageData);
-  }, [pageData]);
+    return getPageBlocks(pageData, globalStrings);
+  }, [pageData, globalStrings]);
 
   return <main className="OurLatestPost">{!!pageData?.fields ? pageBlocks : null}</main>;
 };

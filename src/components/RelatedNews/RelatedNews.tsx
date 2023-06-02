@@ -24,7 +24,7 @@ export type RelatedNewsProps = {
 };
 const RelatedNews: FC<RelatedNewsProps> = ({ pinnedPosts }) => {
   const { relatedNews } = useAppSelector((state) => state.activeGlobalStrings);
-  const activeLang = useAppSelector((state) => state.activeLang);
+  const { activeLang, activeGlobalStrings } = useAppSelector((state) => state);
   const [cards, setCards] = useState<Array<CardProps>>([]);
   const [postData, setPostData] = useState<Array<GenericEntity> | null>(null);
 
@@ -47,14 +47,19 @@ const RelatedNews: FC<RelatedNewsProps> = ({ pinnedPosts }) => {
       // 2. Build out cards
       // Default to user-specified posts
       for (let i = 0; i < Math.min(pinnedCards.length, 3); i++) {
-        tempCards.push(buildNewsCard(pinnedCards[i].fields, { lang: activeLang }).props as CardProps);
+        tempCards.push(
+          buildNewsCard(pinnedCards[i].fields, {
+            lang: activeLang,
+            globalStrings: activeGlobalStrings
+          }).props as CardProps
+        );
       }
     };
 
     updateCards();
 
     setCards(tempCards);
-  }, [pinnedPosts, activeLang, postData]);
+  }, [pinnedPosts, activeLang, postData, activeGlobalStrings]);
 
   return cards.length > 0 ? <FeaturedArticles cards={cards} title={relatedNews} /> : null;
 };
