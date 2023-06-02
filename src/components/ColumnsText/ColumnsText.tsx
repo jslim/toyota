@@ -14,6 +14,7 @@ export type ColumnsTextProps = {
   eyebrow?: EyebrowProps;
   isSticky?: boolean;
   children: ReactNode;
+  hasTable?: boolean;
 };
 
 const ColumnsText: FC<ColumnsTextProps> = ({
@@ -22,10 +23,16 @@ const ColumnsText: FC<ColumnsTextProps> = ({
   eyebrow,
   children,
   isSticky = false,
+  hasTable = false,
   theme = ColumnType.COLUMNS_50_50
 }) => {
   return (
-    <div className={classNames('ColumnsTextText', css.root, className, css[theme], { [css.isSticky]: isSticky })}>
+    <div
+      className={classNames('ColumnsTextText', css.root, className, css[theme], {
+        [css.isSticky]: isSticky,
+        [css.hasTable]: hasTable
+      })}
+    >
       {eyebrow && !isSticky && <Eyebrow className={css.eyebrow} {...eyebrow} />}
       <div className={css.titleContainer}>{leftSide}</div>
       <div className={css.textContainer}>{children}</div>

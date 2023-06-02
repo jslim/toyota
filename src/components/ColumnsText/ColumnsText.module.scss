@@ -24,8 +24,21 @@
   .titleContainer,
   .textContainer {
     p,
-    b {
+    b,
+    ul,
+    table {
       margin-bottom: px(24);
+    }
+
+    ul,
+    table {
+      p {
+        margin-bottom: 0;
+      }
+    }
+    ul {
+      list-style: revert;
+      padding-inline-start: px(24);
     }
   }
   .titleContainer {
@@ -148,6 +161,12 @@
     }
 
     .textContainer {
+      @include use-mobile-columns(max-width, 4);
+
+      @include media-tablet {
+        max-width: none;
+      }
+
       @include media-desktopSm {
         @include use-desktop-columns(width, 9);
       }
@@ -184,6 +203,32 @@
         }
         @include media-desktopSm {
           @include use-desktop-columns(width, 9);
+        }
+      }
+    }
+  }
+
+  &.hasTable {
+    .textContainer {
+      overflow: unset;
+      @include media-mobile-tablet {
+        width: 100%;
+      }
+
+      :global(.tableContainer) {
+        margin-left: mobile-side-padding(-0.5);
+        padding: 0 mobile-side-padding();
+        width: 100vw;
+
+        @include breakpoint(tablet) {
+          margin-left: tablet-side-padding(-0.5);
+          padding: 0 tablet-side-padding();
+        }
+
+        @include breakpoint(desktopSm) {
+          width: 100%;
+          margin-left: 0;
+          padding: 0;
         }
       }
     }

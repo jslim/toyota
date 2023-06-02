@@ -40,6 +40,15 @@ export const parseContentfulRichText = (richText: Document, className?: string):
         const entity = node?.data?.target;
         return entity && getPageBlocks(entity);
       },
+      [BLOCKS.TABLE]: (_node: Inline | Block, children: ReactNode) => {
+        return (
+          <div className={'tableContainer'}>
+            <table>
+              <tbody>{children}</tbody>
+            </table>
+          </div>
+        );
+      },
       [INLINES.EMBEDDED_ENTRY]: (node: Inline | Block) => {
         const entity = node?.data?.target;
         return entity && getPageBlocks(entity);
