@@ -460,12 +460,14 @@ export const buildColumnsText = (fields: ColumnsTextContentType, extraProps?: Ge
   const rightSide = parseContentfulRichText(fields?.rightSide);
   const leftSide = parseContentfulRichText(fields?.leftSide);
   const eyebrow = fields.eyebrow ? { text: fields?.eyebrow } : null;
+  const hasTable = fields?.rightSide.content.filter((item) => item.nodeType === 'table').length ? true : false;
 
   return {
     props: {
       eyebrow,
       theme: fields?.theme,
       leftSide,
+      hasTable,
       ...extraProps
     },
     childrenFields: {

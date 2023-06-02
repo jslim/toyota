@@ -43,7 +43,9 @@ export const parseContentfulRichText = (richText: Document, className?: string):
       [BLOCKS.TABLE]: (_node: Inline | Block, children: ReactNode) => {
         return (
           <div className={'tableContainer'}>
-            <table>{children}</table>
+            <table>
+              <tbody>{children}</tbody>
+            </table>
           </div>
         );
       },
