@@ -181,7 +181,6 @@ p {
 table {
   text-align: left;
   border-collapse: collapse;
-  // width: 100%;
 
   @include breakpoint(desktopSm) {
     min-width: unset;
@@ -216,12 +215,12 @@ table {
       }
 
       &:nth-child(2) {
-        width: 35%;
+        width: 40%;
         min-width: px(300);
       }
 
       &:nth-child(3) {
-        width: 30%;
+        width: 35%;
         min-width: px(290);
       }
 
