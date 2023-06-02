@@ -5,20 +5,20 @@ import css from './AssetsDownload.module.scss';
 
 import { ContentfulImageAsset } from '@/data/types';
 
+import BaseButton from '@/components/BaseButton/BaseButton';
 import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
 import Cta from '@/components/Cta/Cta';
 import Eyebrow from '@/components/Eyebrow/Eyebrow';
 import IconCircle from '@/components/IconCircle/IconCircle';
 import SectionWrapper from '@/components/SectionWrapper/SectionWrapper';
 import DownloadAgreementModal from '@/components/DownloadAgreementModal/DownloadAgreementModal';
+import DownloadSvg from '@/components/svgs/svg-arrow-down.svg';
 
 import { Color } from '@/utils/colors';
 import PlayIcon from '@/components/VideoPlayer/VideoControls/svgs/play.svg';
 
-import DownloadSvg from '@/components/svgs/svg-arrow-down.svg';
 import { getImageUrl } from '@/utils/basic-functions';
 import { useAppSelector } from '@/redux';
-import BaseButton from '@/components/BaseButton/BaseButton';
 import LockBodyScrollService from '@/services/lock-body-scroll';
 
 export type AssetsProps = {

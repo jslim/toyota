@@ -1,5 +1,6 @@
 import { FC, memo, useCallback, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
+import JSZip from 'jszip';
 
 import css from './DownloadAgreementModal.module.scss';
 
@@ -10,7 +11,6 @@ import Cta from '@/components/Cta/Cta';
 import CloseSvg from '@/components/svgs/close.svg';
 import { useAppSelector } from '@/redux';
 import { ContentfulImageAsset, ContentfulMediaAsset } from '@/data/types';
-import JSZip from 'jszip';
 
 export type DownloadAgreementModalProps = {
   className?: string;
