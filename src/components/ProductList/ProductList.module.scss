@@ -127,26 +127,28 @@
         margin-top: px(30);
       }
 
-      &.hoverable {
-        opacity: 0.4;
-        transition: linear 0.3s opacity;
+      .imageCon {
+        @include flex-center-vert;
 
-        &:hover,
-        &.active {
-          opacity: 1;
-        }
+        .imageWrapper {
+          z-index: 1;
 
-        .imageCon {
-          @include flex-center-vert;
-          .imageWrapper {
-            position: absolute;
-            z-index: 1;
-            .imageWrapperInner {
-              opacity: 0;
-              height: 100%;
-            }
+          .imageWrapperInner {
+            height: 100%;
           }
         }
+      }
+    }
+  }
+
+  @at-root body:global(.desktop) {
+    .item {
+      opacity: 0.4;
+      transition: linear 0.3s opacity;
+
+      &:hover,
+      &.active {
+        opacity: 1;
       }
     }
   }
