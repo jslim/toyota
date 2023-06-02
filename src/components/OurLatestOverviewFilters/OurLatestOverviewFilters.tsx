@@ -16,6 +16,7 @@ import FilterList from '../FilterList/FilterList';
 
 export type OurLatestFilterButtons = {
   title: string;
+  displayTitle?: string;
   category: string;
   articleCount?: number;
   shouldClear?: boolean;
@@ -46,7 +47,13 @@ export type OurLatestOverviewFiltersProps = {
 
 const BUTTON_LIMIT = 5;
 
-const OurLatestFilterButton: FC<OurLatestFilterButtons> = ({ title, articleCount, category, shouldClear = false }) => {
+const OurLatestFilterButton: FC<OurLatestFilterButtons> = ({
+  title,
+  displayTitle,
+  articleCount,
+  category,
+  shouldClear = false
+}) => {
   const router = useRouter();
   const [isSelected, setIsSelected] = useState(false);
   const [, setParamValue] = useQueryParams(category, { shallow: true });
@@ -71,7 +78,7 @@ const OurLatestFilterButton: FC<OurLatestFilterButtons> = ({ title, articleCount
 
   return (
     <BaseButton className={classnames(css.button, { [css.isActive]: isSelected })} onClick={handleOptionClick}>
-      <span>{title}</span>
+      <span>{displayTitle ?? title}</span>
       <sup>{articleCount}</sup>
     </BaseButton>
   );
@@ -194,7 +201,10 @@ const OurLatestOverviewFilters: FC<OurLatestOverviewFiltersProps> = ({
           content={[
             {
               title: categoryTitle,
-              options: [{ label: allLabel, clearsCategory: true }, ...categories.map((el) => ({ label: el.title }))]
+              options: [
+                { label: allLabel, clearsCategory: true },
+                ...categories.map((el) => ({ label: el.title, displayLabel: el.displayTitle }))
+              ]
             }
           ]}
         />

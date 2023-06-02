@@ -94,7 +94,7 @@ const HistorySlide: FC<SlideProps> = ({
           ease: 'linear'
         })
         .from(
-          imageRef.current,
+          itemRef.current,
           {
             scale: 0.7,
             duration: 0.66,
@@ -102,6 +102,7 @@ const HistorySlide: FC<SlideProps> = ({
           },
           '-=0.66'
         )
+        .from([itemRef.current?.children[1]], { duration: 0.66, opacity: 0.4, ease: 'linear' }, '-=0.66')
         .from(
           [imageRef.current?.children],
           {
@@ -110,11 +111,6 @@ const HistorySlide: FC<SlideProps> = ({
             ease: 'linear'
           },
           '-=0.66'
-        )
-        .fadeIn(
-          itemRef.current?.children[itemRef.current?.children.length - 1],
-          { stagger: 0.06, duration: 0.4 },
-          '-=0.4'
         );
       if (active) {
         tl.current.progress(1);
@@ -172,25 +168,26 @@ const HistorySlide: FC<SlideProps> = ({
   }, [tl, tlProgressBar, firstRender, index, progressStep, inProgress, active, isDraggable, slide]);
 
   return (
-    <div ref={itemRef} className={css.item}>
-      <div ref={imageRef} className={css.imageWrapper}>
-        <ContentfulImage
-          asset={item.image}
-          className={css.image}
-          imageSizeDesktop={{ numCols: 7, extraGutters: 0 }}
-          imageSizeTablet={{ numCols: 6, extraGutters: 0 }}
-        />
+    <div className={css.item}>
+      <div ref={itemRef}>
+        <div ref={imageRef} className={css.imageWrapper}>
+          <ContentfulImage
+            asset={item.image}
+            className={css.image}
+            imageSizeDesktop={{ numCols: 7, extraGutters: 0 }}
+            imageSizeTablet={{ numCols: 6, extraGutters: 0 }}
+          />
+        </div>
+        <div className={css.textWrapper}>
+          {item.title && <span className={css.eyebrow}>{item.title}</span>}
+          <p className={css.text}>{item.text}</p>
+          {item.cta && <Cta {...item.cta} className={css.cta} theme={ButtonType.Secondary} />}
+        </div>
       </div>
       <div className={css.progress} style={{ top: imageHeight && imageHeight / 2 }} ref={progressRef}>
         <span className={classNames(css.dot, css.left)} />
         <span className={classNames(css.dot, css.right)} />
         <span className={css.progressBar} />
-      </div>
-
-      <div className={css.textWrapper}>
-        {item.title && <span className={css.eyebrow}>{item.title}</span>}
-        <p className={css.text}>{item.text}</p>
-        {item.cta && <Cta {...item.cta} className={css.cta} theme={ButtonType.Secondary} />}
       </div>
     </div>
   );

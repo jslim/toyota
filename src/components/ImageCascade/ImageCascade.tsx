@@ -1,4 +1,4 @@
-import { FC, memo, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
+import { FC, memo, ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import gsap from 'gsap';
 import MorphSVGPlugin from 'gsap/dist/MorphSVGPlugin';
@@ -192,55 +192,63 @@ const ImageCascade: FC<ImageCascadeProps> = ({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const panelsRef = useRef<(SVGPathElement | null)[]>([]);
   const assetRef = useRef<HTMLDivElement>(null);
-  const uniqueId = Math.round(Date.now() * Math.random()).toString();
+  const uniqueId = useMemo(() => Math.round(Date.now() * Math.random()).toString(), []);
   const [firstRender, setFirstRender] = useState(true);
+  const [targets, setTargets] = useState<Array<string>>([]);
   const isMobile = useMemo(() => {
     return layout.mobile || (layout.tablet && isHorizontal);
   }, [layout.mobile, layout.tablet, isHorizontal]);
-  // eslint-disable-next-line sonarjs/cognitive-complexity
+
+  /**
+   * Path generation
+   */
+  const getPathSizes = useCallback(() => {
+    const { width, height } = assetRef.current?.getBoundingClientRect() as DOMRect;
+    setTargets(buildTargets(width, height, isMobile ? 12 : 24, isHorizontal, isMobile ? 2 : 1));
+
+    const startPoint = buildPath({
+      width: 0,
+      height: isHorizontal ? height : 0,
+      offsetX: isHorizontal ? width : width / 2, // Path coordinates start at top left so translating our start line all the way to the right
+      offsetY: isHorizontal ? 0 : -height,
+      initRound: 97,
+      horizontal: isHorizontal
+    });
+
+    panelsRef.current.forEach((el) => {
+      el?.setAttribute('d', startPoint);
+    });
+  }, [isHorizontal, isMobile]);
+
+  /**
+   * Effect for when we want to generate new target paths.
+   */
   useEffect(() => {
     if (!assetLoaded) return;
 
-    let targets: string[] = [];
-
-    const getPathSizes = () => {
-      const { width, height } = assetRef.current?.getBoundingClientRect() as DOMRect;
-      targets = buildTargets(width, height, isMobile ? 12 : 24, isHorizontal, isMobile ? 2 : 1);
-
-      const startPoint = buildPath({
-        width: 0,
-        height: isHorizontal ? height : 0,
-        offsetX: isHorizontal ? width : width / 2, // Path coordinates start at top left so translating our start line all the way to the right
-        offsetY: isHorizontal ? 0 : -height,
-        initRound: 97,
-        horizontal: isHorizontal
-      });
-
-      panelsRef.current.forEach((el) => {
-        el?.setAttribute('d', startPoint);
-      });
-    };
-
-    getPathSizes();
+    if (!targets.length) getPathSizes();
 
     const resizePath = () => {
       getPathSizes();
-      if (targets.length) {
-        gsap.set([panelsRef.current[0], panelsRef.current[1]], {
-          morphSVG: { shape: targets[0], type: 'linear' }
-        });
-        gsap.set(panelsRef.current[2], {
-          morphSVG: { shape: targets[1], type: 'linear' }
-        });
-        gsap.set(panelsRef.current[3], {
-          morphSVG: { shape: targets[2], type: 'linear' }
-        });
-      }
     };
 
-    // animating paths
-    if (firstRender && targets.length) {
-      gsap
+    resize.listen(resizePath);
+    return () => {
+      resize.dismiss(resizePath);
+    };
+  }, [assetLoaded, isMobile, targets, getPathSizes]);
+
+  /**
+   * Effect for animating and updating paths
+   */
+  useEffect(() => {
+    if (!targets.length) return;
+
+    let tl: GSAPTimeline;
+
+    // Animating on initial render
+    if (firstRender) {
+      tl = gsap
         .timeline({
           onComplete: () => setFirstRender(false),
           scrollTrigger: {
@@ -285,13 +293,22 @@ const ImageCascade: FC<ImageCascadeProps> = ({
           0
         );
     } else {
-      resizePath();
+      // If not initial effect then just set to end point
+      gsap.set([panelsRef.current[0], panelsRef.current[1]], {
+        morphSVG: { shape: targets[0], type: 'linear' }
+      });
+      gsap.set(panelsRef.current[2], {
+        morphSVG: { shape: targets[1], type: 'linear' }
+      });
+      gsap.set(panelsRef.current[3], {
+        morphSVG: { shape: targets[2], type: 'linear' }
+      });
     }
-    resize.listen(resizePath);
+
     return () => {
-      resize.dismiss(resizePath);
+      tl?.clear();
     };
-  }, [assetLoaded, isHorizontal, firstRender, isMobile]);
+  }, [firstRender, isHorizontal, isMobile, targets]);
 
   return (
     <div
@@ -325,7 +342,7 @@ const ImageCascade: FC<ImageCascadeProps> = ({
             <rect x="0" y="0" width="100%" height="100%" fill={fill} mask={`url(#${uniqueId})`}></rect>
           </g>
         </svg>
-        <div className={css.container} ref={assetRef} style={{ clipPath: `url(#path-${uniqueId})` }}>
+        <div className={css.container} ref={assetRef}>
           {children}
         </div>
       </div>

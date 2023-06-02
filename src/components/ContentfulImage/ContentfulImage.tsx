@@ -44,7 +44,7 @@ const ContentfulImage = forwardRef<HTMLImageElement, ContentfulImageProps>(
     // eslint-disable-next-line sonarjs/cognitive-complexity
   ) => {
     const [loadImage, setLoadImage] = useState(!(withLazyLoad || withLowResSwap));
-    const [setNode, isIntersection] = useIntersectionObserver(true, 0, '-100px');
+    const [setNode, isIntersection] = useIntersectionObserver(true, 0, '100px');
     const combinedRef = useCombinedRefs(ref, setNode);
     const isWebpSupported = useAppSelector((state) => state.isWebpSupported);
 

@@ -12,6 +12,7 @@ import CheckmarkSvg from '@/components/svgs/white-checkmark.svg';
 
 export interface Option {
   label: string;
+  displayLabel?: string;
   clearsCategory?: boolean;
 }
 
@@ -92,7 +93,7 @@ const FilterDropdownModalOptions: FC<FilterDropdownModalOptionsProps> = ({
         <IconCircle className={css.circle} isActive={selectedOption === option.label}>
           <CheckmarkSvg className={css.checkmark} />
         </IconCircle>
-        <span className={css.label}>{option.label}</span>
+        <span className={css.label}>{option.displayLabel ?? option.label}</span>
       </li>
     );
   };
