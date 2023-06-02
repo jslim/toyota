@@ -24,9 +24,7 @@
   .titleContainer,
   .textContainer {
     p,
-    b,
-    ul,
-    table {
+    b {
       margin-bottom: px(24);
     }
 
@@ -57,10 +55,11 @@
   .textContainer {
     overflow: hidden;
     @include typography-paragraph;
+    display: flex;
+    flex-direction: column;
 
     b {
-      @include typography-h4;
-      font-weight: 300;
+      @include font-family('Toyota Type Book');
     }
     a:not(:global(.cta)) {
       color: $red;
@@ -69,8 +68,9 @@
     h2,
     h3,
     h4,
-    h5 {
-      @include typography-h4;
+    h5,
+    ul,
+    table {
       margin-bottom: px(24);
 
       @include media-desktopSm {

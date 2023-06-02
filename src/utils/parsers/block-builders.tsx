@@ -213,7 +213,7 @@ export const buildTextIntro = (fields: TextIntroContentType, extraProps?: Generi
       layout: fields.layout,
       eyebrow: fields.eyebrow,
       header: fields.header,
-      description: fields.description,
+      description: fields.description?.split('\n').join('<br>'),
       ctaProps: hasCta && {
         href: fields.ctaLink,
         title: fields.ctaLabel
