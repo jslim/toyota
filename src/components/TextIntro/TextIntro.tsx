@@ -5,6 +5,7 @@ import gsap from 'gsap';
 import css from './TextIntro.module.scss';
 
 import { ColumnType } from '@/data/variants';
+import sanitizer from '@/utils/sanitizer';
 
 import { Props as LinkProps } from '@/components/BaseLink/BaseLink';
 import Cta from '@/components/Cta/Cta';
@@ -52,7 +53,9 @@ const TextIntro: FC<TextIntroProps> = ({ className, layout, eyebrow, header, des
         <div className={css.rightColumn} ref={contentRef}>
           {layout !== TextIntroLayout.HEADER_LEFT && <h2 className={css.title}>{header}</h2>}
           {subtitle && <p className={css.subtitle}>{subtitle}</p>}
-          <p className={css.description}>{description}</p>
+          {description && (
+            <p className={css.description} dangerouslySetInnerHTML={{ __html: sanitizer(description) }}></p>
+          )}
           {ctaProps && (
             <div className={css.cta}>
               <Cta {...ctaProps} />

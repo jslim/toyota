@@ -71,6 +71,7 @@
 
     .imageWrapper {
       @include use-mobile-columns(width, 2);
+      @include aspect-ratio(9, 5);
       margin-bottom: px(24);
       border-radius: px(5);
       overflow: hidden;
@@ -78,6 +79,7 @@
 
       img {
         @include aspect-ratio(9, 5);
+        width: 100%;
         object-fit: cover;
       }
 
@@ -121,6 +123,33 @@
 
         .iconCircle {
           border: $white 1px solid;
+        }
+
+        &.isVideo {
+          background-color: transparent;
+          opacity: 1;
+
+          .iconCircle {
+            @include box(px(20));
+            position: absolute;
+            top: px(9);
+            left: px(9);
+            background-color: $black;
+            border: $black 1px solid;
+
+            .playIcon {
+              @include box(px(13), px(8));
+            }
+          }
+
+          &:hover {
+            background-color: rgba($black, 0.5);
+
+            .iconCircle {
+              background-color: transparent;
+              border: $white 1px solid;
+            }
+          }
         }
       }
     }

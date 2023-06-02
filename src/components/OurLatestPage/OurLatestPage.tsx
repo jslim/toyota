@@ -54,6 +54,7 @@ const OurLatestPostPage: FC<OurLatestPostPageContentType> = ({
   const [copyTooltip, setCopyTooltip] = useState<string | null>(null);
   const assetsData = articleAssets?.fields;
   const content = useMemo(() => parseContentfulRichText(body), [body]);
+  const hasTable = body.content.filter((item) => item.nodeType === 'table').length ? true : false;
 
   useEffect(() => {
     setUrl(window.location.href);
@@ -124,7 +125,7 @@ const OurLatestPostPage: FC<OurLatestPostPageContentType> = ({
   return (
     <>
       <Hero theme={HeroType.Detail} image={thumbnail} />
-      <ColumnsText leftSide={leftSideContent} isSticky={true} theme={ColumnType.COLUMNS_40_60}>
+      <ColumnsText leftSide={leftSideContent} isSticky={true} theme={ColumnType.COLUMNS_40_60} hasTable={hasTable}>
         <span className={css.spacer} />
         {content}
       </ColumnsText>

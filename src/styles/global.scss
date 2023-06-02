@@ -103,6 +103,12 @@ h6 {
   @include font-header;
 }
 
+h2 {
+  @include typography-h2;
+}
+h3 {
+  @include typography-h3;
+}
 h4 {
   @include typography-h4;
 }
@@ -173,9 +179,18 @@ p {
 }
 
 // default tables styling
+
+.tableContainer {
+  overflow: scroll;
+}
+
 table {
   text-align: left;
   border-collapse: collapse;
+
+  @include breakpoint(desktopSm) {
+    min-width: unset;
+  }
 
   tr {
     th {
@@ -183,9 +198,8 @@ table {
       padding: px(17) px(20) px(20);
       background-color: $light-grey;
       color: $dark-grey;
-      white-space: nowrap;
 
-      @include media-tablet {
+      @include media-desktopSm {
         padding: px(30) px(20);
       }
     }
@@ -197,8 +211,41 @@ table {
       border: 1px solid $light-grey;
       vertical-align: top;
 
-      @include media-tablet {
+      @include media-desktopSm {
         padding: px(28) px(20) px(20) px(24);
+      }
+
+      &:first-child {
+        width: 25%;
+        min-width: px(140);
+      }
+
+      &:nth-child(2) {
+        width: 40%;
+        min-width: px(300);
+      }
+
+      &:nth-child(3) {
+        width: 35%;
+        min-width: px(290);
+      }
+
+      @include breakpoint(tablet) {
+        &:first-child {
+          min-width: px(168);
+        }
+
+        &:nth-child(2) {
+          min-width: px(384);
+        }
+      }
+
+      @include breakpoint(desktopSm) {
+        &:first-child,
+        &:nth-child(2),
+        &:nth-child(3) {
+          min-width: unset;
+        }
       }
 
       ul {

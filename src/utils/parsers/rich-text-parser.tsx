@@ -36,9 +36,21 @@ export const parseContentfulRichText = (richText: Document, className?: string):
       [BLOCKS.PARAGRAPH]: (node: Inline | Block, children: ReactNode) => {
         return hasInlineEntry(node) ? <>{children}</> : <p>{children}</p>;
       },
+      [BLOCKS.HEADING_1]: (_node: Inline | Block, children: ReactNode) => {
+        return <h2>{children}</h2>;
+      },
       [BLOCKS.EMBEDDED_ENTRY]: (node: Inline | Block) => {
         const entity = node?.data?.target;
         return entity && getPageBlocks(entity);
+      },
+      [BLOCKS.TABLE]: (_node: Inline | Block, children: ReactNode) => {
+        return (
+          <div className={'tableContainer'}>
+            <table>
+              <tbody>{children}</tbody>
+            </table>
+          </div>
+        );
       },
       [INLINES.EMBEDDED_ENTRY]: (node: Inline | Block) => {
         const entity = node?.data?.target;
