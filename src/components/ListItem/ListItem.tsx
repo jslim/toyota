@@ -11,6 +11,7 @@ import IconCircle from '@/components/IconCircle/IconCircle';
 
 import ArrowDown from '@/components/svgs/svg-arrow-down.svg';
 import ChevronDown from '@/components/svgs/svg-chevron-down.svg';
+import { ContentfulMediaAsset } from '@/data/types';
 
 export type ListItemProps = {
   className?: string;
@@ -21,7 +22,7 @@ export type ListItemProps = {
   onClick?: () => void;
   isMediaKit?: boolean;
   isAccordionOpen?: boolean;
-  assetsLink?: string;
+  asset?: ContentfulMediaAsset;
   link?: LinkProps;
 };
 
@@ -48,7 +49,7 @@ const ListItem: FC<ListItemProps> = ({
   onClick,
   isMediaKit,
   isAccordionOpen,
-  assetsLink,
+  asset,
   link
 }) => {
   return (
@@ -70,7 +71,7 @@ const ListItem: FC<ListItemProps> = ({
             </IconCircle>
           </div>
         </BaseButton>
-      ) : assetsLink ? (
+      ) : Boolean(asset) ? (
         <BaseButton
           className={classNames(css.button, css.mediaKit, { [css.isDark]: variant === variants.DARK })}
           onClick={onClick}

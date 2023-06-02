@@ -1,57 +1,49 @@
-import { FC, memo, useCallback, useState } from 'react';
+import { FC, memo, useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames';
 
 import css from './MediaKit.module.scss';
 
 import DownloadAgreementModal from '@/components/DownloadAgreementModal/DownloadAgreementModal';
 import ListItem from '@/components/ListItem/ListItem';
+import { ContentfulMediaAsset } from '@/data/types';
+import LockBodyScrollService from '@/services/lock-body-scroll';
 
 export type MediaKitProps = {
   className?: string;
-  modal?: {
-    title: string;
-    terms: string;
-    label: string;
-    cta: string;
-  };
   items: {
     title: string;
     secondaryText?: string;
     tertiaryText?: string;
-    assetsLink?: string;
+    asset?: ContentfulMediaAsset;
     link?: string;
   }[];
 };
 
-const MediaKit: FC<MediaKitProps> = ({ className, modal, items }) => {
+const MediaKit: FC<MediaKitProps> = ({ className, items }) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [modalLink, setModalLink] = useState('');
+  const [modalAsset, setModalAsset] = useState({} as ContentfulMediaAsset);
 
-  const handleClick = useCallback((link?: string) => {
-    if (link) {
+  const handleClick = useCallback((asset?: ContentfulMediaAsset) => {
+    if (asset) {
       setModalOpen(true);
-      setModalLink(link);
+      setModalAsset(asset);
     }
   }, []);
 
+  useEffect(() => {
+    modalOpen ? LockBodyScrollService.lock() : LockBodyScrollService.unlock();
+  }, [modalOpen]);
+
   return (
     <div className={classNames('MediaKit', css.root, className)}>
-      {modalOpen && (
-        <DownloadAgreementModal
-          title={modal?.title}
-          terms={modal?.terms}
-          label={modal?.label}
-          cta={{ href: 'https:' + modalLink, title: modal?.cta }}
-          onClose={() => setModalOpen(false)}
-        />
-      )}
+      {modalOpen && <DownloadAgreementModal assets={modalAsset} onClose={() => setModalOpen(false)} />}
 
       {items.map((item, key) => (
         <ListItem
           {...item}
           link={{ href: item.link }}
           key={key}
-          onClick={() => handleClick(item.assetsLink)}
+          onClick={() => handleClick(item.asset)}
           isMediaKit
           className={css.items}
         />

@@ -1,33 +1,31 @@
-import { FC, memo, useEffect, useRef, useState } from 'react';
+import { FC, memo, useCallback, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 
 import css from './DownloadAgreementModal.module.scss';
 
 import BaseButton from '@/components/BaseButton/BaseButton';
-import { Props as LinkProps } from '@/components/BaseLink/BaseLink';
+
 import Cta from '@/components/Cta/Cta';
 
 import CloseSvg from '@/components/svgs/close.svg';
+import { useAppSelector } from '@/redux';
+import { ContentfulImageAsset, ContentfulMediaAsset } from '@/data/types';
+import JSZip from 'jszip';
 
 export type DownloadAgreementModalProps = {
   className?: string;
-  title?: string;
-  terms?: string;
-  label?: string;
-  cta: LinkProps;
-  closeLabel?: string;
   onClose: () => void;
+  assets?: ContentfulImageAsset[] | ContentfulImageAsset | ContentfulMediaAsset;
 };
 
-const DownloadAgreementModal: FC<DownloadAgreementModalProps> = ({
-  className,
-  title,
-  terms,
-  label,
-  cta,
-  closeLabel,
-  onClose
-}) => {
+const DownloadAgreementModal: FC<DownloadAgreementModalProps> = ({ className, onClose, assets }) => {
+  const {
+    downloadAgreementTitle,
+    downloadAgreementLabel,
+    downloadAgreementTerms,
+    downloadAgreementCloseLabel,
+    downloadAgreementCallToActionTitle
+  } = useAppSelector((state) => state.activeGlobalStrings);
   const [isChecked, setIsChecked] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -55,24 +53,62 @@ const DownloadAgreementModal: FC<DownloadAgreementModalProps> = ({
     };
   }, [onClose]);
 
+  const onDownloadClick = useCallback(
+    async (files?: ContentfulImageAsset[] | ContentfulImageAsset | ContentfulMediaAsset) => {
+      if (!files) return;
+
+      if (Array.isArray(files)) {
+        let zip = new JSZip();
+        files.forEach((file) => {
+          let blob = fetch(file.fields.file.url).then((r) => r.blob());
+          zip.file(file.fields.file.fileName, blob);
+        });
+
+        zip.generateAsync({ type: 'blob' }).then((blob: Blob | MediaSource) => {
+          // create temp link to trigger download after the folder is populated
+          const tempLink = document.createElement('a');
+          tempLink.href = window.URL.createObjectURL(blob);
+          tempLink.setAttribute('download', 'Article Assets');
+          tempLink.click();
+        });
+      } else {
+        const tempLink = document.createElement('a');
+        const assetUrl = await fetch(files.fields.file.url)
+          .then((response) => response.blob())
+          .then((blob) => URL.createObjectURL(blob));
+        const fileExtension = files.fields.file.contentType.split('/')[1];
+        const fileName = files.fields.title;
+        tempLink.href = assetUrl;
+        tempLink.download = `${fileName}.${fileExtension}`;
+        tempLink.click();
+      }
+    },
+    []
+  );
+
   return (
     <div
       className={classNames('DownloadAgreementModal', css.root, className)}
       onKeyDown={(event) => handleKeyPress(event)}
     >
       <div className={css.container} ref={containerRef}>
-        <BaseButton className={css.close} title={closeLabel} onClick={onClose}>
+        <BaseButton className={css.close} title={downloadAgreementCloseLabel} onClick={onClose}>
           <CloseSvg />
         </BaseButton>
-        <div className={css.title}>{title}</div>
-        <p className={css.terms}>{terms}</p>
+        <div className={css.title}>{downloadAgreementTitle}</div>
+        <p className={css.terms}>{downloadAgreementTerms}</p>
         <div className={css.checkboxWrapper}>
           <input type="checkbox" id="checkbox-id" className={css.checkbox} checked={isChecked} onChange={handleCheck} />
           <label htmlFor="checkbox-id" className={css.label}>
-            {label}
+            {downloadAgreementLabel}
           </label>
         </div>
-        <Cta className={css.cta} {...cta} isDisabled={!isChecked} />
+        <Cta
+          className={css.cta}
+          title={downloadAgreementCallToActionTitle}
+          isDisabled={!isChecked}
+          onClick={() => onDownloadClick(assets)}
+        />
       </div>
     </div>
   );

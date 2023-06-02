@@ -77,6 +77,11 @@ export type GlobalStringsFields = {
   downloadAssets: string;
   drag: string;
   learnMore: string;
+  downloadAgreementTitle: string;
+  downloadAgreementLabel: string;
+  downloadAgreementTerms: string;
+  downloadAgreementCloseLabel: string;
+  downloadAgreementCallToActionTitle: string;
 };
 
 export type GlobalStrings = {
@@ -376,13 +381,7 @@ export type MediaKitItemContentType = {
 };
 
 export type MediaKitContentType = {
-  title: string;
   innerBlocks: Array<FilteredEntity<MediaKitItemContentType>>;
-  modalTitle: string;
-  modalTerms: string;
-  modalLabel: string;
-  callToActionTitle: string;
-  modalCloseLabel: string;
 };
 
 export type MediaGalleryItemContentType = {
