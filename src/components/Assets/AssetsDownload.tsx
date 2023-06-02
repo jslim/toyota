@@ -3,36 +3,39 @@ import classNames from 'classnames';
 
 import css from './AssetsDownload.module.scss';
 
-import { ContentfulImageAsset } from '@/data/types';
+import { ContentfulImageAsset, ContentfulVideoAsset } from '@/data/types';
 
 import BaseButton from '@/components/BaseButton/BaseButton';
 import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
 import Cta from '@/components/Cta/Cta';
+import DownloadAgreementModal from '@/components/DownloadAgreementModal/DownloadAgreementModal';
 import Eyebrow from '@/components/Eyebrow/Eyebrow';
 import IconCircle from '@/components/IconCircle/IconCircle';
 import SectionWrapper from '@/components/SectionWrapper/SectionWrapper';
-import DownloadAgreementModal from '@/components/DownloadAgreementModal/DownloadAgreementModal';
-import DownloadSvg from '@/components/svgs/svg-arrow-down.svg';
-
-import { Color } from '@/utils/colors';
 import PlayIcon from '@/components/VideoPlayer/VideoControls/svgs/play.svg';
 
-import { getImageUrl } from '@/utils/basic-functions';
-import { useAppSelector } from '@/redux';
 import LockBodyScrollService from '@/services/lock-body-scroll';
+import { getImageUrl } from '@/utils/basic-functions';
+import { Color } from '@/utils/colors';
+
+import { useAppSelector } from '@/redux';
+
+import DownloadSvg from '@/components/svgs/svg-arrow-down.svg';
+
+export type AssetsUnion = ContentfulImageAsset | ContentfulVideoAsset;
 
 export type AssetsProps = {
   className?: string;
   title: string;
-  assets?: ContentfulImageAsset[];
+  assets?: AssetsUnion[];
 };
 
 const AssetsDownload: FC<AssetsProps> = ({ className, title, assets }) => {
   const { downloadAssets } = useAppSelector((state) => state.activeGlobalStrings);
   const [modalOpen, setModalOpen] = useState(false);
-  const [selectedAsset, setSelectedAsset] = useState<ContentfulImageAsset[] | ContentfulImageAsset>();
+  const [selectedAsset, setSelectedAsset] = useState<AssetsUnion | AssetsUnion[]>();
 
-  const handleAssetFile = useCallback((assets: ContentfulImageAsset | ContentfulImageAsset[]) => {
+  const handleAssetFile = useCallback((assets: AssetsUnion | AssetsUnion[]): void => {
     setModalOpen(true);
     setSelectedAsset(assets);
   }, []);
@@ -41,7 +44,7 @@ const AssetsDownload: FC<AssetsProps> = ({ className, title, assets }) => {
     modalOpen ? LockBodyScrollService.lock() : LockBodyScrollService.unlock();
   }, [modalOpen]);
 
-  const assetComponent = (asset: ContentfulImageAsset, i: number) => {
+  const assetComponent = (asset: AssetsUnion, i: number) => {
     const isVideo = asset.fields.file.contentType.includes('video');
     return (
       <div className={css.imageWrapper} key={i}>
@@ -50,7 +53,7 @@ const AssetsDownload: FC<AssetsProps> = ({ className, title, assets }) => {
         ) : (
           <ContentfulImage
             className={css.image}
-            asset={asset}
+            asset={asset as ContentfulImageAsset}
             imageQuality={50}
             imageSizeMobile={{ extraGutters: 0, numCols: 2 }}
             imageSizeTablet={{ extraGutters: 0, numCols: 4 }}

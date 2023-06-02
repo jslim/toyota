@@ -4,18 +4,22 @@ import JSZip from 'jszip';
 
 import css from './DownloadAgreementModal.module.scss';
 
-import BaseButton from '@/components/BaseButton/BaseButton';
+import { ContentfulMediaAsset } from '@/data/types';
 
+import { AssetsUnion } from '@/components/Assets/AssetsDownload';
+import BaseButton from '@/components/BaseButton/BaseButton';
 import Cta from '@/components/Cta/Cta';
 
-import CloseSvg from '@/components/svgs/close.svg';
 import { useAppSelector } from '@/redux';
-import { ContentfulImageAsset, ContentfulMediaAsset } from '@/data/types';
+
+import CloseSvg from '@/components/svgs/close.svg';
+
+type MediaUnion = AssetsUnion | ContentfulMediaAsset;
 
 export type DownloadAgreementModalProps = {
   className?: string;
   onClose: () => void;
-  assets?: ContentfulImageAsset[] | ContentfulImageAsset | ContentfulMediaAsset;
+  assets?: MediaUnion[] | MediaUnion;
 };
 
 const DownloadAgreementModal: FC<DownloadAgreementModalProps> = ({ className, onClose, assets }) => {
@@ -53,38 +57,39 @@ const DownloadAgreementModal: FC<DownloadAgreementModalProps> = ({ className, on
     };
   }, [onClose]);
 
-  const onDownloadClick = useCallback(
-    async (files?: ContentfulImageAsset[] | ContentfulImageAsset | ContentfulMediaAsset) => {
-      if (!files) return;
+  const onDownloadClick = useCallback(async (files?: MediaUnion | MediaUnion[]) => {
+    if (!files) return;
 
-      if (Array.isArray(files)) {
-        let zip = new JSZip();
-        files.forEach((file) => {
-          let blob = fetch(file.fields.file.url).then((r) => r.blob());
-          zip.file(file.fields.file.fileName, blob);
-        });
+    if (Array.isArray(files)) {
+      let zip = new JSZip();
+      files.forEach((file) => {
+        let blob = fetch(file.fields.file.url).then((r) => r.blob());
+        zip.file(file.fields.file.fileName, blob);
+      });
 
-        zip.generateAsync({ type: 'blob' }).then((blob: Blob | MediaSource) => {
-          // create temp link to trigger download after the folder is populated
-          const tempLink = document.createElement('a');
-          tempLink.href = window.URL.createObjectURL(blob);
-          tempLink.setAttribute('download', 'Article Assets');
-          tempLink.click();
-        });
-      } else {
+      zip.generateAsync({ type: 'blob' }).then((blob: Blob | MediaSource) => {
+        // create temp link to trigger download after the folder is populated
         const tempLink = document.createElement('a');
-        const assetUrl = await fetch(files.fields.file.url)
-          .then((response) => response.blob())
-          .then((blob) => URL.createObjectURL(blob));
-        const fileExtension = files.fields.file.contentType.split('/')[1];
-        const fileName = files.fields.title;
-        tempLink.href = assetUrl;
-        tempLink.download = `${fileName}.${fileExtension}`;
+        tempLink.href = window.URL.createObjectURL(blob);
+        tempLink.setAttribute('download', 'Article Assets');
         tempLink.click();
-      }
-    },
-    []
-  );
+      });
+    } else {
+      const tempLink = document.createElement('a');
+      fetch(files.fields.file.url)
+        .then((response) => response.blob())
+        .then((blob) => URL.createObjectURL(blob))
+        .then((assetUrl) => {
+          const fileExtension = files.fields.file.url.split('.').pop();
+          console.log(fileExtension);
+          const fileName = files.fields.title;
+          tempLink.href = assetUrl;
+          tempLink.download = `${fileName}.${fileExtension}`;
+          tempLink.click();
+          console.log(tempLink);
+        });
+    }
+  }, []);
 
   return (
     <div

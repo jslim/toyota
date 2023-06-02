@@ -3,9 +3,11 @@ import classNames from 'classnames';
 
 import css from './MediaKit.module.scss';
 
+import { ContentfulMediaAsset } from '@/data/types';
+
 import DownloadAgreementModal from '@/components/DownloadAgreementModal/DownloadAgreementModal';
 import ListItem from '@/components/ListItem/ListItem';
-import { ContentfulMediaAsset } from '@/data/types';
+
 import LockBodyScrollService from '@/services/lock-body-scroll';
 
 export type MediaKitProps = {

@@ -3,6 +3,7 @@ import classNames from 'classnames';
 
 import css from './ListItem.module.scss';
 
+import { ContentfulMediaAsset } from '@/data/types';
 import { variants } from '@/data/variants';
 
 import BaseButton from '@/components/BaseButton/BaseButton';
@@ -11,7 +12,6 @@ import IconCircle from '@/components/IconCircle/IconCircle';
 
 import ArrowDown from '@/components/svgs/svg-arrow-down.svg';
 import ChevronDown from '@/components/svgs/svg-chevron-down.svg';
-import { ContentfulMediaAsset } from '@/data/types';
 
 export type ListItemProps = {
   className?: string;
