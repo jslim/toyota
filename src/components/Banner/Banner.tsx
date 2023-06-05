@@ -8,10 +8,13 @@ import { Lang } from '@/data/types';
 
 import resize from '@/services/resize';
 import { Color, getBackgroundColorClass, getColorClass } from '@/utils/colors';
+import { parseContentfulRichText } from '@/utils/parsers/rich-text-parser';
 
 import { setHomepageBannerHeight, setHomepageBannerVisibility, useAppDispatch, useAppSelector } from '@/redux';
 
 import CloseSvg from '@/components/svgs/close.svg';
+
+import BaseButton from '../BaseButton/BaseButton';
 
 export type BannerProps = {};
 
@@ -51,8 +54,12 @@ const Banner: FC<BannerProps> = () => {
   if (!showHomepageBanner || !isHomepage) return null;
   return (
     <div ref={bannerRef} className={classnames(css.root, getBackgroundColorClass(Color.DARK_GREY))}>
-      <p className={classnames(css.bannerText, getColorClass(Color.WHITE))}>{homepageBannerText}</p>
-      <CloseSvg className={css.close} onClick={() => dispatch(setHomepageBannerVisibility(false))} />
+      <div className={classnames(css.bannerText, getColorClass(Color.WHITE))}>
+        {typeof homepageBannerText === 'string' ? homepageBannerText : parseContentfulRichText(homepageBannerText)}
+      </div>
+      <BaseButton className={css.close} onClick={() => dispatch(setHomepageBannerVisibility(false))}>
+        <CloseSvg className={css.closeIcon} />
+      </BaseButton>
     </div>
   );
 };

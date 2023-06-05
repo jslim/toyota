@@ -5,12 +5,12 @@ import css from './Logo.module.scss';
 
 import BaseLink from '@/components/BaseLink/BaseLink';
 
+import { useLayout } from '@/hooks';
+
 import LogoSVG from '@/components/svgs/woven-logo.svg';
-import LogoWhiteSVG from '@/components/svgs/woven-logo-white.svg';
 import LogoMobileSVG from '@/components/svgs/woven-logo-mobile.svg';
 import LogoWhiteMobileSVG from '@/components/svgs/woven-logo-mobile-white.svg';
-
-import { useLayout } from '@/hooks';
+import LogoWhiteSVG from '@/components/svgs/woven-logo-white.svg';
 
 export type LogoProps = {
   className?: string;

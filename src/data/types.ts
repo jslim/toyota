@@ -46,7 +46,7 @@ export type GlobalDataFields = {
   footerSocialLinks: Array<SocialLinks>;
   footerOfficeLocations: Array<string>;
   companyName: string;
-  homepageBannerText: string;
+  homepageBannerText: string | Document;
   showHomepageBanner: boolean;
   skipToContentText: string;
   notFoundPageHeader: string;
@@ -77,6 +77,11 @@ export type GlobalStringsFields = {
   downloadAssets: string;
   drag: string;
   learnMore: string;
+  downloadAgreementTitle: string;
+  downloadAgreementLabel: string;
+  downloadAgreementTerms: string;
+  downloadAgreementCloseLabel: string;
+  downloadAgreementCallToActionTitle: string;
 };
 
 export type GlobalStrings = {
@@ -307,7 +312,7 @@ export type GlobalDataContentType = {
   footerSocialLinks: Array<FilteredEntity<CTAContentType>>;
   footerOfficeLocations: Array<string>;
   companyName: string;
-  homepageBannerText: string;
+  homepageBannerText: string | Document;
   showHomepageBanner: boolean;
   skipToContentText: string;
   notFoundPageHeader: string;
@@ -376,13 +381,7 @@ export type MediaKitItemContentType = {
 };
 
 export type MediaKitContentType = {
-  title: string;
   innerBlocks: Array<FilteredEntity<MediaKitItemContentType>>;
-  modalTitle: string;
-  modalTerms: string;
-  modalLabel: string;
-  callToActionTitle: string;
-  modalCloseLabel: string;
 };
 
 export type MediaGalleryItemContentType = {

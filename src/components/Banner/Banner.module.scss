@@ -18,15 +18,23 @@
   @include media-desktopSm {
     @include use-desktop-columns(width, 12);
   }
+
+  a {
+    color: $red;
+    text-decoration: underline;
+  }
 }
 
 .close {
   @include box(px(20));
+  background: none;
   transform: translateY(-50%);
   position: absolute;
   right: px(20);
   top: px(20);
   cursor: pointer;
+  padding: 0;
+  border: none;
 
   @include media-tablet {
     right: px(26);
@@ -39,5 +47,10 @@
   }
   path {
     stroke: white;
+  }
+
+  .closeIcon {
+    width: 100%;
+    height: 100%;
   }
 }

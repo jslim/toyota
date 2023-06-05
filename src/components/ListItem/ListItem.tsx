@@ -3,6 +3,7 @@ import classNames from 'classnames';
 
 import css from './ListItem.module.scss';
 
+import { ContentfulMediaAsset } from '@/data/types';
 import { variants } from '@/data/variants';
 
 import BaseButton from '@/components/BaseButton/BaseButton';
@@ -21,7 +22,7 @@ export type ListItemProps = {
   onClick?: () => void;
   isMediaKit?: boolean;
   isAccordionOpen?: boolean;
-  assetsLink?: string;
+  asset?: ContentfulMediaAsset;
   link?: LinkProps;
 };
 
@@ -48,7 +49,7 @@ const ListItem: FC<ListItemProps> = ({
   onClick,
   isMediaKit,
   isAccordionOpen,
-  assetsLink,
+  asset,
   link
 }) => {
   return (
@@ -70,7 +71,7 @@ const ListItem: FC<ListItemProps> = ({
             </IconCircle>
           </div>
         </BaseButton>
-      ) : assetsLink ? (
+      ) : Boolean(asset) ? (
         <BaseButton
           className={classNames(css.button, css.mediaKit, { [css.isDark]: variant === variants.DARK })}
           onClick={onClick}
