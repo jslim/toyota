@@ -81,12 +81,10 @@ const DownloadAgreementModal: FC<DownloadAgreementModalProps> = ({ className, on
         .then((blob) => URL.createObjectURL(blob))
         .then((assetUrl) => {
           const fileExtension = files.fields.file.url.split('.').pop();
-          console.log(fileExtension);
           const fileName = files.fields.title;
           tempLink.href = assetUrl;
           tempLink.download = `${fileName}.${fileExtension}`;
           tempLink.click();
-          console.log(tempLink);
         });
     }
   }, []);
