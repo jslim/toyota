@@ -561,3 +561,8 @@ export type PageMetadataContentType = {
   metaKeywords?: Array<string>;
   metaShareImage?: FilteredEntity<ContentfulImageAsset>;
 };
+
+export type ThirdPartyScriptContentType = {
+  sourceUrl?: string;
+  scriptId?: string;
+};

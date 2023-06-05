@@ -32,6 +32,7 @@ import {
   TabItemContentType,
   TestsPageContentType,
   TextIntroContentType,
+  ThirdPartyScriptContentType,
   videoPlayerSectionContentType,
   YoutubeEmbedContentType
 } from '@/data/types';
@@ -65,6 +66,7 @@ import SectionWrapper from '@/components/SectionWrapper/SectionWrapper';
 import Spacer, { Sizes } from '@/components/Spacer/Spacer';
 import Tabs from '@/components/Tabs/Tabs';
 import TextIntro from '@/components/TextIntro/TextIntro';
+import ThirdPartyScript from '@/components/ThirdPartScript/ThirdPartyScript';
 import VideoPlayerSection from '@/components/VideoPlayerSection/VideoPlayerSection';
 import YoutubeEmbed from '@/components/YoutubeEmbed/YoutubeEmbed';
 
@@ -743,5 +745,18 @@ export const buildCallToAction = (fields: CTAContentType, extraProps?: GenericOb
       ) : (
         <Cta {...props} />
       )
+  };
+};
+
+export const buildThirdPartScript = (
+  fields: ThirdPartyScriptContentType,
+  extraProps?: GenericObject
+): ComponentBuilder => {
+  return {
+    props: {
+      ...fields,
+      ...extraProps
+    },
+    component: ThirdPartyScript
   };
 };
