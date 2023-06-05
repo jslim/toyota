@@ -1,4 +1,4 @@
-import { FC, memo, useRef, useState } from 'react';
+import { FC, memo, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 
 import css from './MobileNav.module.scss';
@@ -7,6 +7,8 @@ import BaseButton from '@/components/BaseButton/BaseButton';
 import BaseLink from '@/components/BaseLink/BaseLink';
 import LanguageToggle from '@/components/LanguageToggle/LanguageToggle';
 import Logo from '@/components/Logo/Logo';
+
+import LockBodyScrollService from '@/services/lock-body-scroll';
 
 import { setHomepageBannerVisibility, useAppDispatch, useAppSelector } from '@/redux';
 
@@ -27,6 +29,10 @@ const MobileNav: FC<MobileNavProps> = ({ className }) => {
     setMenuOpen(!menuOpen);
     dispatch(setHomepageBannerVisibility(false));
   };
+
+  useEffect(() => {
+    menuOpen ? LockBodyScrollService.lock() : LockBodyScrollService.unlock();
+  }, [menuOpen]);
 
   return (
     <div className={classNames('MobileNav', css.root, className)}>
