@@ -8,7 +8,6 @@ export const Default: Story<FilterDropdownProps> = (args) => <FilterDropdown {..
 
 Default.args = {
   title: 'Location',
-  alt: 'Filter by Location Location',
   categories: [
     {
       options: [
