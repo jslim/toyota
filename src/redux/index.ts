@@ -19,6 +19,7 @@ export const defaultGlobalData: GlobalDataFields = {
   footerLegalLinks: [] as Array<NavLinks>,
   footerSocialLinks: [] as Array<SocialLinks>,
   footerOfficeLocations: [] as Array<string>,
+  footerCookiebotToggleLabel: 'Do Not Sell Or Share My Personal Information',
   homepageBannerText: '',
   companyName: 'Woven by Toyota, Inc.',
   showHomepageBanner: false,

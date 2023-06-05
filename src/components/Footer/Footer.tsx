@@ -14,6 +14,8 @@ import sanitizer from '@/utils/sanitizer';
 
 import { useAppSelector } from '@/redux';
 
+import BaseButton from '../BaseButton/BaseButton';
+
 export interface FooterProps {
   className?: string;
 }
@@ -30,7 +32,8 @@ const Footer: FC<FooterProps> = ({ className }) => {
     wovenCityLink,
     wovenCityLogo,
     toyotaGlobalLink,
-    toyotaGlobalLogo
+    toyotaGlobalLogo,
+    footerCookiebotToggleLabel
   } = useAppSelector((state) => state.activeGlobalData);
   const activeRoute = useAppSelector((state) => state.activeRoute);
 
@@ -88,12 +91,17 @@ const Footer: FC<FooterProps> = ({ className }) => {
                   </BaseLink>
                 </li>
               ))}
-              <li className={css.copyright} key="copyright">
-                {companyName}
-                <span dangerouslySetInnerHTML={{ __html: sanitizer(' &copy; ') }} />
-                {new Date().getFullYear()}
+              <li>
+                <BaseButton onClick={() => window?.Cookiebot.show()} className={css.cookiebotLink}>
+                  <span>{footerCookiebotToggleLabel}</span>
+                </BaseButton>
               </li>
             </ul>
+            <span className={css.copyright} key="copyright">
+              {companyName}
+              <span dangerouslySetInnerHTML={{ __html: sanitizer(' &copy; ') }} />
+              {new Date().getFullYear()}
+            </span>
           </div>
           <div className={css.logosWrapper}>
             <BaseLink href={toyotaGlobalLink.linkUrl} className={css.partnerLogo} title={toyotaGlobalLink.linkText}>
