@@ -149,7 +149,8 @@
         }
       }
 
-      .externalLinks {
+      .externalLinks,
+      .copyright {
         @include flex-center-vert;
         @include font-family('Toyota Type');
         @include font-size(12, 15);
@@ -169,6 +170,13 @@
           > a {
             border-bottom: 1px solid $grey;
           }
+        }
+      }
+
+      .cookiebotLink {
+        @include reset-button;
+        span {
+          border-bottom: 1px solid $grey;
         }
       }
     }
