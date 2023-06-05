@@ -682,20 +682,13 @@ export const buildOurLatestOverview = (
 };
 
 export const buildMediaKit = (fields: MediaKitContentType, extraProps?: GenericObject): ComponentBuilder => {
-  const modal = {
-    title: fields.modalTitle,
-    terms: fields.modalTerms,
-    label: fields.modalLabel,
-    closeLabel: fields.modalCloseLabel,
-    cta: fields.callToActionTitle
-  };
   const items = fields.innerBlocks?.map(({ fields }) => {
-    const assetSrc = fields?.asset?.fields?.file.url;
+    const assetSrc = fields?.asset;
     return {
       title: fields?.title,
       secondaryText: fields.date,
       tertiaryText: fields.filesSize,
-      assetsLink: assetSrc,
+      asset: assetSrc,
       link: fields?.link
     };
   });
@@ -703,7 +696,7 @@ export const buildMediaKit = (fields: MediaKitContentType, extraProps?: GenericO
     props: {
       ...extraProps
     },
-    component: () => <MediaKit modal={modal} items={items} />
+    component: () => <MediaKit items={items} />
   };
 };
 

@@ -110,6 +110,7 @@
 
       .overlay {
         @include position-100(absolute);
+        @include reset-button;
         background-color: rgba($black, 0.5);
         @include flex-center;
         opacity: 0;
