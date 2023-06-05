@@ -18,8 +18,8 @@ jobs:
     uses: woven-planet/woven-website/.github/workflows/deploy-to-s3.yml@staging
     with:
       CI_ENV: staging
-      GTM_ID: GTM-0000000 # TODO: update
-      GTM_PARAMS: '' # TODO: update
+      GTM_ID: GTM-WMVBNCF
+      GTM_PARAMS: ''
       CONTENTFUL_ENVIRONMENT: 'staging'
     secrets:
       WEBSITE_SITE_URL: ${{ secrets.WEBSITE_SITE_URL_STAGE }}
