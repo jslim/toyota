@@ -316,32 +316,34 @@ const ImageCascade: FC<ImageCascadeProps> = ({
       ref={containerRef}
     >
       <div className={css.wrapper}>
-        <svg x="0px" y="0px" className={css.svg}>
-          <g>
-            <clipPath id={`path-${uniqueId}`}>
-              <path
-                id="start"
-                ref={(el) => {
-                  panelsRef.current[0] = el;
-                }}
-              />
-            </clipPath>
-            <mask id={uniqueId}>
-              <rect x="0" y="0" width="100%" height="100%" fill="white"></rect>
-              {Array.from({ length: 3 }).map((_, index) => (
+        {assetLoaded && (
+          <svg x="0px" y="0px" className={css.svg}>
+            <g>
+              <clipPath id={`path-${uniqueId}`}>
                 <path
-                  key={index}
-                  fill="black"
-                  fillOpacity={index === 2 ? '1' : '0.4'}
+                  id="start"
                   ref={(el) => {
-                    panelsRef.current[index + 1] = el;
+                    panelsRef.current[0] = el;
                   }}
-                ></path>
-              ))}
-            </mask>
-            <rect x="0" y="0" width="100%" height="100%" fill={fill} mask={`url(#${uniqueId})`}></rect>
-          </g>
-        </svg>
+                />
+              </clipPath>
+              <mask id={uniqueId}>
+                <rect x="0" y="0" width="100%" height="100%" fill="white"></rect>
+                {Array.from({ length: 3 }).map((_, index) => (
+                  <path
+                    key={index}
+                    fill="black"
+                    fillOpacity={index === 2 ? '1' : '0.4'}
+                    ref={(el) => {
+                      panelsRef.current[index + 1] = el;
+                    }}
+                  ></path>
+                ))}
+              </mask>
+              <rect x="0" y="0" width="100%" height="100%" fill={fill} mask={`url(#${uniqueId})`}></rect>
+            </g>
+          </svg>
+        )}
         <div className={css.container} ref={assetRef}>
           {children}
         </div>

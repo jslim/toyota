@@ -5,13 +5,12 @@ import css from './Hero.module.scss';
 
 import { ContentfulImageAsset } from '@/data/types';
 
+import BaseLink from '@/components/BaseLink/BaseLink';
 import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
 import ImageCascade from '@/components/ImageCascade/ImageCascade';
 import VideoPlayer, { Props as VideoProps } from '@/components/VideoPlayer/VideoPlayer';
 
 import sanitizer from '@/utils/sanitizer';
-
-import BaseLink from '../BaseLink/BaseLink';
 
 export enum HeroType {
   Primary = 'primary',
