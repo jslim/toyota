@@ -46,7 +46,7 @@ export type GlobalDataFields = {
   footerSocialLinks: Array<SocialLinks>;
   footerOfficeLocations: Array<string>;
   companyName: string;
-  homepageBannerText: string;
+  homepageBannerText: string | Document;
   showHomepageBanner: boolean;
   skipToContentText: string;
   notFoundPageHeader: string;
@@ -312,7 +312,7 @@ export type GlobalDataContentType = {
   footerSocialLinks: Array<FilteredEntity<CTAContentType>>;
   footerOfficeLocations: Array<string>;
   companyName: string;
-  homepageBannerText: string;
+  homepageBannerText: string | Document;
   showHomepageBanner: boolean;
   skipToContentText: string;
   notFoundPageHeader: string;
