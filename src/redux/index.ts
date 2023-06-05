@@ -58,7 +58,13 @@ export const defaultGlobalStrings: GlobalStringsFields = {
   emailShareBody: '',
   downloadAssets: 'Download all assets',
   drag: 'Drag',
-  learnMore: 'Learn More'
+  learnMore: 'Learn More',
+  downloadAgreementTitle: 'Download Agreement',
+  downloadAgreementLabel: 'I have read, understood and accept the terms of the Download Agreement',
+  downloadAgreementTerms:
+    'The Content may only be used for editorial or personal, non-commercial purposes, and may not be used for any commercial purposes, including, without limitation, advertising, marketing and merchandising. In order to download the Content, you must first agree to abide by the following terms.',
+  downloadAgreementCloseLabel: 'Close',
+  downloadAgreementCallToActionTitle: 'Download'
 };
 
 const { actions, reducer } = createSlice({
