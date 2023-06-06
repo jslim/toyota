@@ -10,6 +10,7 @@ import Footer from '@/components/Footer/Footer';
 import Head from '@/components/Head/Head';
 import Nav from '@/components/Nav/Nav';
 
+import LockBodyScrollService from '@/services/lock-body-scroll';
 import { GtmScript } from '@/utils/analytics';
 import { checkWebpSupport } from '@/utils/basic-functions';
 
@@ -39,6 +40,7 @@ const Layout: FC<ExtendedAppProps<PageProps>> = ({ Component, pageProps, globalD
     (url: string) => {
       if (router.asPath !== url) {
         dispatch(setPrevRoute(router.asPath));
+        LockBodyScrollService.isLocked && LockBodyScrollService.unlock(true);
       }
     },
     [dispatch, router.asPath]
