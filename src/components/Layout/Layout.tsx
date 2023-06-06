@@ -45,9 +45,9 @@ const Layout: FC<ExtendedAppProps<PageProps>> = ({ Component, pageProps, globalD
   );
 
   useEffect(() => {
-    if (cookiebot) setCookieConsent(window.Cookiebot.consent.statistics);
+    if (cookiebot) setCookieConsent(window?.Cookiebot?.consent?.statistics);
     const handleConsentChange = () => {
-      setCookieConsent(window.Cookiebot.consent.statistics);
+      setCookieConsent(window?.Cookiebot?.consent?.statistics);
     };
 
     if (cookiebot) window.addEventListener('CookiebotOnConsentReady', handleConsentChange);
