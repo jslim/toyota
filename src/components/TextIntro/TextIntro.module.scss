@@ -133,6 +133,15 @@
 
   .cta {
     display: flex;
+    margin-top: px(16);
+
+    @include media-tablet {
+      margin-top: px(25);
+    }
+
+    @include media-desktopSm {
+      margin-top: px(60);
+    }
   }
 
   &.columns-30-70 {
@@ -151,6 +160,20 @@
       }
       @include media-desktopSm {
         @include use-desktop-columns(width, 9);
+      }
+    }
+  }
+
+  @at-root main:global(.CareerDetail) {
+    .cta {
+      margin-top: px(38);
+
+      @include media-tablet {
+        margin-top: px(50);
+      }
+
+      @include media-desktopSm {
+        margin-top: px(13);
       }
     }
   }
