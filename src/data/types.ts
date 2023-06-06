@@ -62,6 +62,7 @@ export type GlobalDataFields = {
   wovenCapitalLogo?: ContentfulImageAsset;
   languageToggleEnglish: string;
   languageToggleJapanese: string;
+  goToHomepage: string;
 };
 
 export type GlobalData = {
@@ -329,6 +330,7 @@ export type GlobalDataContentType = {
   wovenCapitalLogo: ContentfulImageAsset;
   languageToggleEnglish: string;
   languageToggleJapanese: string;
+  goToHomepage: string;
 };
 
 export type CTAContentType = {

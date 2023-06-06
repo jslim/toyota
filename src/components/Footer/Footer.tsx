@@ -33,7 +33,8 @@ const Footer: FC<FooterProps> = ({ className }) => {
     wovenCityLogo,
     toyotaGlobalLink,
     toyotaGlobalLogo,
-    footerCookiebotToggleLabel
+    footerCookiebotToggleLabel,
+    goToHomepage
   } = useAppSelector((state) => state.activeGlobalData);
   const activeRoute = useAppSelector((state) => state.activeRoute);
   const lang = useAppSelector((state) => state.activeLang);
@@ -43,7 +44,7 @@ const Footer: FC<FooterProps> = ({ className }) => {
       <div className={css.footerWrapper}>
         <div className={css.topWrapper}>
           <div className={css.logo}>
-            <Logo href={'/' + lang} isWhite={true} />
+            <Logo href={'/' + lang} isWhite={true} title={goToHomepage} />
           </div>
           <ul className={css.routes}>
             {footerNavLinks.map(

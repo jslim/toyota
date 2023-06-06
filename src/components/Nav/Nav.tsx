@@ -18,7 +18,7 @@ export interface NavProps {
 }
 
 const Nav: FC<NavProps> = ({ className }) => {
-  const { mainNavLinks, skipToContentText } = useAppSelector((state) => state.activeGlobalData);
+  const { mainNavLinks, skipToContentText, goToHomepage } = useAppSelector((state) => state.activeGlobalData);
   const activeRoute = useAppSelector((state) => state.activeRoute.split('?')[0]);
   const lang = useAppSelector((state) => state.activeLang);
   const [isMobile, setIsMobile] = useState(false);
@@ -38,7 +38,7 @@ const Nav: FC<NavProps> = ({ className }) => {
                 <a tabIndex={0} aria-label={skipToContentText} className={css.skipToContent} href="#start-of-content">
                   {skipToContentText}
                 </a>
-                <Logo className={css.logo} href={'/' + lang} title={'Go to Homepage'} />
+                <Logo className={css.logo} href={'/' + lang} title={goToHomepage} />
                 <ul className={css.routes}>
                   {mainNavLinks.map(
                     ({ linkUrl, linkText, ariaLabel }) =>

@@ -64,6 +64,7 @@ export const globalDataParserUtil = (entity: GlobalDataContentType): GlobalDataF
   const wovenCityLogo = entity?.wovenCityLogo;
   const languageToggleEnglish = entity?.languageToggleEnglish ?? 'English';
   const languageToggleJapanese = entity?.languageToggleJapanese ?? 'Japanese';
+  const goToHomepage = entity?.goToHomepage ?? 'Go to Homepage';
 
   return {
     mainNavLinks,
@@ -87,6 +88,7 @@ export const globalDataParserUtil = (entity: GlobalDataContentType): GlobalDataF
     wovenCityLink,
     wovenCityLogo,
     languageToggleEnglish,
-    languageToggleJapanese
+    languageToggleJapanese,
+    goToHomepage
   };
 };
