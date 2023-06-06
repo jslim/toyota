@@ -180,7 +180,7 @@ p {
 
 // default tables styling
 
-.tableContainer {
+.tableWrapper {
   overflow: scroll;
 }
 
@@ -210,42 +210,10 @@ table {
       color: $mid-grey;
       border: 1px solid $light-grey;
       vertical-align: top;
+      min-width: 20vw;
 
       @include media-desktopSm {
         padding: px(28) px(20) px(20) px(24);
-      }
-
-      &:first-child {
-        width: 25%;
-        min-width: px(140);
-      }
-
-      &:nth-child(2) {
-        width: 40%;
-        min-width: px(300);
-      }
-
-      &:nth-child(3) {
-        width: 35%;
-        min-width: px(290);
-      }
-
-      @include breakpoint(tablet) {
-        &:first-child {
-          min-width: px(168);
-        }
-
-        &:nth-child(2) {
-          min-width: px(384);
-        }
-      }
-
-      @include breakpoint(desktopSm) {
-        &:first-child,
-        &:nth-child(2),
-        &:nth-child(3) {
-          min-width: unset;
-        }
       }
 
       ul {
