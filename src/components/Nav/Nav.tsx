@@ -38,7 +38,7 @@ const Nav: FC<NavProps> = ({ className }) => {
                 <a tabIndex={0} aria-label={skipToContentText} className={css.skipToContent} href="#start-of-content">
                   {skipToContentText}
                 </a>
-                <Logo className={css.logo} href={'/' + lang} />
+                <Logo className={css.logo} href={'/' + lang} title={'Go to Homepage'} />
                 <ul className={css.routes}>
                   {mainNavLinks.map(
                     ({ linkUrl, linkText, ariaLabel }) =>

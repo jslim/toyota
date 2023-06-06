@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import css from './Footer.module.scss';
 
-import routes from '@/data/routes';
+// import routes from '@/data/routes';
 
 import BaseLink from '@/components/BaseLink/BaseLink';
 import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
@@ -36,13 +36,14 @@ const Footer: FC<FooterProps> = ({ className }) => {
     footerCookiebotToggleLabel
   } = useAppSelector((state) => state.activeGlobalData);
   const activeRoute = useAppSelector((state) => state.activeRoute);
+  const lang = useAppSelector((state) => state.activeLang);
 
   return (
     <footer className={classNames('Footer', css.root, className)}>
       <div className={css.footerWrapper}>
         <div className={css.topWrapper}>
           <div className={css.logo}>
-            <Logo href={routes.Home.path} isWhite={true} />
+            <Logo href={'/' + lang} isWhite={true} />
           </div>
           <ul className={css.routes}>
             {footerNavLinks.map(
