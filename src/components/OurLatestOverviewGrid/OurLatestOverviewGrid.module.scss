@@ -1,3 +1,11 @@
+@import 'shared';
+
 .loadMore {
   margin: 0 auto;
+}
+
+.sectionWrapper {
+  @include media-desktopSm {
+    padding-bottom: px(93);
+  }
 }
