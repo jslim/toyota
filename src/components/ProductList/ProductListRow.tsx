@@ -9,6 +9,7 @@ import { Props as LinkProps } from '@/components/BaseLink/BaseLink';
 import Cta, { ButtonType } from '@/components/Cta/Cta';
 
 import { useAppSelector } from '@/redux';
+
 import ImageDragAnim from './ImageDragAnim';
 
 export type ProductListRowProps = {
