@@ -69,7 +69,7 @@
       margin: px(10) auto px(40);
     }
 
-    @include pagination($black, false);
+    @include pagination($black, false); //  margin: 0 px(3);
 
     &.isDisabled {
       display: none;
