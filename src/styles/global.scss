@@ -180,8 +180,8 @@ p {
 
 // default tables styling
 
-.tableWrapper {
-  overflow: scroll;
+.tableContainer {
+  overflow-x: auto;
 }
 
 table {
@@ -210,9 +210,10 @@ table {
       color: $mid-grey;
       border: 1px solid $light-grey;
       vertical-align: top;
-      min-width: 20vw;
+      min-width: px(210);
 
       @include media-desktopSm {
+        min-width: 22vw;
         padding: px(28) px(20) px(20) px(24);
       }
 

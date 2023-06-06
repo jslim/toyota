@@ -212,11 +212,12 @@
     .textContainer {
       @include media-mobile-tablet {
         width: 100%;
+        overflow: unset;
       }
-
       :global(.tableContainer) {
         margin-left: mobile-side-padding(-0.5);
         padding: 0 mobile-side-padding();
+        width: 100vw;
 
         @include breakpoint(tablet) {
           margin-left: tablet-side-padding(-0.5);
@@ -224,6 +225,7 @@
         }
 
         @include breakpoint(desktopSm) {
+          width: unset;
           margin-left: 0;
           padding: 0;
         }
