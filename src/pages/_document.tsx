@@ -69,7 +69,7 @@ class MyDocument extends Document<ExtendedDocumentInitialProps> {
 
   render() {
     return (
-      <Html lang={this.props.lang ?? 'en'}>
+      <Html lang={getLocaleByLang((this.props.lang as Lang) || Lang.EN)}>
         <Head />
         {hideStaticHtml && (
           <script data-cfasync="false" dangerouslySetInnerHTML={{ __html: sanitizer(hideStaticHtmlScript) }} />
