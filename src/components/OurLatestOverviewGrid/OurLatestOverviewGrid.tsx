@@ -141,7 +141,7 @@ const OurLatestOverviewGrid: FC<OurLatestOverviewGridProps> = ({
   ];
 
   return (
-    <SectionWrapper backgroundColor={Color.WHITE} title={sectionTitle}>
+    <SectionWrapper className={css.sectionWrapper} backgroundColor={Color.WHITE} title={sectionTitle}>
       <OurLatestOverviewFilters
         categoryTitle={categoriesLabel}
         categories={categories}
