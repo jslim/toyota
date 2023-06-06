@@ -1,8 +1,10 @@
 @import 'shared';
 
 .root {
+  border-bottom: 1px solid $mid-grey;
   @include use-mobile-columns(width, 4);
   margin-top: px(32);
+  margin-bottom: px(64);
   background-color: $black;
 
   @include media-tablet {
