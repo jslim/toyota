@@ -46,6 +46,8 @@ export const globalDataParserUtil = (entity: GlobalDataContentType): GlobalDataF
   const footerLegalLinks: Array<NavLinks> = entity?.footerLegalLinks?.map((link) => convertCtaToNavLink(link));
   const footerSocialLinks: Array<SocialLinks> = entity?.footerSocialLinks?.map((link) => convertCtaToSocialLink(link));
   const footerOfficeLocations = entity?.footerOfficeLocations || [];
+  const footerCookiebotToggleLabel =
+    entity?.footerCookiebotToggleLabel ?? 'Do Not Sell Or Share My Personal Information';
   const companyName = entity?.companyName ?? 'Woven by Toyota, Inc.';
   const skipToContentText = entity?.skipToContentText ?? 'Skip to content';
   const homepageBannerText = entity?.homepageBannerText ?? '';
@@ -62,6 +64,7 @@ export const globalDataParserUtil = (entity: GlobalDataContentType): GlobalDataF
   const wovenCityLogo = entity?.wovenCityLogo;
   const languageToggleEnglish = entity?.languageToggleEnglish ?? 'English';
   const languageToggleJapanese = entity?.languageToggleJapanese ?? 'Japanese';
+  const goToHomepage = entity?.goToHomepage ?? 'Go to Homepage';
 
   return {
     mainNavLinks,
@@ -69,6 +72,7 @@ export const globalDataParserUtil = (entity: GlobalDataContentType): GlobalDataF
     footerLegalLinks,
     footerSocialLinks,
     footerOfficeLocations,
+    footerCookiebotToggleLabel,
     companyName,
     skipToContentText,
     homepageBannerText,
@@ -84,6 +88,7 @@ export const globalDataParserUtil = (entity: GlobalDataContentType): GlobalDataF
     wovenCityLink,
     wovenCityLogo,
     languageToggleEnglish,
-    languageToggleJapanese
+    languageToggleJapanese,
+    goToHomepage
   };
 };

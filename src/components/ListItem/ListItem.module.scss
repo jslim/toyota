@@ -12,6 +12,7 @@
   text-align: left;
   cursor: pointer;
   background-color: $white;
+  border-top: 1px solid $light-grey;
 
   .buttonWrapper {
     @include use-mobile-columns(width, 4);
@@ -82,10 +83,6 @@
   }
 
   &.open {
-    .title {
-      opacity: 0.5;
-    }
-
     .icon {
       transform: rotate(180deg);
     }

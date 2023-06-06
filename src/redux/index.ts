@@ -19,6 +19,7 @@ export const defaultGlobalData: GlobalDataFields = {
   footerLegalLinks: [] as Array<NavLinks>,
   footerSocialLinks: [] as Array<SocialLinks>,
   footerOfficeLocations: [] as Array<string>,
+  footerCookiebotToggleLabel: 'Do Not Sell Or Share My Personal Information',
   homepageBannerText: '',
   companyName: 'Woven by Toyota, Inc.',
   showHomepageBanner: false,
@@ -46,7 +47,8 @@ export const defaultGlobalData: GlobalDataFields = {
     isActive: false
   },
   languageToggleEnglish: 'English',
-  languageToggleJapanese: 'Japanese'
+  languageToggleJapanese: 'Japanese',
+  goToHomepage: 'Go to Homepage'
 };
 
 export const defaultGlobalStrings: GlobalStringsFields = {
@@ -105,6 +107,7 @@ const { actions, reducer } = createSlice({
     setActiveLang(state, action: PayloadAction<Lang>) {
       // Set any necessary state to the localized version based on Lang
       state.activeGlobalData = state.globalData[action.payload];
+      state.activeGlobalStrings = state.globalStrings[action.payload];
       state.activeLang = action.payload;
     },
     setHomepageBannerVisibility(state, action: PayloadAction<boolean>) {

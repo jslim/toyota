@@ -54,9 +54,14 @@
       }
 
       .label {
+        @include typography-label;
         color: $dark-grey;
         text-transform: capitalize;
         opacity: 0.75;
+
+        @include media-desktopSm {
+          @include font-size(16, 24);
+        }
       }
 
       &.selected {

@@ -1,4 +1,4 @@
-import { FC, memo, useRef, useState } from 'react';
+import { FC, memo, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 
 import css from './MobileNav.module.scss';
@@ -8,6 +8,8 @@ import BaseLink from '@/components/BaseLink/BaseLink';
 import LanguageToggle from '@/components/LanguageToggle/LanguageToggle';
 import Logo from '@/components/Logo/Logo';
 
+import LockBodyScrollService from '@/services/lock-body-scroll';
+
 import { setHomepageBannerVisibility, useAppDispatch, useAppSelector } from '@/redux';
 
 export type MobileNavProps = {
@@ -15,7 +17,7 @@ export type MobileNavProps = {
 };
 
 const MobileNav: FC<MobileNavProps> = ({ className }) => {
-  const { mainNavLinks } = useAppSelector((state) => state.activeGlobalData);
+  const { mainNavLinks, goToHomepage } = useAppSelector((state) => state.activeGlobalData);
   const lang = useAppSelector((state) => state.activeLang);
   const activeRoute = useAppSelector((state) => state.activeRoute);
   const dispatch = useAppDispatch();
@@ -28,10 +30,18 @@ const MobileNav: FC<MobileNavProps> = ({ className }) => {
     dispatch(setHomepageBannerVisibility(false));
   };
 
+  useEffect(() => {
+    menuOpen ? LockBodyScrollService.lock() : LockBodyScrollService.unlock();
+  }, [menuOpen]);
+
+  useEffect(() => {
+    return () => LockBodyScrollService.unlock();
+  }, []);
+
   return (
     <div className={classNames('MobileNav', css.root, className)}>
       <div className={css.mobileNavBar}>
-        <Logo className={css.logo} href={'/' + lang} />
+        <Logo className={css.logo} href={'/' + lang} title={goToHomepage} />
 
         <BaseButton className={css.hamburgerWrapper} onClick={handleClick} aria-label="Click to view more menu options">
           {!menuOpen ? (

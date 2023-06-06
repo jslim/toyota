@@ -11,7 +11,7 @@
     position: relative;
     align-items: center;
     text-align: left;
-    padding: px(48) 0;
+    padding: px(48) 0 px(35);
     height: 100%;
 
     @include media-tablet {
@@ -78,7 +78,6 @@
 
   .rightColumn {
     width: 100%;
-    margin-left: px(45);
 
     @include media-tablet {
       @include use-tablet-columns(width, 5, 0);
@@ -88,6 +87,9 @@
       @include use-desktop-columns(width, 6, 0);
       @include use-desktop-gutter(margin-left, 1);
       flex-basis: initial;
+    }
+    > *:last-child {
+      margin-bottom: 0;
     }
   }
 

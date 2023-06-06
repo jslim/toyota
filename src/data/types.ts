@@ -45,6 +45,7 @@ export type GlobalDataFields = {
   footerLegalLinks: Array<NavLinks>;
   footerSocialLinks: Array<SocialLinks>;
   footerOfficeLocations: Array<string>;
+  footerCookiebotToggleLabel: string;
   companyName: string;
   homepageBannerText: string | Document;
   showHomepageBanner: boolean;
@@ -61,6 +62,7 @@ export type GlobalDataFields = {
   wovenCapitalLogo?: ContentfulImageAsset;
   languageToggleEnglish: string;
   languageToggleJapanese: string;
+  goToHomepage: string;
 };
 
 export type GlobalData = {
@@ -311,6 +313,7 @@ export type GlobalDataContentType = {
   footerLegalLinks: Array<FilteredEntity<CTAContentType>>;
   footerSocialLinks: Array<FilteredEntity<CTAContentType>>;
   footerOfficeLocations: Array<string>;
+  footerCookiebotToggleLabel: string;
   companyName: string;
   homepageBannerText: string | Document;
   showHomepageBanner: boolean;
@@ -327,6 +330,7 @@ export type GlobalDataContentType = {
   wovenCapitalLogo: ContentfulImageAsset;
   languageToggleEnglish: string;
   languageToggleJapanese: string;
+  goToHomepage: string;
 };
 
 export type CTAContentType = {
@@ -559,5 +563,10 @@ export type PageMetadataContentType = {
   metaDescription?: string;
   metaSiteName?: string;
   metaKeywords?: Array<string>;
-  metaShareImage?: FilteredEntity<ContentfulImageAsset>;
+  metaShareImage?: ContentfulImageAsset;
+};
+
+export type ThirdPartyScriptContentType = {
+  sourceUrl?: string;
+  scriptId?: string;
 };
