@@ -27,17 +27,17 @@ const Logo: FC<LogoProps> = ({ className, title, href, isWhite }) => {
 
   return (
     <div className={classNames('Logo', css.root, className, { [css.isMobile]: isMobile })}>
-      <BaseLink title={title} href={href} aria-label="Toyota Logo">
+      <BaseLink title={title} href={href}>
         {isMobile ? (
           isWhite ? (
-            <LogoWhiteMobileSVG className={css.logo} />
+            <LogoWhiteMobileSVG className={css.logo} alt="" />
           ) : (
-            <LogoMobileSVG className={css.logo} />
+            <LogoMobileSVG className={css.logo} alt="" />
           )
         ) : isWhite ? (
-          <LogoWhiteSVG className={css.logo} />
+          <LogoWhiteSVG className={css.logo} alt="" />
         ) : (
-          <LogoSVG className={css.logo} />
+          <LogoSVG className={css.logo} alt="" />
         )}
       </BaseLink>
     </div>

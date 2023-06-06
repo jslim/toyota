@@ -3,6 +3,7 @@
 .root {
   @include container;
   background-color: $white;
+  border-bottom: 1px solid $light-grey;
 
   @include media-desktopSm {
     @include use-desktop-columns(width, 12);
@@ -25,9 +26,22 @@
     }
   }
 
+  &:not(.isDark) {
+    > * {
+      &:first-child {
+        :global(.ListItem) {
+          button {
+            border: none;
+          }
+        }
+      }
+    }
+  }
+
   &.isDark {
     width: 100%;
     background-color: $dark-grey;
+    border-bottom: 1px solid $mid-grey;
 
     @include media-desktopSm {
       @include use-desktop-columns(width, 12);

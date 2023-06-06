@@ -5,7 +5,7 @@ export const buildPageMetaData = (metadata: PageMetadataContentType): HeadProps 
   const description = metadata?.metaDescription ?? '';
   const keywords = metadata?.metaKeywords ?? [];
   const siteName = metadata?.metaSiteName ?? '';
-  const image = metadata?.metaShareImage?.fields?.fields?.file?.url ?? '';
+  const image = metadata?.metaShareImage?.fields?.file?.url ?? '';
 
   return {
     title,

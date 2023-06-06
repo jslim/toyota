@@ -9,6 +9,8 @@ import { Lang } from '@/data/types';
 
 import BaseButton from '@/components/BaseButton/BaseButton';
 
+import { getLocaleByLang } from '@/utils/locales';
+
 import { useAppSelector } from '@/redux';
 
 export type LanguageToggleProps = {
@@ -35,6 +37,8 @@ const LanguageToggle: FC<LanguageToggleProps> = ({ className }) => {
         lang: lang
       }
     });
+
+    document.querySelector('html')?.setAttribute('lang', getLocaleByLang(lang));
   };
   return (
     <div className={classNames('LanguageToggle', css.root, className)}>

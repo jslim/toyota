@@ -1,9 +1,6 @@
 @import 'shared';
 
 .root {
-  @include pagePadding(padding-left);
-  display: flex;
-  flex-direction: column;
   width: 100%;
   overflow-x: hidden;
   background-color: $light-grey;
@@ -18,21 +15,34 @@
   @include media-desktopSm {
     position: relative;
     min-height: px(792);
-    overflow-y: hidden;
-    flex-direction: row;
     padding-top: px(43);
     padding-bottom: px(43);
   }
 
   .container {
+    @include container;
+    display: flex;
+    flex-direction: column;
+
+    @include breakpoint(desktopSm) {
+      margin-right: 0;
+      width: calc((desktop-columns(12) + 100%) / 2);
+    }
+
+    @include breakpoint(desktopLock) {
+      margin-right: 0;
+      width: calc((desktop-lock-columns(12) + 100%) / 2);
+    }
+
     @include media-desktopSm {
-      overflow-x: hidden;
-      width: 60vw;
+      flex-direction: row;
     }
 
     .swiperWrapper {
+      min-width: 0;
       @include media-desktopSm {
-        width: 45vw;
+        overflow-x: hidden;
+        flex: 1;
       }
     }
 
@@ -54,48 +64,12 @@
 
   .pagination {
     margin: px(48) 0 px(40);
-    @include flex-center;
 
     @include breakpoint(desktopSm) {
-      justify-content: flex-start;
-      margin: px(40) 0 px(40) px(96);
+      margin: px(10) auto px(40);
     }
 
-    > span {
-      position: relative;
-      @include box(px(25));
-      @include flex-center;
-      margin: 0 px(8);
-      cursor: pointer;
-
-      @include breakpoint(desktopSm) {
-        margin: 0 px(13);
-      }
-
-      &:global(.swiper-pagination-bullet-active) {
-        &::after {
-          transform: scale(1);
-        }
-      }
-
-      &::before {
-        content: '';
-        @include box(px(3));
-        border-radius: 50%;
-        background-color: $black;
-        display: block;
-      }
-
-      &::after {
-        content: '';
-        @include position-100(absolute);
-        border: 1px solid $black;
-        border-radius: 50%;
-        display: block;
-        transform: scale(0);
-        transition: $ease1 0.66s transform;
-      }
-    }
+    @include pagination($black, false);
 
     &.isDisabled {
       display: none;
@@ -110,7 +84,6 @@
 
   @include media-desktopSm {
     @include use-desktop-columns(width, 5, 1);
-    margin-left: px(60);
   }
 
   .textWrapper {
@@ -173,8 +146,12 @@
     }
 
     @include media-desktopSm {
-      margin-top: px(218);
+      margin-top: px(158);
       margin-bottom: px(18);
+    }
+
+    @include media-desktopMd {
+      margin-top: px(218);
     }
 
     &::before {
@@ -225,38 +202,67 @@
 }
 
 .carouselContainer {
-  padding-top: px(26);
-  padding-left: px(23);
+  padding-left: px(14);
   overflow: visible;
 
   @include media-tablet {
-    padding-top: px(62);
+    padding-top: px(20);
+    padding-left: px(17);
   }
 
   @include media-desktopSm {
-    margin-top: px(62);
-    padding-left: px(96);
+    margin-top: px(54);
+    @include use-desktop-columns(padding-left, 1, 1);
+    padding-right: px(192);
     padding-top: 0;
   }
 
   .slide {
     width: px(114);
-    transform: scale(1);
-    transition: transform 0.3s linear;
+    opacity: 0.8;
+    transition: opacity 0.33s linear;
+
+    .cardColumn {
+      padding-bottom: px(26);
+
+      @include media-tablet {
+        padding-bottom: px(70);
+      }
+
+      @include media-desktopSm {
+        padding-bottom: 0;
+      }
+    }
+    > div {
+      a {
+        transform: scale(1);
+        transition: transform 0.3s linear;
+        transform-origin: bottom;
+      }
+      &:last-child {
+        a {
+          transform-origin: top;
+        }
+      }
+    }
 
     @include media-tablet {
       width: px(231);
     }
 
     &:global(.swiper-slide-active) {
-      transform: scale(1.25);
+      opacity: 1;
 
-      @include media-tablet {
-        transform: scale(1.15);
-      }
+      a {
+        transform: scale(1.25);
 
-      @include media-desktopSm {
-        transform: none;
+        @include media-tablet {
+          transform: scale(1.15);
+        }
+
+        @include media-desktopSm {
+          transform: none;
+        }
       }
     }
 
@@ -267,7 +273,6 @@
       align-self: normal;
       gap: px(16);
       width: px(192);
-      transition: opacity 0.33s linear;
       opacity: 0.4;
 
       &:global(.swiper-slide-visible) {

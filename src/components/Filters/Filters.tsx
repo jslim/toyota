@@ -35,15 +35,25 @@ const Filters: FC<FiltersProps> = ({
     return typeof window !== 'undefined' && !layout.tablet && !layout.mobile;
   }, [layout.mobile, layout.tablet]);
 
+  const FilterCopy = (
+    <div className={css.filtersCopy}>
+      {filtersLabel}
+      {filtersAmount > 0 && <span className={css.amount}>{filtersAmount}</span>}
+    </div>
+  );
+
   return (
     <div className={classNames('Filters', css.root, className)}>
       <Searchbar className={css.search} label={searchLabel} onSearch={onSearch} cleanLabel={cleanLabel} />
 
       <div className={css.container}>
-        <BaseButton className={css.filtersButton} onClick={onFilterModalClick} disabled={isDesktop}>
-          {filtersLabel}
-          {filtersAmount > 0 && <span className={css.amount}>{filtersAmount}</span>}
-        </BaseButton>
+        {!isDesktop ? (
+          <BaseButton className={css.filtersButton} onClick={onFilterModalClick}>
+            {FilterCopy}
+          </BaseButton>
+        ) : (
+          FilterCopy
+        )}
         {isDesktop &&
           Object.values(dropdowns).map((category, index) => {
             return (

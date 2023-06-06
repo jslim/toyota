@@ -5,11 +5,12 @@ import gsap from 'gsap';
 import css from './TextIntro.module.scss';
 
 import { ColumnType } from '@/data/variants';
-import sanitizer from '@/utils/sanitizer';
 
 import { Props as LinkProps } from '@/components/BaseLink/BaseLink';
 import Cta from '@/components/Cta/Cta';
 import Eyebrow from '@/components/Eyebrow/Eyebrow';
+
+import sanitizer from '@/utils/sanitizer';
 
 enum DefaultLayoutType {
   DEFAULT = 'default',
