@@ -61,12 +61,15 @@ const CareerDetail: FC = () => {
   ];
 
   useEffect(() => {
-    console.log(isIntersection);
     setLeftSideContent(
       !layout.mobile && career ? (
-        <div>
-          <div dangerouslySetInnerHTML={{ __html: sanitizer(career.text || '') }} />
-          <Cta className={css.leftCta} href={career.applyUrl} title={applyText} />
+        <div ref={(node: HTMLDivElement) => setNode(node)}>
+          {isIntersection && (
+            <>
+              <div dangerouslySetInnerHTML={{ __html: sanitizer(career.text || '') }} />
+              <Cta className={css.leftCta} href={career.applyUrl} title={applyText} />
+            </>
+          )}
         </div>
       ) : null
     );
