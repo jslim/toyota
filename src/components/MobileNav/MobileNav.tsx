@@ -34,6 +34,10 @@ const MobileNav: FC<MobileNavProps> = ({ className }) => {
     menuOpen ? LockBodyScrollService.lock() : LockBodyScrollService.unlock();
   }, [menuOpen]);
 
+  useEffect(() => {
+    return () => LockBodyScrollService.unlock();
+  }, []);
+
   return (
     <div className={classNames('MobileNav', css.root, className)}>
       <div className={css.mobileNavBar}>
