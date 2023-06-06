@@ -32,6 +32,7 @@ const Layout: FC<ExtendedAppProps<PageProps>> = ({ Component, pageProps, globalD
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [cookiebot, setCookiebot] = useState<CookieBot | null>(null);
+  const [cookieConsent, setCookieConsent] = useState<boolean>(false);
   const [showDebugGrid, setShowDebugGrid] = useState(true);
 
   const handleRouteChange = useCallback(
@@ -42,6 +43,19 @@ const Layout: FC<ExtendedAppProps<PageProps>> = ({ Component, pageProps, globalD
     },
     [dispatch, router.asPath]
   );
+
+  useEffect(() => {
+    if (cookiebot) setCookieConsent(window.Cookiebot.consent.statistics);
+    const handleConsentChange = () => {
+      setCookieConsent(window.Cookiebot.consent.statistics);
+    };
+
+    if (cookiebot) window.addEventListener('CookiebotOnConsentReady', handleConsentChange);
+
+    return () => {
+      if (cookiebot) window.removeEventListener('CookiebotOnConsentReady', handleConsentChange);
+    };
+  }, [cookiebot]);
 
   useEffect(() => {
     dispatch(setActiveRoute(router.asPath));
@@ -82,7 +96,7 @@ const Layout: FC<ExtendedAppProps<PageProps>> = ({ Component, pageProps, globalD
 
   return (
     <>
-      <GtmScript consent={cookiebot?.consent?.statistics ?? false} />
+      <GtmScript consent={cookieConsent} />
 
       <Head {...pageProps.head} />
 
