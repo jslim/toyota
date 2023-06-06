@@ -3,8 +3,6 @@ import classNames from 'classnames';
 
 import css from './Footer.module.scss';
 
-// import routes from '@/data/routes';
-
 import BaseLink from '@/components/BaseLink/BaseLink';
 import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
 import Logo from '@/components/Logo/Logo';
