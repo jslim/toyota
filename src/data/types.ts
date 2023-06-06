@@ -563,7 +563,7 @@ export type PageMetadataContentType = {
   metaDescription?: string;
   metaSiteName?: string;
   metaKeywords?: Array<string>;
-  metaShareImage?: FilteredEntity<ContentfulImageAsset>;
+  metaShareImage?: ContentfulImageAsset;
 };
 
 export type ThirdPartyScriptContentType = {

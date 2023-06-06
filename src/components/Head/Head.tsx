@@ -3,7 +3,9 @@ import dynamic from 'next/dynamic';
 import NextHead from 'next/head';
 import { useRouter } from 'next/router';
 
-import { HeadProps } from '@/data/types';
+import { HeadProps, Lang } from '@/data/types';
+
+import { getLocaleByLang } from '@/utils/locales';
 
 import { useAppSelector } from '@/redux';
 
@@ -21,6 +23,10 @@ const Head: FC<HeadProps> = ({ title, keywords, description, siteName, image }) 
   const fullTitle = title
     ? `${title} ${TITLE_SEPARATOR} ${siteName ?? defaultPageMetadata.siteName}`
     : `${siteName ?? defaultPageMetadata.siteName}`;
+
+  const altLang: Lang = router.query.lang === Lang.EN ? Lang.JP : Lang.EN;
+  const altPath = router.asPath.replace(/^\/(en|jp)\//, `/${altLang}/`);
+  const altUrl = `${process.env.NEXT_PUBLIC_WEBSITE_SITE_URL}${altPath}`;
 
   return (
     <NextHead>
@@ -48,11 +54,9 @@ const Head: FC<HeadProps> = ({ title, keywords, description, siteName, image }) 
       <meta property="og:image:height" content="630" />
       <meta property="og:image" content={ogDefaultImage} />
       <meta name="twitter:card" content="summary_large_image" />
-      <meta property="fb:app_id" content="FB_APP_ID" />
-      <meta name="google-site-verification" content="[Google Web Master Tools]" />
-      <meta name="msvalidate.01" content="[Bing Web Master Tools]" />
       {/* Other recommends */}
       <link rel="canonical" href={ogUrl} />
+      <link rel="alternate" href={altUrl} hrefLang={getLocaleByLang(altLang)} />
 
       {process.env.NEXT_PUBLIC_DNS_PREFETCH && (
         <>

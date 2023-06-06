@@ -17,6 +17,7 @@ const hideStaticHtmlScript = `
 type ExtendedDocumentInitialProps = DocumentInitialProps & {
   globalData?: GlobalData;
   globalStrings?: GlobalStrings;
+  lang?: string;
 };
 
 class MyDocument extends Document<ExtendedDocumentInitialProps> {
@@ -63,12 +64,12 @@ class MyDocument extends Document<ExtendedDocumentInitialProps> {
       });
 
     const initialProps = await Document.getInitialProps(ctx);
-    return { ...initialProps, globalData, globalStrings };
+    return { ...initialProps, globalData, globalStrings, lang: ctx.query?.lang };
   }
 
   render() {
     return (
-      <Html lang="en">
+      <Html lang={this.props.lang ?? 'en'}>
         <Head />
         {hideStaticHtml && (
           <script data-cfasync="false" dangerouslySetInnerHTML={{ __html: sanitizer(hideStaticHtmlScript) }} />
