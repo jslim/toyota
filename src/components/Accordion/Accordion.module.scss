@@ -26,6 +26,18 @@
     }
   }
 
+  &:not(.isDark) {
+    > * {
+      &:first-child {
+        :global(.ListItem) {
+          button {
+            border: none;
+          }
+        }
+      }
+    }
+  }
+
   &.isDark {
     width: 100%;
     background-color: $dark-grey;
