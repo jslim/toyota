@@ -26,8 +26,10 @@ const LeadershipCard: FC<LeadershipCardProps> = ({ className, title, description
         imageSizeTablet={{ extraGutters: 1, numCols: 3 }}
         imageSizeDesktop={{ extraGutters: 1, numCols: 2 }}
       />
-      <div className={css.title}>{title}</div>
-      <div className={css.description}>{description}</div>
+      <div className={css.content}>
+        <div className={css.title}>{title}</div>
+        <div className={css.description}>{description}</div>
+      </div>
     </BaseLink>
   );
 };

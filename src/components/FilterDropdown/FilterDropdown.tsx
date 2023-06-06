@@ -18,7 +18,6 @@ export type FilterDropdownProps = {
   className?: string;
   title: string;
   categoryOverride?: string;
-  alt?: string;
   categories: { title?: string; options: Option[] }[];
   variant?: variants;
   index: number;
@@ -28,7 +27,6 @@ const FilterDropdown: FC<FilterDropdownProps> = ({
   className,
   title,
   categoryOverride,
-  alt,
   categories,
   index,
   variant = variants.LIGHT
@@ -76,7 +74,6 @@ const FilterDropdown: FC<FilterDropdownProps> = ({
       onClick={handleToggleDropdown}
       id={'dropdown-toggle-' + index}
       role="combobox"
-      aria-label={alt ? alt : title}
     >
       <div className={css.title}>
         {title} <CaretSvg className={css.caret} />

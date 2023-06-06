@@ -32,6 +32,7 @@ import {
   buildTabItem,
   buildTestPage,
   buildTextIntro,
+  buildThirdPartScript,
   buildVideoPlayerSection,
   buildYoutubeIframe,
   ComponentBuilderFactory
@@ -70,7 +71,8 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
   historyTimeline: buildHistoryTimeline,
   ourLatestPagePost: buildOurLatestPostPage,
   callToAction: buildCallToAction,
-  ourLatestPage: buildOurLatestOverview
+  ourLatestPage: buildOurLatestOverview,
+  thirdPartyScript: buildThirdPartScript
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

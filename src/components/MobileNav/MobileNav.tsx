@@ -15,7 +15,7 @@ export type MobileNavProps = {
 };
 
 const MobileNav: FC<MobileNavProps> = ({ className }) => {
-  const { mainNavLinks } = useAppSelector((state) => state.activeGlobalData);
+  const { mainNavLinks, goToHomepage } = useAppSelector((state) => state.activeGlobalData);
   const lang = useAppSelector((state) => state.activeLang);
   const activeRoute = useAppSelector((state) => state.activeRoute);
   const dispatch = useAppDispatch();
@@ -31,7 +31,7 @@ const MobileNav: FC<MobileNavProps> = ({ className }) => {
   return (
     <div className={classNames('MobileNav', css.root, className)}>
       <div className={css.mobileNavBar}>
-        <Logo className={css.logo} href={'/' + lang} />
+        <Logo className={css.logo} href={'/' + lang} title={goToHomepage} />
 
         <BaseButton className={css.hamburgerWrapper} onClick={handleClick} aria-label="Click to view more menu options">
           {!menuOpen ? (

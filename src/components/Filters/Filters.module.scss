@@ -31,6 +31,9 @@
 
 .filtersButton {
   @include reset-button;
+}
+
+.filtersCopy {
   @include typography-eyebrow;
   color: $grey;
   text-align: left;

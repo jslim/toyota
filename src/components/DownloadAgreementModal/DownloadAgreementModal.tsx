@@ -57,37 +57,42 @@ const DownloadAgreementModal: FC<DownloadAgreementModalProps> = ({ className, on
     };
   }, [onClose]);
 
-  const onDownloadClick = useCallback(async (files?: MediaUnion | MediaUnion[]) => {
-    if (!files) return;
+  const onDownloadClick = useCallback(
+    async (files?: MediaUnion | MediaUnion[]) => {
+      if (!files) return;
 
-    if (Array.isArray(files)) {
-      let zip = new JSZip();
-      files.forEach((file) => {
-        let blob = fetch(file.fields.file.url).then((r) => r.blob());
-        zip.file(file.fields.file.fileName, blob);
-      });
+      if (Array.isArray(files)) {
+        let zip = new JSZip();
+        files.forEach((file) => {
+          let blob = fetch(file.fields.file.url).then((r) => r.blob());
+          zip.file(file.fields.file.fileName, blob);
+        });
 
-      zip.generateAsync({ type: 'blob' }).then((blob: Blob | MediaSource) => {
-        // create temp link to trigger download after the folder is populated
-        const tempLink = document.createElement('a');
-        tempLink.href = window.URL.createObjectURL(blob);
-        tempLink.setAttribute('download', 'Article Assets');
-        tempLink.click();
-      });
-    } else {
-      const tempLink = document.createElement('a');
-      fetch(files.fields.file.url)
-        .then((response) => response.blob())
-        .then((blob) => URL.createObjectURL(blob))
-        .then((assetUrl) => {
-          const fileExtension = files.fields.file.url.split('.').pop();
-          const fileName = files.fields.title;
-          tempLink.href = assetUrl;
-          tempLink.download = `${fileName}.${fileExtension}`;
+        zip.generateAsync({ type: 'blob' }).then((blob: Blob | MediaSource) => {
+          // create temp link to trigger download after the folder is populated
+          const tempLink = document.createElement('a');
+          tempLink.href = window.URL.createObjectURL(blob);
+          tempLink.setAttribute('download', 'Article Assets');
           tempLink.click();
         });
-    }
-  }, []);
+      } else {
+        const tempLink = document.createElement('a');
+        fetch(files.fields.file.url)
+          .then((response) => response.blob())
+          .then((blob) => URL.createObjectURL(blob))
+          .then((assetUrl) => {
+            const fileExtension = files.fields.file.url.split('.').pop();
+            const fileName = files.fields.title;
+            tempLink.href = assetUrl;
+            tempLink.download = `${fileName}.${fileExtension}`;
+            tempLink.click();
+          });
+      }
+
+      onClose();
+    },
+    [onClose]
+  );
 
   return (
     <div

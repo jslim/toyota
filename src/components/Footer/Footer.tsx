@@ -3,8 +3,6 @@ import classNames from 'classnames';
 
 import css from './Footer.module.scss';
 
-import routes from '@/data/routes';
-
 import BaseLink from '@/components/BaseLink/BaseLink';
 import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
 import Logo from '@/components/Logo/Logo';
@@ -13,6 +11,8 @@ import SocialIcon from '@/components/SocialIcon/SocialIcon';
 import sanitizer from '@/utils/sanitizer';
 
 import { useAppSelector } from '@/redux';
+
+import BaseButton from '../BaseButton/BaseButton';
 
 export interface FooterProps {
   className?: string;
@@ -30,16 +30,19 @@ const Footer: FC<FooterProps> = ({ className }) => {
     wovenCityLink,
     wovenCityLogo,
     toyotaGlobalLink,
-    toyotaGlobalLogo
+    toyotaGlobalLogo,
+    footerCookiebotToggleLabel,
+    goToHomepage
   } = useAppSelector((state) => state.activeGlobalData);
   const activeRoute = useAppSelector((state) => state.activeRoute);
+  const lang = useAppSelector((state) => state.activeLang);
 
   return (
     <footer className={classNames('Footer', css.root, className)}>
       <div className={css.footerWrapper}>
         <div className={css.topWrapper}>
           <div className={css.logo}>
-            <Logo href={routes.Home.path} isWhite={true} />
+            <Logo href={'/' + lang} isWhite={true} title={goToHomepage} />
           </div>
           <ul className={css.routes}>
             {footerNavLinks.map(
@@ -88,12 +91,17 @@ const Footer: FC<FooterProps> = ({ className }) => {
                   </BaseLink>
                 </li>
               ))}
-              <li className={css.copyright} key="copyright">
-                {companyName}
-                <span dangerouslySetInnerHTML={{ __html: sanitizer(' &copy; ') }} />
-                {new Date().getFullYear()}
+              <li>
+                <BaseButton onClick={() => window?.Cookiebot.show()} className={css.cookiebotLink}>
+                  <span>{footerCookiebotToggleLabel}</span>
+                </BaseButton>
               </li>
             </ul>
+            <span className={css.copyright} key="copyright">
+              {companyName}
+              <span dangerouslySetInnerHTML={{ __html: sanitizer(' &copy; ') }} />
+              {new Date().getFullYear()}
+            </span>
           </div>
           <div className={css.logosWrapper}>
             <BaseLink href={toyotaGlobalLink.linkUrl} className={css.partnerLogo} title={toyotaGlobalLink.linkText}>
