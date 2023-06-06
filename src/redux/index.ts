@@ -107,6 +107,7 @@ const { actions, reducer } = createSlice({
     setActiveLang(state, action: PayloadAction<Lang>) {
       // Set any necessary state to the localized version based on Lang
       state.activeGlobalData = state.globalData[action.payload];
+      state.activeGlobalStrings = state.globalStrings[action.payload];
       state.activeLang = action.payload;
     },
     setHomepageBannerVisibility(state, action: PayloadAction<boolean>) {
