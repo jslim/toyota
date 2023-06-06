@@ -191,11 +191,27 @@
       }
 
       .name {
-        @include typography-label;
+        @include font-size(16, 24);
+
+        @include media-tablet {
+          @include font-size(20, 30);
+        }
+
+        @include media-desktopSm {
+          @include font-size(16, 24);
+        }
       }
       .role {
-        @include typography-paragraph;
+        @include font-size(14, 22);
         color: $mid-grey;
+
+        @include media-tablet {
+          @include font-size(16, 24);
+        }
+
+        @include media-tablet {
+          @include font-size(14, 24);
+        }
       }
     }
   }
