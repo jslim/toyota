@@ -219,6 +219,12 @@
 
   .slide {
     width: px(114);
+    transition: opacity 0.33s linear;
+    opacity: 0.8;
+
+    &:global(.swiper-slide-visible) {
+      opacity: 1;
+    }
 
     .cardColumn {
       padding-bottom: px(26);
@@ -269,12 +275,7 @@
       align-self: normal;
       gap: px(16);
       width: px(192);
-      transition: opacity 0.33s linear;
       opacity: 0.4;
-
-      &:global(.swiper-slide-visible) {
-        opacity: 1;
-      }
     }
   }
 }
