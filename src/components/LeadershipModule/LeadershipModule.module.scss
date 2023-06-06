@@ -219,6 +219,8 @@
 
   .slide {
     width: px(114);
+    opacity: 0.8;
+    transition: opacity 0.33s linear;
 
     .cardColumn {
       padding-bottom: px(26);
@@ -249,6 +251,8 @@
     }
 
     &:global(.swiper-slide-active) {
+      opacity: 1;
+
       a {
         transform: scale(1.25);
 
@@ -269,7 +273,6 @@
       align-self: normal;
       gap: px(16);
       width: px(192);
-      transition: opacity 0.33s linear;
       opacity: 0.4;
 
       &:global(.swiper-slide-visible) {
