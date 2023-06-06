@@ -80,61 +80,62 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title
 
   return (
     <div className={classNames('LeadershipModule', css.root, className)} ref={sectionRef}>
-      <div className={css.wrapper}>
-        <Eyebrow className={css.eyebrow} text={eyebrow} />
-        <div className={css.textWrapper} ref={textWrapperRef}>
-          <h2 className={css.title}>{title}</h2>
-          {board}
-        </div>
-      </div>
-
       <div className={css.container}>
-        <div className={css.swiperWrapper} ref={containerRef}>
-          {isDesktop && !isCarouselLocked && containerRef.current && <Cursor containerRef={containerRef} />}
-          <Swiper
-            className={css.carouselContainer}
-            autoHeight={false}
-            speed={SLIDE_DURATION}
-            pagination={{
-              el: `.${css.pagination}`,
-              type: 'bullets',
-              clickable: true
-            }}
-            slidesPerView={'auto'}
-            spaceBetween={30}
-            slidesOffsetAfter={180}
-            breakpoints={{
-              768: {
-                spaceBetween: 46,
-                slidesOffsetAfter: 400
-              },
-              1024: {
-                spaceBetween: 22,
-                slidesOffsetAfter: 0
-              }
-            }}
-            freeMode={true}
-            onLock={(_swiper) => {
-              setIsCarouselLocked(true);
-            }}
-            onUnlock={(_swiper) => {
-              setIsCarouselLocked(false);
-            }}
-            watchSlidesProgress={true}
-          >
-            {pairsArray.map((pair, i) => {
-              return (
-                <SwiperSlide className={css.slide} key={`slide-${i}`}>
-                  {pair.map((item, i) => {
-                    if (item == null) return null;
-                    return <LeadershipCard {...item} key={i} className={css.card} />;
-                  })}
-                </SwiperSlide>
-              );
-            })}
-          </Swiper>
+        <div className={css.wrapper}>
+          <Eyebrow className={css.eyebrow} text={eyebrow} />
+          <div className={css.textWrapper} ref={textWrapperRef}>
+            <h2 className={css.title}>{title}</h2>
+            {board}
+          </div>
         </div>
-        <span className={classNames(css.pagination, { [css.isDisabled]: isCarouselLocked })} />
+        <div className={css.swiperWrapper}>
+          <div ref={containerRef}>
+            {isDesktop && !isCarouselLocked && containerRef.current && <Cursor containerRef={containerRef} />}
+            <Swiper
+              className={css.carouselContainer}
+              autoHeight={false}
+              speed={SLIDE_DURATION}
+              pagination={{
+                el: `.${css.pagination}`,
+                type: 'bullets',
+                clickable: true
+              }}
+              slidesPerView={'auto'}
+              spaceBetween={30}
+              breakpoints={{
+                768: {
+                  spaceBetween: 46
+                },
+                1024: {
+                  spaceBetween: 22,
+                }
+              }}
+              onLock={(_swiper) => {
+                setIsCarouselLocked(true);
+              }}
+              onUnlock={(_swiper) => {
+                setIsCarouselLocked(false);
+              }}
+              watchSlidesProgress={true}
+            >
+              {pairsArray.map((pair, i) => {
+                return (
+                  <SwiperSlide className={css.slide} key={`slide-${i}`}>
+                    {pair.map((item, i) => {
+                      if (item == null) return null;
+                      return (
+                        <div className={css.cardColumn} key={i}>
+                          <LeadershipCard {...item} className={css.card} />
+                        </div>
+                      );
+                    })}
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          </div>
+          <span className={classNames(css.pagination, { [css.isDisabled]: isCarouselLocked })} />
+        </div>
         {!isDesktop && board}
       </div>
     </div>

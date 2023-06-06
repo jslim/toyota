@@ -8,12 +8,14 @@
   margin-bottom: px(21);
   user-select: none;
 
-  @include media-tablet {
-    margin-bottom: px(25);
-  }
+  .content {
+    position: absolute;
+    top: 100%;
 
-  @include media-desktopSm {
-    margin-bottom: 0;
+    @include media-desktopSm {
+      position: relative;
+      top: 0;
+    }
   }
 
   .title,
