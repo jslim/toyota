@@ -107,7 +107,7 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title
                   spaceBetween: 46
                 },
                 1024: {
-                  spaceBetween: 22,
+                  spaceBetween: 22
                 }
               }}
               onLock={(_swiper) => {

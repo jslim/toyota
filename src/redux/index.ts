@@ -47,7 +47,8 @@ export const defaultGlobalData: GlobalDataFields = {
     isActive: false
   },
   languageToggleEnglish: 'English',
-  languageToggleJapanese: 'Japanese'
+  languageToggleJapanese: 'Japanese',
+  goToHomepage: 'Go to Homepage'
 };
 
 export const defaultGlobalStrings: GlobalStringsFields = {

@@ -3,8 +3,6 @@ import classNames from 'classnames';
 
 import css from './Footer.module.scss';
 
-import routes from '@/data/routes';
-
 import BaseLink from '@/components/BaseLink/BaseLink';
 import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
 import Logo from '@/components/Logo/Logo';
@@ -33,16 +31,18 @@ const Footer: FC<FooterProps> = ({ className }) => {
     wovenCityLogo,
     toyotaGlobalLink,
     toyotaGlobalLogo,
-    footerCookiebotToggleLabel
+    footerCookiebotToggleLabel,
+    goToHomepage
   } = useAppSelector((state) => state.activeGlobalData);
   const activeRoute = useAppSelector((state) => state.activeRoute);
+  const lang = useAppSelector((state) => state.activeLang);
 
   return (
     <footer className={classNames('Footer', css.root, className)}>
       <div className={css.footerWrapper}>
         <div className={css.topWrapper}>
           <div className={css.logo}>
-            <Logo href={routes.Home.path} isWhite={true} />
+            <Logo href={'/' + lang} isWhite={true} title={goToHomepage} />
           </div>
           <ul className={css.routes}>
             {footerNavLinks.map(
