@@ -144,6 +144,12 @@ export const Tabs = ({ className, tabListLabel = '', children }: Props) => {
     else if (e.key === Keys.HOME) handleTabChange(0);
   }
 
+  function onKeyDown(e: KeyboardEvent, index: number) {
+    if (e.key === 'Enter') {
+      handleTabChange(index);
+    }
+  }
+
   return (
     <div className={classnames(styles.Tabs, className)} ref={containerRef}>
       <ul className={styles.tabsList} role="tablist" aria-label={tabListLabel} ref={listRef}>
@@ -161,6 +167,7 @@ export const Tabs = ({ className, tabListLabel = '', children }: Props) => {
                 isActive={active === index}
                 onClick={() => handleTabChange(index)}
                 onKeyUp={handleKeyup}
+                onKeyDown={onKeyDown}
               >
                 {label}
               </Tab>
@@ -198,12 +205,13 @@ type TabProps = {
   index: number;
   onClick: Function;
   onKeyUp: Function;
+  onKeyDown: Function;
   children: ReactNode;
 };
 
 export default memo(Tabs);
 
-export const Tab = ({ isActive, label, index, onClick = noop, onKeyUp = noop }: TabProps) => {
+export const Tab = ({ isActive, label, index, onClick = noop, onKeyUp = noop, onKeyDown = noop }: TabProps) => {
   const el = useRef<HTMLLIElement | null>(null);
 
   return (
@@ -214,9 +222,10 @@ export const Tab = ({ isActive, label, index, onClick = noop, onKeyUp = noop }: 
       role="tab"
       aria-controls={`panel-${index}`}
       aria-selected={isActive}
-      tabIndex={isActive ? 0 : -1}
+      tabIndex={0}
       onClick={onClick as MouseEventHandler<HTMLLIElement>}
       onKeyUp={onKeyUp as KeyboardEventHandler<HTMLLIElement>}
+      onKeyDown={(e) => onKeyDown(e, index) as KeyboardEventHandler<HTMLLIElement>}
     >
       {label}
     </li>
