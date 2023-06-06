@@ -101,7 +101,7 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title
                 clickable: true
               }}
               slidesPerView={'auto'}
-              spaceBetween={24}
+              spaceBetween={30}
               breakpoints={{
                 768: {
                   spaceBetween: 46
