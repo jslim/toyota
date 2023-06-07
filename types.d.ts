@@ -23,8 +23,10 @@ type CookieBot = {
 
 interface Window {
   dataLayer: Array<object>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   Cookiebot: CookieBot;
+  CookieControl?: {
+    CookieDeclaration?: () => void;
+  };
 }
 
 type SetTimeout = ReturnType<typeof setTimeout>;
