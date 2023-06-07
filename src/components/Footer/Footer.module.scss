@@ -211,6 +211,35 @@
         @include media-desktopSm {
           margin-bottom: px(16);
         }
+
+        img {
+          width: 100%;
+          object-fit: cover;
+        }
+
+        &.toyotaGlobal {
+          @include box(px(58), px(10));
+
+          @include media-desktopSm {
+            @include box(px(78), px(13.8));
+          }
+        }
+
+        &.wovenCity {
+          @include box(px(161), px(13.8));
+
+          @include media-desktopSm {
+            @include box(px(217), px(19));
+          }
+        }
+
+        &.wovenCapital {
+          @include box(px(126), px(21));
+
+          @include media-desktopSm {
+            @include box(px(182), px(30.4));
+          }
+        }
       }
     }
   }
