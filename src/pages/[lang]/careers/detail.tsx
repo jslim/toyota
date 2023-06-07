@@ -79,6 +79,7 @@ const CareerDetail: FC = () => {
             header={career.text}
             subtitle={subtitle?.map((item, i) => (i === 0 && item ? item : ' / ' + item))}
             ctaProps={{ href: career.applyUrl, title: applyText }}
+            className={'careerDetailTextIntro'}
           />
           <ColumnsText theme={ColumnType.COLUMNS_30_70} isSticky={true} leftSide={leftSideContent}>
             <div dangerouslySetInnerHTML={{ __html: sanitizer(career?.description ?? '') }} />

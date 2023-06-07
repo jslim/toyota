@@ -164,7 +164,7 @@
     }
   }
 
-  @at-root main:global(.CareerDetail) {
+  &:global(.careerDetailTextIntro) {
     .cta {
       margin-top: px(38);
 
