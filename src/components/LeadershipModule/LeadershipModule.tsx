@@ -37,6 +37,7 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const containerRef = useRef() as MutableRefObject<HTMLDivElement>;
   const [isCarouselLocked, setIsCarouselLocked] = useState(false);
+  const [swiperInstance, setSwiperInstance] = useState<SwiperCore>();
 
   const isDesktop = useMemo(() => {
     return !(typeof window !== 'undefined' && (layout.mobile || layout.tablet));
@@ -117,10 +118,24 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title
                 setIsCarouselLocked(false);
               }}
               watchSlidesProgress={true}
+              onSwiper={setSwiperInstance}
             >
               {pairsArray.map((pair, i) => {
                 return (
-                  <SwiperSlide className={css.slide} key={`slide-${i}`}>
+                  <SwiperSlide
+                    className={css.slide}
+                    key={`slide-${i}`}
+                    onClick={() => {
+                      if (!swiperInstance || !isDesktop) {
+                        return null;
+                      }
+                      const clickedIndex = swiperInstance.clickedIndex;
+                      const clickedSlide = swiperInstance.slides[clickedIndex];
+                      if (!clickedSlide.classList.contains('swiper-slide-visible')) {
+                        swiperInstance.slideTo(clickedIndex);
+                      }
+                    }}
+                  >
                     {pair.map((item, i) => {
                       if (item == null) return null;
                       return (
