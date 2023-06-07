@@ -1,4 +1,4 @@
-import { FC, memo, useEffect } from 'react';
+import { FC, memo, useEffect, useRef } from 'react';
 
 export type ThirdPartyScriptProps = {
   sourceUrl?: string;
@@ -6,12 +6,18 @@ export type ThirdPartyScriptProps = {
 };
 
 const ThirdPartScript: FC<ThirdPartyScriptProps> = ({ sourceUrl, scriptId }) => {
+  const divRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    // Force Cookie Declartion to init
-    window?.CookieControl?.CookieDeclaration && window?.CookieControl?.CookieDeclaration();
-  }, []);
+    // Force script to reload on component mount
+    if (sourceUrl) {
+      const script = document.createElement('script');
+      script.src = sourceUrl;
+      if (scriptId) script.id = scriptId;
+      divRef.current?.appendChild(script);
+    }
+  }, [scriptId, sourceUrl]);
 
-  return sourceUrl ? <script id={scriptId} src={sourceUrl} type="text/javascript" async></script> : null;
+  return <div ref={divRef}></div>;
 };
 
 export default memo(ThirdPartScript);
