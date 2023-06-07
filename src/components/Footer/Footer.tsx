@@ -104,13 +104,25 @@ const Footer: FC<FooterProps> = ({ className }) => {
             </span>
           </div>
           <div className={css.logosWrapper}>
-            <BaseLink href={toyotaGlobalLink.linkUrl} className={css.partnerLogo} title={toyotaGlobalLink.linkText}>
+            <BaseLink
+              href={toyotaGlobalLink.linkUrl}
+              className={classNames(css.partnerLogo, css.toyotaGlobal)}
+              title={toyotaGlobalLink.linkText}
+            >
               {toyotaGlobalLogo && <ContentfulImage asset={toyotaGlobalLogo} withLazyLoad={false} />}
             </BaseLink>
-            <BaseLink href={wovenCityLink.linkUrl} className={css.partnerLogo} title={wovenCityLink.linkText}>
+            <BaseLink
+              href={wovenCityLink.linkUrl}
+              className={classNames(css.partnerLogo, css.wovenCity)}
+              title={wovenCityLink.linkText}
+            >
               {wovenCityLogo && <ContentfulImage asset={wovenCityLogo} withLazyLoad={false} />}
             </BaseLink>
-            <BaseLink href={wovenCapitalLink.linkUrl} className={css.partnerLogo} title={wovenCapitalLink.linkText}>
+            <BaseLink
+              href={wovenCapitalLink.linkUrl}
+              className={classNames(css.partnerLogo, css.wovenCapital)}
+              title={wovenCapitalLink.linkText}
+            >
               {wovenCapitalLogo && <ContentfulImage asset={wovenCapitalLogo} withLazyLoad={false} />}
             </BaseLink>
           </div>
