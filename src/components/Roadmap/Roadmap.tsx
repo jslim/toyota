@@ -39,7 +39,7 @@ const Roadmap: FC<RoadmapProps> = ({ className, items, title, eyebrow, cta, them
           <Eyebrow
             className={css.eyebrow}
             text={eyebrow}
-            variant={theme === RoadmapTypes.HOME ? variants.LIGHT : variants.DARK}
+            variant={theme === RoadmapTypes.HOME ? 'white' : variants.DARK}
           />
         )}
         {title && <h2 className={css.title}>{title}</h2>}
