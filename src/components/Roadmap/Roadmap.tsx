@@ -1,4 +1,4 @@
-import { FC, memo, useState } from 'react';
+import { FC, memo, MutableRefObject, useRef, useState } from 'react';
 import classNames from 'classnames';
 
 import css from './Roadmap.module.scss';
@@ -7,6 +7,8 @@ import { variants } from '@/data/variants';
 
 import Cta, { CtaProps } from '@/components/Cta/Cta';
 import Eyebrow from '@/components/Eyebrow/Eyebrow';
+
+import { useAppSelector } from '@/redux';
 
 import RoadmapItem, { RoadmapItemSingleProps } from './RoadmapItem';
 
@@ -26,24 +28,31 @@ export type RoadmapProps = {
 
 const Roadmap: FC<RoadmapProps> = ({ className, items, title, eyebrow, cta, theme = RoadmapTypes.DEFAULT }) => {
   const [stickyInfoHeight, setStickyInfoHeight] = useState<number>(0);
+  const homepageBannerHeight = useAppSelector((state) => state.homepageBannerHeight);
+  const navbarHeight = useAppSelector((state) => state.navbarHeight);
+  const stickyRef = useRef() as MutableRefObject<HTMLDivElement>;
 
   return (
     <div className={classNames('Roadmap', css.root, className, css[theme])}>
       <div
+        ref={stickyRef}
         className={css.wrapperInfo}
         style={{
-          height: stickyInfoHeight
+          height: stickyInfoHeight,
+          top: navbarHeight + homepageBannerHeight
         }}
       >
-        {eyebrow && (
-          <Eyebrow
-            className={css.eyebrow}
-            text={eyebrow}
-            variant={theme === RoadmapTypes.HOME ? 'white' : variants.DARK}
-          />
-        )}
-        {title && <h2 className={css.title}>{title}</h2>}
-        {cta && <Cta className={css.cta} {...cta} isWhite={RoadmapTypes.HOME ? true : false} />}
+        <div className={css.wrapper}>
+          {eyebrow && (
+            <Eyebrow
+              className={css.eyebrow}
+              text={eyebrow}
+              variant={theme === RoadmapTypes.HOME ? 'white' : variants.DARK}
+            />
+          )}
+          {title && <h2 className={css.title}>{title}</h2>}
+          {cta && <Cta className={css.cta} {...cta} isWhite={RoadmapTypes.HOME ? true : false} />}
+        </div>
       </div>
       <div className={css.list} style={{ marginTop: `-${stickyInfoHeight}px` }}>
         {items.map((item, i) => {
@@ -55,6 +64,8 @@ const Roadmap: FC<RoadmapProps> = ({ className, items, title, eyebrow, cta, them
               theme={theme}
               setStickyInfoHeight={setStickyInfoHeight}
               key={i}
+              stickyRef={stickyRef}
+              offsetTop={navbarHeight + homepageBannerHeight}
             />
           );
         })}
