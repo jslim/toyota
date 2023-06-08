@@ -63,13 +63,12 @@
   }
 
   .pagination {
+    @include pagination($black, false);
     margin: px(48) 0 px(40);
 
     @include breakpoint(desktopSm) {
       margin: px(10) auto px(40);
     }
-
-    @include pagination($black, false); //  margin: 0 px(3);
 
     &.isDisabled {
       display: none;
@@ -201,6 +200,7 @@
           @include font-size(16, 24);
         }
       }
+
       .role {
         @include font-size(14, 22);
         color: $mid-grey;
@@ -239,7 +239,7 @@
     transition: opacity 0.33s linear;
 
     .cardColumn {
-      padding-bottom: px(26);
+      padding-bottom: px(70);
 
       @include media-tablet {
         padding-bottom: px(70);
@@ -249,12 +249,14 @@
         padding-bottom: 0;
       }
     }
+
     > div {
       a {
         transform: scale(1);
         transition: transform 0.3s linear;
         transform-origin: bottom;
       }
+
       &:last-child {
         a {
           transform-origin: top;

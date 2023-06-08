@@ -1,5 +1,6 @@
 import { FC, memo } from 'react';
 import classNames from 'classnames';
+import { useSwiperSlide } from 'swiper/react';
 
 import css from './LeadershipCard.module.scss';
 
@@ -17,8 +18,13 @@ export type LeadershipCardProps = {
 };
 
 const LeadershipCard: FC<LeadershipCardProps> = ({ className, title, description, image, cta }) => {
+  const swiperSlide = useSwiperSlide();
+
   return (
-    <BaseLink {...cta} className={classNames('LeadershipCard', css.root, className)}>
+    <BaseLink
+      {...cta}
+      className={classNames('LeadershipCard', css.root, className, { [css.isActive]: swiperSlide.isActive })}
+    >
       <ContentfulImage
         className={css.image}
         asset={image}
