@@ -62,6 +62,18 @@ const HistoryTimeline: FC<HistoryTimelineProps> = ({ className, eyebrow, title, 
     };
   }, []);
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === ' ') {
+        event.preventDefault();
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
   return (
     <div className={classNames('HistoryTimeline', css.root, className)} ref={ref}>
       <div className={css.wrapper}>
