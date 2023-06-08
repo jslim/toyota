@@ -232,11 +232,14 @@ const ImageCascade: FC<ImageCascadeProps> = ({
       getPathSizes();
     };
 
-    resize.listen(resizePath);
+    if (!firstRender) {
+      resize.listen(resizePath);
+    }
+
     return () => {
       resize.dismiss(resizePath);
     };
-  }, [assetLoaded, isMobile, targets, getPathSizes]);
+  }, [assetLoaded, isMobile, targets, getPathSizes, firstRender]);
 
   /**
    * Effect for animating and updating paths
