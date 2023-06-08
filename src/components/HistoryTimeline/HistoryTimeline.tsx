@@ -91,6 +91,7 @@ const HistoryTimeline: FC<HistoryTimelineProps> = ({ className, eyebrow, title, 
             preventClicks={true}
             touchStartPreventDefault={false}
             preventClicksPropagation={true}
+            slideToClickedSlide={true}
           >
             {slides.map((item, i) => {
               return (
