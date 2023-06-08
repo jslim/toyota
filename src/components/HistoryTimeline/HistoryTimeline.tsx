@@ -8,10 +8,11 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import css from './HistoryTimeline.module.scss';
 
+import Cursor from '@/components/Cursor/Cursor';
+import Eyebrow from '@/components/Eyebrow/Eyebrow';
+
 import { useLayout } from '@/hooks';
 
-import Cursor from '../Cursor/Cursor';
-import Eyebrow from '../Eyebrow/Eyebrow';
 import HistoryTimelineSlide, { SlideProps } from './HistoryTimelineSlide';
 
 SwiperCore.use([Pagination, A11y]);
