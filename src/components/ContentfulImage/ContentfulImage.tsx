@@ -116,7 +116,7 @@ const ContentfulImage = forwardRef<HTMLImageElement, ContentfulImageProps>(
           loadImage ? imageUrl : withLazyLoad ? buildSrc(100, 75) : withLowResSwap ? buildSrc(imageWidth, 20) : imageUrl
         }
         srcSet={useSrcSet && loadImage ? buildSrcSet() : withLowResSwap ? buildSrcSet(15) : undefined}
-        alt={asset.fields.description || asset.fields.title}
+        alt={asset.fields.description || ''}
         sizes={
           useSrcSet
             ? `(min-width: ${desktopWidth}) ${imageSizeDesktopValue}, (min-width: ${tabletWidth}) ${imageSizeTabletValue}, ${imageSizeMobileValue}`
