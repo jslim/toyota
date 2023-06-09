@@ -82,6 +82,13 @@ const CareerDetail: FC = () => {
           />
           <ColumnsText theme={ColumnType.COLUMNS_30_70} isSticky={true} leftSide={leftSideContent}>
             <div dangerouslySetInnerHTML={{ __html: sanitizer(career?.description ?? '') }} />
+            {career?.lists?.map((list) => (
+              <div key={list.text}>
+                <b dangerouslySetInnerHTML={{ __html: sanitizer(list?.text ?? '') }} />
+                <ul dangerouslySetInnerHTML={{ __html: sanitizer(list?.content ?? '') }} />
+              </div>
+            ))}
+            <div></div>
             <div dangerouslySetInnerHTML={{ __html: sanitizer(career?.additional ?? '') }} />
             {layout.mobile && <Cta href={career.applyUrl} title={applyText} />}
           </ColumnsText>

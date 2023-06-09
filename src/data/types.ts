@@ -38,6 +38,7 @@ export type Job = {
   workplaceType?: string;
   description?: string;
   additional?: string;
+  lists?: Array<{ text: string; content: string }>;
 };
 
 export type GlobalDataFields = {
