@@ -88,7 +88,6 @@ const CareerDetail: FC = () => {
                 <ul dangerouslySetInnerHTML={{ __html: sanitizer(list?.content ?? '') }} />
               </div>
             ))}
-            <div></div>
             <div dangerouslySetInnerHTML={{ __html: sanitizer(career?.additional ?? '') }} />
             {layout.mobile && <Cta href={career.applyUrl} title={applyText} />}
           </ColumnsText>
