@@ -37,6 +37,7 @@ export type Job = {
   id: string;
   workplaceType?: string;
   description?: string;
+  additional?: string;
 };
 
 export type GlobalDataFields = {
