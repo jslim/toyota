@@ -21,7 +21,14 @@ const LeadershipCard: FC<LeadershipCardProps> = ({ className, title, description
     <BaseLink {...cta} className={classNames('LeadershipCard', css.root, className)}>
       <ContentfulImage
         className={css.image}
-        asset={image}
+        asset={{
+          ...image,
+          fields: {
+            ...image.fields,
+            title: '',
+            description: ''
+          }
+        }}
         imageSizeMobile={{ extraGutters: 0, numCols: 2 }}
         imageSizeTablet={{ extraGutters: 1, numCols: 3 }}
         imageSizeDesktop={{ extraGutters: 1, numCols: 2 }}
