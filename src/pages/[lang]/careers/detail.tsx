@@ -82,6 +82,7 @@ const CareerDetail: FC = () => {
           />
           <ColumnsText theme={ColumnType.COLUMNS_30_70} isSticky={true} leftSide={leftSideContent}>
             <div dangerouslySetInnerHTML={{ __html: sanitizer(career?.description ?? '') }} />
+            <div dangerouslySetInnerHTML={{ __html: sanitizer(career?.additional ?? '') }} />
             {layout.mobile && <Cta href={career.applyUrl} title={applyText} />}
           </ColumnsText>
           <Spacer size={Sizes.SMALL} />
