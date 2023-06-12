@@ -5,7 +5,7 @@
   overflow-x: hidden;
   background-color: $light-grey;
   padding-top: px(36);
-  padding-bottom: px(27);
+  padding-bottom: px(60);
 
   @include media-tablet {
     padding-top: px(32);
@@ -66,7 +66,7 @@
     margin: px(48) 0 px(40);
 
     @include breakpoint(desktopSm) {
-      margin: px(10) auto px(40);
+      margin: px(10) auto 0;
     }
 
     @include pagination($black, false);

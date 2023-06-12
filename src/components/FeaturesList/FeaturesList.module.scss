@@ -4,7 +4,15 @@
   text-align: left;
   width: 100%;
   background-color: $light-grey;
-  padding: px(68) 0 px(80);
+  padding: px(20) 0 px(65);
+
+  @include media-tablet {
+    padding: px(20) 0 px(80);
+  }
+
+  @include media-desktopSm {
+    padding-top: px(68);
+  }
 
   .wrapper {
     @include container;

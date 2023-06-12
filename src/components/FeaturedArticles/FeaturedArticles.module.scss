@@ -4,24 +4,19 @@
   width: 100%;
   background-color: $white;
   padding: px(26) 0 px(15);
+  @include container;
 
   @include media-tablet {
-    padding: px(12) 0 px(3);
+    padding: px(32) 0 px(28);
   }
 
   @include media-desktopSm {
-    padding: px(38) 0 0;
-    margin-bottom: px(-22);
+    padding: px(54) 0 px(21);
   }
 
   &.related {
     .container {
       display: block;
-      padding: px(36) 0;
-
-      @include media-desktopSm {
-        padding: px(54) 0;
-      }
 
       .wrapper {
         margin-top: 0;
