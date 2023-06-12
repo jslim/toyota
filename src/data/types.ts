@@ -78,6 +78,7 @@ export type GlobalStringsFields = {
   relatedNews: string;
   emailShareSubject: string;
   emailShareBody: string;
+  emailShareLabel: string;
   downloadAssets: string;
   drag: string;
   learnMore: string;

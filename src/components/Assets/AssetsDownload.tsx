@@ -63,6 +63,7 @@ const AssetsDownload: FC<AssetsProps> = ({ className, title, assets }) => {
         <BaseButton
           onClick={() => handleAssetFile(asset)}
           className={classNames(css.overlay, { [css.isVideo]: isVideo })}
+          title={asset.fields.description}
         >
           <IconCircle isWhite={true} className={css.iconCircle}>
             {isVideo ? <PlayIcon className={css.playIcon} /> : <DownloadSvg />}

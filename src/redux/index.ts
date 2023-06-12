@@ -58,6 +58,7 @@ export const defaultGlobalStrings: GlobalStringsFields = {
   relatedNews: 'Related News',
   emailShareSubject: 'Woven by Toyota',
   emailShareBody: '',
+  emailShareLabel: 'Share via Email',
   downloadAssets: 'Download all assets',
   drag: 'Drag',
   learnMore: 'Learn More',
