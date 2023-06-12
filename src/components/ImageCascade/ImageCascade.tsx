@@ -253,7 +253,7 @@ const ImageCascade: FC<ImageCascadeProps> = ({
   useEffect(() => {
     if (!targets.length) return;
 
-    let tl: GSAPTimeline;
+    let tl: GSAPTimeline | null;
 
     // Animating on initial render
     if (firstRender) {
@@ -319,6 +319,7 @@ const ImageCascade: FC<ImageCascadeProps> = ({
 
     return () => {
       tl?.kill();
+      tl = null;
     };
   }, [firstRender, getPathSizes, isHorizontal, isMobile, targets]);
 
