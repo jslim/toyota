@@ -204,6 +204,7 @@ const ImageCascade: FC<ImageCascadeProps> = ({
    */
   const getPathSizes = useCallback(
     (skipStart?: boolean) => {
+      if (!assetRef.current) return;
       const { width, height } = assetRef.current?.getBoundingClientRect() as DOMRect;
       setTargets(buildTargets(width, height, isMobile ? 12 : 24, isHorizontal, isMobile ? 2 : 1));
 
@@ -252,7 +253,7 @@ const ImageCascade: FC<ImageCascadeProps> = ({
   useEffect(() => {
     if (!targets.length) return;
 
-    let tl: GSAPTimeline;
+    let tl: GSAPTimeline | null;
 
     // Animating on initial render
     if (firstRender) {
@@ -317,7 +318,8 @@ const ImageCascade: FC<ImageCascadeProps> = ({
     }
 
     return () => {
-      tl?.clear();
+      tl?.kill();
+      tl = null;
     };
   }, [firstRender, getPathSizes, isHorizontal, isMobile, targets]);
 
@@ -328,7 +330,7 @@ const ImageCascade: FC<ImageCascadeProps> = ({
     >
       <div className={css.wrapper}>
         {assetLoaded && (
-          <svg x="0px" y="0px" className={css.svg}>
+          <svg x="0px" y="0px" className={css.svg} aria-hidden>
             <g>
               <clipPath id={`path-${uniqueId}`}>
                 <path
