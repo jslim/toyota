@@ -7,11 +7,11 @@ import SwiperCore from 'swiper';
 
 import css from './HistoryTimeline.module.scss';
 
-import resize from '@/services/resize';
+import { CardProps } from '@/components/Card/Card';
+import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
+import Cta, { ButtonType } from '@/components/Cta/Cta';
 
-import { CardProps } from '../Card/Card';
-import ContentfulImage from '../ContentfulImage/ContentfulImage';
-import Cta, { ButtonType } from '../Cta/Cta';
+import resize from '@/services/resize';
 
 gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(ExpoScaleEase);
@@ -184,7 +184,12 @@ const HistorySlide: FC<SlideProps> = ({
           {item.cta && <Cta {...item.cta} className={css.cta} theme={ButtonType.Secondary} />}
         </div>
       </div>
-      <div className={css.progress} style={{ top: imageHeight && imageHeight / 2 }} ref={progressRef}>
+      <div
+        className={css.progress}
+        style={{ top: imageHeight && imageHeight / 2 }}
+        ref={progressRef}
+        aria-hidden={true}
+      >
         <span className={classNames(css.dot, css.left)} />
         <span className={classNames(css.dot, css.right)} />
         <span className={css.progressBar} />
