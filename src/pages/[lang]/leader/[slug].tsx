@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import { FC, memo, useMemo } from 'react';
 import { GetStaticProps } from 'next';
 import classNames from 'classnames';
 
@@ -28,10 +28,14 @@ const Leader: FC<LeaderPageProps> = ({ data }) => {
     staticData: data
   }) as LeaderPageData;
 
+  const pageBlocks = useMemo(() => {
+    return getPageBlocks(pageData);
+  }, [pageData]);
+
   return (
     <main className={classNames('Leader')}>
       {/* always render nodes conditionally unless it's set as required field in CMS */}
-      {!!pageData?.fields ? getPageBlocks(pageData) : null}
+      {!!pageData?.fields ? pageBlocks : null}
     </main>
   );
 };

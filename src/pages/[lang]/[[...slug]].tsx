@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import { FC, memo, useMemo } from 'react';
 import { GetStaticProps } from 'next';
 
 import { APIContentful } from '@/data/API';
@@ -31,10 +31,14 @@ const DefaultPage: FC<DefaultPageProps> = ({ data }) => {
     staticData: data
   }) as DefaultPageData;
 
+  const pageBlocks = useMemo(() => {
+    return getPageBlocks(pageData);
+  }, [pageData]);
+
   return (
     <PageDefault>
       {/* always render nodes conditionally unless it's set as required field in CMS */}
-      {!!pageData?.fields ? getPageBlocks(pageData) : null}
+      {!!pageData?.fields ? pageBlocks : null}
     </PageDefault>
   );
 };
