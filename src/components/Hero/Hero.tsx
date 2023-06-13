@@ -1,4 +1,4 @@
-import { FC, memo, useMemo, useState } from 'react';
+import { FC, memo, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
 
 import css from './Hero.module.scss';
@@ -9,6 +9,7 @@ import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
 import ImageCascade from '@/components/ImageCascade/ImageCascade';
 import VideoPlayer, { Props as VideoProps } from '@/components/VideoPlayer/VideoPlayer';
 
+import { useLayout } from '@/hooks';
 import sanitizer from '@/utils/sanitizer';
 
 import BaseLink from '../BaseLink/BaseLink';
@@ -25,12 +26,23 @@ export type HeroProps = {
   className?: string;
   title?: string;
   image: ContentfulImageAsset;
+  mobileImage?: ContentfulImageAsset;
   video?: VideoProps;
   theme?: HeroType;
   featured?: { date?: string; cat?: string; title?: string; href?: string };
 };
 
-const Hero: FC<HeroProps> = ({ className, title, image, video, theme = HeroType.Primary, featured }) => {
+const Hero: FC<HeroProps> = ({ className, title, image, mobileImage, video, theme = HeroType.Primary, featured }) => {
+  const { layout } = useLayout();
+  const mobile = typeof window !== 'undefined' && layout.mobile;
+
+  const [loadImage, setLoadImage] = useState(false);
+  useEffect(() => {
+    if (loadImage) {
+      return;
+    }
+    setLoadImage(true);
+  }, [loadImage]);
   const [assetLoaded, setAssetLoaded] = useState(false);
 
   const background = useMemo(
@@ -50,15 +62,18 @@ const Hero: FC<HeroProps> = ({ className, title, image, video, theme = HeroType.
           playsInline={true}
         />
       ) : (
-        <ContentfulImage
-          asset={image}
-          onLoad={() => setAssetLoaded(true)}
-          withLazyLoad={false}
-          withLowResSwap={false}
-        />
+        loadImage && (
+          <ContentfulImage
+            asset={mobile && mobileImage ? mobileImage : image}
+            onLoad={() => setAssetLoaded(true)}
+            withLazyLoad={false}
+            withLowResSwap={false}
+          />
+        )
       ),
-    [image, video]
+    [image, video, mobile, mobileImage, loadImage]
   );
+
   return (
     <div className={classNames('Hero', css.root, className, css[theme])}>
       {title && theme !== HeroType.Detail && (
