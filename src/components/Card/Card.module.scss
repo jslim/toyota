@@ -222,9 +222,7 @@
 
     .textWrapper {
       .text {
-        @include media-desktopSm {
-          @include font-size(20, 30);
-        }
+        @include typography-label;
       }
 
       .titleWrapper {
@@ -241,13 +239,9 @@
         }
 
         .subTitle {
-          @include font-size(14, 16);
+          @include typography-paragraph;
           margin-top: px(5);
           color: $dark-grey;
-
-          @include media-desktopSm {
-            @include font-size(16, 24);
-          }
         }
       }
     }
