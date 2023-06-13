@@ -6,9 +6,8 @@ import css from './Card.module.scss';
 import { ContentfulImageAsset } from '@/data/types';
 
 import BaseLink, { Props as LinkProps } from '@/components/BaseLink/BaseLink';
+import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
 import Cta, { ButtonType } from '@/components/Cta/Cta';
-
-import ContentfulImage from '../ContentfulImage/ContentfulImage';
 
 export enum CardTypes {
   NEWS = 'news',

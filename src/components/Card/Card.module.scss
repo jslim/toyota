@@ -219,7 +219,14 @@
 
   &.quote {
     text-align: left;
+
     .textWrapper {
+      .text {
+        @include media-desktopSm {
+          @include font-size(20, 30);
+        }
+      }
+
       .titleWrapper {
         margin-top: px(18);
         color: $mid-grey;
@@ -234,8 +241,13 @@
         }
 
         .subTitle {
-          margin-top: px(5);
           @include font-size(14, 16);
+          margin-top: px(5);
+          color: $dark-grey;
+
+          @include media-desktopSm {
+            @include font-size(16, 24);
+          }
         }
       }
     }
