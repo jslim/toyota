@@ -9,6 +9,7 @@ import AssetsDownload from '@/components/Assets/AssetsDownload';
 import ColumnsText from '@/components/ColumnsText/ColumnsText';
 import Cta, { ButtonType } from '@/components/Cta/Cta';
 import Hero, { HeroType } from '@/components/Hero/Hero';
+import RelatedNews from '@/components/RelatedNews/RelatedNews';
 import SocialIcon from '@/components/SocialIcon/SocialIcon';
 
 import { formatDate, getMailTo } from '@/utils/basic-functions';
@@ -19,8 +20,6 @@ import { useAppSelector } from '@/redux';
 
 import MailSvg from '@/components/svgs/mail.svg';
 import ShareSvg from '@/components/svgs/share.svg';
-
-import RelatedNews from '../RelatedNews/RelatedNews';
 
 const socials = [
   {
@@ -47,7 +46,7 @@ const OurLatestPostPage: FC<OurLatestPostPageContentType> = ({
   thumbnail,
   topic
 }) => {
-  const { copyLink, copyLinkSuccess, shareText, emailShareBody, emailShareSubject } = useAppSelector(
+  const { copyLink, copyLinkSuccess, shareText, emailShareBody, emailShareSubject, emailShareLabel } = useAppSelector(
     (state) => state.activeGlobalStrings
   );
   const [url, setUrl] = useState('');
@@ -99,6 +98,7 @@ const OurLatestPostPage: FC<OurLatestPostPageContentType> = ({
             subject: emailShareSubject,
             body: emailShareBody
           })}
+          aria-label={emailShareLabel}
         >
           <MailSvg />
         </Cta>
