@@ -309,6 +309,7 @@ export type OurLatestPostPageContentType = {
   thumbnail: ContentfulImageAsset;
   publishDate: string;
   metadata: FilteredEntity<PageMetadataContentType>;
+  externalLink?: string;
 };
 
 // Contentful Component Content Types

@@ -49,7 +49,15 @@ export async function getStaticPaths() {
   const resolvedData = postDataEn;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (resolvedData as any).items = resolveResponse(postDataEn);
-  const pageSlugs = resolvedData.items.map((entry: GenericEntity) => entry.fields!.slug);
+
+  const pageSlugs: Array<string> = [];
+
+  resolvedData.items.forEach((entry: GenericEntity) => {
+    // Only build pages that don't link out to a 3rd party
+    if (!entry.fields!.externalLink) {
+      pageSlugs.push(entry.fields!.slug);
+    }
+  });
   const langPaths = getAllLangSlugs();
 
   const paths: Array<{ [key: string]: NestedLocalizedPageParams }> = [];

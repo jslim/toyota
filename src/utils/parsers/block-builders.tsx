@@ -494,6 +494,7 @@ export const buildNewsCard = (fields: OurLatestPostPageContentType, extraProps?:
   const month = postDate.toLocaleString('default', { month: 'short', timeZone: 'UTC' }).toUpperCase();
   const day = postDate.getUTCDate();
   const year = postDate.getUTCFullYear();
+  const href = fields?.externalLink ? fields.externalLink : `/${extraProps?.lang || ''}/our-latest/${fields?.slug}`;
 
   const translateCategory = (): string => {
     switch (fields?.category) {
@@ -515,7 +516,7 @@ export const buildNewsCard = (fields: OurLatestPostPageContentType, extraProps?:
       date: `${month} ${day}, ${year}`,
       text: fields?.pageTitle,
       cta: {
-        href: `/${extraProps?.lang || ''}/our-latest/${fields?.slug}`
+        href
       }
     },
     component: Card
