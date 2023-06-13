@@ -209,7 +209,7 @@
           @include font-size(16, 24);
         }
 
-        @include media-tablet {
+        @include media-desktopSm {
           @include font-size(14, 24);
         }
       }
