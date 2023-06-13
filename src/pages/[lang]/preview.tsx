@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import { FC, memo, useMemo } from 'react';
 import { GetStaticProps } from 'next';
 
 import { PageType } from '@/data/types';
@@ -16,11 +16,15 @@ const Preview: FC<PageType> = ({ data: staticData }) => {
     staticData
   });
 
+  const pageBlocks = useMemo(() => {
+    return getPageBlocks(pageData);
+  }, [pageData]);
+
   return (
     <PageDefault>
       <Head {...{ title: pageData?.fields?.pageTitle ?? 'Preview' }} />
       {/* always render nodes conditionally unless it's set as required field in CMS */}
-      {!!pageData?.fields ? getPageBlocks(pageData) : null}
+      {!!pageData?.fields ? pageBlocks : null}
     </PageDefault>
   );
 };

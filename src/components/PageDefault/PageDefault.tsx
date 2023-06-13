@@ -8,7 +8,7 @@ export interface PageDefaultProps {
   children: ReactNode;
 }
 
-const PageExample: FC<PageDefaultProps> = ({ className = 'Default', children }) => {
+const PageDefault: FC<PageDefaultProps> = ({ className = 'Default', children }) => {
   const { homepageBannerHeight } = useAppSelector((state) => state);
   return (
     <main className={classNames('Main', className)} style={{ marginTop: homepageBannerHeight }}>
@@ -17,4 +17,4 @@ const PageExample: FC<PageDefaultProps> = ({ className = 'Default', children }) 
   );
 };
 
-export default memo(PageExample);
+export default memo(PageDefault);
