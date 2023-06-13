@@ -48,9 +48,7 @@ const RoadmapItem: FC<RoadmapItemProps> = ({
 
   useEffect(() => {
     const handleResize = () => {
-      setTimeout(() => {
-        index === 0 && setStickyInfoHeight && itemRef.current && setStickyInfoHeight(itemRef.current?.offsetHeight);
-      }, 100);
+      index === 0 && setStickyInfoHeight && itemRef.current && setStickyInfoHeight(itemRef.current?.offsetHeight);
     };
     handleResize();
 
@@ -75,11 +73,9 @@ const RoadmapItem: FC<RoadmapItemProps> = ({
     gsap.set([wrapper, content, scaleDown], { clearProps: true });
     tl.current?.progress(0).kill();
 
-    setTimeout(() => {
-      content.forEach((_item, i) => {
-        ScrollTrigger.getById(`s-${index}-${i}`)?.kill();
-      });
-    }, 100);
+    content.forEach((_item, i) => {
+      ScrollTrigger.getById(`s-${index}-${i}`)?.kill();
+    });
 
     if (layout.mobile) {
       // fadeOut content on all but last slides
@@ -87,22 +83,20 @@ const RoadmapItem: FC<RoadmapItemProps> = ({
         gsap.set(content, {
           opacity: 1
         });
-        setTimeout(() => {
-          content.forEach((item, i) => {
-            gsap.to(item, {
-              opacity: 0,
-              duration: 0.6,
-              ease: 'Power3.out',
+        content.forEach((item, i) => {
+          gsap.to(item, {
+            opacity: 0,
+            duration: 0.6,
+            ease: 'Power3.out',
 
-              scrollTrigger: {
-                id: `s-${index}-${i}`,
-                start: `top ${(stickyRef.current?.children[0] as HTMLDivElement).offsetHeight + offsetTop}`,
-                trigger: item,
-                toggleActions: 'play none none reverse'
-              }
-            });
+            scrollTrigger: {
+              id: `s-${index}-${i}`,
+              start: `top ${(stickyRef.current?.children[0] as HTMLDivElement).offsetHeight + offsetTop}`,
+              trigger: item,
+              toggleActions: 'play none none reverse'
+            }
           });
-        }, 100);
+        });
       }
 
       if (index === 0) return;
