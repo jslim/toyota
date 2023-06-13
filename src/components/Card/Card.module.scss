@@ -219,7 +219,12 @@
 
   &.quote {
     text-align: left;
+
     .textWrapper {
+      .text {
+        @include typography-label;
+      }
+
       .titleWrapper {
         margin-top: px(18);
         color: $mid-grey;
@@ -234,8 +239,9 @@
         }
 
         .subTitle {
+          @include typography-paragraph;
           margin-top: px(5);
-          @include font-size(14, 16);
+          color: $dark-grey;
         }
       }
     }
