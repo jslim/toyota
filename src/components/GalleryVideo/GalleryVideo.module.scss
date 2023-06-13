@@ -1,8 +1,8 @@
 @import 'shared';
 
 .root {
+  width: 100%;
   .carouselContainer {
-    @include container;
     overflow: unset;
 
     :global(.swiper-wrapper) {
