@@ -4,8 +4,23 @@
   width: 100%;
 
   .carouselContainer {
-    margin-top: px(67);
+    margin-top: px(45);
     overflow: unset;
+    padding-right: px(250);
+
+    @include breakpoint(tablet) {
+      padding-right: calc(100% - #{desktop-columns(0, 1)} - #{px(456)});
+      margin-top: px(54);
+    }
+
+    @include breakpoint(desktopSm) {
+      padding-right: calc(100% - #{desktop-columns(0, 1)} - #{px(456 * 2)});
+      margin-top: px(68);
+    }
+
+    @media (min-width: 1620px) {
+      padding-right: px(200);
+    }
 
     :global(.swiper-wrapper) {
       width: 100%;
@@ -23,8 +38,13 @@
         margin-right: 0;
       }
 
-      &:not(:global(.swiper-slide-visible)) {
+      .cardWrapper {
+        height: 100%;
         opacity: 0.6;
+        transition: 0.3s opacity ease-out;
+      }
+      .isActive {
+        opacity: 1;
       }
     }
   }
