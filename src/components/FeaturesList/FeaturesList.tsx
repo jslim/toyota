@@ -88,7 +88,7 @@ const FeaturesList: FC<FeaturesListProps> = ({ className, title, eyebrow, items 
     // Cleanup function
     return () => {
       scrollTriggers?.forEach((scrollTrigger) => {
-        scrollTrigger?.scrollTrigger?.kill(); // Remove each ScrollTrigger
+        scrollTrigger?.scrollTrigger?.kill();
       });
     };
   }, [progressBarRef, timelineRef, itemPointRef]);
