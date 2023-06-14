@@ -88,7 +88,7 @@ const HistoryTimeline: FC<HistoryTimelineProps> = ({ className, eyebrow, title, 
         year += increment;
         setCurrentYear((prevYear) => prevYear + increment);
 
-        if ((increment === 1 && year >= endYear) || (increment === -1 && year <= endYear)) {
+        if (year === endYear) {
           clearInterval(intervalId!);
           intervalId = null;
           isCounting = false;
