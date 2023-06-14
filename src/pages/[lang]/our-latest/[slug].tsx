@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import { FC, memo, useMemo } from 'react';
 import { GetStaticProps } from 'next';
 
 import {
@@ -37,12 +37,11 @@ const OurLatestPost: FC<OurLatestPostPageProps> = ({ data }) => {
     staticData: data
   });
 
-  return (
-    <main className="OurLatestPost">
-      {!!pageData?.fields ? getPageBlocks(pageData) : null}
-      <Spacer size={Sizes.SMALL} />
-    </main>
-  );
+  const pageBlocks = useMemo(() => {
+    return getPageBlocks(pageData);
+  }, [pageData]);
+
+  return <main className="OurLatestPost">{!!pageData?.fields ? pageBlocks : null}<Spacer size={Sizes.SMALL} /></main>;
 };
 
 export async function getStaticPaths() {

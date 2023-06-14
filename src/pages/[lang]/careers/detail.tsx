@@ -79,9 +79,17 @@ const CareerDetail: FC = () => {
             header={career.text}
             subtitle={subtitle?.map((item, i) => (i === 0 && item ? item : ' / ' + item))}
             ctaProps={{ href: career.applyUrl, title: applyText }}
+            className={'careerDetailTextIntro'}
           />
           <ColumnsText theme={ColumnType.COLUMNS_30_70} isSticky={true} leftSide={leftSideContent}>
             <div dangerouslySetInnerHTML={{ __html: sanitizer(career?.description ?? '') }} />
+            {career?.lists?.map((list) => (
+              <div key={list.text}>
+                <b dangerouslySetInnerHTML={{ __html: sanitizer(list?.text ?? '') }} />
+                <ul dangerouslySetInnerHTML={{ __html: sanitizer(list?.content ?? '') }} />
+              </div>
+            ))}
+            <div dangerouslySetInnerHTML={{ __html: sanitizer(career?.additional ?? '') }} />
             {layout.mobile && <Cta href={career.applyUrl} title={applyText} />}
           </ColumnsText>
           <Spacer size={Sizes.SMALL} />

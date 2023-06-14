@@ -5,6 +5,8 @@
 }
 
 .sectionWrapper {
+  padding-bottom: px(60);
+
   @include media-desktopSm {
     padding-bottom: px(93);
   }

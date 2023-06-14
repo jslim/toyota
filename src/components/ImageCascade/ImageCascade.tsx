@@ -202,23 +202,29 @@ const ImageCascade: FC<ImageCascadeProps> = ({
   /**
    * Path generation
    */
-  const getPathSizes = useCallback(() => {
-    const { width, height } = assetRef.current?.getBoundingClientRect() as DOMRect;
-    setTargets(buildTargets(width, height, isMobile ? 12 : 24, isHorizontal, isMobile ? 2 : 1));
+  const getPathSizes = useCallback(
+    (skipStart?: boolean) => {
+      if (!assetRef.current) return;
+      const { width, height } = assetRef.current?.getBoundingClientRect() as DOMRect;
+      setTargets(buildTargets(width, height, isMobile ? 12 : 24, isHorizontal, isMobile ? 2 : 1));
 
-    const startPoint = buildPath({
-      width: 0,
-      height: isHorizontal ? height : 0,
-      offsetX: isHorizontal ? width : width / 2, // Path coordinates start at top left so translating our start line all the way to the right
-      offsetY: isHorizontal ? 0 : -height,
-      initRound: 97,
-      horizontal: isHorizontal
-    });
+      if (skipStart) return;
 
-    panelsRef.current.forEach((el) => {
-      el?.setAttribute('d', startPoint);
-    });
-  }, [isHorizontal, isMobile]);
+      const startPoint = buildPath({
+        width: 0,
+        height: isHorizontal ? height : 0,
+        offsetX: isHorizontal ? width : width / 2, // Path coordinates start at top left so translating our start line all the way to the right
+        offsetY: isHorizontal ? 0 : -height,
+        initRound: 97,
+        horizontal: isHorizontal
+      });
+
+      panelsRef.current.forEach((el) => {
+        el?.setAttribute('d', startPoint);
+      });
+    },
+    [isHorizontal, isMobile]
+  );
 
   /**
    * Effect for when we want to generate new target paths.
@@ -229,14 +235,17 @@ const ImageCascade: FC<ImageCascadeProps> = ({
     if (!targets.length) getPathSizes();
 
     const resizePath = () => {
-      getPathSizes();
+      getPathSizes(true);
     };
 
-    resize.listen(resizePath);
+    if (!firstRender) {
+      resize.listen(resizePath);
+    }
+
     return () => {
       resize.dismiss(resizePath);
     };
-  }, [assetLoaded, isMobile, targets, getPathSizes]);
+  }, [assetLoaded, isMobile, targets, getPathSizes, firstRender]);
 
   /**
    * Effect for animating and updating paths
@@ -244,13 +253,16 @@ const ImageCascade: FC<ImageCascadeProps> = ({
   useEffect(() => {
     if (!targets.length) return;
 
-    let tl: GSAPTimeline;
+    let tl: GSAPTimeline | null;
 
     // Animating on initial render
     if (firstRender) {
       tl = gsap
         .timeline({
-          onComplete: () => setFirstRender(false),
+          onComplete: () => {
+            setFirstRender(false);
+            getPathSizes(true);
+          },
           scrollTrigger: {
             trigger: containerRef.current,
             start: 'top 60%'
@@ -306,9 +318,10 @@ const ImageCascade: FC<ImageCascadeProps> = ({
     }
 
     return () => {
-      tl?.clear();
+      tl?.kill();
+      tl = null;
     };
-  }, [firstRender, isHorizontal, isMobile, targets]);
+  }, [firstRender, getPathSizes, isHorizontal, isMobile, targets]);
 
   return (
     <div
@@ -317,7 +330,7 @@ const ImageCascade: FC<ImageCascadeProps> = ({
     >
       <div className={css.wrapper}>
         {assetLoaded && (
-          <svg x="0px" y="0px" className={css.svg}>
+          <svg x="0px" y="0px" className={css.svg} aria-hidden>
             <g>
               <clipPath id={`path-${uniqueId}`}>
                 <path

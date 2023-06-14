@@ -38,14 +38,19 @@
   @include container;
   display: flex;
   flex-direction: column;
+  margin-top: px(18);
+
+  @include media-tablet {
+    margin-top: px(24);
+  }
 
   @include media-desktopSm {
     flex-direction: row;
+    margin-top: px(22);
   }
 
   .wrapper {
-    margin-top: px(36);
-    margin-bottom: px(36);
+    margin-bottom: px(49);
 
     @include media-tablet {
       margin-bottom: px(35);
@@ -53,7 +58,6 @@
 
     @include media-desktopSm {
       @include use-desktop-columns(width, 4, 1);
-      margin-top: px(22);
       margin-bottom: px(42);
     }
 
@@ -62,8 +66,13 @@
       margin-bottom: px(32);
       text-align: left;
 
+      @include media-tablet {
+        margin-bottom: px(24);
+      }
+
       @include media-desktopSm {
         max-width: px(320);
+        margin-bottom: px(32);
       }
     }
 

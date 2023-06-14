@@ -52,7 +52,7 @@ const TextIntro: FC<TextIntroProps> = ({ className, layout, eyebrow, header, des
           {layout === TextIntroLayout.HEADER_LEFT && <h2 className={css.leftTitle}>{header}</h2>}
         </div>
         <div className={css.rightColumn} ref={contentRef}>
-          {layout !== TextIntroLayout.HEADER_LEFT && <h2 className={css.title}>{header}</h2>}
+          {layout !== TextIntroLayout.HEADER_LEFT && header && <h2 className={css.title}>{header}</h2>}
           {subtitle && <p className={css.subtitle}>{subtitle}</p>}
           {description && (
             <p className={css.description} dangerouslySetInnerHTML={{ __html: sanitizer(description) }}></p>

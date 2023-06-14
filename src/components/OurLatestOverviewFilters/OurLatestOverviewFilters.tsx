@@ -62,6 +62,8 @@ const OurLatestFilterButton: FC<OurLatestFilterButtons> = ({
   useEffect(() => {
     if (title === router.query[category] || (shouldClear && router.query[category] == null)) {
       setIsSelected(true);
+    } else {
+      setIsSelected(false);
     }
   }, [title, router, category, shouldClear]);
 

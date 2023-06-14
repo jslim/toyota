@@ -37,6 +37,8 @@ export type Job = {
   id: string;
   workplaceType?: string;
   description?: string;
+  additional?: string;
+  lists?: Array<{ text: string; content: string }>;
 };
 
 export type GlobalDataFields = {
@@ -76,6 +78,7 @@ export type GlobalStringsFields = {
   relatedNews: string;
   emailShareSubject: string;
   emailShareBody: string;
+  emailShareLabel: string;
   downloadAssets: string;
   drag: string;
   learnMore: string;

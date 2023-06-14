@@ -8,10 +8,11 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import css from './HistoryTimeline.module.scss';
 
+import Cursor from '@/components/Cursor/Cursor';
+import Eyebrow from '@/components/Eyebrow/Eyebrow';
+
 import { useLayout } from '@/hooks';
 
-import Cursor from '../Cursor/Cursor';
-import Eyebrow from '../Eyebrow/Eyebrow';
 import HistoryTimelineSlide, { SlideProps } from './HistoryTimelineSlide';
 
 SwiperCore.use([Pagination, A11y]);
@@ -61,6 +62,18 @@ const HistoryTimeline: FC<HistoryTimelineProps> = ({ className, eyebrow, title, 
     };
   }, []);
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === ' ') {
+        event.preventDefault();
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
   return (
     <div className={classNames('HistoryTimeline', css.root, className)} ref={ref}>
       <div className={css.wrapper}>
@@ -91,6 +104,7 @@ const HistoryTimeline: FC<HistoryTimelineProps> = ({ className, eyebrow, title, 
             preventClicks={true}
             touchStartPreventDefault={false}
             preventClicksPropagation={true}
+            slideToClickedSlide={true}
           >
             {slides.map((item, i) => {
               return (
