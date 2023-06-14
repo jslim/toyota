@@ -16,6 +16,8 @@ import { getPageBlocks } from '@/utils/parsers/get-page-blocks';
 import { buildPageMetaData } from '@/utils/parsers/page-metadata-parser-util';
 import resolveResponse, { makeFilteredEntity } from '@/utils/parsers/response-parser-util';
 
+import { useAppSelector } from '@/redux';
+
 /* eslint-disable */
 // @ts-ignore: populated during prebuild
 import postDataEn from '@/json/our-latest-posts-en.json';
@@ -30,14 +32,15 @@ export interface OurLatestPostPageProps extends PageProps {
 }
 
 const OurLatestPost: FC<OurLatestPostPageProps> = ({ data }) => {
+  const globalStrings = useAppSelector((state) => state.activeGlobalStrings);
   const pageData = usePreviewData({
     // this is a mandatory hook to be called on every page
     staticData: data
   });
 
   const pageBlocks = useMemo(() => {
-    return getPageBlocks(pageData);
-  }, [pageData]);
+    return getPageBlocks(pageData, globalStrings);
+  }, [pageData, globalStrings]);
 
   return <main className="OurLatestPost">{!!pageData?.fields ? pageBlocks : null}</main>;
 };
@@ -46,7 +49,15 @@ export async function getStaticPaths() {
   const resolvedData = postDataEn;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (resolvedData as any).items = resolveResponse(postDataEn);
-  const pageSlugs = resolvedData.items.map((entry: GenericEntity) => entry.fields!.slug);
+
+  const pageSlugs: Array<string> = [];
+
+  resolvedData.items.forEach((entry: GenericEntity) => {
+    // Only build pages that don't link out to a 3rd party
+    if (!entry.fields!.externalLink) {
+      pageSlugs.push(entry.fields!.slug);
+    }
+  });
   const langPaths = getAllLangSlugs();
 
   const paths: Array<{ [key: string]: NestedLocalizedPageParams }> = [];

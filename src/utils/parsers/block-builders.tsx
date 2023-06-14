@@ -494,15 +494,29 @@ export const buildNewsCard = (fields: OurLatestPostPageContentType, extraProps?:
   const month = postDate.toLocaleString('default', { month: 'short', timeZone: 'UTC' }).toUpperCase();
   const day = postDate.getUTCDate();
   const year = postDate.getUTCFullYear();
+  const href = fields?.externalLink ? fields.externalLink : `/${extraProps?.lang || ''}/our-latest/${fields?.slug}`;
+
+  const translateCategory = (): string => {
+    switch (fields?.category) {
+      case 'News':
+        return extraProps?.globalStrings?.news ?? fields.category;
+      case 'Blog':
+        return extraProps?.globalStrings?.blog ?? fields.category;
+      case 'Research':
+        return extraProps?.globalStrings?.researchPapers ?? fields.category;
+      default:
+        return fields?.category;
+    }
+  };
 
   return {
     props: {
       image: fields?.thumbnail,
-      title: fields?.category,
+      title: translateCategory(),
       date: `${month} ${day}, ${year}`,
       text: fields?.pageTitle,
       cta: {
-        href: `/${extraProps?.lang || ''}/our-latest/${fields?.slug}`
+        href
       }
     },
     component: Card
@@ -514,7 +528,10 @@ export const buildFeaturedArticles = (
   extraProps?: GenericObject
 ): ComponentBuilder => {
   const cards = fields?.newsPosts.map((post) => {
-    return buildNewsCard(post?.fields, { lang: extraProps?.lang || Lang.EN }).props;
+    return buildNewsCard(post?.fields, {
+      lang: extraProps?.lang || Lang.EN,
+      globalStrings: extraProps?.globalStrings
+    }).props;
   });
   return {
     props: {
