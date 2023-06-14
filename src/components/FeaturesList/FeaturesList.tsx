@@ -96,7 +96,7 @@ const FeaturesList: FC<FeaturesListProps> = ({ className, title, eyebrow, items 
   return (
     <div className={classNames('FeaturesList', css.root, className)}>
       <div className={css.wrapper}>
-        {eyebrow && <Eyebrow className={css.eyebrow} text={eyebrow} variant={variants.LIGHT} />}
+        {eyebrow && <Eyebrow className={css.eyebrow} text={eyebrow} variant={variants.DARK} />}
         {title && <h2 className={css.title}>{title}</h2>}
         <div className={css.list}>
           <div className={css.timeline} ref={timelineRef}>

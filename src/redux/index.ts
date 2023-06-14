@@ -90,7 +90,8 @@ const { actions, reducer } = createSlice({
     },
     activeGlobalStrings: { ...defaultGlobalStrings },
     activeLang: Lang.EN,
-    homepageBannerHeight: 0
+    homepageBannerHeight: 0,
+    navbarHeight: 0
   },
   reducers: {
     setActiveRoute(state, action: PayloadAction<string>) {
@@ -120,6 +121,9 @@ const { actions, reducer } = createSlice({
     },
     setHomepageBannerHeight(state, action: PayloadAction<number>) {
       state.homepageBannerHeight = action.payload;
+    },
+    setNavbarHeight(state, action: PayloadAction<number>) {
+      state.navbarHeight = action.payload;
     }
   }
 });
@@ -132,7 +136,8 @@ export const {
   setGlobalStrings,
   setActiveLang,
   setHomepageBannerVisibility,
-  setHomepageBannerHeight
+  setHomepageBannerHeight,
+  setNavbarHeight
 } = actions;
 
 export const store = configureStore({ reducer, devTools: process.env.NEXT_PUBLIC_ENVIRONMENT !== 'production' });
