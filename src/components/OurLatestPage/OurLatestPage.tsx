@@ -53,8 +53,8 @@ const OurLatestPostPage: FC<OurLatestPostPageContentType> = ({
   const [url, setUrl] = useState('');
   const [copyTooltip, setCopyTooltip] = useState<string | null>(null);
   const assetsData = articleAssets?.fields;
-  const content = useMemo(() => parseContentfulRichText(body), [body]);
-  const hasTable = body.content.filter((item) => item.nodeType === 'table').length ? true : false;
+  const content = useMemo(() => (body ? parseContentfulRichText(body!) : null), [body]);
+  const hasTable = body?.content.filter((item) => item.nodeType === 'table').length ? true : false;
 
   useEffect(() => {
     setUrl(window.location.href);

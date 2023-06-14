@@ -301,7 +301,7 @@ export type OurLatestPageContentType = {
 export type OurLatestPostPageContentType = {
   articleAssets: FilteredEntity<ArticleDownloadAssetsContentType>;
   pinnedPosts: Array<{ sys: Pick<Sys, 'id' | 'linkType' | 'contentType'> }>;
-  body: Document;
+  body?: Document;
   pageTitle: string;
   slug: string;
   category: 'News' | 'Blog' | 'Research';
