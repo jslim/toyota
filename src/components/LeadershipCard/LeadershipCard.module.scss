@@ -66,16 +66,4 @@
       margin-bottom: px(8);
     }
   }
-
-  &.isActive {
-    @include media-mobile {
-      .title {
-        @include font-size(12);
-      }
-
-      .description {
-        @include font-size(10.5);
-      }
-    }
-  }
 }
