@@ -49,6 +49,10 @@
     .image {
       @include aspect-ratio(288, 264);
 
+      @include media-tablet {
+        @include aspect-ratio(19, 11);
+      }
+
       @include media-desktopSm {
         @include aspect-ratio(16, 9);
       }
