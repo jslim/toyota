@@ -26,7 +26,11 @@
     margin-top: px(20);
 
     @include breakpoint(tablet) {
-      flex-wrap: nowrap;
+      flex-flow: column nowrap;
+    }
+
+    @include breakpoint(desktopSm) {
+      flex-direction: row;
     }
 
     .title {
@@ -36,6 +40,7 @@
 
       @include breakpoint(tablet) {
         margin-bottom: 0;
+        align-self: flex-start;
       }
 
       @include breakpoint(desktopSm) {
@@ -49,6 +54,7 @@
       @include typography-h0;
       @include use-mobile-gutter(margin-right, 1);
       @include breakpoint(tablet) {
+        align-self: flex-end;
         margin-right: 0;
       }
     }
