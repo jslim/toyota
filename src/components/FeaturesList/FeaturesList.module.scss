@@ -18,11 +18,12 @@
   }
 
   .title {
-    @include typography-h2;
+    @include typography-h4;
     max-width: px(400);
     margin-bottom: px(53);
 
     @include media-desktopSm {
+      @include font-size(32, 40);
       max-width: px(360);
     }
   }
