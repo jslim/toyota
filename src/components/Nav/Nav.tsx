@@ -10,6 +10,7 @@ import Logo from '@/components/Logo/Logo';
 import MobileNav from '@/components/MobileNav/MobileNav';
 
 import useLayout from '@/hooks/use-layout';
+import { cleanUrl } from '@/utils/basic-functions';
 
 import { useAppSelector } from '@/redux';
 
@@ -46,7 +47,7 @@ const Nav: FC<NavProps> = ({ className }) => {
                         <li
                           key={linkText}
                           className={classNames({
-                            [css.active]: linkUrl + '/' === activeRoute
+                            [css.active]: cleanUrl(linkUrl) === cleanUrl(activeRoute)
                           })}
                         >
                           <BaseLink href={linkUrl} title={linkText} aria-label={ariaLabel}>
