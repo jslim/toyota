@@ -179,6 +179,11 @@ const RoadmapItem: FC<RoadmapItemProps> = ({
           '-=1'
         );
     }
+    return () => {
+      content.forEach((_item, i) => {
+        ScrollTrigger.getById(`s-${index}-${i}`)?.kill();
+      });
+    };
   }, [layout, stickyRef, offsetTop, index, theme, numOfSlides]);
 
   return (
