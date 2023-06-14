@@ -41,7 +41,12 @@ const OurLatestPost: FC<OurLatestPostPageProps> = ({ data }) => {
     return getPageBlocks(pageData);
   }, [pageData]);
 
-  return <main className="OurLatestPost">{!!pageData?.fields ? pageBlocks : null}<Spacer size={Sizes.SMALL} /></main>;
+  return (
+    <main className="OurLatestPost">
+      {!!pageData?.fields ? pageBlocks : null}
+      <Spacer size={Sizes.SMALL} />
+    </main>
+  );
 };
 
 export async function getStaticPaths() {
