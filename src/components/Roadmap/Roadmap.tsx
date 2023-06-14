@@ -31,15 +31,16 @@ const Roadmap: FC<RoadmapProps> = ({ className, items, title, eyebrow, cta, them
   const homepageBannerHeight = useAppSelector((state) => state.homepageBannerHeight);
   const navbarHeight = useAppSelector((state) => state.navbarHeight);
   const stickyRef = useRef() as MutableRefObject<HTMLDivElement>;
+  const notSticky = items.length === 1;
 
   return (
     <div className={classNames('Roadmap', css.root, className, css[theme])}>
       <div
         ref={stickyRef}
-        className={css.wrapperInfo}
+        className={classNames(css.wrapperInfo, { [css.notSticky]: notSticky })}
         style={{
           height: stickyInfoHeight,
-          top: navbarHeight + homepageBannerHeight
+          top: notSticky ? 0 : navbarHeight + homepageBannerHeight
         }}
       >
         <div className={css.wrapper}>
@@ -54,7 +55,7 @@ const Roadmap: FC<RoadmapProps> = ({ className, items, title, eyebrow, cta, them
           {cta && <Cta className={css.cta} {...cta} isWhite={RoadmapTypes.HOME ? true : false} />}
         </div>
       </div>
-      <div className={css.list} style={{ marginTop: `-${stickyInfoHeight}px` }}>
+      <div className={css.list} style={{ marginTop: `-${notSticky ? 0 : stickyInfoHeight}px` }}>
         {items.map((item, i) => {
           return (
             <RoadmapItem

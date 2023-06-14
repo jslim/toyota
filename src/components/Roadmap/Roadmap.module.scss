@@ -10,6 +10,12 @@
     @include z-index(roadmap);
     pointer-events: none;
 
+    &.notSticky {
+      position: absolute;
+      @include transform-center-horiz;
+      @include container;
+    }
+
     .cta {
       pointer-events: all;
     }
