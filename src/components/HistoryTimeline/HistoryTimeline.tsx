@@ -39,6 +39,7 @@ const HistoryTimeline: FC<HistoryTimelineProps> = ({ className, eyebrow, title, 
   const [isDraggable, setDraggable] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
   const [slideProgress, setSlideProgress] = useState(0);
+  const [currentYear, setCurrentYear] = useState<number>(Number(slides[0].year));
 
   const hasHoverEffect = !layout.mobile && !layout.tablet && !device.touch;
 
@@ -74,13 +75,51 @@ const HistoryTimeline: FC<HistoryTimelineProps> = ({ className, eyebrow, title, 
     };
   }, []);
 
+  useEffect(() => {
+    const slideDuration = SLIDE_DURATION / (slides.length - 1);
+    let intervalId: NodeJS.Timeout | null = null;
+    let isCounting = false;
+
+    const startCounting = (startYear: number, endYear: number) => {
+      const increment = startYear < endYear ? 1 : -1;
+      let year = startYear;
+
+      intervalId = setInterval(() => {
+        year += increment;
+        setCurrentYear((prevYear) => prevYear + increment);
+
+        if (year === endYear) {
+          clearInterval(intervalId!);
+          intervalId = null;
+          isCounting = false;
+        }
+      }, slideDuration);
+    };
+
+    if (!isCounting && currentYear !== Number(slides[activeSlide].year)) {
+      if (intervalId) {
+        clearInterval(intervalId);
+        intervalId = null;
+      }
+
+      startCounting(currentYear, Number(slides[activeSlide].year));
+      isCounting = true;
+    }
+
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [activeSlide, currentYear, slides]);
+
   return (
     <div className={classNames('HistoryTimeline', css.root, className)} ref={ref}>
       <div className={css.wrapper}>
         <Eyebrow text={eyebrow} />
         <div className={css.titleWrapper} ref={titleRef}>
           <h3 className={css.title}>{title}</h3>
-          <div className={css.year}>{slides[swiper?.activeIndex ?? 0].year}</div>
+          <div className={css.year}>{currentYear}</div>
         </div>
         <div ref={swiperRef}>
           {hasHoverEffect && swiperRef.current && (
