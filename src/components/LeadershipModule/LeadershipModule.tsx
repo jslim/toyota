@@ -78,8 +78,8 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title
           trigger: sectionRef.current
         }
       })
-      .fadeIn(textWrapperRef.current, { duration: 1, y: 50, delay: 1.75 })
-      .from(containerRef.current, { x: '100%', ease: 'ease2', duration: 1, opacity: 0 });
+      .fadeIn(textWrapperRef.current, { duration: 1, y: 50 })
+      .from(containerRef.current, { x: '100%', ease: 'ease2', duration: 1, opacity: 0 }, '-=0.3');
 
     return () => {
       timeline?.kill();
