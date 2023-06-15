@@ -79,7 +79,7 @@ export const Tabs = ({ className, tabListLabel = '', children }: Props) => {
 
     // set new active slide elements to fade out
     gsap.set(dataActive.content, { opacity: 0, y: 50 });
-    gsap.set(dataActive.img, { clipPath: 'inset(100% 0% 100% 0%)' });
+    gsap.set(dataActive.img, { clipPath: 'inset(0% 0% 100% 0%)' });
 
     const animateOut = (index: number, data: CarouselContentType, callback: Function) => {
       setAnimatingOut(active);
@@ -129,7 +129,7 @@ export const Tabs = ({ className, tabListLabel = '', children }: Props) => {
         onEnter: () => {
           handleTabChange(0);
           gsap.set(containerRef.current, { autoAlpha: 1 });
-          gsap.effects.fadeIn(listRef.current, { duration: 1, y: 50 });
+          gsap.effects.fadeIn([listRef.current, contentRef.current[0]], { duration: 1, y: 50, stagger: 0.5 });
         }
       }
     });

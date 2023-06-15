@@ -52,18 +52,13 @@ const HistoryTimeline: FC<HistoryTimelineProps> = ({ className, eyebrow, title, 
     const timeline = gsap
       .timeline({
         scrollTrigger: {
-          start: 'top 75%',
+          start: 'top 50%',
           trigger: ref.current
         }
       })
-      .fadeIn(titleRef.current?.children, { stagger: 0.05 });
+      .fadeIn(titleRef.current?.children, { stagger: 0.05 })
+      .from(swiperRef.current, { x: '100%', ease: 'ease2', duration: 1, opacity: 0 });
 
-    return () => {
-      timeline?.kill();
-    };
-  }, []);
-
-  useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === ' ') {
         event.preventDefault();
@@ -71,6 +66,7 @@ const HistoryTimeline: FC<HistoryTimelineProps> = ({ className, eyebrow, title, 
     };
     document.addEventListener('keydown', handleKeyDown);
     return () => {
+      timeline?.kill();
       document.removeEventListener('keydown', handleKeyDown);
     };
   }, []);
