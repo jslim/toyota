@@ -9,6 +9,7 @@ import LanguageToggle from '@/components/LanguageToggle/LanguageToggle';
 import Logo from '@/components/Logo/Logo';
 
 import LockBodyScrollService from '@/services/lock-body-scroll';
+import { cleanUrl } from '@/utils/basic-functions';
 
 import { setHomepageBannerVisibility, useAppDispatch, useAppSelector } from '@/redux';
 
@@ -69,7 +70,7 @@ const MobileNav: FC<MobileNavProps> = ({ className }) => {
                     <li
                       key={linkText}
                       className={classNames({
-                        [css.active]: activeRoute === linkUrl
+                        [css.active]: cleanUrl(linkUrl) === cleanUrl(activeRoute)
                       })}
                       onClick={() => setMenuOpen(false)}
                     >
