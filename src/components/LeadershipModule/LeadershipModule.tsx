@@ -71,7 +71,15 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title
   }, [directors.label, directors.list]);
 
   useEffect(() => {
-    const timeline = gsap.timeline().fadeIn(textWrapperRef.current, { duration: 1, y: 50, delay: 1.75 });
+    const timeline = gsap
+      .timeline({
+        scrollTrigger: {
+          start: 'top 50%',
+          trigger: sectionRef.current
+        }
+      })
+      .fadeIn(textWrapperRef.current, { duration: 1, y: 50 })
+      .from(containerRef.current, { x: '100%', ease: 'ease2', duration: 1, opacity: 0 }, '-=0.3');
 
     return () => {
       timeline?.kill();

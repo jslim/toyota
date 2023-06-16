@@ -65,15 +65,7 @@ const HistorySlide: FC<SlideProps> = ({
 
   useEffect(() => {
     if (!firstRender) return;
-    gsap.from(itemRef.current, {
-      opacity: 0,
-      duration: 1,
-      ease: 'power3.out',
-      scrollTrigger: {
-        start: 'top 75%',
-        trigger: itemRef.current
-      }
-    });
+
     const initTL = () => {
       tlProgressBar.current = gsap
         .timeline({
