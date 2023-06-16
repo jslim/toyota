@@ -86,10 +86,13 @@ const Layout: FC<ExtendedAppProps<PageProps>> = ({ Component, pageProps, globalD
       const globalStrings = JSON.parse(document.getElementById('__GLOBAL_STRINGS__')!.textContent as string);
       dispatch(setGlobalStrings(globalStrings));
 
-      dispatch(setActiveLang((router?.query?.lang as Lang) ?? Lang.EN));
       setFirstRender(false);
     }
-  }, [dispatch, globalData, router, firstRender]);
+  }, [dispatch, globalData, firstRender]);
+
+  useEffect(() => {
+    dispatch(setActiveLang((router?.query?.lang as Lang) ?? Lang.EN));
+  }, [dispatch, router]);
 
   // Should only run during build of each page to initialize state used when static building out nav
   if (typeof window === 'undefined' && globalData != null) {
