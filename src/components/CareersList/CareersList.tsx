@@ -83,6 +83,7 @@ const CareersList: FC<CareersListProps> = ({
   noResultsDescription
 }) => {
   const activeLang = useAppSelector((state) => state.activeLang);
+  const { learnMore } = useAppSelector((state) => state.activeGlobalStrings);
   const [jobMap, setJobMap] = useState<JobsListByDepartment>({});
   const [filteredJobs, setFilteredJobs] = useState<JobsListByDepartment>({});
   const [modalOpen, setModalOpen] = useState(false);
@@ -310,7 +311,7 @@ const CareersList: FC<CareersListProps> = ({
         key={item.id}
         title={item.text}
         text={`${item.categories.location} ${item.categories.department} - ${item.categories.team}`}
-        cta={{ title: 'apply', href: jobUrl }}
+        cta={{ title: learnMore, href: jobUrl }}
       />
     );
   };
