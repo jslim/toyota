@@ -37,7 +37,7 @@ const TextIntro: FC<TextIntroProps> = ({ className, layout, eyebrow, header, des
       duration: 1,
       y: 50,
       opacity: 0,
-      scrollTrigger: { trigger: contentRef.current },
+      scrollTrigger: { start: 'top 80%', trigger: contentRef.current },
       ease: 'power4.out'
     });
   }, []);

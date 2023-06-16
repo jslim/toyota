@@ -123,13 +123,14 @@ export const Tabs = ({ className, tabListLabel = '', children }: Props) => {
     gsap.set(containerRef.current, { autoAlpha: 0 });
     gsap.to(containerRef.current, {
       scrollTrigger: {
-        start: 'top 40%',
+        start: 'top 70%',
         trigger: containerRef.current,
         once: true,
         onEnter: () => {
           handleTabChange(0);
           gsap.set(containerRef.current, { autoAlpha: 1 });
-          gsap.effects.fadeIn([listRef.current, contentRef.current[0]], { duration: 1, y: 50, stagger: 0.5 });
+          gsap.effects.fadeIn(listRef?.current, { duration: 1, y: 50 });
+          gsap.effects.fadeIn(contentRef?.current[0], { duration: 1, y: 50, delay: 0.5 });
         }
       }
     });
