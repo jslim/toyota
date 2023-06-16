@@ -35,6 +35,7 @@ const Layout: FC<ExtendedAppProps<PageProps>> = ({ Component, pageProps, globalD
   const [cookiebot, setCookiebot] = useState<CookieBot | null>(null);
   const [cookieConsent, setCookieConsent] = useState<boolean>(false);
   const [showDebugGrid, setShowDebugGrid] = useState(true);
+  const [firstRender, setFirstRender] = useState(true);
 
   const handleRouteChange = useCallback(
     (url: string) => {
@@ -77,7 +78,7 @@ const Layout: FC<ExtendedAppProps<PageProps>> = ({ Component, pageProps, globalD
 
   // globalData prop is not accessible outside build so state was empty
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined' && firstRender) {
       // Set in _document.tsx
       const globalData = JSON.parse(document.getElementById('__GLOBAL_DATA__')!.textContent as string);
       dispatch(setGlobalData(globalData));
@@ -86,8 +87,9 @@ const Layout: FC<ExtendedAppProps<PageProps>> = ({ Component, pageProps, globalD
       dispatch(setGlobalStrings(globalStrings));
 
       dispatch(setActiveLang((router?.query?.lang as Lang) ?? Lang.EN));
+      setFirstRender(false);
     }
-  }, [dispatch, globalData, router]);
+  }, [dispatch, globalData, router, firstRender]);
 
   // Should only run during build of each page to initialize state used when static building out nav
   if (typeof window === 'undefined' && globalData != null) {
