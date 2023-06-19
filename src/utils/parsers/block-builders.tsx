@@ -72,7 +72,6 @@ import YoutubeEmbed from '@/components/YoutubeEmbed/YoutubeEmbed';
 
 import ChevronDownSvg from '@/components/svgs/svg-chevron-down.svg';
 
-import { Color } from '../colors';
 import scrollPage from '../scroll-page';
 import { parseContentfulRichText } from './rich-text-parser';
 
@@ -560,12 +559,14 @@ export const buildLeaderPage = (fields: LeaderPageContentType, extraProps?: Gene
     component: ({ children }) => (
       <>
         <BiographicHero title={fields?.leaderName} description={fields?.role} asset={fields?.headshot} />
-        <SectionWrapper backgroundColor={Color.WHITE}>
-          <Spacer size={Sizes.SMALL} />
-          <ColumnsText leftSide={leftSide}>{rightSide}</ColumnsText>
-          <Spacer size={Sizes.SMALL} />
-          {children}
-        </SectionWrapper>
+        <Spacer size={Sizes.SMALL} />
+        <ColumnsText leftSide={leftSide}>{rightSide}</ColumnsText>
+        <Spacer size={Sizes.SMALL} />
+        {children && (
+          <>
+            {children} <Spacer size={Sizes.SMALL} />
+          </>
+        )}
       </>
     )
   };

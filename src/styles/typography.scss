@@ -182,8 +182,11 @@ $generic-fonts: system-ui, Helvetica, Arial, sans-serif;
 
 @mixin typography-h4 {
   @include font-family('Toyota Type Book');
-  @include font-size(18, 32);
+  @include font-size(18, 24);
 
+  @include breakpoint(tablet) {
+    @include font-size(20, 26);
+  }
   @include breakpoint(desktopSm) {
     @include font-size(24, 32);
   }
