@@ -382,6 +382,7 @@ export const buildHero = (fields: HeroContentType, extraProps?: GenericObject): 
     props: {
       title: fields?.title,
       image: fields?.image,
+      mobileImage: fields?.mobileImage,
       video: videoSrc
         ? {
             src: videoSrc

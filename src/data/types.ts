@@ -496,6 +496,7 @@ export type HeroFeaturedContentType = {
 export type HeroContentType = {
   title: string;
   image: ContentfulImageAsset;
+  mobileImage?: ContentfulImageAsset;
   video?: ContentfulVideoAsset;
   theme: string;
   featured: FilteredEntity<OurLatestPostPageContentType>;
