@@ -5,7 +5,7 @@ import css from './ColumnsText.module.scss';
 
 import { ColumnType } from '@/data/variants';
 
-import Eyebrow, { EyebrowProps } from '../Eyebrow/Eyebrow';
+import Eyebrow, { EyebrowProps } from '@/components/Eyebrow/Eyebrow';
 
 export type ColumnsTextProps = {
   className?: string;
