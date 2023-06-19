@@ -82,6 +82,7 @@ export type GlobalStringsFields = {
   downloadAssets: string;
   drag: string;
   learnMore: string;
+  print: string;
   downloadAgreementTitle: string;
   downloadAgreementLabel: string;
   downloadAgreementTerms: string;
