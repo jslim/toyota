@@ -3,11 +3,7 @@
 .root {
   width: 100%;
   .carouselContainer {
-    overflow: hidden;
-
-    @include media-tablet {
-      overflow: unset;
-    }
+    overflow: unset;
 
     :global(.swiper-wrapper) {
       width: 100%;
