@@ -60,6 +60,7 @@
     @include typography-paragraph;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
 
     b {
       @include font-family('Toyota Type Book');
@@ -87,6 +88,9 @@
       @include media-desktopSm {
         margin-bottom: px(32);
       }
+    }
+    > *:last-child {
+      margin-bottom: 0;
     }
   }
 

@@ -3,10 +3,13 @@
 .root {
   display: flex;
   flex-direction: column;
-  padding-top: px(60);
+  padding: px(60) 0 px(28);
 
+  @include media-tablet {
+    padding-bottom: px(8);
+  }
   @include media-desktopSm {
-    padding-top: px(120);
+    padding: px(120) 0 px(60);
   }
 }
 
