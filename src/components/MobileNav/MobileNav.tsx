@@ -1,5 +1,6 @@
 import { FC, memo, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
+import { gsap } from 'gsap';
 
 import css from './MobileNav.module.scss';
 
@@ -25,6 +26,9 @@ const MobileNav: FC<MobileNavProps> = ({ className }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const hamburgerRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
+  const menuItemsRef = useRef<HTMLUListElement>(null);
+  const animTL = useRef<GSAPTimeline>();
 
   const handleClick = () => {
     setMenuOpen(!menuOpen);
@@ -32,12 +36,27 @@ const MobileNav: FC<MobileNavProps> = ({ className }) => {
   };
 
   useEffect(() => {
-    menuOpen ? LockBodyScrollService.lock() : LockBodyScrollService.unlock();
-  }, [menuOpen]);
-
-  useEffect(() => {
+    animTL.current = gsap
+      .timeline({ paused: true })
+      .from(ref.current, {
+        clipPath: 'inset(0% 0% 100% 0%)',
+        pointerEvents: 'none',
+        duration: 0.6,
+        ease: 'ease1'
+      })
+      .fadeIn([menuItemsRef.current?.children], { stagger: 0.05, ease: 'ease1' }, '-=0.5');
     return () => LockBodyScrollService.unlock();
   }, []);
+
+  useEffect(() => {
+    if (menuOpen) {
+      LockBodyScrollService.lock();
+      animTL.current?.play();
+    } else {
+      animTL.current?.reverse();
+      LockBodyScrollService.unlock();
+    }
+  }, [menuOpen]);
 
   return (
     <div className={classNames('MobileNav', css.root, className)}>
@@ -60,31 +79,29 @@ const MobileNav: FC<MobileNavProps> = ({ className }) => {
           )}
         </BaseButton>
       </div>
-      {menuOpen && (
-        <div className={css.mobileMenuCon}>
-          <div className={css.mobileMenuWrapper}>
-            <ul className={css.routes}>
-              {mainNavLinks.map(
-                ({ linkUrl, linkText, ariaLabel }) =>
-                  linkText !== 'Home' && (
-                    <li
-                      key={linkText}
-                      className={classNames({
-                        [css.active]: cleanUrl(linkUrl) === cleanUrl(activeRoute)
-                      })}
-                      onClick={() => setMenuOpen(false)}
-                    >
-                      <BaseLink href={linkUrl} title={linkText} aria-label={ariaLabel}>
-                        {linkText}
-                      </BaseLink>
-                    </li>
-                  )
-              )}
-            </ul>
-            <LanguageToggle className={css.langToggle} />
-          </div>
+      <div className={css.mobileMenuCon} ref={ref}>
+        <div className={css.mobileMenuWrapper}>
+          <ul className={css.routes} ref={menuItemsRef}>
+            {mainNavLinks.map(
+              ({ linkUrl, linkText, ariaLabel }) =>
+                linkText !== 'Home' && (
+                  <li
+                    key={linkText}
+                    className={classNames({
+                      [css.active]: cleanUrl(linkUrl) === cleanUrl(activeRoute)
+                    })}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    <BaseLink href={linkUrl} title={linkText} aria-label={ariaLabel}>
+                      {linkText}
+                    </BaseLink>
+                  </li>
+                )
+            )}
+          </ul>
+          <LanguageToggle className={css.langToggle} />
         </div>
-      )}
+      </div>
     </div>
   );
 };
