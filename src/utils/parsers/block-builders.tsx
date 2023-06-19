@@ -749,8 +749,7 @@ export const buildCallToAction = (fields: CTAContentType, extraProps?: GenericOb
   const props = {
     theme,
     href,
-    title,
-    ...extraProps
+    title
   };
   return {
     props,
