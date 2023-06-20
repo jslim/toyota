@@ -41,7 +41,7 @@ const Layout: FC<ExtendedAppProps<PageProps>> = ({ Component, pageProps, globalD
     (url: string) => {
       if (router.asPath !== url) {
         dispatch(setPrevRoute(router.asPath));
-        LockBodyScrollService.isLocked && LockBodyScrollService.unlock(true);
+        LockBodyScrollService.isLocked && !LockBodyScrollService.keepLocked && LockBodyScrollService.unlock(true);
       }
     },
     [dispatch, router.asPath]
