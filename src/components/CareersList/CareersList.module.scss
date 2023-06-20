@@ -14,20 +14,6 @@
     }
   }
 
-  &::after {
-    content: '';
-    @include position-100(absolute);
-    display: none;
-    background-color: $dark-grey;
-    z-index: 1;
-    border-radius: px(15);
-    opacity: 0.75;
-  }
-
-  .filtersModal {
-    display: none;
-  }
-
   .wrapper {
     @include container;
     display: flex;
@@ -63,16 +49,6 @@
   }
 
   &.modalOpen {
-    &::after {
-      display: block;
-    }
-
-    @include media-desktopSm {
-      &::after {
-        display: none;
-      }
-    }
-
     .filtersModal {
       display: flex;
     }
