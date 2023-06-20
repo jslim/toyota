@@ -1,4 +1,4 @@
-import { FC, ReactNode, memo } from 'react';
+import { FC, memo, ReactNode } from 'react';
 import classNames from 'classnames';
 import SwiperCore, { A11y, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import css from './Gallery.module.scss';
 
 import Card, { CardProps, CardTypes } from '@/components/Card/Card';
+
 import useIntersectionObserver from '@/hooks/use-intersection-observer';
 
 SwiperCore.use([Pagination, A11y]);

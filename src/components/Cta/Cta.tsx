@@ -93,7 +93,7 @@ const Cta: FC<CtaProps> = ({
       ) : (
         <BaseButton {...props} {...buttonProps}>
           {internalContent}
-          <span className={css.tooltip}>{tooltip}</span>
+          {tooltip && <span className={css.tooltip}>{tooltip}</span>}
         </BaseButton>
       )}
     </>

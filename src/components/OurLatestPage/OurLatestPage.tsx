@@ -19,6 +19,7 @@ import share from '@/utils/share';
 import { useAppSelector } from '@/redux';
 
 import MailSvg from '@/components/svgs/mail.svg';
+import PrintSvg from '@/components/svgs/print.svg';
 import ShareSvg from '@/components/svgs/share.svg';
 
 const socials = [
@@ -46,9 +47,8 @@ const OurLatestPostPage: FC<OurLatestPostPageContentType> = ({
   thumbnail,
   topic
 }) => {
-  const { copyLink, copyLinkSuccess, shareText, emailShareBody, emailShareSubject, emailShareLabel } = useAppSelector(
-    (state) => state.activeGlobalStrings
-  );
+  const { copyLink, copyLinkSuccess, shareText, emailShareBody, emailShareSubject, emailShareLabel, print } =
+    useAppSelector((state) => state.activeGlobalStrings);
   const [url, setUrl] = useState('');
   const [copyTooltip, setCopyTooltip] = useState<string | null>(null);
   const assetsData = articleAssets?.fields;
@@ -119,6 +119,14 @@ const OurLatestPostPage: FC<OurLatestPostPageContentType> = ({
             <ShareSvg />
           </Cta>
         </div>
+        <Cta
+          aria-label={print}
+          theme={ButtonType.Icon}
+          className={css.socialMediaButton}
+          onClick={() => window?.print()}
+        >
+          <PrintSvg />
+        </Cta>
       </div>
     </div>
   );

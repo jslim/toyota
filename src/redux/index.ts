@@ -62,6 +62,7 @@ export const defaultGlobalStrings: GlobalStringsFields = {
   downloadAssets: 'Download all assets',
   drag: 'Drag',
   learnMore: 'Learn More',
+  print: 'Print',
   downloadAgreementTitle: 'Download Agreement',
   downloadAgreementLabel: 'I have read, understood and accept the terms of the Download Agreement',
   downloadAgreementTerms:
