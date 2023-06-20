@@ -9,6 +9,7 @@ import AssetsDownload from '@/components/Assets/AssetsDownload';
 import ColumnsText from '@/components/ColumnsText/ColumnsText';
 import Cta, { ButtonType } from '@/components/Cta/Cta';
 import Hero, { HeroType } from '@/components/Hero/Hero';
+import RelatedNews from '@/components/RelatedNews/RelatedNews';
 import SocialIcon from '@/components/SocialIcon/SocialIcon';
 
 import { formatDate, getMailTo } from '@/utils/basic-functions';
@@ -18,9 +19,8 @@ import share from '@/utils/share';
 import { useAppSelector } from '@/redux';
 
 import MailSvg from '@/components/svgs/mail.svg';
+import PrintSvg from '@/components/svgs/print.svg';
 import ShareSvg from '@/components/svgs/share.svg';
-
-import RelatedNews from '../RelatedNews/RelatedNews';
 
 const socials = [
   {
@@ -47,14 +47,13 @@ const OurLatestPostPage: FC<OurLatestPostPageContentType> = ({
   thumbnail,
   topic
 }) => {
-  const { copyLink, copyLinkSuccess, shareText, emailShareBody, emailShareSubject } = useAppSelector(
-    (state) => state.activeGlobalStrings
-  );
+  const { copyLink, copyLinkSuccess, shareText, emailShareBody, emailShareSubject, emailShareLabel, print } =
+    useAppSelector((state) => state.activeGlobalStrings);
   const [url, setUrl] = useState('');
   const [copyTooltip, setCopyTooltip] = useState<string | null>(null);
   const assetsData = articleAssets?.fields;
-  const content = useMemo(() => parseContentfulRichText(body), [body]);
-  const hasTable = body.content.filter((item) => item.nodeType === 'table').length ? true : false;
+  const content = useMemo(() => (body ? parseContentfulRichText(body!) : null), [body]);
+  const hasTable = body?.content.filter((item) => item.nodeType === 'table').length ? true : false;
 
   useEffect(() => {
     setUrl(window.location.href);
@@ -99,6 +98,7 @@ const OurLatestPostPage: FC<OurLatestPostPageContentType> = ({
             subject: emailShareSubject,
             body: emailShareBody
           })}
+          aria-label={emailShareLabel}
         >
           <MailSvg />
         </Cta>
@@ -119,6 +119,14 @@ const OurLatestPostPage: FC<OurLatestPostPageContentType> = ({
             <ShareSvg />
           </Cta>
         </div>
+        <Cta
+          aria-label={print}
+          theme={ButtonType.Icon}
+          className={css.socialMediaButton}
+          onClick={() => window?.print()}
+        >
+          <PrintSvg />
+        </Cta>
       </div>
     </div>
   );

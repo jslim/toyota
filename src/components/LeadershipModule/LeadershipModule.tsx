@@ -37,6 +37,7 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const containerRef = useRef() as MutableRefObject<HTMLDivElement>;
   const [isCarouselLocked, setIsCarouselLocked] = useState(false);
+  const [swiperInstance, setSwiperInstance] = useState<SwiperCore>();
 
   const isDesktop = useMemo(() => {
     return !(typeof window !== 'undefined' && (layout.mobile || layout.tablet));
@@ -71,7 +72,15 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title
   }, [directors.label, directors.list]);
 
   useEffect(() => {
-    const timeline = gsap.timeline().fadeIn(textWrapperRef.current, { duration: 1, y: 50, delay: 1.75 });
+    const timeline = gsap
+      .timeline({
+        scrollTrigger: {
+          start: 'top 50%',
+          trigger: sectionRef.current
+        }
+      })
+      .fadeIn(textWrapperRef.current, { duration: 1, y: 50 })
+      .from(containerRef.current, { x: '100%', ease: 'ease2', duration: 1, opacity: 0 }, '-=0.3');
 
     return () => {
       timeline?.kill();
@@ -117,10 +126,24 @@ const LeadershipModule: FC<LeadershipModuleProps> = ({ className, eyebrow, title
                 setIsCarouselLocked(false);
               }}
               watchSlidesProgress={true}
+              onSwiper={setSwiperInstance}
             >
               {pairsArray.map((pair, i) => {
                 return (
-                  <SwiperSlide className={css.slide} key={`slide-${i}`}>
+                  <SwiperSlide
+                    className={css.slide}
+                    key={`slide-${i}`}
+                    onClick={() => {
+                      if (!swiperInstance || !isDesktop) {
+                        return null;
+                      }
+                      const clickedIndex = swiperInstance.clickedIndex;
+                      const clickedSlide = swiperInstance.slides[clickedIndex];
+                      if (!clickedSlide.classList.contains('swiper-slide-visible')) {
+                        swiperInstance.slideTo(clickedIndex);
+                      }
+                    }}
+                  >
                     {pair.map((item, i) => {
                       if (item == null) return null;
                       return (

@@ -14,8 +14,10 @@
 
   @include breakpoint(desktopMd) {
     .text404 {
-      p {
-        margin: px(59) 0;
+      :global(.rightColumn) {
+        p {
+          margin: px(59) 0;
+        }
       }
     }
   }

@@ -8,15 +8,24 @@
     top: $navbar-height;
     @include container;
     @include z-index(roadmap);
-    padding-top: px(22);
     pointer-events: none;
+
+    &.notSticky {
+      position: absolute;
+      @include transform-center-horiz;
+      @include container;
+    }
 
     .cta {
       pointer-events: all;
     }
 
-    @include media-tablet {
-      padding-top: px(43);
+    .wrapper {
+      padding-top: px(22);
+
+      @include media-tablet {
+        padding-top: px(43);
+      }
     }
   }
 

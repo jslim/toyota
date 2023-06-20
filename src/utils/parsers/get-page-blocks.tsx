@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { FilteredEntity, Lang, Locale } from '@/data/types';
+import { FilteredEntity, GlobalStringsFields, Lang, Locale } from '@/data/types';
 
 import {
   buildAccordionGroup,
@@ -64,7 +64,6 @@ const componentFactories: { [key: string]: ComponentBuilderFactory } = {
   videoPlayerSection: buildVideoPlayerSection,
   columnsText: buildColumnsText,
   spacer: buildSpacer,
-  newsBottom: buildFeaturedArticles,
   featuredArticles: buildFeaturedArticles,
   leaderPage: buildLeaderPage,
   leadershipModule: buildLeadershipModule,
@@ -84,14 +83,18 @@ const isEntity = (field: any) => field.id && field.contentType && field.fields;
  * @param entry - FilteredEntity to recursively build out
  * @returns - Component to render
  */
-export const getPageBlocks = (entry: FilteredEntity): JSX.Element | null => {
+export const getPageBlocks = (entry: FilteredEntity, globalStrings?: GlobalStringsFields): JSX.Element | null => {
   if (entry == null) return null;
   const { contentType, fields, locale } = entry;
   if (!contentType || !componentFactories[contentType]) return null;
 
   const lang = locale === Locale.EN ? Lang.EN : Lang.JP;
 
-  const { props, component: Component, childrenFields } = componentFactories[contentType](entry.fields, { lang });
+  const {
+    props,
+    component: Component,
+    childrenFields
+  } = componentFactories[contentType](entry.fields, { lang, globalStrings });
   let Children: Array<JSX.Element | null | string | ReactNode> = [];
 
   /**
@@ -109,11 +112,11 @@ export const getPageBlocks = (entry: FilteredEntity): JSX.Element | null => {
       Children.push(childrenFields[fieldId]);
     } else if (isEntity(fields[fieldId])) {
       // Single referenced field
-      Children.push(getPageBlocks(fields[fieldId]));
+      Children.push(getPageBlocks(fields[fieldId], globalStrings));
     } else {
       // Array of referenced children items to build recursively
       if (fieldId === 'innerBlocks' && Array.isArray(fields[fieldId])) {
-        fields.innerBlocks.forEach((block: FilteredEntity) => Children.push(getPageBlocks(block)));
+        fields.innerBlocks.forEach((block: FilteredEntity) => Children.push(getPageBlocks(block, globalStrings)));
       }
     }
   });

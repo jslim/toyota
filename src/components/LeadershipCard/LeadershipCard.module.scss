@@ -24,7 +24,7 @@
   }
 
   .title {
-    @include font-size(8.6, 13);
+    @include font-size(9.6);
     color: $dark-grey;
 
     @include media-tablet {
@@ -37,7 +37,7 @@
   }
 
   .description {
-    @include font-size(7, 10);
+    @include font-size(8.8);
     color: $mid-grey;
 
     @include media-tablet {

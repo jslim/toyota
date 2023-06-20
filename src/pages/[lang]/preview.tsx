@@ -10,15 +10,18 @@ import usePreviewData from '@/hooks/use-preview-data';
 import { getAllLangSlugs } from '@/utils/locales';
 import { getPageBlocks } from '@/utils/parsers/get-page-blocks';
 
+import { useAppSelector } from '@/redux';
+
 const Preview: FC<PageType> = ({ data: staticData }) => {
+  const globalStrings = useAppSelector((state) => state.activeGlobalStrings);
   const pageData = usePreviewData({
     // this is a mandatory hook to be called on every page for dynamic preview data hydration
     staticData
   });
 
   const pageBlocks = useMemo(() => {
-    return getPageBlocks(pageData);
-  }, [pageData]);
+    return getPageBlocks(pageData, globalStrings);
+  }, [pageData, globalStrings]);
 
   return (
     <PageDefault>

@@ -58,15 +58,20 @@ export const defaultGlobalStrings: GlobalStringsFields = {
   relatedNews: 'Related News',
   emailShareSubject: 'Woven by Toyota',
   emailShareBody: '',
+  emailShareLabel: 'Share via Email',
   downloadAssets: 'Download all assets',
   drag: 'Drag',
   learnMore: 'Learn More',
+  print: 'Print',
   downloadAgreementTitle: 'Download Agreement',
   downloadAgreementLabel: 'I have read, understood and accept the terms of the Download Agreement',
   downloadAgreementTerms:
     'The Content may only be used for editorial or personal, non-commercial purposes, and may not be used for any commercial purposes, including, without limitation, advertising, marketing and merchandising. In order to download the Content, you must first agree to abide by the following terms.',
   downloadAgreementCloseLabel: 'Close',
-  downloadAgreementCallToActionTitle: 'Download'
+  downloadAgreementCallToActionTitle: 'Download',
+  news: 'News',
+  blog: 'Blog',
+  researchPapers: 'Research papers'
 };
 
 const { actions, reducer } = createSlice({
@@ -86,7 +91,8 @@ const { actions, reducer } = createSlice({
     },
     activeGlobalStrings: { ...defaultGlobalStrings },
     activeLang: Lang.EN,
-    homepageBannerHeight: 0
+    homepageBannerHeight: 0,
+    navbarHeight: 0
   },
   reducers: {
     setActiveRoute(state, action: PayloadAction<string>) {
@@ -116,6 +122,9 @@ const { actions, reducer } = createSlice({
     },
     setHomepageBannerHeight(state, action: PayloadAction<number>) {
       state.homepageBannerHeight = action.payload;
+    },
+    setNavbarHeight(state, action: PayloadAction<number>) {
+      state.navbarHeight = action.payload;
     }
   }
 });
@@ -128,7 +137,8 @@ export const {
   setGlobalStrings,
   setActiveLang,
   setHomepageBannerVisibility,
-  setHomepageBannerHeight
+  setHomepageBannerHeight,
+  setNavbarHeight
 } = actions;
 
 export const store = configureStore({ reducer, devTools: process.env.NEXT_PUBLIC_ENVIRONMENT !== 'production' });

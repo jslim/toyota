@@ -78,14 +78,19 @@ export type GlobalStringsFields = {
   relatedNews: string;
   emailShareSubject: string;
   emailShareBody: string;
+  emailShareLabel: string;
   downloadAssets: string;
   drag: string;
   learnMore: string;
+  print: string;
   downloadAgreementTitle: string;
   downloadAgreementLabel: string;
   downloadAgreementTerms: string;
   downloadAgreementCloseLabel: string;
   downloadAgreementCallToActionTitle: string;
+  news: string;
+  blog: string;
+  researchPapers: string;
 };
 
 export type GlobalStrings = {
@@ -298,7 +303,7 @@ export type OurLatestPageContentType = {
 export type OurLatestPostPageContentType = {
   articleAssets: FilteredEntity<ArticleDownloadAssetsContentType>;
   pinnedPosts: Array<{ sys: Pick<Sys, 'id' | 'linkType' | 'contentType'> }>;
-  body: Document;
+  body?: Document;
   pageTitle: string;
   slug: string;
   category: 'News' | 'Blog' | 'Research';
@@ -306,6 +311,7 @@ export type OurLatestPostPageContentType = {
   thumbnail: ContentfulImageAsset;
   publishDate: string;
   metadata: FilteredEntity<PageMetadataContentType>;
+  externalLink?: string;
 };
 
 // Contentful Component Content Types
@@ -491,6 +497,7 @@ export type HeroFeaturedContentType = {
 export type HeroContentType = {
   title: string;
   image: ContentfulImageAsset;
+  mobileImage?: ContentfulImageAsset;
   video?: ContentfulVideoAsset;
   theme: string;
   featured: FilteredEntity<OurLatestPostPageContentType>;
