@@ -11,6 +11,7 @@ import Cta, { ButtonType } from '@/components/Cta/Cta';
 import Hero, { HeroType } from '@/components/Hero/Hero';
 import RelatedNews from '@/components/RelatedNews/RelatedNews';
 import SocialIcon from '@/components/SocialIcon/SocialIcon';
+import Spacer, { Sizes } from '@/components/Spacer/Spacer';
 
 import { formatDate, getMailTo } from '@/utils/basic-functions';
 import { parseContentfulRichText } from '@/utils/parsers/rich-text-parser';
@@ -140,6 +141,7 @@ const OurLatestPostPage: FC<OurLatestPostPageContentType> = ({
       </ColumnsText>
       {assetsData?.assets.length && <AssetsDownload title={assetsData.eyebrowText} assets={assetsData.assets} />}
       <RelatedNews pinnedPosts={pinnedPosts} category={category} topics={topic} />
+      <Spacer size={pinnedPosts || assetsData?.assets.length ? Sizes.SMALL : Sizes.LARGE} />
     </>
   );
 };
