@@ -10,14 +10,16 @@ import scrollPage from '@/utils/scroll-page';
 class Service {
   scrollPosY = 0;
   isLocked = false;
+  keepLocked = false;
 
   lock = device.browser
-    ? () => {
+    ? (keepLocked = false) => {
         this.scrollPosY = getScrollTop();
         document.body.style.position = 'fixed';
         document.body.style.overflowY = 'scroll';
         document.body.style.marginTop = `-${this.scrollPosY}px`;
         this.isLocked = true;
+        this.keepLocked = keepLocked;
       }
     : noop;
 
