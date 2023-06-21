@@ -10,8 +10,6 @@ import {
   PageProps
 } from '@/data/types';
 
-import Spacer, { Sizes } from '@/components/Spacer/Spacer';
-
 import usePreviewData from '@/hooks/use-preview-data';
 import { getAllLangSlugs } from '@/utils/locales';
 import { getPageBlocks } from '@/utils/parsers/get-page-blocks';
@@ -44,12 +42,7 @@ const OurLatestPost: FC<OurLatestPostPageProps> = ({ data }) => {
     return getPageBlocks(pageData, globalStrings);
   }, [pageData, globalStrings]);
 
-  return (
-    <main className="OurLatestPost">
-      {!!pageData?.fields ? pageBlocks : null}
-      <Spacer size={Sizes.SMALL} />
-    </main>
-  );
+  return <main className="OurLatestPost">{!!pageData?.fields ? pageBlocks : null}</main>;
 };
 
 export async function getStaticPaths() {
