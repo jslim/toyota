@@ -50,7 +50,6 @@ body {
 main {
   min-height: 100vh;
   padding-top: $navbar-height;
-  overflow: hidden;
   @include z-index(pages);
   &:not(.CareerDetail):not(.PageNotFound) {
     @include media-desktopSm {
