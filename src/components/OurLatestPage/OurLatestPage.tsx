@@ -47,6 +47,7 @@ const OurLatestPostPage: FC<OurLatestPostPageContentType> = ({
   thumbnail,
   topic
 }) => {
+  const activeLang = useAppSelector((state) => state.activeLang);
   const { copyLink, copyLinkSuccess, shareText, emailShareBody, emailShareSubject, emailShareLabel, print } =
     useAppSelector((state) => state.activeGlobalStrings);
   const [url, setUrl] = useState('');
@@ -73,7 +74,7 @@ const OurLatestPostPage: FC<OurLatestPostPageContentType> = ({
   const leftSideContent = (
     <div>
       <div className={css.leftSideTopBar}>
-        {publishDate && <span className={css.date}>{formatDate(publishDate)}</span>}
+        {publishDate && <span className={css.date}>{formatDate(publishDate, activeLang)}</span>}
         {category && <span className={css.category}>{category}</span>}
       </div>
 

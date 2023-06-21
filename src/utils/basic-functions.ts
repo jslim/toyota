@@ -1,3 +1,7 @@
+import { Lang } from '@/data/types';
+
+import { getLocaleByLang } from './locales';
+
 /**
  * return url string without trailing splash
  *
@@ -62,7 +66,7 @@ export function getMailTo({ email, subject, body }: MailtoOptions) {
   return `mailto:${email}?subject=${subject}&body=${body}`;
 }
 
-export function formatDate(date: string) {
+export function formatDate(date: string, lang?: Lang) {
   const newDate = new Date(date);
-  return newDate.toLocaleString('default', { month: 'long', day: 'numeric', year: 'numeric' });
+  return newDate.toLocaleString(getLocaleByLang(lang ?? null), { month: 'long', day: 'numeric', year: 'numeric' });
 }

@@ -72,6 +72,7 @@ import YoutubeEmbed from '@/components/YoutubeEmbed/YoutubeEmbed';
 
 import ChevronDownSvg from '@/components/svgs/svg-chevron-down.svg';
 
+import { getLocaleByLang } from '../locales';
 import scrollPage from '../scroll-page';
 import { parseContentfulRichText } from './rich-text-parser';
 
@@ -373,7 +374,9 @@ export const buildMediaGalleryGroup = (
 export const buildHero = (fields: HeroContentType, extraProps?: GenericObject): ComponentBuilder => {
   const videoSrc = fields?.video?.fields?.file.url;
   const postDate = new Date(fields?.featured?.fields?.publishDate);
-  const month = postDate.toLocaleString('default', { month: 'short', timeZone: 'UTC' }).toUpperCase();
+  const month = postDate
+    .toLocaleString(getLocaleByLang(extraProps?.lang ?? null), { month: 'short', timeZone: 'UTC' })
+    .toUpperCase();
   const day = postDate.getUTCDate();
   const year = postDate.getUTCFullYear();
 
@@ -491,7 +494,9 @@ export const buildSpacer = (fields: spacerContentType, extraProps?: GenericObjec
 
 export const buildNewsCard = (fields: OurLatestPostPageContentType, extraProps?: GenericObject): ComponentBuilder => {
   const postDate = new Date(fields?.publishDate);
-  const month = postDate.toLocaleString('default', { month: 'short', timeZone: 'UTC' }).toUpperCase();
+  const month = postDate
+    .toLocaleString(getLocaleByLang(extraProps?.lang ?? null), { month: 'short', timeZone: 'UTC' })
+    .toUpperCase();
   const day = postDate.getUTCDate();
   const year = postDate.getUTCFullYear();
   const href = fields?.externalLink ? fields.externalLink : `/${extraProps?.lang || ''}/our-latest/${fields?.slug}`;
