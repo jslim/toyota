@@ -53,7 +53,7 @@ const OurLatestPostPage: FC<OurLatestPostPageContentType> = ({
     copyLink,
     copyLinkSuccess,
     shareText,
-    emailShareBody = '',
+    emailShareBody,
     emailShareSubject = '',
     emailShareLabel,
     print
@@ -105,7 +105,7 @@ const OurLatestPostPage: FC<OurLatestPostPageContentType> = ({
           href={getMailTo({
             email: '',
             subject: emailShareSubject,
-            body: emailShareBody
+            body: emailShareBody ? emailShareBody : url
           })}
           aria-label={emailShareLabel}
         >
