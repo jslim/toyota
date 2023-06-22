@@ -51,6 +51,7 @@ export const globalDataParserUtil = (entity: GlobalDataContentType): GlobalDataF
   const companyName = entity?.companyName ?? 'Woven by Toyota, Inc.';
   const skipToContentText = entity?.skipToContentText ?? 'Skip to content';
   const homepageBannerText = entity?.homepageBannerText ?? '';
+  const homepageBannerClose = entity?.homepageBannerClose ?? 'Close';
   const showHomepageBanner = entity?.showHomepageBanner ?? false;
   const notFoundPageHeader = entity?.notFoundPageHeader;
   const notFoundPageDescription = entity?.notFoundPageDescription;
@@ -76,6 +77,7 @@ export const globalDataParserUtil = (entity: GlobalDataContentType): GlobalDataF
     companyName,
     skipToContentText,
     homepageBannerText,
+    homepageBannerClose,
     showHomepageBanner,
     notFoundPageHeader,
     notFoundPageDescription,
