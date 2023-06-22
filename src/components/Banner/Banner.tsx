@@ -21,7 +21,9 @@ export type BannerProps = {};
 const Banner: FC<BannerProps> = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { showHomepageBanner, homepageBannerText } = useAppSelector((state) => state.activeGlobalData);
+  const { showHomepageBanner, homepageBannerText, homepageBannerClose } = useAppSelector(
+    (state) => state.activeGlobalData
+  );
 
   const isHomepage = useMemo(() => {
     const strippedPath = router.asPath.replaceAll('/', '');
@@ -57,7 +59,11 @@ const Banner: FC<BannerProps> = () => {
       <div className={classnames(css.bannerText, getColorClass(Color.WHITE))}>
         {typeof homepageBannerText === 'string' ? homepageBannerText : parseContentfulRichText(homepageBannerText)}
       </div>
-      <BaseButton className={css.close} onClick={() => dispatch(setHomepageBannerVisibility(false))}>
+      <BaseButton
+        className={css.close}
+        onClick={() => dispatch(setHomepageBannerVisibility(false))}
+        aria-label={homepageBannerClose}
+      >
         <CloseSvg className={css.closeIcon} />
       </BaseButton>
     </div>
