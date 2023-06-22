@@ -34,7 +34,7 @@ const socials = [
   },
   {
     platform: SocialPlatform.TWITTER,
-    label: 'twitter Icon'
+    label: 'Twitter Icon'
   }
 ];
 
@@ -49,8 +49,15 @@ const OurLatestPostPage: FC<OurLatestPostPageContentType> = ({
   topic
 }) => {
   const activeLang = useAppSelector((state) => state.activeLang);
-  const { copyLink, copyLinkSuccess, shareText, emailShareBody, emailShareSubject, emailShareLabel, print } =
-    useAppSelector((state) => state.activeGlobalStrings);
+  const {
+    copyLink,
+    copyLinkSuccess,
+    shareText,
+    emailShareBody = '',
+    emailShareSubject = '',
+    emailShareLabel,
+    print
+  } = useAppSelector((state) => state.activeGlobalStrings);
   const [url, setUrl] = useState('');
   const [copyTooltip, setCopyTooltip] = useState<string | null>(null);
   const assetsData = articleAssets?.fields;
@@ -87,7 +94,7 @@ const OurLatestPostPage: FC<OurLatestPostPageContentType> = ({
             key={platform}
             className={css.socialMediaButton}
             platform={platform}
-            href={share(platform, url, label)}
+            href={share(platform, url)}
             label={label}
             isWhite={false}
           />
