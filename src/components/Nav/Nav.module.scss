@@ -8,24 +8,25 @@
   @include z-index(main-nav);
 }
 
+.skipToContent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: fit-content;
+  pointer-events: none;
+  opacity: 0.0001;
+  @include z-index(skip-content);
+}
+
+.skipToContent:focus,
+.skipToContent:active {
+  color: $white;
+  background-color: $black;
+  opacity: 1;
+}
+
 .root {
   display: flex;
-
-  .skipToContent {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: fit-content;
-    pointer-events: none;
-    opacity: 0.0001;
-  }
-
-  .skipToContent:focus,
-  .skipToContent:active {
-    color: $white;
-    background-color: $black;
-    opacity: 1;
-  }
 
   > .wrapper {
     width: 100%;

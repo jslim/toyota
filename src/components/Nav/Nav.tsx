@@ -49,15 +49,15 @@ const Nav: FC<NavProps> = ({ className }) => {
 
   return (
     <div className={css.navWrapper}>
+      <a tabIndex={0} aria-label={skipToContentText} className={css.skipToContent} href="#start-of-content">
+        {skipToContentText}
+      </a>
       <Banner />
       <nav className={classNames('Nav', css.root, className)} ref={navRef}>
         <div className={css.wrapper}>
           {!isMobile ? (
             <>
               <div className={css.menuWrapper}>
-                <a tabIndex={0} aria-label={skipToContentText} className={css.skipToContent} href="#start-of-content">
-                  {skipToContentText}
-                </a>
                 <Logo className={css.logo} href={'/' + lang} title={goToHomepage} />
                 <ul className={css.routes}>
                   {mainNavLinks.map(
