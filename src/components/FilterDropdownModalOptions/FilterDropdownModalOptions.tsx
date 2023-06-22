@@ -65,6 +65,7 @@ const FilterDropdownModalOptions: FC<FilterDropdownModalOptionsProps> = ({
   function handleOptionClick(option: Option) {
     let newSelectedOption: string;
     if (selectedOption === option.label) {
+      clearParams();
       return;
     } else if (option.clearsCategory) {
       clearParams();

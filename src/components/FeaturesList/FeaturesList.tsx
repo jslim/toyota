@@ -40,6 +40,10 @@ const FeaturesList: FC<FeaturesListProps> = ({ className, title, eyebrow, items 
     resizeTimeline();
 
     resize.listen(resizeTimeline);
+
+    return () => {
+      resize.dismiss(resizeTimeline);
+    };
   }, [itemRef, itemPointRef, timelineRef]);
 
   useEffect(() => {
@@ -50,8 +54,9 @@ const FeaturesList: FC<FeaturesListProps> = ({ className, title, eyebrow, items 
       }));
     };
 
+    const scrollTriggers: gsap.core.Tween[] = [];
     itemPointRef.current.forEach((point, i) => {
-      gsap.to(point, {
+      const scrollTrigger = gsap.to(point, {
         scrollTrigger: {
           start: 'top 50%',
           end: 'bottom 50%',
@@ -62,9 +67,11 @@ const FeaturesList: FC<FeaturesListProps> = ({ className, title, eyebrow, items 
           onLeaveBack: () => handleActivePoints(i, false)
         }
       });
+
+      scrollTriggers.push(scrollTrigger);
     });
 
-    gsap.to(progressBarRef.current, {
+    const progressBarScrollTrigger = gsap.to(progressBarRef.current, {
       scaleY: 1,
       ease: 'linear',
       scrollTrigger: {
@@ -75,12 +82,21 @@ const FeaturesList: FC<FeaturesListProps> = ({ className, title, eyebrow, items 
         scrub: true
       }
     });
+
+    scrollTriggers.push(progressBarScrollTrigger);
+
+    // Cleanup function
+    return () => {
+      scrollTriggers?.forEach((scrollTrigger) => {
+        scrollTrigger?.scrollTrigger?.kill();
+      });
+    };
   }, [progressBarRef, timelineRef, itemPointRef]);
 
   return (
     <div className={classNames('FeaturesList', css.root, className)}>
       <div className={css.wrapper}>
-        {eyebrow && <Eyebrow className={css.eyebrow} text={eyebrow} variant={variants.LIGHT} />}
+        {eyebrow && <Eyebrow className={css.eyebrow} text={eyebrow} variant={variants.DARK} />}
         {title && <h2 className={css.title}>{title}</h2>}
         <div className={css.list}>
           <div className={css.timeline} ref={timelineRef}>

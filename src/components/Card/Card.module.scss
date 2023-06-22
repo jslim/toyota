@@ -49,6 +49,10 @@
     .image {
       @include aspect-ratio(288, 264);
 
+      @include media-tablet {
+        @include aspect-ratio(19, 11);
+      }
+
       @include media-desktopSm {
         @include aspect-ratio(16, 9);
       }
@@ -119,7 +123,7 @@
 
         .title {
           margin-left: px(16);
-          color: rgba($black, 0.5);
+          color: $mid-grey;
           text-transform: uppercase;
         }
       }
@@ -150,7 +154,7 @@
     }
 
     .textWrapper {
-      padding-top: px(11);
+      padding-top: px(20);
 
       @include media-desktopSm {
         padding-top: px(21);
@@ -219,7 +223,12 @@
 
   &.quote {
     text-align: left;
+
     .textWrapper {
+      .text {
+        @include typography-label;
+      }
+
       .titleWrapper {
         margin-top: px(18);
         color: $mid-grey;
@@ -234,8 +243,9 @@
         }
 
         .subTitle {
+          @include typography-paragraph;
           margin-top: px(5);
-          @include font-size(14, 16);
+          color: $dark-grey;
         }
       }
     }

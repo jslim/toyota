@@ -12,13 +12,21 @@
     z-index: 1;
     display: flex;
     flex-wrap: wrap;
-    padding: px(20) 0;
-    @include media-tablet {
-      padding: px(20) 0 px(34);
+    padding: px(20) 0 px(40);
+
+    @include media-desktopSm {
+      padding: px(43) 0;
     }
 
-    @include media-desktopMd {
-      padding: px(43) 0;
+    > :global(.TextIntro) > * {
+      &:first-child {
+        padding-top: 0;
+        margin-bottom: px(-26);
+
+        @include breakpoint(desktopSm) {
+          margin-bottom: px(-60);
+        }
+      }
     }
   }
 

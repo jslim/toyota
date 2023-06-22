@@ -1,6 +1,7 @@
 @import 'shared';
 
 .root {
+  width: 100%;
   .carouselContainer {
     overflow: unset;
 
@@ -28,7 +29,7 @@
   }
 
   .pagination {
-    margin: px(15) 0 px(30);
+    margin: px(15) 0 0;
     width: 100%;
     @include flex-center;
 

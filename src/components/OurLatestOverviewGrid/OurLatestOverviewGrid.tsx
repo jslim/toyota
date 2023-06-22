@@ -69,12 +69,16 @@ const OurLatestOverviewGrid: FC<OurLatestOverviewGridProps> = ({
   const [page, setPage] = useState(1);
   const [cardCount, setCardCount] = useState(0);
   const router = useRouter();
-  const activeLang = useAppSelector((state) => state.activeLang);
+  const { activeLang, activeGlobalStrings } = useAppSelector((state) => state);
   const [allCards, setAllCards] = useState<Array<FilteredEntity<OurLatestPostPageContentType>>>([]);
   const [filteredCards, setFilteredCards] = useState<Array<CardProps>>(
     activeLang === Lang.EN
-      ? generateCardProps(postsEn).map((el) => buildNewsCard(el.fields, { lang: activeLang }).props as CardProps)
-      : generateCardProps(postsJP).map((el) => buildNewsCard(el.fields, { lang: activeLang }).props as CardProps)
+      ? generateCardProps(postsEn).map(
+          (el) => buildNewsCard(el.fields, { lang: activeLang, globalStrings: activeGlobalStrings }).props as CardProps
+        )
+      : generateCardProps(postsJP).map(
+          (el) => buildNewsCard(el.fields, { lang: activeLang, globalStrings: activeGlobalStrings }).props as CardProps
+        )
   );
   const [topics, setTopics] = useState<Array<OurLatestFilterButtons>>([]);
 
@@ -117,7 +121,8 @@ const OurLatestOverviewGrid: FC<OurLatestOverviewGridProps> = ({
         return false;
       }
 
-      const props = buildNewsCard(card.fields, { lang: activeLang }).props as CardProps;
+      const props = buildNewsCard(card.fields, { lang: activeLang, globalStrings: activeGlobalStrings })
+        .props as CardProps;
       tempCards.push(props);
 
       setCardCount(tempCardCount);
@@ -132,7 +137,7 @@ const OurLatestOverviewGrid: FC<OurLatestOverviewGridProps> = ({
 
     setFilteredCards(tempCards);
     setTopics(Object.keys(filters).map((el) => ({ title: el, articleCount: filters[el].count, category: 'topic' })));
-  }, [allCards, activeLang, router]);
+  }, [allCards, activeLang, router, activeGlobalStrings]);
 
   const categories: Array<OurLatestFilterButtons> = [
     { displayTitle: newsLabel, title: 'News', category: 'category' },

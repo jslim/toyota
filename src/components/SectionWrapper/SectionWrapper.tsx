@@ -1,5 +1,6 @@
-import { FC, memo, ReactNode } from 'react';
+import { FC, memo, ReactNode, useEffect, useRef } from 'react';
 import classNames from 'classnames';
+import gsap from 'gsap';
 
 import css from './SectionWrapper.module.scss';
 
@@ -24,6 +25,18 @@ const SectionWrapper: FC<SectionWrapperProps> = ({
   backgroundColor = Color.DARK_GREY,
   targetId
 }) => {
+  const titleRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    gsap.from(titleRef.current, {
+      duration: 1,
+      y: 50,
+      opacity: 0,
+      scrollTrigger: { start: 'top 85%', trigger: titleRef.current },
+      ease: 'ease1'
+    });
+  }, []);
+
   return (
     <div
       id={targetId}
@@ -38,7 +51,11 @@ const SectionWrapper: FC<SectionWrapperProps> = ({
     >
       <div className={css.wrapper}>
         {eyebrow && <Eyebrow className={css.wrapperInfo} text={eyebrow} variant={isDarkMode(backgroundColor, true)} />}
-        {title && <h2 className={css.title}>{title}</h2>}
+        {title && (
+          <h2 ref={titleRef} className={css.title}>
+            {title}
+          </h2>
+        )}
         {children}
       </div>
     </div>

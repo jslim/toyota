@@ -5,7 +5,7 @@
   overflow-x: hidden;
   background-color: $light-grey;
   padding-top: px(36);
-  padding-bottom: px(27);
+  padding-bottom: px(60);
 
   @include media-tablet {
     padding-top: px(32);
@@ -63,13 +63,12 @@
   }
 
   .pagination {
+    @include pagination($black, false);
     margin: px(48) 0 px(40);
 
     @include breakpoint(desktopSm) {
-      margin: px(10) auto px(40);
+      margin: px(10) auto 0;
     }
-
-    @include pagination($black, false);
 
     &.isDisabled {
       display: none;
@@ -191,11 +190,28 @@
       }
 
       .name {
-        @include typography-label;
+        @include font-size(12, 20);
+
+        @include media-tablet {
+          @include font-size(20, 30);
+        }
+
+        @include media-desktopSm {
+          @include font-size(16, 24);
+        }
       }
+
       .role {
-        @include typography-paragraph;
+        @include font-size(11, 18);
         color: $mid-grey;
+
+        @include media-tablet {
+          @include font-size(16, 24);
+        }
+
+        @include media-desktopSm {
+          @include font-size(14, 24);
+        }
       }
     }
   }
@@ -223,7 +239,7 @@
     transition: opacity 0.33s linear;
 
     .cardColumn {
-      padding-bottom: px(26);
+      padding-bottom: px(40);
 
       @include media-tablet {
         padding-bottom: px(70);
@@ -233,12 +249,14 @@
         padding-bottom: 0;
       }
     }
+
     > div {
       a {
         transform: scale(1);
         transition: transform 0.3s linear;
         transform-origin: bottom;
       }
+
       &:last-child {
         a {
           transform-origin: top;
@@ -275,8 +293,16 @@
       width: px(192);
       opacity: 0.4;
 
+      a {
+        pointer-events: none;
+      }
+
       &:global(.swiper-slide-visible) {
         opacity: 1;
+
+        a {
+          pointer-events: auto;
+        }
       }
     }
   }

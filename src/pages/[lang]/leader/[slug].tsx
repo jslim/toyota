@@ -16,6 +16,8 @@ import { getAllLangSlugs, getLocaleByLang } from '@/utils/locales';
 import { getPageBlocks } from '@/utils/parsers/get-page-blocks';
 import { buildPageMetaData } from '@/utils/parsers/page-metadata-parser-util';
 
+import { useAppSelector } from '@/redux';
+
 type LeaderPageData = FilteredEntity<LeaderPageContentType>;
 
 export interface LeaderPageProps extends PageProps {
@@ -23,14 +25,15 @@ export interface LeaderPageProps extends PageProps {
 }
 
 const Leader: FC<LeaderPageProps> = ({ data }) => {
+  const globalStrings = useAppSelector((state) => state.activeGlobalStrings);
   const pageData = usePreviewData({
     // this is a mandatory hook to be called on every page
     staticData: data
   }) as LeaderPageData;
 
   const pageBlocks = useMemo(() => {
-    return getPageBlocks(pageData);
-  }, [pageData]);
+    return getPageBlocks(pageData, globalStrings);
+  }, [pageData, globalStrings]);
 
   return (
     <main className={classNames('Leader')}>

@@ -14,6 +14,7 @@ import PageNotFound from '@/components/PageNotFound/PageNotFound';
 import Spacer, { Sizes } from '@/components/Spacer/Spacer';
 import TextIntro from '@/components/TextIntro/TextIntro';
 
+import useIntersectionObserver from '@/hooks/use-intersection-observer';
 import useLayout from '@/hooks/use-layout';
 import { getAllLangSlugs } from '@/utils/locales';
 import sanitizer from '@/utils/sanitizer';
@@ -28,6 +29,7 @@ const CareerDetail: FC = () => {
   const [career, setCareer] = useState<Job>();
   const [leftSideContent, setLeftSideContent] = useState<ReactNode>();
   const [notFound, setNotFound] = useState<boolean>();
+  const [setNode, isIntersection] = useIntersectionObserver(false, 0, '0% 0% -80% 0%');
 
   const id = useMemo(() => {
     return router.query.jobID;
@@ -61,13 +63,17 @@ const CareerDetail: FC = () => {
   useEffect(() => {
     setLeftSideContent(
       !layout.mobile && career ? (
-        <div>
-          <div dangerouslySetInnerHTML={{ __html: sanitizer(career.text || '') }} />
-          <Cta className={css.leftCta} href={career.applyUrl} title={applyText} />
+        <div ref={(node: HTMLDivElement) => setNode(node)}>
+          {isIntersection && (
+            <>
+              <div dangerouslySetInnerHTML={{ __html: sanitizer(career.text || '') }} />
+              <Cta className={css.leftCta} href={career.applyUrl} title={applyText} />
+            </>
+          )}
         </div>
       ) : null
     );
-  }, [layout, career]);
+  }, [layout, career, isIntersection, setNode]);
 
   return (
     <>

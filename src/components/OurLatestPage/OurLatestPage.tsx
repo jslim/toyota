@@ -9,7 +9,9 @@ import AssetsDownload from '@/components/Assets/AssetsDownload';
 import ColumnsText from '@/components/ColumnsText/ColumnsText';
 import Cta, { ButtonType } from '@/components/Cta/Cta';
 import Hero, { HeroType } from '@/components/Hero/Hero';
+import RelatedNews from '@/components/RelatedNews/RelatedNews';
 import SocialIcon from '@/components/SocialIcon/SocialIcon';
+import Spacer, { Sizes } from '@/components/Spacer/Spacer';
 
 import { formatDate, getMailTo } from '@/utils/basic-functions';
 import { parseContentfulRichText } from '@/utils/parsers/rich-text-parser';
@@ -18,9 +20,8 @@ import share from '@/utils/share';
 import { useAppSelector } from '@/redux';
 
 import MailSvg from '@/components/svgs/mail.svg';
+import PrintSvg from '@/components/svgs/print.svg';
 import ShareSvg from '@/components/svgs/share.svg';
-
-import RelatedNews from '../RelatedNews/RelatedNews';
 
 const socials = [
   {
@@ -33,7 +34,7 @@ const socials = [
   },
   {
     platform: SocialPlatform.TWITTER,
-    label: 'twitter Icon'
+    label: 'Twitter Icon'
   }
 ];
 
@@ -47,14 +48,21 @@ const OurLatestPostPage: FC<OurLatestPostPageContentType> = ({
   thumbnail,
   topic
 }) => {
-  const { copyLink, copyLinkSuccess, shareText, emailShareBody, emailShareSubject } = useAppSelector(
-    (state) => state.activeGlobalStrings
-  );
+  const activeLang = useAppSelector((state) => state.activeLang);
+  const {
+    copyLink,
+    copyLinkSuccess,
+    shareText,
+    emailShareBody,
+    emailShareSubject = '',
+    emailShareLabel,
+    print
+  } = useAppSelector((state) => state.activeGlobalStrings);
   const [url, setUrl] = useState('');
   const [copyTooltip, setCopyTooltip] = useState<string | null>(null);
   const assetsData = articleAssets?.fields;
-  const content = useMemo(() => parseContentfulRichText(body), [body]);
-  const hasTable = body.content.filter((item) => item.nodeType === 'table').length ? true : false;
+  const content = useMemo(() => (body ? parseContentfulRichText(body!) : null), [body]);
+  const hasTable = body?.content.filter((item) => item.nodeType === 'table').length ? true : false;
 
   useEffect(() => {
     setUrl(window.location.href);
@@ -74,7 +82,7 @@ const OurLatestPostPage: FC<OurLatestPostPageContentType> = ({
   const leftSideContent = (
     <div>
       <div className={css.leftSideTopBar}>
-        {publishDate && <span className={css.date}>{formatDate(publishDate)}</span>}
+        {publishDate && <span className={css.date}>{formatDate(publishDate, activeLang)}</span>}
         {category && <span className={css.category}>{category}</span>}
       </div>
 
@@ -86,7 +94,7 @@ const OurLatestPostPage: FC<OurLatestPostPageContentType> = ({
             key={platform}
             className={css.socialMediaButton}
             platform={platform}
-            href={share(platform, url, label)}
+            href={share(platform, url)}
             label={label}
             isWhite={false}
           />
@@ -97,8 +105,9 @@ const OurLatestPostPage: FC<OurLatestPostPageContentType> = ({
           href={getMailTo({
             email: '',
             subject: emailShareSubject,
-            body: emailShareBody
+            body: emailShareBody ? emailShareBody : url
           })}
+          aria-label={emailShareLabel}
         >
           <MailSvg />
         </Cta>
@@ -119,6 +128,14 @@ const OurLatestPostPage: FC<OurLatestPostPageContentType> = ({
             <ShareSvg />
           </Cta>
         </div>
+        <Cta
+          aria-label={print}
+          theme={ButtonType.Icon}
+          className={css.socialMediaButton}
+          onClick={() => window?.print()}
+        >
+          <PrintSvg />
+        </Cta>
       </div>
     </div>
   );
@@ -131,6 +148,7 @@ const OurLatestPostPage: FC<OurLatestPostPageContentType> = ({
       </ColumnsText>
       {assetsData?.assets.length && <AssetsDownload title={assetsData.eyebrowText} assets={assetsData.assets} />}
       <RelatedNews pinnedPosts={pinnedPosts} category={category} topics={topic} />
+      <Spacer size={pinnedPosts || assetsData?.assets.length ? Sizes.SMALL : Sizes.LARGE} />
     </>
   );
 };

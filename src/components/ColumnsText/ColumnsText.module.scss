@@ -39,9 +39,11 @@
       padding-inline-start: px(24);
     }
   }
+
   .titleContainer {
     width: 100%;
     @include typography-h4;
+
     .title {
       margin-bottom: px(24);
       > * {
@@ -52,19 +54,29 @@
       margin-top: px(26);
     }
   }
+
   .textContainer {
     overflow: hidden;
     @include typography-paragraph;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
 
     b {
       @include font-family('Toyota Type Book');
     }
+
     a:not(:global(.cta)) {
       color: $red;
       text-decoration: underline;
     }
+
+    :global(.cta) {
+      @include media-mobile {
+        margin-top: px(30);
+      }
+    }
+
     h2,
     h3,
     h4,
@@ -76,6 +88,9 @@
       @include media-desktopSm {
         margin-bottom: px(32);
       }
+    }
+    > *:last-child {
+      margin-bottom: 0;
     }
   }
 

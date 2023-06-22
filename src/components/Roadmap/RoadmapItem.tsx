@@ -1,6 +1,7 @@
 import { Dispatch, FC, memo, MutableRefObject, SetStateAction, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
 import css from './Roadmap.module.scss';
 
@@ -27,10 +28,20 @@ export type RoadmapItemProps = {
   index: number;
   numOfSlides: number;
   theme?: RoadmapTypes;
+  stickyRef: MutableRefObject<HTMLDivElement>;
+  offsetTop?: number;
   setStickyInfoHeight?: Dispatch<SetStateAction<number>>;
 };
 
-const RoadmapItem: FC<RoadmapItemProps> = ({ item, index, theme, numOfSlides, setStickyInfoHeight }) => {
+const RoadmapItem: FC<RoadmapItemProps> = ({
+  item,
+  index,
+  theme,
+  numOfSlides,
+  stickyRef,
+  offsetTop = 0,
+  setStickyInfoHeight
+}) => {
   const itemRef = useRef<HTMLDivElement>(null);
   const { layout } = useLayout();
   const tl = useRef() as MutableRefObject<GSAPTimeline>;
@@ -51,7 +62,6 @@ const RoadmapItem: FC<RoadmapItemProps> = ({ item, index, theme, numOfSlides, se
 
   useEffect(() => {
     const scale = 2;
-    const opacityTrigger = theme === RoadmapTypes.HOME ? 47 : 29;
 
     const q = gsap.utils.selector(itemRef.current);
     const wrapper = q('.wrapper');
@@ -63,25 +73,30 @@ const RoadmapItem: FC<RoadmapItemProps> = ({ item, index, theme, numOfSlides, se
     gsap.set([wrapper, content, scaleDown], { clearProps: true });
     tl.current?.progress(0).kill();
 
+    content.forEach((_item, i) => {
+      ScrollTrigger.getById(`s-${index}-${i}`)?.kill();
+    });
+
     if (layout.mobile) {
       // fadeOut content on all but last slides
       if (numOfSlides - 1 !== index) {
         gsap.set(content, {
           opacity: 1
         });
-        content.forEach((item) =>
+        content.forEach((item, i) => {
           gsap.to(item, {
             opacity: 0,
             duration: 0.6,
             ease: 'Power3.out',
 
             scrollTrigger: {
-              start: `top ${opacityTrigger}%`,
+              id: `s-${index}-${i}`,
+              start: `top ${(stickyRef.current?.children[0] as HTMLDivElement).offsetHeight + offsetTop}`,
               trigger: item,
               toggleActions: 'play none none reverse'
             }
-          })
-        );
+          });
+        });
       }
 
       if (index === 0) return;
@@ -164,7 +179,12 @@ const RoadmapItem: FC<RoadmapItemProps> = ({ item, index, theme, numOfSlides, se
           '-=1'
         );
     }
-  }, [layout, index, theme, numOfSlides]);
+    return () => {
+      content.forEach((_item, i) => {
+        ScrollTrigger.getById(`s-${index}-${i}`)?.kill();
+      });
+    };
+  }, [layout, stickyRef, offsetTop, index, theme, numOfSlides]);
 
   return (
     <div ref={itemRef} className={css.item}>

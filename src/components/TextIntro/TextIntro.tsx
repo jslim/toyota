@@ -37,7 +37,7 @@ const TextIntro: FC<TextIntroProps> = ({ className, layout, eyebrow, header, des
       duration: 1,
       y: 50,
       opacity: 0,
-      scrollTrigger: { trigger: contentRef.current },
+      scrollTrigger: { start: 'top 80%', trigger: contentRef.current },
       ease: 'power4.out'
     });
   }, []);
@@ -51,7 +51,7 @@ const TextIntro: FC<TextIntroProps> = ({ className, layout, eyebrow, header, des
           <Eyebrow text={eyebrow} />
           {layout === TextIntroLayout.HEADER_LEFT && <h2 className={css.leftTitle}>{header}</h2>}
         </div>
-        <div className={css.rightColumn} ref={contentRef}>
+        <div className={classNames(css.rightColumn, 'rightColumn')} ref={contentRef}>
           {layout !== TextIntroLayout.HEADER_LEFT && header && <h2 className={css.title}>{header}</h2>}
           {subtitle && <p className={css.subtitle}>{subtitle}</p>}
           {description && (

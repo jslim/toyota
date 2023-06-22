@@ -206,7 +206,15 @@ const ImageCascade: FC<ImageCascadeProps> = ({
     (skipStart?: boolean) => {
       if (!assetRef.current) return;
       const { width, height } = assetRef.current?.getBoundingClientRect() as DOMRect;
-      setTargets(buildTargets(width, height, isMobile ? 12 : 24, isHorizontal, isMobile ? 2 : 1));
+      setTargets(
+        buildTargets(
+          width,
+          height,
+          isMobile ? 12 : 24,
+          isHorizontal,
+          isMobile && isHorizontal ? 4 : isMobile && !isHorizontal ? 2 : 1
+        )
+      );
 
       if (skipStart) return;
 
