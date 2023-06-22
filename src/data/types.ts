@@ -50,6 +50,7 @@ export type GlobalDataFields = {
   footerCookiebotToggleLabel: string;
   companyName: string;
   homepageBannerText: string | Document;
+  homepageBannerClose: string;
   showHomepageBanner: boolean;
   skipToContentText: string;
   notFoundPageHeader: string;
@@ -326,6 +327,7 @@ export type GlobalDataContentType = {
   homepageBannerText: string | Document;
   showHomepageBanner: boolean;
   skipToContentText: string;
+  homepageBannerClose: string;
   notFoundPageHeader: string;
   notFoundPageDescription: string;
   notFoundPageButton: string;
