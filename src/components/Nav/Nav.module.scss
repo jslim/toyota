@@ -6,6 +6,9 @@
   left: 0;
   width: 100%;
   @include z-index(main-nav);
+  @media print {
+    display: none;
+  }
 }
 
 .skipToContent {
