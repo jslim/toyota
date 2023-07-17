@@ -34,9 +34,18 @@
         margin-bottom: 0;
       }
     }
-    ul {
-      list-style: revert;
+    ul,
+    ol {
       padding-inline-start: px(24);
+    }
+    ul {
+      list-style: '-';
+      li {
+        text-indent: px(5);
+      }
+    }
+    ol {
+      list-style: decimal;
     }
   }
 
@@ -227,20 +236,10 @@
     .textContainer {
       @include media-mobile-tablet {
         width: 100%;
-        overflow: unset;
       }
       :global(.tableContainer) {
-        margin-left: mobile-side-padding(-0.5);
-        padding: 0 mobile-side-padding();
-        width: 100vw;
-
-        @include breakpoint(tablet) {
-          margin-left: tablet-side-padding(-0.5);
-          padding: 0 tablet-side-padding();
-        }
-
+        width: 100%;
         @include breakpoint(desktopSm) {
-          width: unset;
           margin-left: 0;
           padding: 0;
         }
