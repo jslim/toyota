@@ -15,6 +15,7 @@
       @include rounded;
       width: 100%;
       margin-right: px($grid-relative-gap-desktop);
+      background: $black;
 
       &:last-child {
         margin-right: 0;
@@ -35,6 +36,10 @@
 
     @include breakpoint(desktopSm) {
       margin: px(21) 0 0;
+    }
+
+    :global(.swiper-pagination-bullet:only-child) {
+      visibility: hidden;
     }
 
     > span {
