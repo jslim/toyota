@@ -239,10 +239,10 @@
     transition: opacity 0.33s linear;
 
     .cardColumn {
-      padding-bottom: px(40);
+      padding-bottom: px(65);
 
       @include media-tablet {
-        padding-bottom: px(70);
+        padding-bottom: px(90);
       }
 
       @include media-desktopSm {

@@ -46,7 +46,7 @@
 
     @include media-desktopSm {
       @include font-size(14, 20);
-      min-height: px(48);
+      height: px(55);
     }
   }
 
@@ -55,10 +55,6 @@
     object-fit: cover;
     margin-bottom: px(6);
     border-radius: px(8);
-
-    @include media-tablet {
-      margin-bottom: px(10);
-    }
 
     @include media-desktopSm {
       @include aspect-ratio(192, 236);
