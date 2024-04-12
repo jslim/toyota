@@ -6,8 +6,10 @@
   justify-content: flex-start;
   @include container;
   margin-top: px(45);
+  row-gap: px(36);
 
   @include breakpoint(tablet) {
+    row-gap: px(30);
     margin-top: px(54);
   }
 
@@ -17,15 +19,6 @@
 
   .card {
     width: 100%;
-    margin-bottom: px(36);
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-
-    @include breakpoint(tablet) {
-      margin-bottom: px(30);
-    }
   }
 
   &.columns-2 {

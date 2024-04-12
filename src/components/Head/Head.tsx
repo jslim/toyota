@@ -54,6 +54,9 @@ const Head: FC<HeadProps> = ({ title, keywords, description, siteName, image }) 
       <meta property="og:image:height" content="630" />
       <meta property="og:image" content={ogDefaultImage} />
       <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={fullTitle} />
+      <meta name="twitter:description" content={description ?? defaultPageMetadata.description} />
+      <meta name="twitter:image" content={'https:' + ogDefaultImage} />
       {/* Other recommends */}
       <link rel="canonical" href={ogUrl} />
       <link rel="alternate" href={altUrl} hrefLang={getLocaleByLang(altLang)} />

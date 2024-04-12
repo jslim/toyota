@@ -4,9 +4,10 @@ import { Block, BLOCKS, Document, Inline, INLINES } from '@contentful/rich-text-
 
 import BaseLink, { Target } from '@/components/BaseLink/BaseLink';
 import ContentfulImage from '@/components/ContentfulImage/ContentfulImage';
-import VideoPlayer from '@/components/VideoPlayer/VideoPlayer';
 
 import { getPageBlocks } from './get-page-blocks';
+import { getImageUrl } from '../basic-functions';
+import GalleryVideo from '@/components/GalleryVideo/GalleryVideo';
 
 /**
  * Utility method to check if node contains "inline" entries and removing
@@ -73,9 +74,10 @@ export const parseContentfulRichText = (richText: Document, className?: string):
           const videoSrc = node?.data?.target?.fields.file.url;
           return (
             videoSrc && (
-              <div className="rte-video">
-                <VideoPlayer src={videoSrc} style={{ maxWidth: '100%' }} />
-              </div>
+              <GalleryVideo
+                slides={[{ video: { src: videoSrc }, image: getImageUrl('video-thumbnail.png').src }]}
+                className="rte-video"
+              />
             )
           );
         }

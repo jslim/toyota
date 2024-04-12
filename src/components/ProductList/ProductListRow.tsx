@@ -11,7 +11,7 @@ import Cta, { ButtonType } from '@/components/Cta/Cta';
 
 import { useAppSelector } from '@/redux';
 
-import ImageDragAnim from './ImageDragAnim';
+import ContentfulImage from '../ContentfulImage/ContentfulImage';
 
 export type ProductListRowProps = {
   title: string;
@@ -44,7 +44,15 @@ const ProductListRow: FC<ProductListRowProps> = ({ title, image, text, cta }) =>
     >
       <div className={css.item}>
         <div className={css.imageCon}>
-          <ImageDragAnim image={image} getParentRef={itemRef} handleHover={isHovering} />
+          <div className={css.imageWrapperInner}>
+            <ContentfulImage
+              className={css.image}
+              asset={image}
+              imageSizeMobile={{ extraGutters: 0, numCols: 3 }}
+              imageSizeTablet={{ extraGutters: 0, numCols: 3 }}
+              imageSizeDesktop={{ extraGutters: 0, numCols: 4 }}
+            />
+          </div>
         </div>
         <div className={css.title}>{title}</div>
         <div className={css.text}>
